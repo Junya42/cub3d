@@ -96,6 +96,7 @@ On se retrouve alors avec la valeur RGB :
 
 On voit bien que je suis exactement sur la meme couleur mais avec une intensite plus faible, qui donne donc
 une couleur plus sombre.
+______________________________
 
 #### Exemple sur sol
 
