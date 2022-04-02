@@ -115,3 +115,21 @@ Je me retrouve avec
 Maintenant que mon rayon de raycasting c'est arrete sur un mur et que j'ai modelise la ligne de mur
 je check aussi la ligne de sol traverse par le meme rayon et selon la valeur du sol j'appelle la fonction adequate
 pour modeliser mes ombres correctement
+
+_____________________________
+
+On peut faire le changement des d'intensite pendant le raycasting ou directement pendant le shadowcasting initial
+et creer des FD avec les valeurs de chaque texture mais modifie selon les cas
+- Texture_A
+- Texture_B
+- etc ...
+
+#### Exemple fichier texture
+
+Le fichier de texture ressemblera a ca
+chaque pixel a son code couleur R, G et B.
+Donc 3 lignes par pixels.
+Sur la texture d'exemple (dans l'image en bas) on est en 32x32.
+Ca nous donne 32 * 32 * 3 lignes
+
+![image](https://user-images.githubusercontent.com/59654989/161369556-1c6fcea8-4e7a-4fd9-9aae-f5318d576b37.png)
