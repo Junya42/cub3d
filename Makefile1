@@ -6,13 +6,11 @@
 #    By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 17:38:35 by anremiki          #+#    #+#              #
-#    Updated: 2022/04/03 00:19:54 by cmarouf          ###   ########.fr        #
+#    Updated: 2022/04/02 23:01:49 by cmarouf          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS =	srcs/main.c \
-		utils/parsing_utils_1.c \
-		srcs/parsing_1.c \
+SRCS =	srcs/main.c 
 
 INCLUDES = ./includes/
 
@@ -28,24 +26,57 @@ NAME = cub3d
 
 CC = gcc
 
+NAMEEXIST = $(shell find . -name '$(NAME)' | wc -l)
+
+TOTAL = $(shell find .srcs -name '*.c' | wc -l)
+
+CURRENT = $(shell find .srcs -name '*.o' | wc -l | xargs expr 1 +)
+
+COMPARE = $(shell expr $(TOTAL) + 1)
+
 .c.o:
+		@echo "Building $< $(CURRENT)/$(TOTAL)"
 		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
 
 all:	$(NAME)
 
 $(NAME): $(OBJS)
+		@echo
+		@echo "\033[1;32mBuilding minilibx\033[0m"
+		@echo
 		@make -C ./minilibx
+		@echo "\033[1;32Building libft\033[0m"
 		@make -C ./libft
-		$(CC) $(CFLAGS) $(OBJS) $(MLXFLAGS) libft/libft.a -o $(NAME)
+		@echo "\033[1;32mBuilding executable $(NAME)\033[0m"
+		$(CC) $(CFLAGS) $(OBJS) $(MLXFLAGS) -o $(NAME)
 
 clean:
+ifeq($(CURRENT), $(COMPARE))
+		@echo "\033[1;33mClean $(NAME) objs\033[0m"
+else
+		@echo "\033[1;31m$(NAME) has no objs\033[0m"
+endif
+		$(RM) $(OBJS)
+		@echo
+		@echo "\033[1;33mClean minilibx\033[0m"
 		make clean -C ./minilibx
+		@echo
+		@echo "\033[1;33mClean libft\033[0m"
 		make clean -C ./libft
 
 fclean: clean
+ifeq($(NAMEEXIST), 1)
+		@echo "033[1;33mClean $(NAME)\033[0m"
+else
+		@echo "\033[1;31m$(NAME) does not exist yet\033[0m"
+endif
+		@echo
+		@echo "\033[1;33mClean mlx/.*a"
 		$(RM) $(NAME)
 		$(RM) ./minilibx/libmlx_Linux.a
 		$(RM) ./minilibx/libmlx.a
+		@echo
+		@echo "\033[1;33mClean libft.a"
 		make fclean -C ./libft
 
 re:		fclean all
