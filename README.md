@@ -18,7 +18,7 @@ mais on a surement pas le droit de coder en assembleur dans un projet c ...
 > Tres dommage parce que le code en assembleur est 10 fois plus rapide et 100 fois plus precis que le vrai algo de doom
 
 Mais aucune idee de comment faire pour que le joueur puisse recuperer les resultats du raycastingLumiere et
-les ajouter a son propre recasting pour bien modeliser les ombres
+les ajouter a son propre recasting pour bien modeliser les ombres en temps reel et de maniere automatise
 
 ## 3d visual front view
 
