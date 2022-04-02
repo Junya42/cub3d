@@ -6,7 +6,18 @@ Exemple pour expliquer le fonctionnement du programme (Test shadowcasting)
 - Menu du jeu (Jouer - Jouer en local ? - Options - Credit)
 - Lancement du choix selectionne dans le menu
 
-Tout ce qui suit en bas concerne le shadowcasting
+Tout ce qui suit en bas concerne le shadowcasting (bruteforce)
+
+Il y a une deuxieme methode qui serait de creer une lumiere qui fera son propre raycasting en avant la partie.
+Je sais comment calculer les ombres portees sur les sols et murs de maniere theorique.
+(Avec le 1/√x²+y²)
+D'ailleurs j'ai trouve une opti a l'algo de doom pour l'approximation de la racine carre.
+Meme vitesse de calcul mais plus precis.
+Et j'ai une opti mais c'est de coder le truc direct en assembleur, je sais le coder
+mais on a surement pas le droit de coder en assembleur dans un projet c ...
+> Tres dommage parce que le code en assembleur est 10 fois plus rapide et 100 fois plus precis que le vrai algo de doom
+Mais aucune idee de comment faire pour que le joueur puisse recuperer les resultats du raycastingLumiere et
+les ajouter a son propre recasting pour bien modeliser les ombres
 
 ## 3d visual front view
 
