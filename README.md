@@ -8,7 +8,7 @@ Exemple pour expliquer le fonctionnement du programme (Test shadowcasting)
 
 Tout ce qui suit en bas concerne le shadowcasting (bruteforce)
 
-Il y a une deuxieme methode qui serait de creer une lumiere qui fera son propre raycasting en avant la partie.
+Il y a une deuxieme methode qui serait de creer une lumiere qui fera son propre raycasting avant la partie.
 Je sais comment calculer les ombres portees sur les sols et murs de maniere theorique.
 (Avec le 1/√x²+y²)
 D'ailleurs j'ai trouve une opti a l'algo de doom pour l'approximation de la racine carre.
