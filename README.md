@@ -85,11 +85,13 @@ On applique ensuite la texture mais en appliquant un calcul sur l'intensite de l
 Chaque pixel du mur sur les faces clair aura une intensite de 1
 On se retrouve alors avec la valeur RGB : 
 - 0 * 1, 98 * 1, 255 * 1 (0, 98, 255)
+
 ![image](https://user-images.githubusercontent.com/59654989/161368079-a1b61e6e-6cbf-4a69-8cda-3ecd71c15b1b.png)
 
 Sur les pixels de mur avec face sombre on aura une intensite de 0.5
 On se retrouve alors avec la valeur RGB : 
 - 0 * 0.5, 98 * 0.5, 255 * 0.5 (0, 49, 127)
+
 ![image](https://user-images.githubusercontent.com/59654989/161368181-6f99a2d8-57bf-410c-befa-3414e442bbab.png)
 
 On voit bien que je suis exactement sur la meme couleur mais avec une intensite plus faible, qui donne donc
