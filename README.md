@@ -62,8 +62,8 @@ On va juste se placer sur notre case de sol et regarder :
 - La case en bas
 
 Apres verification on donnera la valeur a notre sol tel que :
--1 | Sol choisi
--2 | -4
+- -1 | Sol choisi
+- -2 | -4
  
 ![image](https://user-images.githubusercontent.com/59654989/161367719-1fdddb3f-572e-4c36-a7cf-f787bf110a9f.png)
 
