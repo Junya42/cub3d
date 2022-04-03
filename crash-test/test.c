@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 01:55:44 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/03 09:08:47 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/03 15:53:50 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,25 @@ char	*ft_strndup(char *str, int limit)
 	return (tmp);
 }
 
+char	*skip_line(char	*line)
+{
+	int	i;
+
+	i = 0;
+	if (!line)
+		return (NULL);
+	while (line[i] && line[i] != 32)
+		i++;
+	if (line[i])
+	{
+		while (line[i] && line[i] == 32)
+			i++;
+		if (line[i])
+			return (line + i);
+	}
+	return (line);
+}
+
 char	**test_map(char **av)
 {
 	char	**res;
@@ -199,13 +218,18 @@ char	**test_map(char **av)
 		if (line[0] == 'C')
 		{
 			if (!map_start)
-				map_start = ft_strlen(total) + ft_strlen(line);
+				map_start = ft_strlen(total) + ft_strlen(skip_line(line));
 			checker++;
 		}
-		//printf("line = %s", line);
 		if (checker == 2)
 			check_line(line);
-		total = gl_strjoin(total, line, ft_strlen(total) + ft_strlen(line), -1);
+		total = gl_strjoin(total, skip_line(line), ft_strlen(total) + ft_strlen(skip_line(line)), -1);
+		if (!total)
+		{
+			free(line);
+			free(total);
+			return (NULL);
+		}
 		free(line);
 	}
 	res = NULL;
@@ -262,23 +286,23 @@ int		rgb_to_hex(int r, int g, int b)
 	int	color;
 
 	color = (0xff << 24) | ((r&0xff) << 16) | ((g&0xff) << 8) | (b&0xff);
-	
+
 	/*	explication de la ligne au dessus
-	 
+
 	 * 	|31           24|23           16|15            8|7         bit 0|
-		+---------------+---------------+---------------+---------------+
-		|0 0 0 1 0 0 1 0|0 0 1 1 0 1 0 0|0 1 0 1 0 1 1 0|0 1 1 1 1 0 0 0|
-		+---------------+---------------+---------------+---------------+
+	 +---------------+---------------+---------------+---------------+
+	 |0 0 0 1 0 0 1 0|0 0 1 1 0 1 0 0|0 1 0 1 0 1 1 0|0 1 1 1 1 0 0 0|
+	 +---------------+---------------+---------------+---------------+
 
-		Transparence			R				G				B
+	 Transparence			R				G				B
 
 
-		Le but est de convertir le code RGB en code Hexa mais de type int
-		pour qu'il soit compatible avec mlx_pixel_put du coup, par rapport
-		au schema au dessus
-		on place juste les valeurs correspondantes dans color en utilisant
-		directement son adresse. On shift en consequence pour placer chaque
-		valeur dans son octet correspondant */
+	 Le but est de convertir le code RGB en code Hexa mais de type int
+	 pour qu'il soit compatible avec mlx_pixel_put du coup, par rapport
+	 au schema au dessus
+	 on place juste les valeurs correspondantes dans color en utilisant
+	 directement son adresse. On shift en consequence pour placer chaque
+	 valeur dans son octet correspondant */
 
 	return (color);
 }
@@ -409,9 +433,9 @@ int	release(int keycode, t_mlx *ptr)	//permet le double input
 		ptr->last_pressed = 0;
 		ptr->press_start = 0;
 	}
-/*	if (ptr->last_pressed != 0 && ptr->last_pressed == keycode && ptr->press_start)
-	{
-	}*/
+	/*	if (ptr->last_pressed != 0 && ptr->last_pressed == keycode && ptr->press_start)
+		{
+		}*/
 	//printf("release key = %d\n", keycode);
 	//printf("released = %d\n", ptr->released);
 	ptr->fixqueue = 0;

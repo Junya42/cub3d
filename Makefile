@@ -6,19 +6,22 @@
 #    By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 17:38:35 by anremiki          #+#    #+#              #
-#    Updated: 2022/04/03 08:01:39 by anremiki         ###   ########.fr        #
+#    Updated: 2022/04/03 17:17:29 by cmarouf          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#SRCS =	srcs/main.c	\
+SRCS =	srcs/main.c	\
 		utils/parsing_utils_1.c \
+		utils/parsing_utils_2.c \
+		utils/utils_1.c \
 		srcs/parsing_1.c \
+		srcs/parsing_2.c \
 
-SRCS = ./test.c
+#SRCS = ./crash-test/test.c
 
 INCLUDES = ./includes/
 
-LIB = ./libft/libft.a
+LIB = ./libft/libft.a ./ft_printf/libftprintf.a
 
 OBJS = ${SRCS:.c=.o}
 
@@ -67,6 +70,7 @@ $(NAME): $(OBJS)
 		@make -C ./minilibx
 		@echo "\033[1;32mBuilding libft\033[0m"
 		@make bonus -C ./libft
+		@make -C ./ft_printf
 		@echo "\033[1;32mBuilding executable $(PNAME)\033[0m"
 		$(CC) $(CFLAGS) $(OBJS) $(MLXFLAGS) $(LIB) -o $(NAME)
 		@echo "#! /bin/sh" > cub3d
@@ -95,6 +99,8 @@ endif
 		@make clean -C ./minilibx
 		@echo
 		@make clean -C ./libft
+		@echo
+		@make clean -C ./ft_printf
 
 fclean: clean
 ifeq ($(NAMEEXIST), 1)
@@ -109,6 +115,8 @@ endif
 		$(RM) ./minilibx/libmlx.a
 		@echo
 		@make fclean -C ./libft
+		@echo
+		@make fclean -C ./ft_printf
 
 re:		fclean all
 
