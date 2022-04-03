@@ -6,11 +6,11 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 01:56:10 by anremiki          #+#    #+#             */
-/*   Updated: 2021/09/25 02:03:45 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/03/26 15:35:17 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {

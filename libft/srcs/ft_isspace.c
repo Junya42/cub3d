@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/25 01:53:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/03/26 15:35:17 by anremiki         ###   ########.fr       */
+/*   Created: 2022/03/26 15:42:34 by anremiki          #+#    #+#             */
+/*   Updated: 2022/03/26 15:43:31 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+int	ft_isspace(int c)
 {
-	while (lst)
-	{
-		(*f)(lst->content);
-		lst = lst->next;
-	}
+	if ((c >= '9' && c <= 13) || (c == 32))
+		return (1);
+	return (0);
 }

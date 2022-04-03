@@ -1,38 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/02 23:30:15 by anremiki         ###   ########.fr       */
+/*   Created: 2021/09/29 19:59:40 by anremiki          #+#    #+#             */
+/*   Updated: 2022/03/26 15:08:56 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
 # include <unistd.h>
 # include <stdlib.h>
-# include <stdio.h>
-# include <fcntl.h>
-# include <sys/stat.h>
 # include <sys/types.h>
-# include <math.h>
-# include "../minilibx/mlx.h"
-# include "../libft/includes/libft.h"
+# include <sys/stat.h>
+# include <fcntl.h>
 
-enum	e_fd
-{
-	STDIN,
-	STDOUT,
-	STDERR
-};
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 1
+# endif
 
-/* PARSING */
-int	exit_parsing(char *str);
-int	parsing(char **av);
-/* PARSING */
+size_t	gl_strlen(char *str);
+char	*gl_strjoin(char *s1, char *s2, int a, size_t j);
+char	*gl_get_line(char *s1);
+char	*gl_update_memory(char *s1, int len);
+char	*gl_strchr(char *s, int c, int start);
+char	*get_next_line(int fd);
+char	*ft_check_eol(char *memory, int fd, int len);
 
 #endif

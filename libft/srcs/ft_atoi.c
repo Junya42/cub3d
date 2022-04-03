@@ -6,11 +6,11 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 01:24:23 by anremiki          #+#    #+#             */
-/*   Updated: 2021/10/14 05:24:09 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/03/26 15:35:16 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 int	ft_atoi(const char *nptr)
 {

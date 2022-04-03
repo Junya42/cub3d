@@ -6,11 +6,11 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/13 01:50:30 by anremiki          #+#    #+#             */
-/*   Updated: 2021/09/24 16:00:28 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/03/26 15:35:17 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 size_t	ft_strlen(const char *s)
 {

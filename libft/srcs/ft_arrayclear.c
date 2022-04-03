@@ -1,22 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstiter.c                                       :+:      :+:    :+:   */
+/*   ft_arrayclear.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/25 01:53:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/03/26 15:35:17 by anremiki         ###   ########.fr       */
+/*   Created: 2022/03/26 14:54:20 by anremiki          #+#    #+#             */
+/*   Updated: 2022/03/26 14:55:07 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-void	ft_lstiter(t_list *lst, void (*f)(void *))
+void	free_array(char **ptr)
 {
-	while (lst)
+	int	i;
+
+	i = -1;
+	if (ptr)
 	{
-		(*f)(lst->content);
-		lst = lst->next;
+		while (ptr[++i])
+		{
+			if (ptr[i])
+			{
+				free(ptr[i]);
+				ptr[i] = NULL;
+			}
+		}
+		free(ptr);
+		ptr = NULL;
 	}
 }

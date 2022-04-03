@@ -6,11 +6,11 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 00:45:08 by anremiki          #+#    #+#             */
-/*   Updated: 2021/10/14 05:06:34 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/03/26 15:35:17 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
 
 char	*ft_strtrim(char const *s1, char const *set)
 {

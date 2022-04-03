@@ -6,11 +6,12 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:03:10 by anremiki          #+#    #+#             */
-/*   Updated: 2021/10/14 05:06:50 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/03 02:12:41 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../includes/libft.h"
+#include <stdio.h>
 
 int	ft_haystack(char s, char c)
 {

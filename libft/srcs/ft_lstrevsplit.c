@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*   ft_lstrevsplit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/22 12:55:29 by anremiki          #+#    #+#             */
+/*   Created: 2022/02/26 01:26:31 by anremiki          #+#    #+#             */
 /*   Updated: 2022/03/26 15:35:17 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/libft.h"
 
-void	*ft_memmove(void *dest, const void *src, size_t n)
+t_list	*ft_lstrevsplit(char **str)
 {
-	size_t	i;
-	char	*d;
-	char	*s;
+	t_list	*lst;
+	t_list	*elem;
+	int		i;
 
-	if (!dest && !src)
+	lst = NULL;
+	if (!str)
 		return (NULL);
-	i = 0;
-	d = (char *)dest;
-	s = (char *)src;
-	if (dest > src)
-		while (n-- > 0)
-			d[n] = s[n];
-	else
-		while (i++ < n)
-			d[i - 1] = s[i - 1];
-	return (dest);
+	i = -1;
+	while (str[++i])
+	{
+		elem = ft_lstnew(str[i]);
+		if (!elem)
+		{
+			ft_lstclear(&lst, free);
+			return (NULL);
+		}
+		ft_lstadd_back(&lst, elem);
+	}
+	return (lst);
 }

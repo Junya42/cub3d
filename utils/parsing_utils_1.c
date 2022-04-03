@@ -6,9 +6,10 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 23:43:33 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/02 23:44:13 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/04/02 23:06:15 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../includes/cub3d.h"
 
 int	exit_parsing(char *str)
