@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 01:55:44 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/03 03:54:12 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/03 04:38:09 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -246,6 +246,31 @@ typedef struct s_mlx
 	void	*win;
 }			t_mlx;
 
+int		rgb_to_hex(int r, int g, int b)
+{
+	int	color;
+
+	color = (0xff << 24) | ((r&0xff) << 16) | ((g&0xff) << 8) | (b&0xff);
+	
+	/*	explication de la ligne au dessus
+	 
+	 * 	|31           24|23           16|15            8|7         bit 0|
+		+---------------+---------------+---------------+---------------+
+		|0 0 0 1 0 0 1 0|0 0 1 1 0 1 0 0|0 1 0 1 0 1 1 0|0 1 1 1 1 0 0 0|
+		+---------------+---------------+---------------+---------------+
+
+		Transparence			R				G				B
+
+
+		Le but est de convertir le code RGB en code Hexa mais de type int
+		pour qu'il soit compatible avec mlx_pixel_put du coup, par rapport
+		au schema au dessus
+		on place juste les valeurs correspondantes dans color en utilisant
+		directement son adresse. On shift en consequence pour placer chaque
+		valeur dans son octet correspondant */
+
+	return (color);
+}
 
 void	draw_pixels(t_mlx *ptr, int color, int x, int y)
 {
@@ -269,8 +294,11 @@ int main(int ac, char **av)
 	t_mlx	ptr;
 	char	**map;
 
-	if (ac != 2)
+	if (ac != 5)
+	{
+		printf("You need to give 5 arguments\nUsage: ./cub3d map_to_parse.ber R G B\n");
 		return (0);
+	}
 	ptr.mlx = mlx_init();
 	if (!ptr.mlx)
 		return (0);
@@ -280,10 +308,9 @@ int main(int ac, char **av)
 		mlx_destroy_display(ptr.mlx);
 		return (0);
 	}
-	draw_pixels(&ptr, 218112214, 1024, 512);
+	draw_pixels(&ptr, rgb_to_hex(ft_atoi(av[2]), ft_atoi(av[3]), ft_atoi(av[4])), 1024, 512);
 	mlx_loop(ptr.mlx);
-	//map = test_map(av); 
-	(void)map;
-	(void)av;
+	map = test_map(av); 
+	free_array(map);
 	return (0);
 }
