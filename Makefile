@@ -6,18 +6,18 @@
 #    By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 17:38:35 by anremiki          #+#    #+#              #
-#    Updated: 2022/04/03 17:35:57 by anremiki         ###   ########.fr        #
+#    Updated: 2022/04/03 17:54:46 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS =	srcs/main.c	\
+#SRCS =	srcs/main.c	\
 		utils/parsing_utils_1.c \
 		utils/parsing_utils_2.c \
 		utils/utils_1.c \
 		srcs/parsing_1.c \
 		srcs/parsing_2.c \
 
-#SRCS = ./crash-test/test.c
+SRCS = ./crash-test/test.c
 
 INCLUDES = ./includes/
 

@@ -6,11 +6,11 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 01:55:44 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/03 15:53:50 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/04/03 23:41:51 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/cub3d.h"
+#include "../includes/cub3d.h"
 
 void	check_line(char *str)
 {
@@ -268,15 +268,19 @@ typedef struct s_mlx
 {
 	void	*mlx;
 	void	*win;
+	void	*imap;
+	char	*addr;
+	void	*iplayer;
 	int		bg_r;
 	int		bg_g;
 	int		bg_b;
+	int		mx;
+	int		my;
 	float	px;
 	float	py;
 	int		released;
 	int		last_pressed;
 	int		press_start;
-	int		fixqueue;
 	double	sprint;
 	int		end;
 }			t_mlx;
@@ -345,6 +349,45 @@ void	erase_player(t_mlx *ptr, float x, float y)
 	}
 }
 
+void	draw_index(int a, int b, int c, int d, int color, t_mlx *ptr)
+{
+	int	reset;
+	
+	reset = c;
+	while (a < b)
+	{
+		c = reset;
+		while (c < d)
+		{
+			mlx_pixel_put(ptr->mlx, ptr->win, a, c, color);
+			c++;
+		}
+		a++;
+	}
+}
+
+void	draw_map(t_mlx *ptr, char **map, int x, int y)
+{
+	int	color;
+
+	ptr->imap = mlx_new_image(ptr->mlx, ptr->mx * 64, ptr->my * 64);
+	//ptr->addr = ptr->imap->data;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+		{
+			if (map[y][x] == '1')
+				color = rgb_to_hex(191,191,191);
+			else
+				color = rgb_to_hex(43,43,43);
+			draw_index(y * 64 + 1, (y + 1) * 64 - 1, x * 64 + 1, (x + 1) * 64 - 1, color, ptr);
+			x++;
+		}
+		y++;
+	}
+}
+
 void	draw_player(t_mlx *ptr, int color, float x, float y)
 {
 	float	xmax;
@@ -366,12 +409,12 @@ void	draw_player(t_mlx *ptr, int color, float x, float y)
 	}
 }
 
-int	create_window(t_mlx *ptr, char **av)
+int	create_window(t_mlx *ptr, char **av, char **map)
 {
 	ptr->mlx = mlx_init();
 	if (!ptr->mlx)
 		return (0);
-	ptr->win = mlx_new_window(ptr->mlx, 1024, 512, "cub3d");
+	ptr->win = mlx_new_window(ptr->mlx, ptr->mx * 64, ptr->my * 64, "cub3d");
 	if (!ptr->win)
 	{
 		mlx_destroy_display(ptr->mlx);
@@ -380,7 +423,8 @@ int	create_window(t_mlx *ptr, char **av)
 	ptr->bg_r = ft_atoi(av[2]);
 	ptr->bg_g = ft_atoi(av[3]);
 	ptr->bg_b = ft_atoi(av[4]);
-	draw_pixels(ptr, rgb_to_hex(ptr->bg_r, ptr->bg_g, ptr->bg_b), 1024, 512);	//rempli la map avec la couleur choisi
+	draw_pixels(ptr, rgb_to_hex(ptr->bg_r, ptr->bg_g, ptr->bg_b), ptr->mx * 64, ptr->my * 64);	//rempli la map avec la couleur choisi
+	draw_map(ptr, map, 0, 0);
 	draw_player(ptr, 0xff194b, ptr->px, ptr->py);	//dessine le joueur
 	return (1);
 }
@@ -419,7 +463,6 @@ int	key_handle(int keycode, t_mlx *ptr)
 	if (keycode == 65307)
 		ptr->end = 1;
 	draw_player(ptr, 0xff194b, ptr->px, ptr->py); //dessine la nouvelle pos du joueur
-	//printf("key = %d\n", keycode);
 	return (1);
 }
 
@@ -430,27 +473,30 @@ int	release(int keycode, t_mlx *ptr)	//permet le double input
 	if (ptr->released == keycode)
 	{
 		ptr->released = 0;
-		ptr->last_pressed = 0;
 		ptr->press_start = 0;
 	}
-	/*	if (ptr->last_pressed != 0 && ptr->last_pressed == keycode && ptr->press_start)
-		{
-		}*/
-	//printf("release key = %d\n", keycode);
-	//printf("released = %d\n", ptr->released);
-	ptr->fixqueue = 0;
+	ptr->last_pressed = 0;
+	printf("release key = %d\n", keycode);
+	printf("released = %d\n", ptr->released);
 	return (1);
+}
+
+void	usleep_(long int duration)
+{
+	while (duration)
+	{
+		usleep(duration / 10);
+		duration /= 10;
+	}
 }
 
 int	nullfunc(t_mlx	*ptr)	//fonction echap pour le mlx_loop_hook
 {
 	if (ptr->end == 1)
 		mlx_destroy_window(ptr->mlx, ptr->win);
-	if (ptr->last_pressed  && ptr->press_start && ptr->released) //Permet d'appliquer le move en buffer
-		if (ptr->released != ptr->last_pressed)
-			ptr->fixqueue++;
-	if (ptr->fixqueue > 10000) // Attention constante random teste sur mon pc
+	if (!ptr->last_pressed  && ptr->press_start && ptr->released) //Permet d'appliquer le move en buffer
 	{
+		usleep_(30*10000);
 		erase_player(ptr, ptr->px, ptr->py);
 		if (ptr->released == 'w')
 			ptr->py -= 5;
@@ -461,9 +507,30 @@ int	nullfunc(t_mlx	*ptr)	//fonction echap pour le mlx_loop_hook
 		if (ptr->released == 'd')
 			ptr->px += 5;
 		draw_player(ptr, 0xff194b, ptr->px, ptr->py); //dessine la nouvelle pos du joueur
-		ptr->fixqueue = 8000; //constante random tester sur mon pc
 	}
 	return (0);
+}
+
+void	get_map_xy(char **map, t_mlx *ptr)
+{
+	int	y;
+	int	x;
+	int	max;
+
+	y = 0;
+	x = 0;
+	max = 0;
+	while (map[y])
+	{
+		x = 0;
+		while (map[y][x])
+			x++;
+		if (x > max)
+			max = x;
+		y++;
+	}
+	ptr->mx = max;
+	ptr->my = y;
 }
 
 int main(int ac, char **av)
@@ -479,16 +546,17 @@ int main(int ac, char **av)
 
 		if (ac == 5)
 		{
+			map = test_map(av); 
 			ptr.px = 300;	//position initial joueur x
 			ptr.py = 300;	//position initial joueur y
 			ptr.released = 0; //permet le double input (deplacement en diagonal)
-			ptr.fixqueue = 0;	//permet de verifier la queue d'input
 			ptr.last_pressed = 0;	//fluidifie les inputs
 			ptr.press_start = 0;	//check si je suis en attente d'input dans un buffer
 			ptr.sprint = 1;		//multiplicateur vitesse de deplacement
 			ptr.end = 0;	//check pour la fin de jeu
 
-			create_window(&ptr, av);
+			get_map_xy(map, &ptr);
+			create_window(&ptr, av, map);
 			mlx_loop_hook(ptr.mlx, nullfunc, &ptr);
 			mlx_hook(ptr.win, KeyPress, KeyPressMask, key_handle, &ptr);
 			mlx_hook(ptr.win, KeyRelease, KeyReleaseMask, release, &ptr);
@@ -497,7 +565,6 @@ int main(int ac, char **av)
 			free(ptr.mlx);
 		}
 		/*	FIN BLOC MLX	*/
-		map = test_map(av); 
 		/* implementer des trucs a faire avec la map */
 		free_array(map);
 	}
