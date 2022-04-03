@@ -6,7 +6,7 @@
 #    By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 17:38:35 by anremiki          #+#    #+#              #
-#    Updated: 2022/04/03 03:52:58 by anremiki         ###   ########.fr        #
+#    Updated: 2022/04/03 08:01:39 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,17 +28,31 @@ CFLAGS = -Wall -Wextra -Werror -g3 -I $(INCLUDES) -lm
 
 MLXFLAGS = ./minilibx/libmlx_Linux.a -lXext -lX11 -I ./minilibx/
 
-NAME = cub3d
+NAME = ./exec/cub3d
+
+PNAME = cub3d
 
 CC = @gcc
 
-NAMEEXIST = $(shell ls | grep -F $(NAME) | wc -l)
+ARG1 = "$$"1
+
+ARG2 = "$$"2
+
+ARG3 = "$$"3
+
+ARG4 = "$$"4
+
+ARG5 = "$$"5
+
+NAMEEXIST = $(shell ls ./exec/ | grep -F $(PNAME) | wc -l)
 
 TOTAL = $(shell ls ./srcs/ | grep -F .c | wc -l)
 
 CURRENT = $(shell ls ./srcs/ | grep -F .o | wc -l | xargs expr 1 +)
 
 COMPARE = $(shell expr $(TOTAL) + 1)
+
+DEFAULTRATE = $(shell xset -q | grep delay | awk '{printf"%d", $$4}')
 
 .c.o:
 		@echo "Building $< $(CURRENT)/$(TOTAL)"
@@ -53,36 +67,47 @@ $(NAME): $(OBJS)
 		@make -C ./minilibx
 		@echo "\033[1;32mBuilding libft\033[0m"
 		@make bonus -C ./libft
-		@echo "\033[1;32mBuilding executable $(NAME)\033[0m"
+		@echo "\033[1;32mBuilding executable $(PNAME)\033[0m"
 		$(CC) $(CFLAGS) $(OBJS) $(MLXFLAGS) $(LIB) -o $(NAME)
+		@echo "#! /bin/sh" > cub3d
+		@echo "xset r rate 30" >> cub3d
+		@echo "$(NAME) $(ARG1) $(ARG2) $(ARG3) $(ARG4) $(ARG5)" >> cub3d
+		@echo "xset r rate $(DEFAULTRATE)" >> cub3d
+		@echo
+		@echo
+		@echo "\033[1;41mFaut que tu lises ce qu'il y a en bas de ce msg\033[0m"
+		@echo "si cub3d se lance pas ou t'affiche une erreur au lancement"
+		@echo "lance le directement a partir du dossier exec"
+		@echo
+		@echo "!!! NE QUITTE SURTOUT PAS AVEC CTRL-C !!!"
+		@echo "J'ai implemente l'option pour quitter avec echap"
+		@chmod +rx cub3d
 
 clean:
 ifeq ($(CURRENT), $(COMPARE))
-		@echo "\033[1;33mClean $(NAME) objs\033[0m"
+		@echo "\033[1;33mClean $(PNAME) objs\033[0m"
 else
-		@echo "\033[1;31m$(NAME) has no objs\033[0m"
+		@echo "\033[1;31m$(PNAME) has no objs\033[0m"
 endif
 		$(RM) $(OBJS)
 		@echo
 		@echo "\033[1;33mClean minilibx\033[0m"
 		@make clean -C ./minilibx
 		@echo
-		@echo "\033[1;33mClean libft\033[0m"
 		@make clean -C ./libft
 
 fclean: clean
 ifeq ($(NAMEEXIST), 1)
-		@echo "033[1;33mClean $(NAME)\033[0m"
+		@echo "033[1;33mClean $(PNAME)\033[0m"
 else
-		@echo "\033[1;31m$(NAME) does not exist yet\033[0m"
+		@echo "\033[1;31m$(PNAME) does not exist yet\033[0m"
 endif
 		@echo
 		@echo "\033[1;33mClean mlx/.*a"
-		$(RM) $(NAME)
+		$(RM) $(NAME) $(PNAME)
 		$(RM) ./minilibx/libmlx_Linux.a
 		$(RM) ./minilibx/libmlx.a
 		@echo
-		@echo "\033[1;33mClean libft.a"
 		@make fclean -C ./libft
 
 re:		fclean all

@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 01:55:44 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/03 04:38:09 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/03 09:08:47 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,6 +244,17 @@ typedef struct s_mlx
 {
 	void	*mlx;
 	void	*win;
+	int		bg_r;
+	int		bg_g;
+	int		bg_b;
+	float	px;
+	float	py;
+	int		released;
+	int		last_pressed;
+	int		press_start;
+	int		fixqueue;
+	double	sprint;
+	int		end;
 }			t_mlx;
 
 int		rgb_to_hex(int r, int g, int b)
@@ -289,28 +300,185 @@ void	draw_pixels(t_mlx *ptr, int color, int x, int y)
 		i++;
 	}
 }
+void	erase_player(t_mlx *ptr, float x, float y)
+{
+	float xmax;
+	float ymax;
+	float ycpy;
+
+	xmax = x + 10;
+	ymax = y + 10;
+	ycpy = y;
+	while (x < xmax)
+	{
+		y = ycpy;
+		while (y < ymax)
+		{
+			mlx_pixel_put(ptr->mlx, ptr->win, x, y, rgb_to_hex(ptr->bg_r, ptr->bg_g, ptr->bg_b));
+			y++;
+		}
+		x++;
+	}
+}
+
+void	draw_player(t_mlx *ptr, int color, float x, float y)
+{
+	float	xmax;
+	float	ymax;
+	float	ycpy;
+
+	xmax = x + 10;
+	ymax = y + 10;
+	ycpy = y;
+	while (x < xmax)
+	{
+		y = ycpy;
+		while (y < ymax)
+		{
+			mlx_pixel_put(ptr->mlx, ptr->win, x, y, color);
+			y++;
+		}
+		x++;
+	}
+}
+
+int	create_window(t_mlx *ptr, char **av)
+{
+	ptr->mlx = mlx_init();
+	if (!ptr->mlx)
+		return (0);
+	ptr->win = mlx_new_window(ptr->mlx, 1024, 512, "cub3d");
+	if (!ptr->win)
+	{
+		mlx_destroy_display(ptr->mlx);
+		return (0);
+	}
+	ptr->bg_r = ft_atoi(av[2]);
+	ptr->bg_g = ft_atoi(av[3]);
+	ptr->bg_b = ft_atoi(av[4]);
+	draw_pixels(ptr, rgb_to_hex(ptr->bg_r, ptr->bg_g, ptr->bg_b), 1024, 512);	//rempli la map avec la couleur choisi
+	draw_player(ptr, 0xff194b, ptr->px, ptr->py);	//dessine le joueur
+	return (1);
+}
+
+int	key_handle(int keycode, t_mlx *ptr)
+{
+	if (keycode == 65505)
+		ptr->sprint += 0.75;
+	if (ptr->released && ptr->released != keycode)
+	{
+		ptr->last_pressed = keycode;
+		ptr->press_start = 1;
+	}
+	if (!ptr->released)
+		ptr->released = keycode;
+	erase_player(ptr, ptr->px, ptr->py); //efface l'ancienne pos du joueur
+	if (ptr->released != keycode)
+	{
+		if (ptr->released == 'w')
+			ptr->py -= 5 * ptr->sprint;
+		if (ptr->released == 's')
+			ptr->py += 5 * ptr->sprint;
+		if (ptr->released == 'a')
+			ptr->px -= 5 * ptr->sprint;
+		if (ptr->released == 'd')
+			ptr->px += 5 * ptr->sprint;
+	}
+	if (keycode == 'w')
+		ptr->py -= 5 * ptr->sprint;
+	if (keycode == 's')
+		ptr->py += 5 * ptr->sprint;
+	if (keycode == 'a')
+		ptr->px -= 5 * ptr->sprint;
+	if (keycode == 'd')
+		ptr->px += 5 * ptr->sprint;
+	if (keycode == 65307)
+		ptr->end = 1;
+	draw_player(ptr, 0xff194b, ptr->px, ptr->py); //dessine la nouvelle pos du joueur
+	//printf("key = %d\n", keycode);
+	return (1);
+}
+
+int	release(int keycode, t_mlx *ptr)	//permet le double input
+{
+	if (keycode == 65505)
+		ptr->sprint -= 0.75;
+	if (ptr->released == keycode)
+	{
+		ptr->released = 0;
+		ptr->last_pressed = 0;
+		ptr->press_start = 0;
+	}
+/*	if (ptr->last_pressed != 0 && ptr->last_pressed == keycode && ptr->press_start)
+	{
+	}*/
+	//printf("release key = %d\n", keycode);
+	//printf("released = %d\n", ptr->released);
+	ptr->fixqueue = 0;
+	return (1);
+}
+
+int	nullfunc(t_mlx	*ptr)	//fonction echap pour le mlx_loop_hook
+{
+	if (ptr->end == 1)
+		mlx_destroy_window(ptr->mlx, ptr->win);
+	if (ptr->last_pressed  && ptr->press_start && ptr->released) //Permet d'appliquer le move en buffer
+		if (ptr->released != ptr->last_pressed)
+			ptr->fixqueue++;
+	if (ptr->fixqueue > 10000) // Attention constante random teste sur mon pc
+	{
+		erase_player(ptr, ptr->px, ptr->py);
+		if (ptr->released == 'w')
+			ptr->py -= 5;
+		if (ptr->released == 's')
+			ptr->py += 5;
+		if (ptr->released == 'a')
+			ptr->px -= 5;
+		if (ptr->released == 'd')
+			ptr->px += 5;
+		draw_player(ptr, 0xff194b, ptr->px, ptr->py); //dessine la nouvelle pos du joueur
+		ptr->fixqueue = 8000; //constante random tester sur mon pc
+	}
+	return (0);
+}
+
 int main(int ac, char **av)
 {
 	t_mlx	ptr;
 	char	**map;
 
-	if (ac != 5)
+	if (ac == 2 || ac == 5)
 	{
-		printf("You need to give 5 arguments\nUsage: ./cub3d map_to_parse.ber R G B\n");
-		return (0);
+		if (ac == 2)
+			printf("You can also give 5 arguments to launch the mlx screen\nControls are WASD for movement, Shift for sprinting, Escape to quit the game\nUsage: ./cub3d map_to_parse.ber R G B\n");
+		/*	DEBUT BLOC MLX	*/
+
+		if (ac == 5)
+		{
+			ptr.px = 300;	//position initial joueur x
+			ptr.py = 300;	//position initial joueur y
+			ptr.released = 0; //permet le double input (deplacement en diagonal)
+			ptr.fixqueue = 0;	//permet de verifier la queue d'input
+			ptr.last_pressed = 0;	//fluidifie les inputs
+			ptr.press_start = 0;	//check si je suis en attente d'input dans un buffer
+			ptr.sprint = 1;		//multiplicateur vitesse de deplacement
+			ptr.end = 0;	//check pour la fin de jeu
+
+			create_window(&ptr, av);
+			mlx_loop_hook(ptr.mlx, nullfunc, &ptr);
+			mlx_hook(ptr.win, KeyPress, KeyPressMask, key_handle, &ptr);
+			mlx_hook(ptr.win, KeyRelease, KeyReleaseMask, release, &ptr);
+			mlx_loop(ptr.mlx);
+			mlx_destroy_display(ptr.mlx);
+			free(ptr.mlx);
+		}
+		/*	FIN BLOC MLX	*/
+		map = test_map(av); 
+		/* implementer des trucs a faire avec la map */
+		free_array(map);
 	}
-	ptr.mlx = mlx_init();
-	if (!ptr.mlx)
-		return (0);
-	ptr.win = mlx_new_window(ptr.mlx, 1024, 512, "cub3d");
-	if (!ptr.win)
-	{
-		mlx_destroy_display(ptr.mlx);
-		return (0);
-	}
-	draw_pixels(&ptr, rgb_to_hex(ft_atoi(av[2]), ft_atoi(av[3]), ft_atoi(av[4])), 1024, 512);
-	mlx_loop(ptr.mlx);
-	map = test_map(av); 
-	free_array(map);
+	else
+		printf("Wrong number of arguments, need 2 or 5\nUsage: ./cub3d map_name\nUsage MLX: ./cub3d map_name R G B\n");
+	(void)ptr;
 	return (0);
 }
