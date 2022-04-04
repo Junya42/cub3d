@@ -6,7 +6,7 @@
 #    By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 17:38:35 by anremiki          #+#    #+#              #
-#    Updated: 2022/04/03 17:54:46 by anremiki         ###   ########.fr        #
+#    Updated: 2022/04/04 04:07:58 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ OBJS = ${SRCS:.c=.o}
 
 RM = rm -rf
 
-CFLAGS = -Wall -Wextra -Werror -g3 -I $(INCLUDES) -lm
+CFLAGS = -Wall -Wextra -Werror -g3 -I $(INCLUDES)
 
 MLXFLAGS = ./minilibx/libmlx_Linux.a -lXext -lX11 -I ./minilibx/
 
@@ -59,7 +59,7 @@ DEFAULTRATE = $(shell xset -q | grep delay | awk '{printf"%d", $$4}')
 
 .c.o:
 		@echo "Building $< $(CURRENT)/$(TOTAL)"
-		${CC} ${CFLAGS} -c $< -o ${<:.c=.o}
+		${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -lm
 
 all:	$(NAME)
 
@@ -72,7 +72,7 @@ $(NAME): $(OBJS)
 		@make bonus -C ./libft
 		@make -C ./ft_printf
 		@echo "\033[1;32mBuilding executable $(PNAME)\033[0m"
-		$(CC) $(CFLAGS) $(OBJS) $(MLXFLAGS) $(LIB) -o $(NAME)
+		$(CC) $(CFLAGS) $(OBJS) $(MLXFLAGS) $(LIB) -o $(NAME) -lm
 		@echo "#! /bin/sh" > cub3d
 		@echo "xset r rate 30" >> cub3d
 		@echo "$(NAME) $(ARG1) $(ARG2) $(ARG3) $(ARG4) $(ARG5)" >> cub3d

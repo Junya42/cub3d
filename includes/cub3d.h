@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/03 16:59:54 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/04/04 16:46:54 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include "/usr/include/X11/X.h"
 # include "../libft/includes/libft.h"
 # include "../ft_printf/includes/ft_printf.h"
+
+# define PI 3.1415926535
 
 enum	e_fd
 {

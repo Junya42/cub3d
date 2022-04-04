@@ -6,11 +6,12 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 01:55:44 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/03 23:41:51 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/04 19:57:11 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+#include "../minilibx/mlx_int.h"
 
 void	check_line(char *str)
 {
@@ -270,6 +271,9 @@ typedef struct s_mlx
 	void	*win;
 	void	*imap;
 	char	*addr;
+	int		bpp;
+	int		size_line;
+	int		endian;
 	void	*iplayer;
 	int		bg_r;
 	int		bg_g;
@@ -277,13 +281,24 @@ typedef struct s_mlx
 	int		mx;
 	int		my;
 	float	px;
+	float	pdx;
 	float	py;
+	float	pdy;
+	float	pa;
 	int		released;
 	int		last_pressed;
 	int		press_start;
 	double	sprint;
 	int		end;
 }			t_mlx;
+
+void	pxl_to_img(t_mlx *ptr, float x, float y, int color)
+{
+	char	*tmp;
+
+	tmp = ptr->addr + (int)(y * ptr->size_line + x * (ptr->bpp / 8));
+	*(unsigned int *)tmp = color;
+}
 
 int		rgb_to_hex(int r, int g, int b)
 {
@@ -322,7 +337,8 @@ void	draw_pixels(t_mlx *ptr, int color, int x, int y)
 		j = 0;
 		while (j < y)
 		{
-			mlx_pixel_put(ptr->mlx, ptr->win, i, j, color);
+			//mlx_pixel_put(ptr->mlx, ptr->win, i, j, color);
+			pxl_to_img(ptr, (float)i, (float)j, color);
 			j++;
 		}
 		i++;
@@ -359,7 +375,8 @@ void	draw_index(int a, int b, int c, int d, int color, t_mlx *ptr)
 		c = reset;
 		while (c < d)
 		{
-			mlx_pixel_put(ptr->mlx, ptr->win, a, c, color);
+			//mlx_pixel_put(ptr->mlx, ptr->win, a, c, color);
+			pxl_to_img(ptr, a, c, color);
 			c++;
 		}
 		a++;
@@ -370,7 +387,7 @@ void	draw_map(t_mlx *ptr, char **map, int x, int y)
 {
 	int	color;
 
-	ptr->imap = mlx_new_image(ptr->mlx, ptr->mx * 64, ptr->my * 64);
+	//ptr->imap = mlx_new_image(ptr->mlx, ptr->mx * 64, ptr->my * 64);
 	//ptr->addr = ptr->imap->data;
 	while (map[y])
 	{
@@ -381,12 +398,33 @@ void	draw_map(t_mlx *ptr, char **map, int x, int y)
 				color = rgb_to_hex(191,191,191);
 			else
 				color = rgb_to_hex(43,43,43);
-			draw_index(y * 64 + 1, (y + 1) * 64 - 1, x * 64 + 1, (x + 1) * 64 - 1, color, ptr);
+			draw_index((float)y * 64 + 1, (y + 1) * 64 - 1, (float)x * 64 + 1, (x + 1) * 64 - 1, color, ptr);
 			x++;
 		}
 		y++;
 	}
 }
+
+void	draw_direction(t_mlx *ptr, int color)
+{
+	float	a;
+	float	b;
+	float	ad;
+	float	bd;
+	int		i;
+
+	a = ptr->px + 5;
+	b =	ptr->py + 5;
+	ad = ptr->pdx;
+	bd = ptr->pdy;
+	i = 1;
+	while (i < 10)
+	{
+		mlx_pixel_put(ptr->mlx, ptr->win, a + ad * i, b + bd * i, color);
+		i++;
+	}
+}
+
 
 void	draw_player(t_mlx *ptr, int color, float x, float y)
 {
@@ -394,6 +432,9 @@ void	draw_player(t_mlx *ptr, int color, float x, float y)
 	float	ymax;
 	float	ycpy;
 
+	//ptr->iplayer = mlx_new_image(ptr->mlx, ptr->mx * 64, ptr->my * 64);
+	//ptr->addr = mlx_get_data_addr(ptr->iplayer, &ptr->bpp, &ptr->size_line, &ptr->endian);
+	//printf("addr = %s\n", ptr->addr);
 	xmax = x + 10;
 	ymax = y + 10;
 	ycpy = y;
@@ -402,7 +443,11 @@ void	draw_player(t_mlx *ptr, int color, float x, float y)
 		y = ycpy;
 		while (y < ymax)
 		{
+			//if (x == xmax -10 && y == ycpy)
+			//	mlx_pixel_put(ptr->mlx, ptr->win, x + ptr->pdx, y + ptr->pdy, rgb_to_hex(229, 255, 0));
+			//else
 			mlx_pixel_put(ptr->mlx, ptr->win, x, y, color);
+			//pxl_to_img(ptr, x, y, color);
 			y++;
 		}
 		x++;
@@ -420,17 +465,24 @@ int	create_window(t_mlx *ptr, char **av, char **map)
 		mlx_destroy_display(ptr->mlx);
 		return (0);
 	}
+	ptr->imap = mlx_new_image(ptr->mlx, ptr->mx * 64, ptr->my * 64);
+	ptr->addr = mlx_get_data_addr(ptr->imap, &ptr->bpp, &ptr->size_line, &ptr->endian);
 	ptr->bg_r = ft_atoi(av[2]);
 	ptr->bg_g = ft_atoi(av[3]);
 	ptr->bg_b = ft_atoi(av[4]);
 	draw_pixels(ptr, rgb_to_hex(ptr->bg_r, ptr->bg_g, ptr->bg_b), ptr->mx * 64, ptr->my * 64);	//rempli la map avec la couleur choisi
 	draw_map(ptr, map, 0, 0);
 	draw_player(ptr, 0xff194b, ptr->px, ptr->py);	//dessine le joueur
+	draw_direction(ptr, rgb_to_hex(0,214,111));
+	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->imap, 0, 0);
 	return (1);
 }
 
 int	key_handle(int keycode, t_mlx *ptr)
 {
+	float	calibrageleft;
+	float	calibrageright;
+
 	if (keycode == 65505)
 		ptr->sprint += 0.75;
 	if (ptr->released && ptr->released != keycode)
@@ -440,7 +492,9 @@ int	key_handle(int keycode, t_mlx *ptr)
 	}
 	if (!ptr->released)
 		ptr->released = keycode;
-	erase_player(ptr, ptr->px, ptr->py); //efface l'ancienne pos du joueur
+	//erase_player(ptr, ptr->px, ptr->py); //efface l'ancienne pos du joueur
+	//mlx_destroy_image(ptr->mlx, ptr->iplayer);
+	ptr->iplayer = NULL;
 	if (ptr->released != keycode)
 	{
 		if (ptr->released == 'w')
@@ -452,17 +506,59 @@ int	key_handle(int keycode, t_mlx *ptr)
 		if (ptr->released == 'd')
 			ptr->px += 5 * ptr->sprint;
 	}
+	if (keycode == 'q')
+	{
+		ptr->pa -= 0.1;
+		if (ptr->pa < 0)
+			ptr->pa += 2 * PI;
+		printf("pa = %f\n", ptr->pa);
+		ptr->pdx = cos(ptr->pa) * 5;
+		ptr->pdy = sin(ptr->pa) * 5;
+	}
+	if (keycode == 'e')
+	{
+		ptr->pa += 0.1;
+		if (ptr->pa > 2 * PI)
+			ptr->pa -= 2 * PI;
+		printf("pa = %f\n", ptr->pa);
+		ptr->pdx = cos(ptr->pa) * 5;
+		ptr->pdy = sin(ptr->pa) * 5;
+	}
 	if (keycode == 'w')
-		ptr->py -= 5 * ptr->sprint;
+	{
+		ptr->px += ptr->pdx;
+		ptr->py += ptr->pdy;
+	}
 	if (keycode == 's')
-		ptr->py += 5 * ptr->sprint;
+	{
+		ptr->px -= ptr->pdx;
+		ptr->py -= ptr->pdy;
+	}
+	calibrageleft = ptr->pa - PI / 2;
+	calibrageright = ptr->pa + PI / 2;
+	if (calibrageleft < 0)
+		calibrageleft += 2 * PI;
+	if (calibrageright > 2 * PI)
+		calibrageright -= 2 * PI;
+	printf("left = %f\n", calibrageleft);
+	printf("right = %f\n", calibrageright);
 	if (keycode == 'a')
-		ptr->px -= 5 * ptr->sprint;
+	{
+		printf("pdx = %f\npdy = %f\n", ptr->pdx, ptr->pdy);
+		ptr->px += cos(calibrageleft) * 5;
+		ptr->py += sin(calibrageleft) * 5;
+		//ptr->px -= 5 * ptr->sprint;
+	}
 	if (keycode == 'd')
-		ptr->px += 5 * ptr->sprint;
+	{
+		ptr->px += cos(calibrageright) * 5;
+		ptr->py += sin(calibrageright) * 5;
+		//ptr->px += 5 * ptr->sprint;
+	}
 	if (keycode == 65307)
 		ptr->end = 1;
 	draw_player(ptr, 0xff194b, ptr->px, ptr->py); //dessine la nouvelle pos du joueur
+	draw_direction(ptr, rgb_to_hex(0,214,111));
 	return (1);
 }
 
@@ -476,8 +572,8 @@ int	release(int keycode, t_mlx *ptr)	//permet le double input
 		ptr->press_start = 0;
 	}
 	ptr->last_pressed = 0;
-	printf("release key = %d\n", keycode);
-	printf("released = %d\n", ptr->released);
+	//printf("release key = %d\n", keycode);
+	//printf("released = %d\n", ptr->released);
 	return (1);
 }
 
@@ -549,6 +645,9 @@ int main(int ac, char **av)
 			map = test_map(av); 
 			ptr.px = 300;	//position initial joueur x
 			ptr.py = 300;	//position initial joueur y
+			ptr.pa = 90;
+			ptr.pdx = cos(ptr.pa) * 5;
+			ptr.pdy = sin(ptr.pa) * 5;
 			ptr.released = 0; //permet le double input (deplacement en diagonal)
 			ptr.last_pressed = 0;	//fluidifie les inputs
 			ptr.press_start = 0;	//check si je suis en attente d'input dans un buffer
