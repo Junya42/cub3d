@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 01:55:44 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/04 19:57:11 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/05 00:51:01 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -421,6 +421,7 @@ void	draw_direction(t_mlx *ptr, int color)
 	while (i < 10)
 	{
 		mlx_pixel_put(ptr->mlx, ptr->win, a + ad * i, b + bd * i, color);
+		//pxl_to_img(ptr, a + ad * i, b + bd * i, color);
 		i++;
 	}
 }
@@ -447,7 +448,9 @@ void	draw_player(t_mlx *ptr, int color, float x, float y)
 			//	mlx_pixel_put(ptr->mlx, ptr->win, x + ptr->pdx, y + ptr->pdy, rgb_to_hex(229, 255, 0));
 			//else
 			mlx_pixel_put(ptr->mlx, ptr->win, x, y, color);
-			//pxl_to_img(ptr, x, y, color);
+			//pxl_to_img(ptr, (float)(int)x, (float)(int)y, color);
+			//printf("x = %f\n", x);
+			//printf("y = %f\n", y);
 			y++;
 		}
 		x++;
@@ -472,9 +475,9 @@ int	create_window(t_mlx *ptr, char **av, char **map)
 	ptr->bg_b = ft_atoi(av[4]);
 	draw_pixels(ptr, rgb_to_hex(ptr->bg_r, ptr->bg_g, ptr->bg_b), ptr->mx * 64, ptr->my * 64);	//rempli la map avec la couleur choisi
 	draw_map(ptr, map, 0, 0);
+	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->imap, 0, 0);
 	draw_player(ptr, 0xff194b, ptr->px, ptr->py);	//dessine le joueur
 	draw_direction(ptr, rgb_to_hex(0,214,111));
-	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->imap, 0, 0);
 	return (1);
 }
 
@@ -511,7 +514,7 @@ int	key_handle(int keycode, t_mlx *ptr)
 		ptr->pa -= 0.1;
 		if (ptr->pa < 0)
 			ptr->pa += 2 * PI;
-		printf("pa = %f\n", ptr->pa);
+		//printf("pa = %f\n", ptr->pa);
 		ptr->pdx = cos(ptr->pa) * 5;
 		ptr->pdy = sin(ptr->pa) * 5;
 	}
@@ -520,7 +523,7 @@ int	key_handle(int keycode, t_mlx *ptr)
 		ptr->pa += 0.1;
 		if (ptr->pa > 2 * PI)
 			ptr->pa -= 2 * PI;
-		printf("pa = %f\n", ptr->pa);
+		//printf("pa = %f\n", ptr->pa);
 		ptr->pdx = cos(ptr->pa) * 5;
 		ptr->pdy = sin(ptr->pa) * 5;
 	}
@@ -540,11 +543,11 @@ int	key_handle(int keycode, t_mlx *ptr)
 		calibrageleft += 2 * PI;
 	if (calibrageright > 2 * PI)
 		calibrageright -= 2 * PI;
-	printf("left = %f\n", calibrageleft);
-	printf("right = %f\n", calibrageright);
+	//printf("left = %f\n", calibrageleft);
+	//printf("right = %f\n", calibrageright);
 	if (keycode == 'a')
 	{
-		printf("pdx = %f\npdy = %f\n", ptr->pdx, ptr->pdy);
+		//printf("pdx = %f\npdy = %f\n", ptr->pdx, ptr->pdy);
 		ptr->px += cos(calibrageleft) * 5;
 		ptr->py += sin(calibrageleft) * 5;
 		//ptr->px -= 5 * ptr->sprint;
@@ -557,6 +560,7 @@ int	key_handle(int keycode, t_mlx *ptr)
 	}
 	if (keycode == 65307)
 		ptr->end = 1;
+	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->imap, 0, 0);
 	draw_player(ptr, 0xff194b, ptr->px, ptr->py); //dessine la nouvelle pos du joueur
 	draw_direction(ptr, rgb_to_hex(0,214,111));
 	return (1);
@@ -593,7 +597,7 @@ int	nullfunc(t_mlx	*ptr)	//fonction echap pour le mlx_loop_hook
 	if (!ptr->last_pressed  && ptr->press_start && ptr->released) //Permet d'appliquer le move en buffer
 	{
 		usleep_(30*10000);
-		erase_player(ptr, ptr->px, ptr->py);
+		//erase_player(ptr, ptr->px, ptr->py);
 		if (ptr->released == 'w')
 			ptr->py -= 5;
 		if (ptr->released == 's')
@@ -602,7 +606,9 @@ int	nullfunc(t_mlx	*ptr)	//fonction echap pour le mlx_loop_hook
 			ptr->px -= 5;
 		if (ptr->released == 'd')
 			ptr->px += 5;
+		mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->imap, 0, 0);
 		draw_player(ptr, 0xff194b, ptr->px, ptr->py); //dessine la nouvelle pos du joueur
+		draw_direction(ptr, rgb_to_hex(0,214,111));
 	}
 	return (0);
 }
