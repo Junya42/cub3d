@@ -6,7 +6,7 @@
 #    By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 17:38:35 by anremiki          #+#    #+#              #
-#    Updated: 2022/04/04 04:07:58 by anremiki         ###   ########.fr        #
+#    Updated: 2022/04/05 07:15:15 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,8 +80,8 @@ $(NAME): $(OBJS)
 		@echo
 		@echo
 		@echo "\033[1;41mFaut que tu lises ce qu'il y a en bas de ce msg\033[0m"
-		@echo "si cub3d se lance pas ou t'affiche une erreur au lancement"
-		@echo "lance le directement a partir du dossier exec"
+		@echo "NE SORS SURTOUT PAS DE LA MAP SINON SEGFAULT"
+		@echo 
 		@echo
 		@echo "!!! NE QUITTE SURTOUT PAS AVEC CTRL-C !!!"
 		@echo "J'ai implemente l'option pour quitter avec echap"

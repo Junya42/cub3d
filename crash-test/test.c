@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 01:55:44 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/05 07:13:06 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/05 08:02:39 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -444,6 +444,9 @@ void	draw_cast(t_mlx *ptr, int color)
 	int		nray;
 	float	rx;
 	float	ry;
+	float	ra;
+	float	rdx;
+	float	rdy;
 	float	i;
 
 	nray = 1;
@@ -454,36 +457,44 @@ void	draw_cast(t_mlx *ptr, int color)
 	if (calibrageright > 2 * PI)
 		calibrageright -= 2 * PI;
 	(void)calibrageright;
-	return ;
+	ra = ptr->pa - NVALUE * 30;
+	if (ra < 0)
+		ra += 2 * PI;
+	if (ra > 2 * PI)
+		ra -= 2 * PI;
+	rx = ptr->px + 5;
+	ry = ptr->py + 5;
 	while (nray <= 60)
 	{
-		rx = ptr->px + 5;
-		ry = ptr->py + 5;
-		if (nray < 30)	
-		{
-			rx -= cos(ptr->pa - nray * NVALUE);
-			ry -= sin(ptr->pa - nray * NVALUE);
-		}
-		else
-		{
-			rx += cos(ptr->pa + (nray - 29) * NVALUE) * 5;
-			ry += sin(ptr->pa + (nray - 29) * NVALUE) * 5;
-		}
+	//	if (nray < 30)	
+	//		{
+		rdx = cos(ra) * 5;
+		rdy = sin(ra) * 5;
+		//		}
+		//else
+		//	{
+		//			rx += cos(ptr->pa + (nray - 29) * NVALUE) * 5;
+		//			ry += sin(ptr->pa + (nray - 29) * NVALUE) * 5;
+		//		}
 		i = 1;
 		while (i < 64)
 		{
-		//	printf("y = %d\nx = %d\n", (int)(ry * i) / 64, (int)(rx * i) / 64);
-			if (ptr->map[(int)((ry + ptr->pdy * i) / 64)][(int)((rx + ptr->pdy * i) / 64)] == '1')
-			{
-				mlx_pixel_put(ptr->mlx, ptr->win, rx + ptr->pdx * i, ry + ptr->pdy * i, rgb_to_hex(255,0,255));
+			//	printf("y = %d\nx = %d\n", (int)(ry * i) / 64, (int)(rx * i) / 64);
+			if (ptr->map[(int)((ry + rdy * i) / 64)][(int)((rx + rdx * i) / 64)] == '1')
 				break ;
-			}
+			else if (ptr->map[(int)((ry + rdy * i) / 64)][(int)((rx + rdx * i) / 64)] == '0')
+				mlx_pixel_put(ptr->mlx, ptr->win, rx + rdx * i, ry + rdy * i, rgb_to_hex(130,77,112));
 			else
-				mlx_pixel_put(ptr->mlx, ptr->win, rx + ptr->pdx * i, ry + ptr->pdy * i, color);
-			printf("rx = %f\nry = %f\n", rx + ptr->pdx * i, ry + ptr->pdy * i);
-			printf("px = %f\npy = %f\n", ptr->px + 5 + ptr->pdx * i, ptr->py + 5 + ptr->pdy * i);
+				mlx_pixel_put(ptr->mlx, ptr->win, rx + rdx * i, ry + rdy * i, color);
+			//printf("rx = %f\nry = %f\n", rx + ptr->pdx * i, ry + ptr->pdy * i);
+			//printf("px = %f\npy = %f\n", ptr->px + 5 + ptr->pdx * i, ptr->py + 5 + ptr->pdy * i);
 			i += 0.1;
 		}
+		ra += NVALUE;
+		if (ra < 0)
+			ra += 2 * PI;
+		if (ra > 2 * PI)
+			ra -= 2 * PI;
 		nray++;
 	}
 
@@ -498,7 +509,7 @@ int		check_NS(float value, int divider)
 	i = 0;
 	while (i  * divider < value + divider)
 	{
-		if (i * divider >= value - 0.5 && i * divider <= value + 0.5)
+		if (i * divider >= value - 0.5 && i * divider <= value + 1)
 			return (1);
 		i++;
 	}
@@ -518,13 +529,14 @@ void	draw_direction(t_mlx *ptr, int color)
 	ad = ptr->pdx;
 	bd = ptr->pdy;
 	i = 1;
-	while (i < 64)
+	draw_cast(ptr, rgb_to_hex(255, 0, 255));
+	while (i < 100)
 	{
 		printf("y = %d\nx = %d\n", (int)(b + bd * i) / 64, (int)(a + ad * i) / 64);
 		if (ptr->map[(int)((b + bd * i) / 64)][(int)((a + ad * i) / 64)] == '1')
 			break ;
 		else if (ptr->map[(int)((b + bd * i) / 64)][(int)((a + ad * i) / 64)] == ' ')
-			mlx_pixel_put(ptr->mlx, ptr->win, a + ad * i, b + bd * i, rgb_to_hex(255,0,255));
+			mlx_pixel_put(ptr->mlx, ptr->win, a + ad * i, b + bd * i, rgb_to_hex(255,255,255));
 		else
 			mlx_pixel_put(ptr->mlx, ptr->win, a + ad * i, b + bd * i, color);
 		//mlx_pixel_put(ptr->mlx, ptr->win, a + ad * (i + 0.3), b + bd * (i + 0.3), color);
@@ -532,7 +544,6 @@ void	draw_direction(t_mlx *ptr, int color)
 		//pxl_to_img(ptr, a + ad * i, b + bd * i, color);
 		i += 0.1;
 	}
-	//draw_cast(ptr, rgb_to_hex(255, 0, 255));
 	if (check_NS(b + bd * i, 64))
 		ptr->color = 0xff194b;
 	else
@@ -576,7 +587,7 @@ int	create_window(t_mlx *ptr, char **av, char **map)
 	ptr->mlx = mlx_init();
 	if (!ptr->mlx)
 		return (0);
-	ptr->win = mlx_new_window(ptr->mlx, ptr->mx * 64, ptr->my * 64, "cub3d");
+	ptr->win = mlx_new_window(ptr->mlx, ptr->mx * 2 * 64, ptr->my * 64, "cub3d");
 	if (!ptr->win)
 	{
 		mlx_destroy_display(ptr->mlx);
@@ -645,13 +656,19 @@ int	key_handle(int keycode, t_mlx *ptr)
 		}
 		if (ptr->released == 'w')
 		{
-			ptr->px += ptr->pdx * ptr->sprint;
-			ptr->py += ptr->pdy * ptr->sprint;
+			if (ptr->map[(int)((ptr->py + ptr->pdy * 1.1) / 64)][(int)((ptr->px + ptr->pdx * 1.1) / 64)] != '1')
+			{
+				ptr->px += ptr->pdx * ptr->sprint;
+				ptr->py += ptr->pdy * ptr->sprint;
+			}
 		}
 		if (ptr->released == 's')
 		{
-			ptr->px -= ptr->pdx * ptr->sprint;
-			ptr->py -= ptr->pdy * ptr->sprint;
+			if (ptr->map[(int)((ptr->py - ptr->pdy * 1.1) / 64)][(int)((ptr->px - ptr->pdx * 1.1) / 64)] != '1')
+			{
+				ptr->px -= ptr->pdx * ptr->sprint;
+				ptr->py -= ptr->pdy * ptr->sprint;
+			}
 		}
 		calibrageleft = ptr->pa - PI / 2;
 		calibrageright = ptr->pa + PI / 2;
@@ -664,14 +681,20 @@ int	key_handle(int keycode, t_mlx *ptr)
 		if (ptr->released == 'a')
 		{
 			//printf("pdx = %f\npdy = %f\n", ptr->pdx, ptr->pdy);
-			ptr->px += cos(calibrageleft) * 5 * ptr->sprint;
-			ptr->py += sin(calibrageleft) * 5 * ptr->sprint;
+			if (ptr->map[(int)((ptr->py + (cos(calibrageleft) * 5) * 1.1) / 64)][(int)((ptr->px + (sin(calibrageleft * 5)) * 1.1) / 64)] != '1')
+			{
+				ptr->px += cos(calibrageleft) * 5 * ptr->sprint;
+				ptr->py += sin(calibrageleft) * 5 * ptr->sprint;
+			}
 			//ptr->px -= 5 * ptr->sprint;
 		}
 		if (ptr->released == 'd')
 		{
-			ptr->px += cos(calibrageright) * 5 * ptr->sprint;
-			ptr->py += sin(calibrageright) * 5 * ptr->sprint;
+			if (ptr->map[(int)((ptr->py + (cos(calibrageright) * 5) * 1.1) / 64)][(int)((ptr->px + (sin(calibrageright * 5)) * 1.1) / 64)] != '1')
+			{
+				ptr->px += cos(calibrageright) * 5 * ptr->sprint;
+				ptr->py += sin(calibrageright) * 5 * ptr->sprint;
+			}
 			//ptr->px += 5 * ptr->sprint;
 		}
 	}
@@ -695,13 +718,19 @@ int	key_handle(int keycode, t_mlx *ptr)
 	}
 	if (keycode == 'w')
 	{
-		ptr->px += ptr->pdx * ptr->sprint;
-		ptr->py += ptr->pdy * ptr->sprint;
+		if (ptr->map[(int)((ptr->py + ptr->pdy * 1.1) / 64)][(int)((ptr->px + ptr->pdx * 1.1) / 64)] != '1')
+		{
+			ptr->px += ptr->pdx * ptr->sprint;
+			ptr->py += ptr->pdy * ptr->sprint;
+		}
 	}
 	if (keycode == 's')
 	{
-		ptr->px -= ptr->pdx * ptr->sprint;
-		ptr->py -= ptr->pdy * ptr->sprint;
+		if (ptr->map[(int)((ptr->py - ptr->pdy * 1.1) / 64)][(int)((ptr->px - ptr->pdx * 1.1) / 64)] != '1')
+		{
+			ptr->px -= ptr->pdx * ptr->sprint;
+			ptr->py -= ptr->pdy * ptr->sprint;
+		}
 	}
 	calibrageleft = ptr->pa - PI / 2;
 	calibrageright = ptr->pa + PI / 2;
@@ -714,14 +743,20 @@ int	key_handle(int keycode, t_mlx *ptr)
 	if (keycode == 'a')
 	{
 		//printf("pdx = %f\npdy = %f\n", ptr->pdx, ptr->pdy);
-		ptr->px += cos(calibrageleft) * 5 * ptr->sprint;
-		ptr->py += sin(calibrageleft) * 5 * ptr->sprint;
+		if (ptr->map[(int)((ptr->py + (cos(calibrageleft) * 5) * 1.1) / 64)][(int)((ptr->px + (sin(calibrageleft * 5)) * 1.1) / 64)] != '1')
+		{
+			ptr->px += cos(calibrageleft) * 5 * ptr->sprint;
+			ptr->py += sin(calibrageleft) * 5 * ptr->sprint;
+		}
 		//ptr->px -= 5 * ptr->sprint;
 	}
 	if (keycode == 'd')
 	{
-		ptr->px += cos(calibrageright) * 5 * ptr->sprint;
-		ptr->py += sin(calibrageright) * 5 * ptr->sprint;
+		if (ptr->map[(int)((ptr->py + (cos(calibrageright) * 5) * 1.1) / 64)][(int)((ptr->px + (sin(calibrageright * 5)) * 1.1) / 64)] != '1')
+		{
+			ptr->px += cos(calibrageright) * 5 * ptr->sprint;
+			ptr->py += sin(calibrageright) * 5 * ptr->sprint;
+		}
 		//ptr->px += 5 * ptr->sprint;
 	}
 	if (keycode == 65307)
