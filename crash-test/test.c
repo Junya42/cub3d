@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 01:55:44 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/05 08:02:39 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/05 08:09:03 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -615,13 +615,18 @@ int	key_handle(int keycode, t_mlx *ptr)
 {
 	float	calibrageleft;
 	float	calibrageright;
+	int		dash;
 	float	cpy;
 
 	cpy = ptr->sprint;
+	dash = 0;
 	if (keycode == 65505)
 		ptr->sprint = 1.7;
 	if (keycode == 65507)
+	{
 		ptr->sprint += 5; 
+		dash = 1;
+	}
 	if (ptr->released && ptr->released != keycode)
 	{
 		ptr->last_pressed = keycode;
@@ -636,6 +641,8 @@ int	key_handle(int keycode, t_mlx *ptr)
 	{
 		if (ptr->released == 65505)
 			ptr->sprint = 1.7;
+		if (!dash)
+			cpy = ptr->sprint;
 		if (ptr->released == 'q')
 		{
 			ptr->pa -= 0.05;
