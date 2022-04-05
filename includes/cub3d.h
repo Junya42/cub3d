@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/04 16:46:54 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/05 06:41:33 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include "../ft_printf/includes/ft_printf.h"
 
 # define PI 3.1415926535
+# define NVALUE 0.0174532925
 
 enum	e_fd
 {
