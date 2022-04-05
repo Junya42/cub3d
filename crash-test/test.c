@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 01:55:44 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/05 03:32:23 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/05 04:04:50 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -504,9 +504,14 @@ int	key_handle(int keycode, t_mlx *ptr)
 {
 	float	calibrageleft;
 	float	calibrageright;
+	float	cpy;
 	
+	cpy = ptr->sprint;
+	printf("keycode = %d\n", keycode);
 	if (keycode == 65505)
 		ptr->sprint = 1.7;
+	if (keycode == 65507)
+		ptr->sprint += 5; 
 	if (ptr->released && ptr->released != keycode)
 	{
 		ptr->last_pressed = keycode;
@@ -622,6 +627,7 @@ int	key_handle(int keycode, t_mlx *ptr)
 	}
 	if (keycode == 65307)
 		ptr->end = 1;
+	ptr->sprint = cpy;
 	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->imap, 0, 0);
 	draw_player(ptr, 0xff194b, ptr->px, ptr->py); //dessine la nouvelle pos du joueur
 	draw_direction(ptr, rgb_to_hex(0,214,111));
@@ -633,7 +639,7 @@ int	release(int keycode, t_mlx *ptr)	//permet le double input
 	if (keycode == 65505)
 	{
 		printf("end sprint\n");
-		ptr->sprint -= 0.7;
+		ptr->sprint = 1;
 	}
 	if (ptr->released == keycode)
 	{
