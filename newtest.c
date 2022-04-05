@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 01:55:44 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/06 01:42:41 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/06 00:06:52 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -602,111 +602,54 @@ int		check_NS(float value, int divider)
 	return (0);
 }
 
-void	draw_direction(t_mlx *ptr, int color, int fov)
+void	draw_direction(t_mlx *ptr, int color)
 {
-	float	rx;
-	float	ry;
-	float	ra;
-	float	xo;
-	float	yo;
-	int		mx;
-	int		my;
-	int		mp;
-	int		r;
-	int		limit;
-	
-	r = -1 ;
-	ra = ptr->pa - (NVALUE * fov / 2);
-	while (++r < fov)
-	{
-		limit = 0;
-		if (ra == PI || ra == 0)
-		{
-			rx = ptr->px;
-			ry = ptr->py;
-			limit = ptr->my;
-		}
-		else if (ra > PI)
-		{
-			ry = (((int)(ptr->py) >> 6) << 6) - 0.0001;
-			rx = (ptr->py - ry) * (-1/tan(ra)) + ptr->px;
-			yo = -64;
-			xo = -yo * (-1 / tan(ra));
-		}
-		else if (ra < PI)
-		{
-			ry = (((int)(ptr->py) >> 6) << 6) + 64;
-			rx = (ptr->py - ry) * (-1/tan(ra)) + ptr->px;
-			yo = 64;
-			xo = -yo * (-1 / tan(ra));
-		}
-		while (limit < ptr->my)
-		{
-			mx = (int)(rx) >> 6;
-			my = (int) (ry) >> 6;
-			mp = my * ptr->mx  + mx;
-			printf(" HOR mx = %d >>> my = %d >>> mp = %d >>> pos = %d\n", mx , my, mp, (int)(ptr->py * ptr->mx + ptr->px));
-			printf("TAILLE RAYON = %d\n", mp - (int)(ptr->py * ptr->mx + ptr->mx));
-			if ((mx >= ptr->mx || my >= ptr->my || mx < 0 || my < 0) || ptr->map[my][mx] == '1')
-				break ;
-			else
-			{
-				rx += xo;
-				ry += yo;
-				limit++;
-			}
-		}
-		mlx_draw_line(ptr->mlx, ptr->win, ptr->px, ptr->py, rx, ry, rgb_to_hex(255,227,0,125));
-		limit = 0;
-		if (ra == PI || ra == 0)
-		{
-			rx = ptr->px;
-			ry = ptr->py;
-			limit = ptr->my;
-		}
-		else if ((ra > (PI / 2)) && (ra < ((3 * PI) / 2)))
-		{
-			rx = (((int)ptr->px >> 6) << 6) - 0.0001;
-			ry = (ptr->px - rx) * (-tan(ra)) + ptr->py;
-			xo = -64;
-			yo = -xo * (-tan(ra));
-		}
-		else if ((ra < (PI / 2)) || (ra > ((3 * PI) / 2)))
-		{
-			rx = (((int)ptr->py >> 6) << 6) + 64;
-			ry = (ptr->px - rx) * (-tan(ra)) + ptr->py;
-			xo = 64;
-			yo = -xo * (-tan(ra));
-		}
-		while (limit < ptr->my)
-		{
-			mx = (int)(rx) >> 6;
-			my = (int) (ry) >> 6;
-			if ((mx >= ptr->mx || my >= ptr->my || mx < 0 || my < 0) || ptr->map[my][mx] == '1')
-				break ;
-			else
-			{
-				rx += xo;
-				ry += yo;
-				limit++;
-			}
-		}
-		ra += NVALUE;
-		printf("limit = %d\n", limit);
-		mlx_draw_line(ptr->mlx, ptr->win, ptr->px, ptr->py, rx, ry, color);
-	}
+	float	a;
+	float	b;
+	float	ad;
+	float	bd;
+	float	tota;
+	float	totb;
+	float	i;
 
-	//draw_cast(ptr, rgb_to_hex(255, 255, 0, 255), 60);
-	//mlx_draw_line(ptr->mlx, ptr->win, a, b, a + ad * i, b + bd * i, color);
-	//printf("hitpos ry = %f >>> hitpos rx = %f\n", ry, rx);
+	a = ptr->px + 5;
+	b =	ptr->py + 5;
+	//p.a	=	variable de 0 a 2PI Radians
+	ad = ptr->pdx; //cos(player_angle) * 5
+	bd = ptr->pdy; //sin(player_angle) * 5
+	i = 1;
+	tota = a;
+	totb = b;
+	printf("draw %p\n", ptr->iplayer);
+	//mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->iplayer, ptr->mx * 64 , 0);
+	draw_cast(ptr, rgb_to_hex(255, 255, 0, 255), 60);
+	while (i < 100)
+	{
+		if (ptr->map[(int)((b + bd * i) / 64)][(int)((a + ad * i) / 64)] == '1')
+			break ;
+		/*else if (ptr->map[(int)((b + bd * i) / 64)][(int)((a + ad * i) / 64)] == ' ')
+		  mlx_pixel_put(ptr->mlx, ptr->win, a + ad * i, b + bd * i, rgb_to_hex(255,255,255));
+		  else
+		  mlx_pixel_put(ptr->mlx, ptr->win, a + ad * i, b + bd * i, color);*/
+		tota += ad;
+		totb += bd;
+		i += 0.1;
+	}
+	float rx;
+	float ry;
+
+	mlx_draw_line(ptr->mlx, ptr->win, a, b, a + ad * i, b + bd * i, color);
+	ry = ((int)((int)b >> 6) << 6) - 0.0001;
+	rx = (b - ry) * (-1/tan(ptr->pa)) + a;
+	printf("hitpos ry = %f >>> hitpos rx = %f\n", ry, rx);
 	//tan = cos(pa) / sin(pa)
 	//tan = pdx / pdy
-	//printf("py = %f >>> px = %f\n", b, a);
+	printf("py = %f >>> px = %f\n", b, a);
 	//printf("ray = %f >>> player = %f\n", (tota) - (totb), (a) - (b));
-	//if (check_NS(b + bd * i, 64))
-//		ptr->color = 0xff194b;
-//	else
-	//	ptr->color = rgb_to_hex(255, 0, 219, 150);
+	if (check_NS(b + bd * i, 64))
+		ptr->color = 0xff194b;
+	else
+		ptr->color = rgb_to_hex(255, 0, 219, 150);
 }
 
 /*void	draw_direction(t_mlx *ptr, int color)
@@ -784,7 +727,7 @@ int	create_window(t_mlx *ptr, char **av, char **map)
 	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->imap, 0, 0);
 	printf("DRAW_LIGHT\n");
 	//draw_player(ptr, ptr->color, ptr->px, ptr->py);	//dessine le joueur
-	draw_direction(ptr, rgb_to_hex(255, 0,214,111), 45);
+	draw_direction(ptr, rgb_to_hex(255, 0,214,111));
 	draw_player(ptr, ptr->color, ptr->px, ptr->py);	//dessine le joueur
 	return (1);
 }
@@ -947,7 +890,7 @@ int	key_handle(int keycode, t_mlx *ptr)
 		ptr->end = 1;
 	ptr->sprint = cpy;
 	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->imap, 0, 0);
-	draw_direction(ptr, rgb_to_hex(255, 0,214,111), 45);
+	draw_direction(ptr, rgb_to_hex(255, 0,214,111));
 	draw_player(ptr, ptr->color, ptr->px, ptr->py); //dessine la nouvelle pos du joueur
 	return (1);
 }
@@ -1041,7 +984,7 @@ int	nullfunc(t_mlx	*ptr)	//fonction echap pour le mlx_loop_hook
 			//ptr->px += 5 * ptr->sprint;
 		}
 		mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->imap, 0, 0);
-		draw_direction(ptr, rgb_to_hex(255, 0,214,111), 45);
+		draw_direction(ptr, rgb_to_hex(255, 0,214,111));
 		draw_player(ptr, ptr->color, ptr->px, ptr->py); //dessine la nouvelle pos du joueur
 	}
 	return (0);
@@ -1072,41 +1015,41 @@ float rx;
 float ry;
 
 /*char	**pixmap(t_mlx *ptr, char **map)
-  {
-  char	**tmp;
-  int		i;
-  int		ix;
-  int		j;
-  int		icpy;
-  int		jx;
+{
+	char	**tmp;
+	int		i;
+	int		ix;
+	int		j;
+	int		icpy;
+	int		jx;
 
-  tmp = (char **)malloc(sizeof(char *) * (ptr->my * 8));
-  i = 0;
-  j = 0;
-  ix = 0;
-  while (map[i])
-  {
-  tmp[i + ix] = (char *)malloc(sizeof(char) * (ptr->mx * 8));
-  jx = 0;
-  while (map[i][j])
-  {
-  icpy = ix;
-  while (jx < 8)
-  {
-  ix = icpy;
-  while (ix < icpy + 8)
-  {
-  tmp[i + ix][j + jx] = map[i][j];
-  ix++;
-  }
-  jx++;
-  }
-  j++;
-  }
-  i++;
+	tmp = (char **)malloc(sizeof(char *) * (ptr->my * 8));
+	i = 0;
+	j = 0;
+	ix = 0;
+	while (map[i])
+	{
+		tmp[i + ix] = (char *)malloc(sizeof(char) * (ptr->mx * 8));
+		jx = 0;
+		while (map[i][j])
+		{
+			icpy = ix;
+			while (jx < 8)
+			{
+				ix = icpy;
+				while (ix < icpy + 8)
+				{
+					tmp[i + ix][j + jx] = map[i][j];
+					ix++;
+				}
+				jx++;
+			}
+			j++;
+		}
+		i++;
 
-  }
-  }*/
+	}
+}*/
 int main(int ac, char **av)
 {
 	t_mlx	ptr;
