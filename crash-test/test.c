@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 01:55:44 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/06 04:45:42 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/06 18:48:18 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -310,6 +310,7 @@ typedef struct s_mlx
 	float	py;
 	float	pdy;
 	double	pa;
+	double	pz;
 	int		released;
 	int		last_pressed;
 	int		press_start;
@@ -324,6 +325,7 @@ typedef struct s_mlx
 }			t_mlx;
 
 void	draw_player(t_mlx *ptr, int color, float x, float y);
+void	usleep_(long int duration);
 
 float	q_sqrt(float number)
 {
@@ -653,7 +655,7 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 	float	raycast;
 	int		mx;
 	int		my;
-	int		r;
+	float	r;
 	int		limit;
 	int		i;
 	
@@ -664,6 +666,8 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 	if (ra > 2 * PI)
 		ra -= 2 * PI;
 	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->iplayer, ptr->mx * 64 , 0);
+	printf("new angle\n");
+	printf("px = %f ||||| py = %f\n", ptr->px, ptr->py);
 	while (++r < fov)
 	{
 		limit = 0;
@@ -672,6 +676,7 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 		hy = ptr->py;
 		if (ra == PI || ra == 0)
 		{
+		//	printf("HRA = PI\n");
 			rx = ptr->px;
 			ry = ptr->py;
 			limit = ptr->my;
@@ -679,14 +684,14 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 		else if (ra > PI)
 		{
 			ry = (((int)(ptr->py) >> 6) << 6) - 0.0001;
-			rx = (ptr->py - ry) * (-1/tan(ra)) + ptr->px;
+			rx = (ptr->py - ry) * (-1.00/tan(ra)) + ptr->px;
 			yo = -64;
 			xo = -yo * (-1 / tan(ra));
 		}
 		else if (ra < PI)
 		{
 			ry = (((int)(ptr->py) >> 6) << 6) + 64;
-			rx = (ptr->py - ry) * (-1/tan(ra)) + ptr->px;
+			rx = (ptr->py - ry) * (-1.00/tan(ra)) + ptr->px;
 			yo = 64;
 			xo = -yo * (-1 / tan(ra));
 		}
@@ -694,13 +699,31 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 		{
 			mx = (int)(rx) >> 6;
 			my = (int) (ry) >> 6;
-			if ((mx < ptr->mx && my < ptr->my && mx > -1 && my > -1) && ptr->map[my][mx] == '1')
+			/*if (r == 30)
+			{
+				draw_player(ptr, rgb_to_hex(255,255,0,98), rx, ry);
+				//printf("xo = %f > yo = %f\n", xo, yo);
+				printf("rx = %f > ry = %f\nmx = %d > my = %d\n", rx, ry, mx, my);
+				if (mx == 4 && my == 1)
+					printf("\n%c\n\n", ptr->map[my][mx]);
+			}*/
+			if ((mx < ptr->mx && my < ptr->my && mx > -1 && my > -1) && (ptr->map[my][mx] == '1'))
 			{
 				hx = rx;
 				hy = ry;
 				hray = dist(ptr->px, ptr->py, hx, hy);
 				break ;
 			}
+		/*	else if (dir)
+			{
+				if ((mx < ptr->mx && my + 1 < ptr->my && mx > -1 && my > -1) && (ptr->map[my][mx] == '1' || ptr->map[my + 1][mx] == '1'))
+				{
+					hx = rx;
+					hy = ry;
+					hray = dist(ptr->px, ptr->py, hx, hy);
+					break ;
+				}
+			}*/
 			else
 			{
 				rx += xo;
@@ -714,12 +737,15 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 		vy = ptr->py;
 		if (ra == PI || ra == 0)
 		{
+			//	printf("VRA = PI\n");
 			rx = ptr->px;
 			ry = ptr->py;
 			limit = ptr->my;
 		}
 		else if ((ra > (PI / 2)) && (ra < ((3 * PI) / 2)))
 		{
+			if (r == 30)
+				printf("Left\n");
 			rx = (((int)ptr->px >> 6) << 6) - 0.0001;
 			ry = (ptr->px - rx) * (-tan(ra)) + ptr->py;
 			xo = -64;
@@ -727,7 +753,9 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 		}
 		else if ((ra < (PI / 2)) || (ra > ((3 * PI) / 2)))
 		{
-			rx = (((int)ptr->py >> 6) << 6) + 64;
+			if (r == 30)
+				printf("Right\n");
+			rx = (((int)ptr->px >> 6) << 6) + 64;
 			ry = (ptr->px - rx) * (-tan(ra)) + ptr->py;
 			xo = 64;
 			yo = -xo * (-tan(ra));
@@ -737,11 +765,18 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 			mx = (int)(rx) >> 6;
 			my = (int) (ry) >> 6;
 			//if ((mx >= ptr->mx || my >= ptr->my || mx < 0 || my < 0) || ptr->map[my][mx] == '1')
+			/*if (r == 30)
+			  {
+			  draw_player(ptr, rgb_to_hex(255,255,0,98), rx, ry);
+			  printf("xo = %f > yo = %f\n", xo, yo);
+			  printf("rx = %f > ry = %f\nmx = %d > my = %d\n", rx, ry, mx, my);
+			  }*/
 			if ((mx < ptr->mx && my < ptr->my && mx > -1 && my > -1) && ptr->map[my][mx] == '1')
 			{
 				vx = rx;
 				vy = ry;
 				vray = dist(ptr->px, ptr->py, vx, vy);
+				//	printf("MATCH FOUND\n");
 				break ;
 			}
 			else
@@ -751,35 +786,40 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 				limit++;
 			}
 		}
-		if (vray <= hray)
+		//	printf("vx = %f > vy = %f\nhx = %f > hy = %f\n", vx, vy, hx, hy);
+		//	printf("px = %f > py = %f\n", ptr->px, ptr->py);
+		//hray = vray + 1;
+		if (vray < hray)
 		{
 			rx = vx;
 			ry = vy;
 			ray = vray;
+			mlx_draw_line(ptr->mlx, ptr->win, ptr->px, ptr->py, rx, ry, rgb_to_hex(255,58,30,148));
 		}
 		if (hray < vray)
 		{
 			rx = hx;
 			ry = hy;
 			ray = hray;
+			mlx_draw_line(ptr->mlx, ptr->win, ptr->px, ptr->py, rx, ry, color);
 		}
 		ray = fix_fisheye(ptr->pa, ra, ray);
-		printf("ray = %f\n", ray);
 		raycast = (64 * (ptr->mx * 64) / ray);
 		if (raycast > (ptr->mx * 64))
 			raycast = ptr->mx * 64;
-		offset = (ptr->my / 2 * 64) - raycast / 2;
+		offset = ((ptr->my / 2 * 64) - raycast / 2) * ptr->pz;
 		i = 0;
+		int	wallcolor;
+
+		wallcolor = rgb_to_hex(255,58,30,148);
 		while (++i < 9)
 		{
 			mlx_draw_line(ptr->mlx, ptr->win, (r * 8 + i + ptr->mx * 64), 0, (r * 8 + i + ptr->mx * 64), offset, 0x070510);
 			mlx_draw_line(ptr->mlx, ptr->win, (r * 8 + i + ptr->mx * 64), raycast + offset, (r * 8 + i + ptr->mx * 64), ptr->my * 64, 0xC9C1E4);
 			if (hray < vray)
-				mlx_draw_line(ptr->mlx, ptr->win, (r * 8 + i + ptr->mx * 64), offset,(r * 8 + i + ptr->mx * 64), raycast + offset, rgb_to_hex(255,78,50,168));
-			else
-				mlx_draw_line(ptr->mlx, ptr->win, (r * 8 + i + ptr->mx * 64), offset,(r * 8 + i + ptr->mx * 64), raycast + offset, rgb_to_hex(255,58,30,148));
+				wallcolor = rgb_to_hex(255,78,50,168);
+			mlx_draw_line(ptr->mlx, ptr->win, (r * 8 + i + ptr->mx * 64), offset,(r * 8 + i + ptr->mx * 64), raycast + offset, wallcolor);
 		}
-		mlx_draw_line(ptr->mlx, ptr->win, ptr->px, ptr->py, rx, ry, color);
 		ra += NVALUE;
 		if (ra < 0)
 			ra += 2 * PI;
@@ -972,6 +1012,7 @@ int	key_handle(int keycode, t_mlx *ptr)
 		if (ptr->released == 'd')
 		{
 			if (ptr->map[(int)((ptr->py + (cos(calibrageright) * 5) * 1.1) / 64)][(int)((ptr->px + (sin(calibrageright * 5)) * 1.1) / 64)] != '1')
+				usleep_(30*10000);
 			{
 				ptr->px += cos(calibrageright) * 5 * ptr->sprint;
 				ptr->py += sin(calibrageright) * 5 * ptr->sprint;
@@ -1042,6 +1083,28 @@ int	key_handle(int keycode, t_mlx *ptr)
 	}
 	if (keycode == 65307)
 		ptr->end = 1;
+	if (keycode == 32 && ptr->pz == 1.00)
+	{
+		while (ptr->pz > 0.60)
+		{
+			ptr->pz -= 0.01;
+			draw_direction(ptr, rgb_to_hex(255, 0,214,111), 60);
+			draw_player(ptr, ptr->color, ptr->px, ptr->py); //dessine la nouvelle pos du joueur
+			//usleep_(30*30000);
+		}
+		//ptr->pz = 1.00;
+	}
+	if (keycode == 'r')
+	{
+		while (ptr->pz != 1.00)
+		{
+			ptr->pz += 0.01;
+			draw_direction(ptr, rgb_to_hex(255, 0,214,111), 60);
+			draw_player(ptr, ptr->color, ptr->px, ptr->py); //dessine la nouvelle pos du joueur
+			//usleep_(30*30000);
+		}
+		ptr->pz = 1.00;
+	}
 	ptr->sprint = cpy;
 	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->imap, 0, 0);
 	draw_direction(ptr, rgb_to_hex(255, 0,214,111), 60);
@@ -1253,6 +1316,7 @@ int main(int ac, char **av)
 				ptr.pa = 4.71238;
 			ptr.pdx = cos(ptr.pa) * 5;
 			ptr.pdy = sin(ptr.pa) * 5;
+			ptr.pz = 1;
 			ptr.released = 0; //permet le double input (deplacement en diagonal)
 			ptr.last_pressed = 0;	//fluidifie les inputs
 			ptr.press_start = 0;	//check si je suis en attente d'input dans un buffer
