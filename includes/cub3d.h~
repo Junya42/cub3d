@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/08 02:35:06 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/08 02:27:24 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,4 +126,4 @@ char	*ft_strndup(char *str, int limit);
 char	*skip_line(char *line);
 char	**parse_data(char **av);
 char	**parse_map(char **map);
-#endif
+#e
