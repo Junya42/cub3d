@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 01:55:44 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/10 00:54:54 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/09 18:00:53 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,6 +288,46 @@ typedef struct s_ray
 	int		nray;
 }			t_ray;
 
+/*typedef struct s_mlx
+{
+	void	*mlx;
+	void	*win;
+	void	*imap;
+	char	*addr;
+	char	**map;
+	char	**pixmap;
+	int		color;
+	int		bpp;
+	int		size_line;
+	int		endian;
+	void	*iplayer;
+	void	*texture;
+	char	*textaddr;
+	char	**rtext;
+	int		bg_r;
+	int		bg_g;
+	int		bg_b;
+	int		mx;
+	int		my;
+	float	px;
+	float	pdx;
+	float	py;
+	float	pdy;
+	double	pa;
+	double	pz;
+	int		released;
+	int		last_pressed;
+	int		press_start;
+	double	sprint;
+	int		end;
+	float	lx;
+	float	la;
+	float	ly;
+	float	lz;
+	t_ray	*ray;
+
+}			t_mlx;*/
+
 void	draw_player(t_mlx *ptr, int color, float x, float y);
 void	usleep_(long int duration);
 
@@ -318,6 +358,8 @@ float	mysqrt(float n)
 	u.i = (1<<29) + (u.i >> 1) - (1<<22);
 	u.x = u.x + n/u.x;
 	u.x = 0.25f * u.x + n / u.x;
+	//printf("u.x = %f\n", u.x);
+	//printf("sqrt = %f\n", sqrt(n));
 	return (u.x);
 }
 
@@ -330,6 +372,9 @@ void	pxl_to_img(t_mlx *ptr, float x, float y, int color)
 {
 	char	*tmp;
 
+	//printf("x = %f\ny = %f\n", x, y);
+	//printf("x = %f > y = %f\n", x , y);
+	//printf("sizeline = %d bpp =%d\n", ptr->size_line, ptr->bpp);
 	tmp = ptr->addr + (int)(y * ptr->size_line + x * (ptr->bpp / 8));
 	*(unsigned int *)tmp = color;
 }
@@ -338,6 +383,12 @@ void	pxl_to_ray(t_mlx *ptr, float x, float y, unsigned int color)
 {
 	char	*tmp;
 
+	/*			Implement x > x + 1 > x + 2 > x + 3	*/
+
+	//printf("x = %f > y = %f\n", x , y);
+	//printf("sizeline = %d bpp =%d\n", ptr->size_line, ptr->bpp);
+	//printf("y  * size = %d\n", (int)(y * ptr->bsize_line));
+	//printf("x * bpp / 8 = %d\n", (int)(x * (ptr->bbpp / 8)));
 	int size;
 	int	completer;
 	if (!ptr->textaddr)
@@ -346,10 +397,17 @@ void	pxl_to_ray(t_mlx *ptr, float x, float y, unsigned int color)
 		x = 0;
 	if (y < 0 && x)
 		y = 0;
+	//printf("bsizeline = %d\n", ptr->bsize_line);
 	size = (int)(y * ptr->bsize_line + x * (ptr->bbpp / 8));
+	//if (size >= 1290240)
+		//return ;
+	//printf("size in pxlray = %d\n", size);
+	//if (size < 0 || size >= 1390080)
 	if (size < 0 || size >= 1228800) //screenheight * bsize_line (480 * 2560)
 		return ;
+	//tmp = ptr->textaddr + (int)(y * ptr->bsize_line + x * (ptr->bbpp / 8));
 	tmp = ptr->textaddr + size;
+	//printf("ft_strlen = %ld\n", ft_strlen(tmp));
 	completer = 0;
 	while (completer < 8)
 	{
@@ -369,12 +427,17 @@ unsigned int	pxl_from_img(t_text *text, int x, int y, int i)
 	if (y < 0)
 		y = 0;
 	size = (int)(y * text[i].size + x * (text[i].bpp / 8));
-	if (size < 0 || size >= 1228800)
+	//if (size >= 1290240)
+	//	return (0xffffff);
+	if (size < 0 || size >= 1390080)
 	{
 		printf("x = %d\ny = %d\n", x, y);
 		printf("size = %d\n", size);
 		return (0xffffff);
 	}
+	//if (i == 5)
+	//	printf("x = %d\ny = %d\n", x, y);
+	//tmp = text[i].addr + (int)(y * text[i].size + x * (text[i].bpp / 8));
 	tmp = text[i].addr + size;
 	return (*(unsigned int *)tmp);
 }
@@ -384,6 +447,24 @@ int		rgb_to_hex(int a, int r, int g, int b)
 	int	color;
 
 	color = (a&0xff << 24) | ((r&0xff) << 16) | ((g&0xff) << 8) | (b&0xff);
+
+	/*	explication de la ligne au dessus
+
+	 * 	|31           24|23           16|15            8|7         bit 0|
+	 +---------------+---------------+---------------+---------------+
+	 |0 0 0 1 0 0 1 0|0 0 1 1 0 1 0 0|0 1 0 1 0 1 1 0|0 1 1 1 1 0 0 0|
+	 +---------------+---------------+---------------+---------------+
+
+	 Transparence			R				G				B
+
+
+	 Le but est de convertir le code RGB en code Hexa mais de type int
+	 pour qu'il soit compatible avec mlx_pixel_put du coup, par rapport
+	 au schema au dessus
+	 on place juste les valeurs correspondantes dans color en utilisant
+	 directement son adresse. On shift en consequence pour placer chaque
+	 valeur dans son octet correspondant */
+
 	return (color);
 }
 
@@ -393,6 +474,8 @@ int	shade(int color, float shader)
 	int	g;
 	int	b;
 
+	//if (color == 0xffffff)
+	//	printf("white\n");
 	if (shader < 0)
 		shader = 0;
 	r = (color >> 16) * shader;
@@ -412,12 +495,34 @@ void	draw_pixels(t_mlx *ptr, int color, int x, int y)
 		j = 0;
 		while (j < y)
 		{
+			//mlx_pixel_put(ptr->mlx, ptr->win, i, j, color);
 			pxl_to_img(ptr, (float)i, (float)j, color);
 			j++;
 		}
 		i++;
 	}
 }
+/*void	erase_player(t_mlx *ptr, float x, float y)
+{
+	float xmax;
+	float ymax;
+	float ycpy;
+
+	xmax = x + 10;
+	ymax = y + 10;
+	ycpy = y;
+	while (x < xmax)
+	{
+		y = ycpy;
+		while (y < ymax)
+		{
+			mlx_pixel_put(ptr->mlx, ptr->win, x, y, rgb_to_hex(255,ptr->bg_r, ptr->bg_g, ptr->bg_b));
+			y++;
+		}
+		x++;jFR
+
+	}
+}*/
 
 void	draw_index(int a, int b, int c, int d, int color, t_mlx *ptr)
 {
@@ -443,7 +548,13 @@ void	draw_index(int a, int b, int c, int d, int color, t_mlx *ptr)
 void	draw_map(t_mlx *ptr, char **map, int x, int y)
 {
 	int	color;
+	//ptr->imap = mlx_new_image(ptr->mlx, ptr->mx * 64, ptr->my * 64);
+	//ptr->addr = ptr->imap->data;
+	//int	scalex;
+	//int	scaley;
 
+	//scalex = ptr->mx * 4;
+	//scaley = ptr->my * 4;
 	while (map[y])
 	{
 		x = 0;
@@ -457,6 +568,7 @@ void	draw_map(t_mlx *ptr, char **map, int x, int y)
 				color = 0xba0047;
 			else
 				color = rgb_to_hex(255, 99, 14, 48);
+			//draw_index((float)y * 64 + 1, (y + 1) * 64 - 1, (float)x * 64 + 1, (x + 1) * 64 - 1, color, ptr);
 			if (check_valid(map[y][x], "NSEW12 "))
 				draw_index((float)x * 16 + 2, (x + 1) * 16 - 2, (float)y * 16 + 2, (y + 1) * 16 - 2, color, ptr);
 			x++;
@@ -477,6 +589,13 @@ void	draw_posmap(t_mlx *ptr, char **map, int x, int y)
 
 	ogx = x;
 	ogy = y;
+	//mlx_draw_line(ptr->mlx, ptr->win, 0, 0, 5, 0, 0x492257);
+	//mlx_draw_line(ptr->mlx, ptr->win, 0, 1, 5, 1, 0x492257);
+//	mlx_draw_line(ptr->mlx, ptr->win, 0, 2, 5, 2, 0x492257);
+//	mlx_draw_line(ptr->mlx, ptr->win, 0, 3, 5, 3, 0x492257);
+//	mlx_draw_line(ptr->mlx, ptr->win, 0, 4, 5, 4, 0x492257);
+//	mlx_draw_line(ptr->mlx, ptr->win, 0, 5, 5, 5, 0x492257);
+	//mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->text[8].texture, 0, 0);
 	i = 0;
 	while (i < 5)
 	{
@@ -512,6 +631,7 @@ void	draw_posmap(t_mlx *ptr, char **map, int x, int y)
 				color = 0xba0047;
 			else
 				color = rgb_to_hex(255, 99, 14, 48);
+			//draw_index((float)y * 64 + 1, (y + 1) * 64 - 1, (float)x * 64 + 1, (x + 1) * 64 - 1, color, ptr);
 			if (check_valid(map[y][x], "NSEW12 "))
 				draw_index((float)x * 16 + 2, (x + 1) * 16 - 2, (float)y * 16 + 2, (y + 1) * 16 - 2, color, ptr);
 			x++;
@@ -519,6 +639,168 @@ void	draw_posmap(t_mlx *ptr, char **map, int x, int y)
 		y++;
 	}
 }
+
+
+/*void	raycast(t_mlx *ptr, float height, float line, int nray)
+{
+	float	offset;
+	float	ymin;
+	float	ymax;
+	float	horizontal;
+
+	//offset = (64 * ptr->mx) / 2 - line / 2;
+	offset = height / 2;
+	//horizontal = ptr->mx * 64 + ((ptr->mx * 64) / 60 * nray);
+	printf("line = %f\n", line);
+	horizontal = ptr->mx * 64 + (ptr->mx * nray);
+	ymin = offset - line * 2;
+	ymax = offset + line * 2;
+	mlx_draw_line(ptr->mlx, ptr->win, horizontal, ymin, horizontal, ymax, rgb_to_hex(255,255,0,255));
+}
+
+void	draw_cast(t_mlx *ptr, int color, int fov)
+{
+	int		nray;
+	float	rx;
+	float	ry;
+	float	ra;
+	float	rdx;
+	float	rdy;
+	float	wallheight;
+	float	line;
+	float	i;
+
+	nray = 1;j
+	ra = ptr->pa - NVALUE * (fov / 2);
+	if (ra < 0)
+		ra += 2 * PI;
+	if (ra > 2 * PI)
+		ra -= 2 * PI;
+	rx = ptr->px + 5;
+	ry = ptr->py + 5;
+	wallheight = 64 * ptr->my;
+	//mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->iplayer, 0, 0);
+	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->iplayer, ptr->mx * 64 , 0);
+	//printf("xx%p\n", ptr->iplayer);
+	//sleep(1);
+	while (nray <= fov)
+	{
+		rdx = cos(ra) * 5;
+		rdy = sin(ra) * 5;
+		i = 1;
+		while (i < 64)
+		{
+			if (ptr->map[(int)((ry + rdy * i) / 64)][(int)((rx + rdx * i) / 64)] == '1')
+				break ;
+			else if (ptr->map[(int)((ry + rdy * i) / 64)][(int)((rx + rdx * i) / 64)] == '0')
+				mlx_pixel_put(ptr->mlx, ptr->win, rx + rdx * i, ry + rdy * i, rgb_to_hex(255, 130,77,112));
+			else
+				mlx_pixel_put(ptr->mlx, ptr->win, rx + rdx * i, ry + rdy * i, color);
+			i += 0.1;
+		}
+		if (i < 64)
+		{
+			printf("raycast!\n");
+			line = wallheight /(((rx + rdx * i) * 64 + (ry + rdy * i)) - (ptr->px * 64 - ptr->py));
+			if (line > wallheight)
+				line = wallheight;
+			raycast(ptr, wallheight, line, nray);
+		}
+		(void)line;j
+		(void)wallheight;
+		ra += NVALUE;
+		if (ra < 0)
+			ra += 2 * PI;
+		if (ra > 2 * PI)
+			ra -= 2 * PI;
+		nray++;
+	}
+
+}
+
+void	draw_source(t_mlx *ptr, int color, float x, float y)
+{
+	float	xmax;
+	float	ymax;
+	float	ycpy;
+
+	xmax = x + 10;
+	ymax = y + 10;
+	ycpy = y;
+	while (x < xmax)
+	{
+		y = ycpy;
+		while (y < ymax)
+		{
+			pxl_to_img(ptr, (float)(int)x, (float)(int)y, color);
+			y++;
+		}
+		x++;
+	}
+}
+void	draw_light(t_mlx *ptr, int color, float angle, int fov)
+{
+	int	nray;
+	int	start;
+	float	i;
+	float	ldx;
+	float	ldy;
+
+	nray = 1;
+	ptr->lx = 64 + 32 + 5;
+	ptr->ly = (ptr->my - 2) * 64 + 32 + 5;
+	ptr->la = angle - NVALUE * (fov / 2) - 0.785;
+	if (ptr->la < 0)
+		ptr->la += 2 * PI;
+	if (ptr->la > 2 * PI)
+		ptr->la -= 2 * PI;
+	draw_source(ptr, rgb_to_hex(255, 255, 230, 0), ptr->lx - 5, ptr->ly - 5);
+	printf("lx = %f >>> ly = %f\n", ptr->lx, ptr->ly);
+	while (nray <= fov)
+	{
+		start = 0;
+		i = 1;
+		ldx = cos(ptr->la) * 5;
+		ldy = sin(ptr->la) * 5;
+		while (i < 500)
+		{
+			if (ptr->map[(int)((ptr->ly + ldy * i) / j6FR
+4)][(int)((ptr->lx + ldx * i) / 64)] == '0')
+				start = 1;
+			if ((ptr->map[(int)((ptr->ly + ldy * i) / 64)][(int)((ptr->lx + ldx * i) / 64)] == '1' && start == 1))
+				break ;
+			//else
+			//{
+				//printf("pxl to img\n");
+				pxl_to_img(ptr, (float)(int)((ptr->lx + ldx * i)), (float)(int)(ptr->ly + ldy * i), color);
+				//mlx_pixel_put(ptr->mlx, ptr->win, (int)((ptr->lx + ldx * i)), (int)(ptr->ly + ldy * i), color);
+			//}
+			i += 0.1;
+		}
+		ptr->la += NVALUE;
+		printf("i = %f\n", i);
+		if (ptr->la < 0)
+			ptr->la += 2 * PI;
+		if (ptr->la > 2 * PI)
+			ptr->la -= 2 * PI;
+		nray++;
+		printf("nray = %d\n", nray);
+	}
+}j
+
+int		check_NS(float value, int divider)
+{
+	float	i;
+
+	i = 0;
+	while (i  * divider < value + divider)
+	{
+		if (i * divider >= value - 0.5 && i * divider <= value + 1)
+			return (1);
+		i++;
+	}
+	return (0);
+}*/
 
 float	fix_fisheye(float pa, float ra, float ray)
 {
@@ -584,6 +866,7 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 		ra += dpi;
 	if (ra > dpi)
 		ra -= dpi;
+	//mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->iplayer, 0, 0);
 	while (r < fov)
 	{
 		limit = 0;
@@ -595,6 +878,7 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 		onetan = (-1/tan(ra));
 		if (ra == PI || ra == 0)
 		{
+		//	printf("HRA = PI\n");
 			rx = ptr->px;
 			ry = ptr->py;
 			limit = ptr->my;
@@ -619,19 +903,42 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 		{
 			mx = (int)(rx) >> 6;
 			my = (int) (ry) >> 6;
+			/*if (r == 30)jFR
+
+			{
+				draw_player(ptr, rgb_to_hex(255,255,0,98), rx, ry);
+				//printf("xo = %f > yo = %f\n", xo, yo);
+				printf("rx = %f > ry = %f\nmx = %d > my = %d\n", rx, ry, mx, my);
+				if (mx == 4 && my == 1)
+					printf("\n%c\n\n", ptr->map[my][mx]);
+			}*/
 			if ((mx < ptr->mx && my < ptr->my && mx > -1 && my > -1) && check_valid(ptr->map[my][mx], "12"))
 			{
 				if (ptr->map[my][mx] == '2')
 				{
 					hdir += 2;
 					if ((mx + ptr->paintings) % 3 == 0 && hdir == 4)
+					{
+						//printf("carre dans l'axe mx + paintings = %d >> my + paintings = %d\n", mx + paintings, my + paintings);
 						hdir += 2;
+						//ptr->paintings++;
+					}
 				}
 				hx = rx;
 				hy = ry;
 				hray = dist(ptr->px, ptr->py, hx, hy);
 				break ;
 			}
+		/*	else if (dir)
+			{
+				if ((mx < ptr->mx && my + 1 < ptr->my && mx > -1 && my > -1) && (ptr->map[my][mx] == '1' || ptr->map[my + 1][mx] == '1'))
+				{
+					hx = rx;
+					hy = ry;
+					hray = dist(ptr->px, ptr->py, hx, jhy);
+					break ;
+				}
+			}*/
 			else
 			{
 				rx += xo;
@@ -646,6 +953,7 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 		ntan = (-tan(ra));
 		if (ra == PI || ra == 0)
 		{
+			//	printf("VRA = PI\n");
 			rx = ptr->px;
 			ry = ptr->py;
 			limit = ptr->my;
@@ -670,6 +978,13 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 		{
 			mx = (int)(rx) >> 6;
 			my = (int) (ry) >> 6;
+			//if ((mx >= ptr->mx || my >= ptr->my || mx < 0 || my < 0) || ptr->map[my][mx] == '1')
+			/*if (r == 30)
+			  {
+			  draw_player(ptr, rgb_to_hex(255,255,0,98), rx, ry);
+			  printf("xo = %f > yo = %f\n", xo, yo);
+			  printf("rx = %f > ry = %f\nmx = %d > my = %d\n", rx, ry, mx, my);
+			  }*/
 			if ((mx < ptr->mx && my < ptr->my && mx > -1 && my > -1) && check_valid(ptr->map[my][mx], "12"))
 			{
 				if (ptr->map[my][mx] == '2')
@@ -677,6 +992,7 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 				vx = rx;
 				vy = ry;
 				vray = dist(ptr->px, ptr->py, vx, vy);
+				//	printf("MATCH FOUND\n");
 				break ;
 			}
 			else
@@ -686,17 +1002,22 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 				limit++;
 			}
 		}
+		//	printf("vx = %f > vy = %f\nhx = %f > hy = %f\n", vx, vy, hx, hy);
+		//	printf("px = %f > py = %f\n", ptr->px, ptr->py);
+		//hray = vray + 1;
 		if (vray < hray)
 		{
 			rx = vx;
 			ry = vy;
 			ray = vray;
+			//mlx_draw_line(ptr->mlx, ptr->win, ptr->px, ptr->py, rx, ry, rgb_to_hex(255,58,30,148));
 		}
 		if (hray < vray)
 		{
 			rx = hx;
 			ry = hy;
 			ray = hray;
+			//mlx_draw_line(ptr->mlx, ptr->win, ptr->px, ptr->py, rx, ry, color);
 		}
 		ray = fix_fisheye(ptr->pa, ra, ray);
 		raycast = (64 * scaley / ray);
@@ -714,6 +1035,15 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 		shadow = 7/mysqrt(ray);
 		if (shadow > 1)
 			shadow = 1;
+		//float	ty;
+		//float	ty_step = 64.0/raycast;
+		
+		/*	GET INDEX FOR COLORS	*/
+
+		/*	horizontal walls NO = rx % 64
+		 *	horizontal walls SO = 64 - rx % 64
+		 *	vertical walls EA = ry % 64
+		 *	vertical walls WE = 64 - ry % 64	*/
 		unsigned int tcolor = 0;
 		float	case1 = (int)ry % 64;
 		float	case2 = 64 - case1;
@@ -723,8 +1053,14 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 		(void)scalex;
 		float	nr = r * 8;
 		int		skycolor;
+		//tcolor = rgb_to_hex(255,227,0,15);
+		//printf("scale y / raycast = %d\n", (int)(scaley / raycast));
+		//printf("offset = %f\n", offset);
 		while (i < raycast)
 		{
+			//mlx_draw_line(ptr->mlx, ptr->win, (r * 8 + i + ptr->mx * 64), 0, (r * 8 + i + ptr->mx * 64), offset, 0x070510);
+			//mlx_draw_line(ptr->mlx, ptr->win, (r * 8 + i + ptr->mx * 64), raycast + offset, (r * 8 + i + ptr->mx * 64), ptr->my * 64, 0xC9C1E4);
+			//tcolor = ptr->textaddr[(int)(ty) * 32];
 			if (vray < hray)
 			{
 				if (vdir == 1)
@@ -751,23 +1087,35 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 				if (hdir == 6)
 					tcolor = shade(pxl_from_img(ptr->text, current_px, case4, 7), shadow);
 			}
+			//mlx_draw_line(ptr->mlx, ptr->win, nr, i + offset, nr + 8, i + offset, tcolor);
 			pxl_to_ray(ptr, (nr), (float)(int)(i + offset), tcolor);
+			//mlx_pixel_put(ptr->mlx, ptr->win, (r * 8), i + offset, tcolor);
 			current_px += next_px;
 			i++;
+			//		mlx_pixel_put(ptr->mlx, ptr->win, (r * 8 + ptr->mx * 64), i + offset, tcolor);
+			//		mlx_pixel_put(ptr->mlx, ptr->win, (r * 8 + 1 + ptr->mx * 64), i + offset, tcolor);
+			//		mlx_pixel_put(ptr->mlx, ptr->win, (r * 8 + 2 + ptr->mx * 64), i + offset, tcolor);
+			//		mlx_pixel_put(ptr->mlx, ptr->win, (r * 8 + 3 + ptr->mx * 64), i + offset, tcolor);
+			//		mlx_pixel_put(ptr->mlx, ptr->win, (r * 8 + 4 + ptr->mx * 64), i + offset, tcolor);
+			//			ty += ty_step;
+			//mlx_draw_line(ptr->mlx, ptr->win, (r * 8 + i + ptr->mx * 64), offset,(r * 8 + i + ptr->mx * 64), raycast + offset, wallcolor);
 		}
 		i = 0;
 		while (i < offset)
 		{
 			skycolor = pxl_from_img(ptr->text, i, ra * 180 / PI, 6);
+			//mlx_draw_line(ptr->mlx, ptr->win, nr, i, nr + 8, i, skycolor);
 			if (i > offset - 8)
 				pxl_to_ray(ptr, nr, i, skycolor);
 			else
 				pxl_to_ray(ptr, nr, i, skycolor);
+			//mlx_pixel_put(ptr->mlx, ptr->win, nr, i, skycolor);
 			i++;
 		}
 		int	j = offset + raycast;	//Debut au bas du mur
 		float	jlimit;
-
+		//char	*floorcolor;
+		//floorcolor = ptr->text[5].addr;
 		while (j < scaley)	//On parcourt du bas du mur jusqu'au bas de la fenetre
 		{
 			jlimit = j - (scaley / 2);	//L'ecart de hauteur entre le point j et la hauteur de vision du joueur

@@ -6,7 +6,7 @@
 #    By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 17:38:35 by anremiki          #+#    #+#              #
-#    Updated: 2022/04/05 07:15:15 by anremiki         ###   ########.fr        #
+#    Updated: 2022/04/10 00:49:15 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,8 @@
 		srcs/parsing_2.c \
 
 SRCS = ./crash-test/test.c
+
+#SRCS = ./expandtab.c
 
 INCLUDES = ./includes/
 
