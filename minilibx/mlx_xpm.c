@@ -167,6 +167,7 @@ void	*mlx_int_parse_xpm(t_xvar *xvar,void *info,int info_size,char *(*f)())
 						!(height = atoi(tab[1])) || !(nc = atoi(tab[2])) ||
 						!(cpp = atoi(tab[3])) )
 				RETURN;
+		printf("width = %d >>> height = %d\n", width, height);
 		free(tab);
 		tab = 0;
 
@@ -327,6 +328,7 @@ void	*mlx_xpm_file_to_image(t_xvar *xvar,char *file,int *width,int *height)
 				*width = img->width;
 				*height = img->height;
 		}
+		printf("MLX SIZE = %d\n", size);
 		munmap(ptr,size);
 		close(fd);
 		return (img);

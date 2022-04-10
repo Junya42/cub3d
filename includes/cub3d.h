@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/10 00:48:44 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/10 05:05:28 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_text
 {
 	void	*texture;
 	void	*addr;
+	char	*name;
 	int		bpp;
 	int		size;
 	int		end;
@@ -70,13 +71,16 @@ typedef struct s_mlx
 	void	*imap;
 	char	*addr;
 	char	**map;
+	char	**exp;
 	char	**pixmap;
 	int		color;
 	int		bpp;
 	int		bbpp;
+	int		raysize;
 	int		size_line;
 	int		bsize_line;
 	int		imgsize;
+	int		next;
 	int		endian;
 	int		bendian;
 	void	*iplayer;
@@ -89,8 +93,14 @@ typedef struct s_mlx
 	int		bg_r;
 	int		bg_g;
 	int		bg_b;
+	int		hres;
+	int		vres;
 	int		mx;
 	int		my;
+	int		ex;
+	int		ey;
+	int		fov;
+	float	dra;
 	float	px;
 	float	pdx;
 	float	py;
@@ -133,7 +143,8 @@ char	**parse_map(char **map);
 
 /* Engine modification	*/
 
-void	modify_map(char **map, char *exp, int mult);
+void	printmap(char **map);
+void	modify_map(char **map, char **exp, int mult);
 char	**expand(char **map, int x, int y, int mult);
 
 #endif
