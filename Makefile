@@ -6,7 +6,7 @@
 #    By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 17:38:35 by anremiki          #+#    #+#              #
-#    Updated: 2022/04/10 03:04:43 by anremiki         ###   ########.fr        #
+#    Updated: 2022/04/10 15:18:27 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ RM = rm -rf
 
 CFLAGS = -Wall -Wextra -Werror -g3 -I $(INCLUDES)
 
-MLXFLAGS = ./minilibx/libmlx_Linux.a -lXext -lX11 -I ./minilibx/
+MLXFLAGS = ./minilibx/libmlx_Linux.a -lXext -lX11 -lXfixes -I ./minilibx/
 
 NAME = ./exec/cub3d
 

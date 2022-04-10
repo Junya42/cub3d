@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/10 05:05:28 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/10 23:38:08 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@
 # include <sys/types.h>
 # include <math.h>
 # include "../minilibx/mlx.h"
+# include "/usr/include/X11/extensions/Xfixes.h"
 # include "/usr/include/X11/X.h"
 # include "../libft/includes/libft.h"
 # include "../ft_printf/includes/ft_printf.h"
 //# include "struct3d.h"
+//# include "define.h"
 
 # define PI 3.1415926535
 # define NVALUE 0.017452925
@@ -64,15 +66,25 @@ typedef struct s_text
 	int		b;
 }				t_text;
 
+typedef struct s_hud
+{
+	void	*hud;
+	int		a;
+	int		b;
+}				t_hud;
+
 typedef struct s_mlx
 {
 	void	*mlx;
 	void	*win;
+	t_hud	*hud;
+	float	anim;
 	void	*imap;
 	char	*addr;
 	char	**map;
 	char	**exp;
 	char	**pixmap;
+	int		n_imgs;
 	int		color;
 	int		bpp;
 	int		bbpp;
@@ -122,8 +134,9 @@ typedef struct s_mlx
 	float	pi3;
 	int		magic;
 	t_text	*text;
-	//t_ray	*ray;
-
+	void	*b1;
+	void	*b2;
+	void	*b3;
 }			t_mlx;
 
 /*	Parsing data	*/

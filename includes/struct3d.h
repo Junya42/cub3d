@@ -6,15 +6,12 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/07 02:00:38 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/11 00:29:30 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT3D_H
 # define STRUCT3D_H
-
-# define PI 3.1415926535
-# define RAD 0.0174532925
 
 typedef struct s_player
 {
@@ -36,22 +33,44 @@ typedef struct s_player
 
 typedef struct s_ray
 {
-	float	ra;
-	float	rx;
-	float	ry;
-	float	xo;
-	float	yo;
-	float	hray;
-	float	hx;
-	float	hy;
-	float	vray;
-	float	vx;
-	float	vy;
-	int		mx;
-	int		my;
-	int		limit;
-	int		fov;
-	int		nray;
+	float			offset;
+	float			raycast;
+	float			contan;
+	float			ntan;
+	float			ra;
+	float			dra;
+	float			rx;
+	float			ry;
+	float			npx;
+	float			npy;
+	float			nr;
+	float			curr_px;
+	float			next_px;
+	float			off_px;
+	float			xo;
+	float			yo;
+	float			hray;
+	float			hx;
+	float			hy;
+	float			vray;
+	float			vx;
+	float			vy;
+	float			shadow;
+	float			top;
+	float			bot;
+	float			left;
+	float			right;
+	float			offj;
+	unsigned int	color;
+	int				i;
+	int				j;
+	int				mx;
+	int				my;
+	int				hdir;
+	int				vdir;
+	int				limit;
+	int				fov;
+	int				nray;
 }				t_ray;
 
 typedef struct s_build
@@ -62,7 +81,18 @@ typedef struct s_build
 	float	py;
 	float	pa;
 	char	player;
-}
+}				t_build;
+
+typedef struct s_text
+{
+	void	*img;
+	void	*addr;
+	int		bpp;
+	int		size;
+	int		end;
+	int		a;
+	int		b;
+}			t_text;
 
 typedef struct s_cub
 {
@@ -85,6 +115,9 @@ typedef struct s_cub
 	int			ccolor;
 	float		n_rad;
 	float		s_rad;
+	float		x;
+	float		y;
+	float		a;
 	int			mx;
 	int			my;
 	int			mp;

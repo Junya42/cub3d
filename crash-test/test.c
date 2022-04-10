@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 01:55:44 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/10 06:27:08 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/10 23:38:52 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,7 +307,7 @@ void	usleep_(long int duration);
     return (y);
 }*/
 
-float	mysqrt(float n)
+float	mysqrt(float n)	//OK
 {
 	union
 	{
@@ -321,12 +321,12 @@ float	mysqrt(float n)
 	return (u.x);
 }
 
-float	dist(float ax, float ay, float bx, float by)
+float	dist(float ax, float ay, float bx, float by)	//OK
 {
 	return (mysqrt((bx - ax) * (bx - ax) + (by -ay) * (by - ay)));
 }
 
-void	pxl_to_img(t_mlx *ptr, float x, float y, int color)
+void	pxl_to_img(t_mlx *ptr, float x, float y, int color)	//OK
 {
 	char	*tmp;
 
@@ -334,7 +334,7 @@ void	pxl_to_img(t_mlx *ptr, float x, float y, int color)
 	*(unsigned int *)tmp = color;
 }
 
-void	pxl_to_ray(t_mlx *ptr, float x, float y, unsigned int color)
+void	pxl_to_ray(t_mlx *ptr, float x, float y, unsigned int color)	//OK
 {
 	char	*tmp;
 
@@ -360,7 +360,7 @@ void	pxl_to_ray(t_mlx *ptr, float x, float y, unsigned int color)
 	(void)completer;
 }
 
-unsigned int	pxl_from_img(t_text *text, int x, int y, int i)
+unsigned int	pxl_from_img(t_text *text, int x, int y, int i)	//OK
 {
 	char	*tmp;
 	int size;
@@ -382,7 +382,7 @@ unsigned int	pxl_from_img(t_text *text, int x, int y, int i)
 	return (*(unsigned int *)tmp);
 }
 
-int		rgb_to_hex(int a, int r, int g, int b)
+int		rgb_to_hex(int a, int r, int g, int b)	//OK
 {
 	int	color;
 
@@ -390,7 +390,7 @@ int		rgb_to_hex(int a, int r, int g, int b)
 	return (color);
 }
 
-int	shade(int color, float shader)
+int	shade(int color, float shader)	//OK
 {
 	int	r;
 	int	g;
@@ -525,7 +525,7 @@ void	draw_posmap(t_mlx *ptr, char **map, int x, int y)
 	}
 }
 
-float	fix_fisheye(float pa, float ra, float ray)
+float	fix_fisheye(float pa, float ra, float ray)	//OK
 {
 	float	fix;
 
@@ -539,7 +539,7 @@ float	fix_fisheye(float pa, float ra, float ray)
 	return (ray * (cos(fix)));
 }
 
-float	deg_to_rad(float angle, float degree)
+float	deg_to_rad(float angle, float degree)	//OK
 {
 	angle += (NVALUE * degree);
 	if (angle < 0)
@@ -547,6 +547,17 @@ float	deg_to_rad(float angle, float degree)
 	if (angle > 2 * PI)
 		angle -= 2 * PI;
 	return (angle);
+}
+
+void	print_hud(t_mlx *ptr, float i)
+{
+
+	if (i <= 1)
+		mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->b1, ptr->hres / 2 - 128, ptr->vres - 78);
+	if (i <= 2)
+		mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->b2, ptr->hres / 2 - 128, ptr->vres - 78);
+	if (i <= 3)
+		mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->b3, ptr->hres / 2 - 128, ptr->vres - 78);
 }
 
 void	draw_direction(t_mlx *ptr, int color, int fov)
@@ -572,7 +583,7 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 	int		i;
 	int		vdir;
 	int		hdir;
-	float	pi2 = ptr->pi2;;
+	float	pi2 = ptr->pi2;
 	float	dpi = ptr->dpi;
 	float	pi3 = ptr->pi3;
 	float	onetan;
@@ -581,7 +592,7 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 	float	npx = (((int)ptr->px >> 6) << 6);
 	int		scalex = ptr->hres;
 	int		scaley = ptr->vres;
-	int		nray;
+	int		nray;	//OK
 
 	nray = ptr->hres / 4;
 	r = 0 ;
@@ -626,11 +637,11 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 			yo = 64;
 			xo = -yo * onetan;
 		}
-		while (limit < ptr->my)
+		while (limit < 20) // < ptr->my
 		{
 			mx = (int)(rx);
 			my = (int)(ry);
-			if ((mx < ptr->ex && my < ptr->ey && mx > -1 && my > -1) && check_valid(ptr->exp[my][mx], "12PLlr"))
+			if ((mx < ptr->ex && my < ptr->ey && mx > -1 && my > -1) && check_valid(ptr->exp[my][mx], "12DPLlr"))
 			{
 				if (ptr->exp[my][mx] == '2')
 				{
@@ -638,10 +649,8 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 					if ((mx + ptr->paintings) % 3 == 0 && hdir == 4)
 						hdir += 2;
 				}
-				if (r == nray / 2)
-				{
-					printf("vexp = %c\n", ptr->exp[my][mx]);
-				}
+				//if (r == nray / 2)
+				//	printf("vexp = %c\n", ptr->exp[my][mx]);
 				hx = rx;
 				hy = ry;
 				hray = dist(ptr->px, ptr->py, hx, hy);
@@ -681,18 +690,18 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 			xo = 64;
 			yo = -xo * ntan;
 		}
-		while (limit < ptr->my)
+		while (limit < 20) // < ptr->my
 		{
 			mx = (int)(rx);
 			my = (int) (ry);
-			if ((mx < ptr->ex && my < ptr->ey && mx > -1 && my > -1) && check_valid(ptr->exp[my][mx], "12PLlr"))
+			if ((mx < ptr->ex && my < ptr->ey && mx > -1 && my > -1) && check_valid(ptr->exp[my][mx], "12DPLlr"))
 			{
 				if (ptr->exp[my][mx] == '2')
 					vdir += 2;
 				//if (check_valid(ptr->exp[my][mx], "Pllr"))
 				//	vdir += 2;
-				if (r == 30)
-					printf("vexp = %c\n", ptr->exp[my][mx]);
+				//if (r == 30)
+				//	printf("vexp = %c\n", ptr->exp[my][mx]);
 				vx = rx;
 				vy = ry;
 				vray = dist(ptr->px, ptr->py, vx, vy);
@@ -718,16 +727,16 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 			ray = hray;
 		}
 		ray = fix_fisheye(ptr->pa, ra, ray);
-		raycast = (64 * scaley / ray);
+		raycast = (64 * scaley * ptr->pz / ray);
 		float	next_px = 64 / raycast;
 		float	offpx = 0;
-		if (raycast > scaley + 64)
+		if (raycast > scaley * ptr->pz + 64)
 		{
-			offpx = (raycast - scaley) / 2;
-			raycast = scaley + 64;
+			offpx = (raycast - scaley * ptr->pz) / 2;
+			raycast = scaley * ptr->pz + 64;
 		}
 		//offset = ((scaley / 2) - raycast / 2) * ptr->pz;
-		offset = ((scaley / 2) - raycast / 2);
+		offset = ((scaley * ptr->pz / 2)- raycast / 2);
 		i = 0;
 		float	shadow;
 
@@ -771,7 +780,7 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 				if (hdir == 6)
 					tcolor = shade(pxl_from_img(ptr->text, current_px, case4, 7), shadow);
 			}
-			pxl_to_ray(ptr, (nr), (float)(int)(i + offset), tcolor);
+			pxl_to_ray(ptr, (nr), (float)(int)(i + (offset)), tcolor);
 			current_px += next_px;
 			i++;
 		}
@@ -785,12 +794,12 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 				pxl_to_ray(ptr, nr, i, skycolor);
 			i++;
 		}
-		
+
 		int	j = offset + raycast;	//Debut au bas du mur
 		float	jlimit;
 		while (j < scaley)	//On parcourt du bas du mur jusqu'au bas de la fenetre
 		{
-			jlimit = j - (scaley / 2);	//L'ecart de hauteur entre le point j et la hauteur de vision du joueur
+			jlimit = j - (scaley * ptr->pz / 2);	//L'ecart de hauteur entre le point j et la hauteur de vision du joueur
 			current_px = ptr->px / 2 + cos(ra) * 200 * 64 / jlimit / fix_fisheye(ptr->pa, ra, 1); //x
 			next_px = ptr->py / 2 + sin(ra) * 200 * 64 / jlimit / fix_fisheye(ptr->pa, ra, 1);	//y
 			tcolor = shade(pxl_from_img(ptr->text, (int)next_px % 64, (int)current_px % 64, 5), shadow);
@@ -811,9 +820,11 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 	//mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->imap, 0, 0);
 	//draw_player(ptr, 0x7b00ff, (ptr->px - 3) / 64 * 16, (ptr->py - 3) / 64* 16);
 	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->iplayer, 0, 0);
-	draw_posmap(ptr, ptr->map, ((int)ptr->px >> 6), ((int)ptr->py >> 6));
+	//mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->hud[0].hud, ptr->hres / 2 - 128, ptr->vres - 78);
+	print_hud(ptr, ptr->anim);
+	//draw_posmap(ptr, ptr->map, ((int)ptr->px >> 6), ((int)ptr->py >> 6));
 	//mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->imap, 0, 0);
-	draw_player(ptr, 0x7b00ff, (ptr->px - 3) / 64 * 16, (ptr->py - 3) / 64* 16);
+	//draw_player(ptr, 0x7b00ff, (ptr->px - 3) / 64 * 16, (ptr->py - 3) / 64* 16);
 	//draw_cast(ptr, rgb_to_hex(255, 255, 0, 255), 60);
 	//mlx_draw_line(ptr->mlx, ptr->win, a, b, a + ad * i, b + bd * i, color);
 	//printf("hitpos ry = %f >>> hitpos rx = %f\n", ry, rx);
@@ -848,10 +859,19 @@ void	draw_player(t_mlx *ptr, int color, float x, float y)
 	}
 }
 
+void	create_hud(t_mlx *ptr)
+{
+	int	a;
+	int	b;
+
+	ptr->b1 = mlx_xpm_file_to_image(ptr->mlx, "./textures/blooda.xpm", &a, &b);
+	ptr->b2 = mlx_xpm_file_to_image(ptr->mlx, "./textures/bloodb.xpm", &a, &b);
+	ptr->b3 = mlx_xpm_file_to_image(ptr->mlx, "./textures/bloodc.xpm", &a, &b);
+}
+
 t_text	*create_imgs(t_mlx *ptr)
 {
 	t_text *text;
-
 	//printf("OTHER FUNCrbpp = %d > rsize = %d > rendian = %d\n", ptr->bbpp, ptr->bsize_line, ptr->bendian);
 	text = (t_text *)malloc(sizeof(t_text) * 9);
 	if (!text)
@@ -859,46 +879,40 @@ t_text	*create_imgs(t_mlx *ptr)
 		printf("Memory allocation failed for images\n");
 		return (NULL);
 	}
-	printf("bookshelf\n");
 	text[0].texture = mlx_xpm_file_to_image(ptr->mlx, "./textures/bookshelf.xpm", &text[0].a, &text[0].b);
 	text[0].addr = mlx_get_data_addr(text[0].texture, &text[0].bpp, &text[0].size, &text[0].end);
-	text[0].name = ft_strdup("bookshelf");
-	printf("planks\n");
 	text[1].texture = mlx_xpm_file_to_image(ptr->mlx, "./textures/birch_planks.xpm", &text[1].a, &text[1].b);
 	text[1].addr = mlx_get_data_addr(text[1].texture, &text[1].bpp, &text[1].size, &text[1].end);
-	text[1].name = ft_strdup("birch planks");
-	printf("blackstone\n");
 	text[2].texture = mlx_xpm_file_to_image(ptr->mlx, "./textures/blackstone.xpm", &text[2].a, &text[2].b);
 	text[2].addr = mlx_get_data_addr(text[2].texture, &text[2].bpp, &text[2].size, &text[2].end);
-	text[2].name = ft_strdup("blackstone");
-	printf("bricks\n");
 	text[3].texture = mlx_xpm_file_to_image(ptr->mlx, "./textures/bricks.xpm", &text[3].a, &text[3].b);
 	text[3].addr = mlx_get_data_addr(text[3].texture, &text[3].bpp, &text[3].size, &text[3].end);
-	text[3].name = ft_strdup("bricks");
-	printf("pblackstone\n");
 	text[4].texture = mlx_xpm_file_to_image(ptr->mlx, "./textures/pblackstone.xpm", &text[4].a, &text[4].b);
 	text[4].addr = mlx_get_data_addr(text[4].texture, &text[4].bpp, &text[4].size, &text[4].end);
-	text[4].name = ft_strdup("bpblackstone");
-	printf("doomfloor\n");
 	text[5].texture = mlx_xpm_file_to_image(ptr->mlx, "./textures/doomfloor.xpm", &text[5].a, &text[5].b);
 	text[5].addr = mlx_get_data_addr(text[5].texture, &text[5].bpp, &text[5].size, &text[5].end);
-	text[5].name = ft_strdup("doomfloor");
-	printf("skyrev\n");
 	text[6].texture = mlx_xpm_file_to_image(ptr->mlx, "./textures/skyrev.xpm", &text[6].a, &text[6].b);
 	text[6].addr = mlx_get_data_addr(text[6].texture, &text[6].bpp, &text[6].size, &text[6].end);
-	text[6].name = ft_strdup("skyrev");
-	printf("tabdeath\n");
 	text[7].texture = mlx_xpm_file_to_image(ptr->mlx, "./textures/tabdeath.xpm", &text[7].a, &text[7].b);
 	text[7].addr = mlx_get_data_addr(text[7].texture, &text[7].bpp, &text[7].size, &text[7].end);
-	text[7].name = ft_strdup("tabdeath");
-	printf("mapbg\n");
 	text[8].texture = mlx_xpm_file_to_image(ptr->mlx, "./textures/mapbg.xpm", &text[8].a, &text[8].b);
 	text[8].addr = mlx_get_data_addr(text[8].texture, &text[8].bpp, &text[8].size, &text[8].end);
-	text[8].name = ft_strdup("mapbg");
 	return (text);
 }
 
-int	create_window(t_mlx *ptr, char **av, char **map)
+
+void	destroy_imgs(t_mlx *ptr, t_text *imgs, int i)
+{
+	while (i < ptr->n_imgs)
+	{
+		mlx_destroy_image(ptr->mlx, imgs[i].texture);
+		i++;
+	}
+	mlx_destroy_image(ptr->mlx, ptr->imap);
+	mlx_destroy_image(ptr->mlx, ptr->iplayer);
+}
+
+int	create_window(t_mlx *ptr, char **map)
 {
 	ptr->mlx = mlx_init();
 	if (!ptr->mlx)
@@ -909,15 +923,12 @@ int	create_window(t_mlx *ptr, char **av, char **map)
 		mlx_destroy_display(ptr->mlx);
 		return (0);
 	}
-	printf("imap\n");
 	ptr->imap = mlx_new_image(ptr->mlx, 9 * 16, 9 * 16);
 	ptr->addr = mlx_get_data_addr(ptr->imap, &ptr->bpp, &ptr->size_line, &ptr->endian);
-	printf("iplayer\n");
 	ptr->iplayer = mlx_new_image(ptr->mlx, ptr->hres, ptr->vres);
 	ptr->textaddr = mlx_get_data_addr(ptr->iplayer, &ptr->bbpp, &ptr->bsize_line, &ptr->bendian);
 	ptr->text = create_imgs(ptr);
-	(void)av;
-	(void)map;
+	create_hud(ptr);
 	draw_posmap(ptr, map, ((int)ptr->px >> 6), ((int)ptr->py >> 6));
 	draw_direction(ptr, rgb_to_hex(255, 0,214,111), ptr->fov);
 	return (1);
@@ -946,7 +957,7 @@ int	key_handle(int keycode, t_mlx *ptr)
 	}
 	if (!ptr->released)
 		ptr->released = keycode;
-	draw_direction(ptr, rgb_to_hex(255, 0,214,111), ptr->fov);
+	/*	draw_direction(ptr, rgb_to_hex(255, 0,214,111), ptr->fov);	*/
 	if (ptr->released != keycode)
 	{
 		if (ptr->released == 65505)
@@ -1041,7 +1052,7 @@ int	key_handle(int keycode, t_mlx *ptr)
 	if (keycode == 65307)
 		ptr->end = 1;
 	ptr->sprint = cpy;
-	draw_direction(ptr, rgb_to_hex(255, 0,214,111), ptr->fov);
+	/*	draw_direction(ptr, rgb_to_hex(255, 0,214,111), ptr->fov);	*/
 	return (1);
 }
 
@@ -1074,6 +1085,7 @@ int	nullfunc(t_mlx	*ptr)	//fonction echap pour le mlx_loop_hook
 {
 	int	calibrageleft;
 	int	calibrageright;
+	//mlx_mouse_move(ptr->mlx, ptr->win, ptr->hres >> 1, ptr->vres >> 1);
 	if (ptr->end == 1)
 		mlx_destroy_window(ptr->mlx, ptr->win);
 	if (!ptr->last_pressed  && ptr->press_start && ptr->released) //Permet d'appliquer le move en buffer
@@ -1121,8 +1133,14 @@ int	nullfunc(t_mlx	*ptr)	//fonction echap pour le mlx_loop_hook
 			ptr->px += cos(calibrageright) * 5;
 			ptr->py += sin(calibrageright) * 5;
 		}
-		draw_direction(ptr, rgb_to_hex(255, 0,214,111), ptr->fov);
+		/*	draw_direction(ptr, rgb_to_hex(255, 0,214,111), ptr->fov);	*/
 	}
+	else
+		usleep_(32000);
+	draw_direction(ptr, rgb_to_hex(255, 0,214,111), ptr->fov);
+	ptr->anim += 0.2;
+	if (ptr->anim >= 3)
+		ptr->anim = 0;
 	return (0);
 }
 
@@ -1192,12 +1210,83 @@ void	change_map(t_mlx *ptr)
 	}
 }
 
-int	mouse_(int keycode, t_mlx *ptr)
+void	fixed_mlx_hide(Display *mlx, t_win_list	*win)
 {
+	XFixesHideCursor(mlx, win->window);
+	XFlush(mlx);
+}
+int	mouse_buttons(int keycode, t_mlx *ptr)
+{
+	if (keycode == 1)
+		printf("Left click\n");
+	if (keycode == 3)
+		printf("Right Click\n");
+	if (keycode == 4)
+		printf("Scrolling up\n");
+	if (keycode == 5)
+		printf("Scrolling down\n");
 	(void)ptr;
-	(void)keycode;
-	//printf("keycode = %d\n", keycode);
 	return (0);
+}
+
+/*void	rotate_right(int x, int y, int diff, t_mlx *ptr)
+  {
+
+  }
+
+  void	rotate_left(int x, int y, int diff, t_mlx *ptr)
+  {
+
+  }*/
+
+int	mouse_rotation(int x, int y, t_mlx *ptr)
+{
+	//	int	diff;
+
+	//	diff = abs(ptr->mouse.x - x);
+	if (x < ptr->hres >> 1)
+	{
+		ptr->pa -= 0.002;
+		if (ptr->pa < 0)
+			ptr->pa += 2 * PI;
+		ptr->pdx = cos(ptr->pa) * 5;
+		ptr->pdy = sin(ptr->pa) * 5;
+	}
+	if (x > ptr->hres >> 1)
+	{
+		ptr->pa += 0.002;
+		if (ptr->pa > 2 * PI)
+			ptr->pa -= 2 * PI;
+		ptr->pdx = cos(ptr->pa) * 5;
+		ptr->pdy = sin(ptr->pa) * 5;
+	}
+	if (x < (int)(ptr->hres * 0.3) || x > (int)(ptr->hres * 0.7))
+		mlx_mouse_move(ptr->mlx, ptr->win, ptr->hres >> 1, ptr->vres >> 1);
+	else if (y < (int)(ptr->vres * 0.3) || y > (int)(ptr->vres * 0.7))
+		mlx_mouse_move(ptr->mlx, ptr->win, ptr->hres >> 1, ptr->vres >> 1);
+	/*if (y < ptr->vres >> 1)
+	  {
+
+	  }
+	  if (y > ptr->vres >> 1)
+	  {
+
+	  }*/
+	//mlx_mouse_move(ptr->mlx, ptr->win, ptr->hres >> 1, ptr->vres >> 1);
+	(void)ptr;
+	(void)y;
+	return (0);
+}
+
+void	create_hooks(t_mlx *ptr)
+{
+	//fixed_mlx_hide(ptr->mlx, ptr->win);
+	//mlx_mouse_hide(ptr->mlx, ptr->win);
+	//mlx_mouse_move(ptr->mlx, ptr->win, ptr->hres >> 1, ptr->vres >> 1);
+	mlx_hook(ptr->win, KeyPress, KeyPressMask, key_handle, ptr);
+	mlx_hook(ptr->win, KeyRelease, KeyReleaseMask, release, ptr);
+	//mlx_hook(ptr->win, 4, 0x4, mouse_buttons, ptr);
+	//mlx_hook(ptr->win, 6, 0x40, mouse_rotation, ptr);
 }
 
 int main(int ac, char **av)
@@ -1258,6 +1347,7 @@ int main(int ac, char **av)
 			ptr.pi3 = 3 * PI / 2;
 			ptr.pz = 1;
 			ptr.magic = 1;
+			ptr.anim = 0;
 			ptr.paintings = 0;
 			ptr.released = 0; //permet le double input (deplacement en diagonal)
 			ptr.last_pressed = 0;	//fluidifie les inputs
@@ -1265,11 +1355,12 @@ int main(int ac, char **av)
 			ptr.sprint = 1;		//multiplicateur vitesse de deplacement
 			ptr.end = 0;	//check pour la fin de jeu
 			//ptr.ray = &ray;
-			ptr.fov = 60;
+			ptr.fov = 90;
 			//ptr.hres = 1024;
 			//ptr.vres = 512;
 			ptr.hres = 1280;
 			ptr.vres = 720;
+			ptr.n_imgs = 9;
 			ptr.dra = deg_to_rad(0, ptr.fov) / (ptr.hres / 4);
 			ptr.raysize = (ptr.hres + 32) * ptr.vres * 4;
 			get_map_xy(ptr.map, &ptr);
@@ -1284,17 +1375,17 @@ int main(int ac, char **av)
 			ptr.imgsize = ((ptr.mx * 64) + 32) * (ptr.my * 64) * 4;
 			printf("size = %d\n", ptr.imgsize);
 			//ptr.pixmap = expandmap(ptr, ptr.map);
-			create_window(&ptr, av, ptr.map);
+			create_window(&ptr,ptr.map);
+			//mlx_hook(ptr.win, 6, 0x40, mouse_rotation, &ptr);
+			create_hooks(&ptr);
 			mlx_loop_hook(ptr.mlx, nullfunc, &ptr);
-			mlx_hook(ptr.win, KeyPress, KeyPressMask, key_handle, &ptr);
-			mlx_hook(ptr.win, KeyRelease, KeyReleaseMask, release, &ptr);
-			//mlx_mouse_hide(ptr.mlx, ptr.win);
-			mlx_hook(ptr.win, ButtonPress, ButtonPressMask, mouse_, &ptr);
-			mlx_hook(ptr.win, MotionNotify, PointerMotionMask, mouse_, &ptr);
 			mlx_loop(ptr.mlx);
+			destroy_imgs(&ptr, ptr.text, 0);
 			mlx_destroy_display(ptr.mlx);
+			free(ptr.text);
 			free(ptr.mlx);
 			free_array(ptr.map);
+			free_array(ptr.exp);
 		}
 		/*	FIN BLOC MLX	*/
 		/* implementer des trucs a faire avec la map */
