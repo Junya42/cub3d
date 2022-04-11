@@ -36,8 +36,7 @@ void	*mlx_new_window(t_xvar *xvar,int size_x,int size_y,char *title)
 	xswa.event_mask = 0xFFFFFF;	/* all events */
 	if (!(new_win = malloc(sizeof(*new_win))))
 		return ((void *)0);
-	/*	default = 0 0 */
-	new_win->window = XCreateWindow(xvar->display,xvar->root,300,300,size_x,size_y,
+	new_win->window = XCreateWindow(xvar->display,xvar->root,0,0,size_x,size_y,
 					0,CopyFromParent,InputOutput,xvar->visual,
 					CWEventMask|CWBackPixel|CWBorderPixel|
 					CWColormap,&xswa);

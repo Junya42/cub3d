@@ -6,12 +6,12 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 01:55:44 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/10 23:38:52 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/11 04:42:33 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-#include "../minilibx/mlx_int.h"
+//#include "../minilibx/mlx_int.h"
 
 void	draw_posmap(t_mlx *ptr, char **map, int x, int y);
 
@@ -348,11 +348,11 @@ void	pxl_to_ray(t_mlx *ptr, float x, float y, unsigned int color)	//OK
 		y = 0;
 	//printf("ptr->bsize_line%d\n", ptr->bsize_line);
 	size = (int)(y * ptr->bsize_line + x * (ptr->bbpp / 8));
-	if (size < 0 || size >= ptr->raysize) //(width + 32) * height * 4
+	if (size < 0 || size >= (ptr->hres + 32) * ptr->vres * 4) //(width + 32) * height * 4
 		return ;
 	tmp = ptr->textaddr + size;
 	completer = 0;
-	while (completer < 4)
+	while (completer < ptr->brightness)
 	{
 		*((unsigned int *)tmp + completer) = color;
 		completer++;
@@ -447,6 +447,7 @@ void	draw_map(t_mlx *ptr, char **map, int x, int y)
 {
 	int	color;
 
+	
 	while (map[y])
 	{
 		x = 0;
@@ -492,6 +493,7 @@ void	draw_posmap(t_mlx *ptr, char **map, int x, int y)
 		i++;
 	}
 	xmax = ogx + 5;
+	
 	j = 0;
 	while (j < 5)
 	{
@@ -509,6 +511,7 @@ void	draw_posmap(t_mlx *ptr, char **map, int x, int y)
 		x = xmax - 5 - i;
 		while (map[y][x] && x <= xmax)
 		{
+	
 			if (map[y][x] == '1')
 				color = rgb_to_hex(255, 191, 191, 191);
 			else if (check_valid(map[y][x], "NSEW0"))
@@ -549,7 +552,7 @@ float	deg_to_rad(float angle, float degree)	//OK
 	return (angle);
 }
 
-void	print_hud(t_mlx *ptr, float i)
+/*void	print_hud(t_mlx *ptr, float i)
 {
 
 	if (i <= 1)
@@ -558,7 +561,7 @@ void	print_hud(t_mlx *ptr, float i)
 		mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->b2, ptr->hres / 2 - 128, ptr->vres - 78);
 	if (i <= 3)
 		mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->b3, ptr->hres / 2 - 128, ptr->vres - 78);
-}
+}*/
 
 void	draw_direction(t_mlx *ptr, int color, int fov)
 {
@@ -787,7 +790,7 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 		i = 0;
 		while (i < offset)
 		{
-			skycolor = pxl_from_img(ptr->text, i, ra * 180 / PI, 6);
+			skycolor = pxl_from_img(ptr->text, i, ra, 6);
 			if (i > offset - 8)
 				pxl_to_ray(ptr, nr, i, skycolor);
 			else
@@ -821,10 +824,10 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 	//draw_player(ptr, 0x7b00ff, (ptr->px - 3) / 64 * 16, (ptr->py - 3) / 64* 16);
 	mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->iplayer, 0, 0);
 	//mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->hud[0].hud, ptr->hres / 2 - 128, ptr->vres - 78);
-	print_hud(ptr, ptr->anim);
-	//draw_posmap(ptr, ptr->map, ((int)ptr->px >> 6), ((int)ptr->py >> 6));
+	//print_hud(ptr, ptr->anim);
+	draw_posmap(ptr, ptr->map, ((int)ptr->px >> 6), ((int)ptr->py >> 6));
 	//mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->imap, 0, 0);
-	//draw_player(ptr, 0x7b00ff, (ptr->px - 3) / 64 * 16, (ptr->py - 3) / 64* 16);
+	draw_player(ptr, 0x7b00ff, (ptr->px - 3) / 64 * 16, (ptr->py - 3) / 64* 16);
 	//draw_cast(ptr, rgb_to_hex(255, 255, 0, 255), 60);
 	//mlx_draw_line(ptr->mlx, ptr->win, a, b, a + ad * i, b + bd * i, color);
 	//printf("hitpos ry = %f >>> hitpos rx = %f\n", ry, rx);
@@ -891,7 +894,7 @@ t_text	*create_imgs(t_mlx *ptr)
 	text[4].addr = mlx_get_data_addr(text[4].texture, &text[4].bpp, &text[4].size, &text[4].end);
 	text[5].texture = mlx_xpm_file_to_image(ptr->mlx, "./textures/doomfloor.xpm", &text[5].a, &text[5].b);
 	text[5].addr = mlx_get_data_addr(text[5].texture, &text[5].bpp, &text[5].size, &text[5].end);
-	text[6].texture = mlx_xpm_file_to_image(ptr->mlx, "./textures/skyrev.xpm", &text[6].a, &text[6].b);
+	text[6].texture = mlx_xpm_file_to_image(ptr->mlx, "./textures/redsky.xpm", &text[6].a, &text[6].b);
 	text[6].addr = mlx_get_data_addr(text[6].texture, &text[6].bpp, &text[6].size, &text[6].end);
 	text[7].texture = mlx_xpm_file_to_image(ptr->mlx, "./textures/tabdeath.xpm", &text[7].a, &text[7].b);
 	text[7].addr = mlx_get_data_addr(text[7].texture, &text[7].bpp, &text[7].size, &text[7].end);
@@ -925,10 +928,10 @@ int	create_window(t_mlx *ptr, char **map)
 	}
 	ptr->imap = mlx_new_image(ptr->mlx, 9 * 16, 9 * 16);
 	ptr->addr = mlx_get_data_addr(ptr->imap, &ptr->bpp, &ptr->size_line, &ptr->endian);
-	ptr->iplayer = mlx_new_image(ptr->mlx, ptr->hres, ptr->vres);
+	ptr->iplayer = mlx_new_image(ptr->mlx, ptr->hres - 1, ptr->vres - 1);
 	ptr->textaddr = mlx_get_data_addr(ptr->iplayer, &ptr->bbpp, &ptr->bsize_line, &ptr->bendian);
 	ptr->text = create_imgs(ptr);
-	create_hud(ptr);
+	//create_hud(ptr);
 	draw_posmap(ptr, map, ((int)ptr->px >> 6), ((int)ptr->py >> 6));
 	draw_direction(ptr, rgb_to_hex(255, 0,214,111), ptr->fov);
 	return (1);
@@ -944,11 +947,22 @@ int	key_handle(int keycode, t_mlx *ptr)
 	cpy = ptr->sprint;
 	dash = 0;
 	if (keycode == 65505)
-		ptr->sprint = 1.7;
+	{
+		ptr->brightness--;
+		if (ptr->brightness <= 1)
+			ptr->brightness = 1;
+		/*mlx_destroy_image(ptr->mlx, ptr->iplayer);
+		ptr->iplayer = mlx_new_image(ptr->mlx, ptr->hres, ptr->vres);
+		ptr->textaddr = mlx_get_data_addr(ptr->iplayer, &ptr->bbpp, &ptr->bsize_line, &ptr->bendian);*/
+	}
+		//ptr->sprint = 1.7;
 	if (keycode == 65507)
 	{
-		ptr->sprint += 5; 
-		dash = 1;
+		ptr->brightness++;
+		if (ptr->brightness > 4)
+			ptr->brightness = 4;
+		//ptr->sprint += 5; 
+		//dash = 1;
 	}
 	if (ptr->released && ptr->released != keycode)
 	{
@@ -1053,6 +1067,7 @@ int	key_handle(int keycode, t_mlx *ptr)
 		ptr->end = 1;
 	ptr->sprint = cpy;
 	/*	draw_direction(ptr, rgb_to_hex(255, 0,214,111), ptr->fov);	*/
+	draw_direction(ptr, rgb_to_hex(255, 0,214,111), ptr->fov);
 	return (1);
 }
 
@@ -1133,11 +1148,11 @@ int	nullfunc(t_mlx	*ptr)	//fonction echap pour le mlx_loop_hook
 			ptr->px += cos(calibrageright) * 5;
 			ptr->py += sin(calibrageright) * 5;
 		}
-		/*	draw_direction(ptr, rgb_to_hex(255, 0,214,111), ptr->fov);	*/
+		draw_direction(ptr, rgb_to_hex(255, 0,214,111), ptr->fov);
 	}
-	else
-		usleep_(32000);
-	draw_direction(ptr, rgb_to_hex(255, 0,214,111), ptr->fov);
+	//else
+	//	usleep_(32000);
+	//draw_direction(ptr, rgb_to_hex(255, 0,214,111), ptr->fov);
 	ptr->anim += 0.2;
 	if (ptr->anim >= 3)
 		ptr->anim = 0;
@@ -1210,12 +1225,7 @@ void	change_map(t_mlx *ptr)
 	}
 }
 
-void	fixed_mlx_hide(Display *mlx, t_win_list	*win)
-{
-	XFixesHideCursor(mlx, win->window);
-	XFlush(mlx);
-}
-int	mouse_buttons(int keycode, t_mlx *ptr)
+/*int	mouse_buttons(int keycode, t_mlx *ptr)
 {
 	if (keycode == 1)
 		printf("Left click\n");
@@ -1227,7 +1237,7 @@ int	mouse_buttons(int keycode, t_mlx *ptr)
 		printf("Scrolling down\n");
 	(void)ptr;
 	return (0);
-}
+}*/
 
 /*void	rotate_right(int x, int y, int diff, t_mlx *ptr)
   {
@@ -1239,7 +1249,7 @@ int	mouse_buttons(int keycode, t_mlx *ptr)
 
   }*/
 
-int	mouse_rotation(int x, int y, t_mlx *ptr)
+/*int	mouse_rotation(int x, int y, t_mlx *ptr)
 {
 	//	int	diff;
 
@@ -1264,19 +1274,19 @@ int	mouse_rotation(int x, int y, t_mlx *ptr)
 		mlx_mouse_move(ptr->mlx, ptr->win, ptr->hres >> 1, ptr->vres >> 1);
 	else if (y < (int)(ptr->vres * 0.3) || y > (int)(ptr->vres * 0.7))
 		mlx_mouse_move(ptr->mlx, ptr->win, ptr->hres >> 1, ptr->vres >> 1);
-	/*if (y < ptr->vres >> 1)
-	  {
+	if (y < ptr->vres >> 1)
+	 {
 
 	  }
 	  if (y > ptr->vres >> 1)
 	  {
 
-	  }*/
+	  }
 	//mlx_mouse_move(ptr->mlx, ptr->win, ptr->hres >> 1, ptr->vres >> 1);
 	(void)ptr;
 	(void)y;
 	return (0);
-}
+}*/
 
 void	create_hooks(t_mlx *ptr)
 {
@@ -1361,6 +1371,7 @@ int main(int ac, char **av)
 			ptr.hres = 1280;
 			ptr.vres = 720;
 			ptr.n_imgs = 9;
+			ptr.brightness = 1;
 			ptr.dra = deg_to_rad(0, ptr.fov) / (ptr.hres / 4);
 			ptr.raysize = (ptr.hres + 32) * ptr.vres * 4;
 			get_map_xy(ptr.map, &ptr);

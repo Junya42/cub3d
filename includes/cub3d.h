@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/10 23:38:08 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/11 04:07:56 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # include <sys/types.h>
 # include <math.h>
 # include "../minilibx/mlx.h"
-# include "/usr/include/X11/extensions/Xfixes.h"
 # include "/usr/include/X11/X.h"
 # include "../libft/includes/libft.h"
 # include "../ft_printf/includes/ft_printf.h"
@@ -119,6 +118,7 @@ typedef struct s_mlx
 	float	pdy;
 	double	pa;
 	double	pz;
+	int		brightness;
 	int		released;
 	int		last_pressed;
 	int		press_start;

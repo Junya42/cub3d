@@ -13,12 +13,11 @@ int		mlx_mouse_hide(t_xvar *xvar, t_win_list *win)
 	Pixmap blank;
 	XColor dummy;
 
-	dummy.red = dummy.green = dummy.blue = 0;
 	blank = XCreateBitmapFromData(xvar->display, win->window, data, 1, 1);
 	cursor = XCreatePixmapCursor(xvar->display, blank, blank, &dummy, &dummy, 0, 0);
 	XDefineCursor(xvar->display, win->window, cursor);
-	XFreeCursor(xvar->display, cursor);
 	XFreePixmap(xvar->display, blank);
+	XFreeCursor(xvar->display, cursor);
 }
 
 int		mlx_mouse_show(t_xvar *xvar, t_win_list *win)
