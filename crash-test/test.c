@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 01:55:44 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/11 04:42:33 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/12 21:33:02 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -595,7 +595,10 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 	float	npx = (((int)ptr->px >> 6) << 6);
 	int		scalex = ptr->hres;
 	int		scaley = ptr->vres;
+	float	degree = 180 / PI;
 	int		nray;	//OK
+	float	moon = (7 * PI / 6);
+	int		defsky;
 
 	nray = ptr->hres / 4;
 	r = 0 ;
@@ -605,6 +608,10 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 		ra += dpi;
 	if (ra > dpi)
 		ra -= dpi;
+	if (ra > moon && ra <= ptr->dpi)
+		defsky = 1;
+	else
+		defsky = 0;
 	//printf("ra = %f\n", ra);
 	//printf("ptr->pa = %f\n", ptr->pa);
 	//printf("nray %d\n", nray);
@@ -640,7 +647,7 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 			yo = 64;
 			xo = -yo * onetan;
 		}
-		while (limit < 20) // < ptr->my
+		while (limit < ptr->my * 8) // < ptr->my
 		{
 			mx = (int)(rx);
 			my = (int)(ry);
@@ -693,7 +700,7 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 			xo = 64;
 			yo = -xo * ntan;
 		}
-		while (limit < 20) // < ptr->my
+		while (limit < ptr->my * 8) // < ptr->my
 		{
 			mx = (int)(rx);
 			my = (int) (ry);
@@ -755,10 +762,15 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 		(void)scalex;
 		float	nr = r * 4;
 		int		skycolor;
+		int		direction = 0;
 		while (i < raycast)
 		{
 			if (vray < hray)
 			{
+				if (vdir % 2)
+					direction = 1;
+				else
+					direction = 2;
 				if (vdir == 1)
 					tcolor = shade(pxl_from_img(ptr->text, current_px, case1, 0), shadow);
 				if (vdir == 2)
@@ -770,6 +782,10 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 			}
 			if (hray < vray)
 			{
+				if (hdir % 2)
+					direction = 1;
+				else
+					direction = 2;
 				if (hdir == 1)
 					tcolor = shade(pxl_from_img(ptr->text, current_px, case3, 2), shadow);
 				if (hdir == 2)
@@ -788,27 +804,147 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 			i++;
 		}
 		i = 0;
-		while (i < offset)
+		int	j = offset + raycast;	//Debut au bas du mur
+		float	jlimit;
+		next_px = 64 / raycast;
+		offpx = 0;
+		if (raycast > scaley * ptr->pz + 64)
 		{
-			skycolor = pxl_from_img(ptr->text, i, ra, 6);
+			offpx = (raycast - scaley * ptr->pz) / 2;
+			raycast = scaley * ptr->pz + 64;
+		}
+		current_px = next_px * offpx;
+		/*while (i < offset)
+		{
+			skycolor = pxl_from_img(ptr->text, i, (int)(ra * degree * 2) % ptr->hres, 9);
+			if (ra > moon && ra <= ptr->dpi)
+				skycolor = pxl_from_img(ptr->text, i, (int)(ra * degree) , 6);
+			(void)defsky;
+			(void)moon;
+			(void)degree;
+			while (j < scaley)	//On parcourt du bas du mur jusqu'au bas de la fenetre
+			{
+				shadow = 0.2 + 0.8 * (1 - j / (scaley / 2));
+				jlimit = j - (scaley * ptr->pz / 2);	//L'ecart de hauteur entre le point j et la hauteur de vision du joueur
+				current_px = ptr->px / 2 + cos(ra) * 200 * 64 / jlimit / fix_fisheye(ptr->pa, ra, 1); //x
+				next_px = ptr->py / 2 + sin(ra) * 200 * 64 / jlimit / fix_fisheye(ptr->pa, ra, 1);	//y
+				tcolor = pxl_from_img(ptr->text, (int)next_px % 64, (int)current_px % 64, 5);
+				tcolor += skycolor;
+				shade(tcolor, shadow);
+				pxl_to_ray(ptr, nr, j, tcolor);
+				j++;
+			}
 			if (i > offset - 8)
 				pxl_to_ray(ptr, nr, i, skycolor);
 			else
 				pxl_to_ray(ptr, nr, i, skycolor);
 			i++;
-		}
+		}*/
+		int	rsky;
+		int	ri;
+		int	jcpy = j + 100;
 
-		int	j = offset + raycast;	//Debut au bas du mur
-		float	jlimit;
-		while (j < scaley)	//On parcourt du bas du mur jusqu'au bas de la fenetre
+		int	limiter = 0;
+		float	savepx = current_px;
+		float	savenpx = next_px;
+		float	test_px;
+		while (i < offset)
 		{
+			skycolor = pxl_from_img(ptr->text, i, (int)(ra * 360), 9);
+			if ((ra > moon &&  ra > 0) || ra > PI / 5)
+				skycolor = pxl_from_img(ptr->text, i, (int)(ra * degree) , 6);
+			(void)defsky;
+			(void)moon;
+			(void)degree;
+			ri = i;
+			limiter = 0;
+			test_px = savepx;
+			while (j < scaley)	//On parcourt du bas du mur jusqu'au bas de la fenetre
+			{
+			//	if (j < jcpy)
+			//		shadow = 0.1;
+			//	else
+			//		shadow = 1;
+				//shadow = 1;
+				(void)jcpy;
+				rsky = shade(pxl_from_img(ptr->text, ri % 100, (int)(ra * 360), 9), 0.7);
+				(void)rsky;
+				if ((ra > moon &&  ra > 0) || ra > PI / 5)
+					rsky = pxl_from_img(ptr->text, ri, (int)(ra * degree), 6);
+				jlimit = j - (scaley * ptr->pz / 2);	//L'ecart de hauteur entre le point j et la hauteur de vision du joueur
+				current_px = ptr->px / 2 + cos(ra) * 200 * 64 / jlimit / fix_fisheye(ptr->pa, ra, 1); //x
+				next_px = ptr->py / 2 + sin(ra) * 200 * 64 / jlimit / fix_fisheye(ptr->pa, ra, 1);	//y
+				if (direction % 2 == 0 && limiter < raycast / 4)
+					tcolor = shade(pxl_from_img(ptr->text, (int)next_px % 64, (int)current_px % 64, 5), 0.2);
+				else
+					tcolor = pxl_from_img(ptr->text, (int)next_px % 64, (int)current_px % 64, 5);
+				if (limiter < raycast)
+				{
+					if (vray < hray)
+					{
+						if (vdir == 1)
+							tcolor += shade(pxl_from_img(ptr->text, test_px, case1, 0), shadow - 0.3);
+						if (vdir == 2)
+							tcolor += shade(pxl_from_img(ptr->text, test_px, case2, 1), shadow - 0.3);
+						if (vdir == 3)
+							tcolor += shade(pxl_from_img(ptr->text, test_px, case1, 4), shadow - 0.6);
+						if (vdir == 4)
+							tcolor += shade(pxl_from_img(ptr->text, test_px, case2, 4), shadow - 0.6) ;
+					}
+					if (hray < vray)
+					{
+						if (hdir % 2)
+							direction = 3;
+						else
+							direction = 4;
+						if (hdir == 1)
+							tcolor += shade(pxl_from_img(ptr->text, test_px, case3, 2), shadow - 0.3);
+						if (hdir == 2)
+							tcolor += shade(pxl_from_img(ptr->text, test_px, case4, 3), shadow - 0.3);
+						if (hdir == 3)
+							tcolor += shade(pxl_from_img(ptr->text, test_px, case3, 4), shadow - 0.3);
+						if (hdir == 4)
+							tcolor += shade(pxl_from_img(ptr->text, test_px, case4, 4), shadow - 0.3);
+						if (hdir == 5)
+							tcolor += shade(pxl_from_img(ptr->text, test_px, case3, 7), shadow - 0.3);
+						if (hdir == 6)
+							tcolor += shade(pxl_from_img(ptr->text, test_px, case4, 7), shadow - 0.3);
+					}
+				}
+				tcolor += rsky;
+				/*mx = (int)(current_px);
+				my = (int)(next_px);
+				if ((mx < ptr->ex && my < ptr->ey && mx > -1 && my > -1) && check_valid(ptr->exp[my][mx], "12"))
+					tcolor = 0x000000;*/
+				test_px -= savenpx;
+				//if (limiter < raycast / 2)
+				//	shade(tcolor, 0.3);
+					//tcolor += pxl_from_img(ptr->text, (int)next_px % 64, (int)current_px % 64, 5);
+				//else
+					//tcolor += rsky;
+					//shade(tcolor, shadow);
+					if (shadow == 0.1)
+						tcolor = 0x000000;
+				pxl_to_ray(ptr, nr, j - 1,tcolor);
+				j++;
+				ri--;
+				limiter++;
+				//current_px += next_px;
+			}
+			pxl_to_ray(ptr, nr, i, skycolor);
+			i++;
+		}
+		//int	j = offset + raycast;	//Debut au bas du mur
+		//float	jlimit;
+		/*	while (j < scaley)	//On parcourt du bas du mur jusqu'au bas de la fenetre
+			{
 			jlimit = j - (scaley * ptr->pz / 2);	//L'ecart de hauteur entre le point j et la hauteur de vision du joueur
 			current_px = ptr->px / 2 + cos(ra) * 200 * 64 / jlimit / fix_fisheye(ptr->pa, ra, 1); //x
 			next_px = ptr->py / 2 + sin(ra) * 200 * 64 / jlimit / fix_fisheye(ptr->pa, ra, 1);	//y
 			tcolor = shade(pxl_from_img(ptr->text, (int)next_px % 64, (int)current_px % 64, 5), shadow);
 			pxl_to_ray(ptr, nr, j, tcolor);
 			j++;
-		}
+			}*/
 		ra += ptr->dra;
 		if (ra < 0)
 			ra += dpi;
@@ -828,6 +964,9 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 	draw_posmap(ptr, ptr->map, ((int)ptr->px >> 6), ((int)ptr->py >> 6));
 	//mlx_put_image_to_window(ptr->mlx, ptr->win, ptr->imap, 0, 0);
 	draw_player(ptr, 0x7b00ff, (ptr->px - 3) / 64 * 16, (ptr->py - 3) / 64* 16);
+	//mlx_draw_line(ptr->mlx, ptr->win ,0, (int)scaley - offset + raycast * 0.7, ptr->hres, (int)scaley - offset + raycast * 0.7, 0x7b00ff);
+	//mlx_draw_line(ptr->mlx, ptr->win, ptr->px / 64 * 16, ptr->py / 64 * 16, savevx / 64 * 16, savevy / 64 * 16, vcolor);
+	//mlx_draw_line(ptr->mlx, ptr->win, ptr->px / 64 * 16, ptr->py / 64 * 16, savehx / 64 * 16, savehy / 64 * 16, hcolor);
 	//draw_cast(ptr, rgb_to_hex(255, 255, 0, 255), 60);
 	//mlx_draw_line(ptr->mlx, ptr->win, a, b, a + ad * i, b + bd * i, color);
 	//printf("hitpos ry = %f >>> hitpos rx = %f\n", ry, rx);
@@ -876,7 +1015,7 @@ t_text	*create_imgs(t_mlx *ptr)
 {
 	t_text *text;
 	//printf("OTHER FUNCrbpp = %d > rsize = %d > rendian = %d\n", ptr->bbpp, ptr->bsize_line, ptr->bendian);
-	text = (t_text *)malloc(sizeof(t_text) * 9);
+	text = (t_text *)malloc(sizeof(t_text) * 10);
 	if (!text)
 	{
 		printf("Memory allocation failed for images\n");
@@ -900,6 +1039,8 @@ t_text	*create_imgs(t_mlx *ptr)
 	text[7].addr = mlx_get_data_addr(text[7].texture, &text[7].bpp, &text[7].size, &text[7].end);
 	text[8].texture = mlx_xpm_file_to_image(ptr->mlx, "./textures/mapbg.xpm", &text[8].a, &text[8].b);
 	text[8].addr = mlx_get_data_addr(text[8].texture, &text[8].bpp, &text[8].size, &text[8].end);
+	text[9].texture = mlx_xpm_file_to_image(ptr->mlx, "./textures/redsky2.xpm", &text[9].a, &text[9].b);
+	text[9].addr = mlx_get_data_addr(text[9].texture, &text[9].bpp, &text[9].size, &text[9].end);
 	return (text);
 }
 
@@ -952,10 +1093,10 @@ int	key_handle(int keycode, t_mlx *ptr)
 		if (ptr->brightness <= 1)
 			ptr->brightness = 1;
 		/*mlx_destroy_image(ptr->mlx, ptr->iplayer);
-		ptr->iplayer = mlx_new_image(ptr->mlx, ptr->hres, ptr->vres);
-		ptr->textaddr = mlx_get_data_addr(ptr->iplayer, &ptr->bbpp, &ptr->bsize_line, &ptr->bendian);*/
+		  ptr->iplayer = mlx_new_image(ptr->mlx, ptr->hres, ptr->vres);
+		  ptr->textaddr = mlx_get_data_addr(ptr->iplayer, &ptr->bbpp, &ptr->bsize_line, &ptr->bendian);*/
 	}
-		//ptr->sprint = 1.7;
+	//ptr->sprint = 1.7;
 	if (keycode == 65507)
 	{
 		ptr->brightness++;
@@ -1226,18 +1367,18 @@ void	change_map(t_mlx *ptr)
 }
 
 /*int	mouse_buttons(int keycode, t_mlx *ptr)
-{
-	if (keycode == 1)
-		printf("Left click\n");
-	if (keycode == 3)
-		printf("Right Click\n");
-	if (keycode == 4)
-		printf("Scrolling up\n");
-	if (keycode == 5)
-		printf("Scrolling down\n");
-	(void)ptr;
-	return (0);
-}*/
+  {
+  if (keycode == 1)
+  printf("Left click\n");
+  if (keycode == 3)
+  printf("Right Click\n");
+  if (keycode == 4)
+  printf("Scrolling up\n");
+  if (keycode == 5)
+  printf("Scrolling down\n");
+  (void)ptr;
+  return (0);
+  }*/
 
 /*void	rotate_right(int x, int y, int diff, t_mlx *ptr)
   {
@@ -1250,42 +1391,42 @@ void	change_map(t_mlx *ptr)
   }*/
 
 /*int	mouse_rotation(int x, int y, t_mlx *ptr)
+  {
+//	int	diff;
+
+//	diff = abs(ptr->mouse.x - x);
+if (x < ptr->hres >> 1)
 {
-	//	int	diff;
+ptr->pa -= 0.002;
+if (ptr->pa < 0)
+ptr->pa += 2 * PI;
+ptr->pdx = cos(ptr->pa) * 5;
+ptr->pdy = sin(ptr->pa) * 5;
+}
+if (x > ptr->hres >> 1)
+{
+ptr->pa += 0.002;
+if (ptr->pa > 2 * PI)
+ptr->pa -= 2 * PI;
+ptr->pdx = cos(ptr->pa) * 5;
+ptr->pdy = sin(ptr->pa) * 5;
+}
+if (x < (int)(ptr->hres * 0.3) || x > (int)(ptr->hres * 0.7))
+mlx_mouse_move(ptr->mlx, ptr->win, ptr->hres >> 1, ptr->vres >> 1);
+else if (y < (int)(ptr->vres * 0.3) || y > (int)(ptr->vres * 0.7))
+mlx_mouse_move(ptr->mlx, ptr->win, ptr->hres >> 1, ptr->vres >> 1);
+if (y < ptr->vres >> 1)
+{
 
-	//	diff = abs(ptr->mouse.x - x);
-	if (x < ptr->hres >> 1)
-	{
-		ptr->pa -= 0.002;
-		if (ptr->pa < 0)
-			ptr->pa += 2 * PI;
-		ptr->pdx = cos(ptr->pa) * 5;
-		ptr->pdy = sin(ptr->pa) * 5;
-	}
-	if (x > ptr->hres >> 1)
-	{
-		ptr->pa += 0.002;
-		if (ptr->pa > 2 * PI)
-			ptr->pa -= 2 * PI;
-		ptr->pdx = cos(ptr->pa) * 5;
-		ptr->pdy = sin(ptr->pa) * 5;
-	}
-	if (x < (int)(ptr->hres * 0.3) || x > (int)(ptr->hres * 0.7))
-		mlx_mouse_move(ptr->mlx, ptr->win, ptr->hres >> 1, ptr->vres >> 1);
-	else if (y < (int)(ptr->vres * 0.3) || y > (int)(ptr->vres * 0.7))
-		mlx_mouse_move(ptr->mlx, ptr->win, ptr->hres >> 1, ptr->vres >> 1);
-	if (y < ptr->vres >> 1)
-	 {
+}
+if (y > ptr->vres >> 1)
+{
 
-	  }
-	  if (y > ptr->vres >> 1)
-	  {
-
-	  }
-	//mlx_mouse_move(ptr->mlx, ptr->win, ptr->hres >> 1, ptr->vres >> 1);
-	(void)ptr;
-	(void)y;
-	return (0);
+}
+//mlx_mouse_move(ptr->mlx, ptr->win, ptr->hres >> 1, ptr->vres >> 1);
+(void)ptr;
+(void)y;
+return (0);
 }*/
 
 void	create_hooks(t_mlx *ptr)
@@ -1365,13 +1506,13 @@ int main(int ac, char **av)
 			ptr.sprint = 1;		//multiplicateur vitesse de deplacement
 			ptr.end = 0;	//check pour la fin de jeu
 			//ptr.ray = &ray;
-			ptr.fov = 90;
+			ptr.fov = 68;
 			//ptr.hres = 1024;
 			//ptr.vres = 512;
 			ptr.hres = 1280;
 			ptr.vres = 720;
-			ptr.n_imgs = 9;
-			ptr.brightness = 1;
+			ptr.n_imgs = 10;
+			ptr.brightness = 4;
 			ptr.dra = deg_to_rad(0, ptr.fov) / (ptr.hres / 4);
 			ptr.raysize = (ptr.hres + 32) * ptr.vres * 4;
 			get_map_xy(ptr.map, &ptr);
