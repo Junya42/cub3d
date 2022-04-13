@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/11 04:07:56 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/13 01:53:24 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,8 @@ typedef struct s_mlx
 	float	pdx;
 	float	py;
 	float	pdy;
+	float	validx;
+	float	validy;
 	double	pa;
 	double	pz;
 	int		brightness;

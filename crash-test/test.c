@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 01:55:44 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/12 21:33:02 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/13 02:23:16 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 //#include "../minilibx/mlx_int.h"
 
 void	draw_posmap(t_mlx *ptr, char **map, int x, int y);
+int	adjacent(t_mlx *ptr, int x, int y, char c);
 
 void	check_line(char *str)
 {
@@ -518,9 +519,11 @@ void	draw_posmap(t_mlx *ptr, char **map, int x, int y)
 				color = rgb_to_hex(255, 43, 43, 43);
 			else if (map[y][x] == '2')
 				color = 0xba0047;
+			else if (map[y][x] == 'D')
+				color = 0xd0ff00;
 			else
 				color = rgb_to_hex(255, 99, 14, 48);
-			if (check_valid(map[y][x], "NSEW12 "))
+			if (check_valid(map[y][x], "DNSEW12 "))
 				draw_index((float)x * 16 + 2, (x + 1) * 16 - 2, (float)y * 16 + 2, (y + 1) * 16 - 2, color, ptr);
 			x++;
 		}
@@ -774,11 +777,11 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 				if (vdir == 1)
 					tcolor = shade(pxl_from_img(ptr->text, current_px, case1, 0), shadow);
 				if (vdir == 2)
-					tcolor = shade(pxl_from_img(ptr->text, current_px, case2, 1), shadow);
+					tcolor = shade(pxl_from_img(ptr->text, current_px, case2, 1), shadow - 0.15);
 				if (vdir == 3)
-					tcolor = shade(pxl_from_img(ptr->text, current_px, case1, 4), shadow - 0.3);
+					tcolor = shade(pxl_from_img(ptr->text, current_px, case1, 4), shadow);
 				if (vdir == 4)
-					tcolor = shade(pxl_from_img(ptr->text, current_px, case2, 4), shadow - 0.3) ;
+					tcolor = shade(pxl_from_img(ptr->text, current_px, case2, 4), shadow - 0.15) ;
 			}
 			if (hray < vray)
 			{
@@ -789,15 +792,15 @@ void	draw_direction(t_mlx *ptr, int color, int fov)
 				if (hdir == 1)
 					tcolor = shade(pxl_from_img(ptr->text, current_px, case3, 2), shadow);
 				if (hdir == 2)
-					tcolor = shade(pxl_from_img(ptr->text, current_px, case4, 3), shadow);
+					tcolor = shade(pxl_from_img(ptr->text, current_px, case4, 3), shadow - 0.15);
 				if (hdir == 3)
 					tcolor = shade(pxl_from_img(ptr->text, current_px, case3, 4), shadow);
 				if (hdir == 4)
-					tcolor = shade(pxl_from_img(ptr->text, current_px, case4, 4), shadow);
+					tcolor = shade(pxl_from_img(ptr->text, current_px, case4, 4), shadow - 0.15);
 				if (hdir == 5)
 					tcolor = shade(pxl_from_img(ptr->text, current_px, case3, 7), shadow);
 				if (hdir == 6)
-					tcolor = shade(pxl_from_img(ptr->text, current_px, case4, 7), shadow);
+					tcolor = shade(pxl_from_img(ptr->text, current_px, case4, 7), shadow - 0.15);
 			}
 			pxl_to_ray(ptr, (nr), (float)(int)(i + (offset)), tcolor);
 			current_px += next_px;
@@ -1089,9 +1092,7 @@ int	key_handle(int keycode, t_mlx *ptr)
 	dash = 0;
 	if (keycode == 65505)
 	{
-		ptr->brightness--;
-		if (ptr->brightness <= 1)
-			ptr->brightness = 1;
+		ptr->pz = 1.7;
 		/*mlx_destroy_image(ptr->mlx, ptr->iplayer);
 		  ptr->iplayer = mlx_new_image(ptr->mlx, ptr->hres, ptr->vres);
 		  ptr->textaddr = mlx_get_data_addr(ptr->iplayer, &ptr->bbpp, &ptr->bsize_line, &ptr->bendian);*/
@@ -1099,9 +1100,7 @@ int	key_handle(int keycode, t_mlx *ptr)
 	//ptr->sprint = 1.7;
 	if (keycode == 65507)
 	{
-		ptr->brightness++;
-		if (ptr->brightness > 4)
-			ptr->brightness = 4;
+		ptr->pz = 1;
 		//ptr->sprint += 5; 
 		//dash = 1;
 	}
@@ -1137,13 +1136,19 @@ int	key_handle(int keycode, t_mlx *ptr)
 		}
 		if (ptr->released == 'w')
 		{
-			ptr->px += ptr->pdx * ptr->sprint;
-			ptr->py += ptr->pdy * ptr->sprint;
+			if (!check_valid(ptr->exp[(int)(ptr->py + (ptr->pdy * ptr->sprint))][(int)(ptr->px + (ptr->pdy * ptr->sprint))], "12D"))
+			{
+				ptr->px += ptr->pdx * ptr->sprint;
+				ptr->py += ptr->pdy * ptr->sprint;
+			}
 		}
 		if (ptr->released == 's')
 		{
-			ptr->px -= ptr->pdx * ptr->sprint;
-			ptr->py -= ptr->pdy * ptr->sprint;
+			if (!check_valid(ptr->exp[(int)(ptr->py - (ptr->pdy * ptr->sprint))][(int)(ptr->px - (ptr->pdy * ptr->sprint))], "12D"))
+			{
+				ptr->px -= ptr->pdx * ptr->sprint;
+				ptr->py -= ptr->pdy * ptr->sprint;
+			}
 		}
 		calibrageleft = ptr->pa - ptr->pi2;
 		calibrageright = ptr->pa + ptr->pi2;
@@ -1153,15 +1158,24 @@ int	key_handle(int keycode, t_mlx *ptr)
 			calibrageright -= ptr->dpi;
 		if (ptr->released == 'a')
 		{
-			ptr->px += cos(calibrageleft) * 5 * ptr->sprint;
-			ptr->py += sin(calibrageleft) * 5 * ptr->sprint;
+
+			if (!check_valid(ptr->exp[(int)(ptr->py + (cos(calibrageleft) * 5 * ptr->sprint))][(int)(ptr->px + (sin(calibrageleft) * 5 * ptr->sprint))], "12D"))
+			{
+				ptr->px += cos(calibrageleft) * 5 * ptr->sprint;
+				ptr->py += sin(calibrageleft) * 5 * ptr->sprint;
+			}
 		}
 		if (ptr->released == 'd')
 		{
-			ptr->px += cos(calibrageright) * 5 * ptr->sprint;
-			ptr->py += sin(calibrageright) * 5 * ptr->sprint;
+			if (!check_valid(ptr->exp[(int)(ptr->py + (cos(calibrageright) * 5 * ptr->sprint))][(int)(ptr->px + (sin(calibrageright) * 5 * ptr->sprint))], "12D"))
+			{
+				ptr->px += cos(calibrageright) * 5 * ptr->sprint;
+				ptr->py += sin(calibrageright) * 5 * ptr->sprint;
+			}
 		}
 	}
+	if (keycode == 'f')
+		adjacent(ptr, ptr->px / 64, ptr->py / 64, 'D');
 	if (keycode == 'q')
 	{
 		ptr->pa -= 0.07;
@@ -1180,13 +1194,19 @@ int	key_handle(int keycode, t_mlx *ptr)
 	}
 	if (keycode == 'w')
 	{
-		ptr->px += ptr->pdx * ptr->sprint;
-		ptr->py += ptr->pdy * ptr->sprint;
+		if (!check_valid(ptr->exp[(int)(ptr->py + (ptr->pdy * ptr->sprint))][(int)(ptr->px + (ptr->pdy * ptr->sprint))], "12D"))
+		{
+			ptr->px += ptr->pdx * ptr->sprint;
+			ptr->py += ptr->pdy * ptr->sprint;
+		}
 	}
 	if (keycode == 's')
 	{
-		ptr->px -= ptr->pdx * ptr->sprint;
-		ptr->py -= ptr->pdy * ptr->sprint;
+		if (!check_valid(ptr->exp[(int)(ptr->py - (ptr->pdy * ptr->sprint))][(int)(ptr->px - (ptr->pdy * ptr->sprint))], "12D"))
+		{
+			ptr->px -= ptr->pdx * ptr->sprint;
+			ptr->py -= ptr->pdy * ptr->sprint;
+		}
 	}
 	calibrageleft = ptr->pa - ptr->pi2;
 	calibrageright = ptr->pa + ptr->pi2;
@@ -1196,17 +1216,30 @@ int	key_handle(int keycode, t_mlx *ptr)
 		calibrageright -= ptr->dpi;
 	if (keycode == 'a')
 	{
-		ptr->px += cos(calibrageleft) * 5 * ptr->sprint;
-		ptr->py += sin(calibrageleft) * 5 * ptr->sprint;
+		if (!check_valid(ptr->exp[(int)(ptr->py + (cos(calibrageleft) * 5 * ptr->sprint))][(int)(ptr->px + (sin(calibrageleft) * 5 * ptr->sprint))], "12D"))
+		{
+			ptr->px += cos(calibrageleft) * 5 * ptr->sprint;
+			ptr->py += sin(calibrageleft) * 5 * ptr->sprint;
+		}
 	}
 	if (keycode == 'd')
 	{
-		ptr->px += cos(calibrageright) * 5 * ptr->sprint;
-		ptr->py += sin(calibrageright) * 5 * ptr->sprint;
+		if (!check_valid(ptr->exp[(int)(ptr->py + (cos(calibrageright) * 5 * ptr->sprint))][(int)(ptr->px + (sin(calibrageright) * 5 * ptr->sprint))], "12D"))
+		{
+			ptr->px += cos(calibrageright) * 5 * ptr->sprint;
+			ptr->py += sin(calibrageright) * 5 * ptr->sprint;
+		}
 	}
 	if (keycode == 65307)
 		ptr->end = 1;
 	ptr->sprint = cpy;
+	if (check_valid(ptr->exp[(int)ptr->py][(int)ptr->px], "12D"))
+	{
+		ptr->px = ptr->validx;
+		ptr->py = ptr->validy;
+	}
+	ptr->validx = ptr->px;
+	ptr->validy = ptr->py;
 	/*	draw_direction(ptr, rgb_to_hex(255, 0,214,111), ptr->fov);	*/
 	draw_direction(ptr, rgb_to_hex(255, 0,214,111), ptr->fov);
 	return (1);
@@ -1215,10 +1248,7 @@ int	key_handle(int keycode, t_mlx *ptr)
 int	release(int keycode, t_mlx *ptr)	//permet le double input
 {
 	if (keycode == 65505)
-	{
-		printf("end sprint\n");
 		ptr->sprint = 1;
-	}
 	if (ptr->released == keycode)
 	{
 		ptr->released = 0;
@@ -1265,13 +1295,19 @@ int	nullfunc(t_mlx	*ptr)	//fonction echap pour le mlx_loop_hook
 		}
 		if (ptr->released == 'w')
 		{
-			ptr->px += ptr->pdx;
-			ptr->py += ptr->pdy;
+			if (!check_valid(ptr->exp[(int)(ptr->py + (ptr->pdy * ptr->sprint))][(int)(ptr->px + (ptr->pdy * ptr->sprint))], "12D"))
+			{
+				ptr->px += ptr->pdx;
+				ptr->py += ptr->pdy;
+			}
 		}
 		if (ptr->released == 's')
 		{
-			ptr->px -= ptr->pdx;
-			ptr->py -= ptr->pdy;
+			if (!check_valid(ptr->exp[(int)(ptr->py - (ptr->pdy * ptr->sprint))][(int)(ptr->px - (ptr->pdy * ptr->sprint))], "12D"))
+			{
+				ptr->px -= ptr->pdx;
+				ptr->py -= ptr->pdy;
+			}
 		}
 		calibrageleft = ptr->pa - PI / 2;
 		calibrageright = ptr->pa + PI / 2;
@@ -1281,14 +1317,27 @@ int	nullfunc(t_mlx	*ptr)	//fonction echap pour le mlx_loop_hook
 			calibrageright -= 2 * PI;
 		if (ptr->released == 'a')
 		{
-			ptr->px += cos(calibrageleft) * 5;
-			ptr->py += sin(calibrageleft) * 5;
+			if (!check_valid(ptr->exp[(int)(ptr->py + (cos(calibrageleft) * 5 * ptr->sprint))][(int)(ptr->px + (sin(calibrageleft) * 5 * ptr->sprint))], "12D"))
+			{
+				ptr->px += cos(calibrageleft) * 5;
+				ptr->py += sin(calibrageleft) * 5;
+			}
 		}
 		if (ptr->released == 'd')
 		{
-			ptr->px += cos(calibrageright) * 5;
-			ptr->py += sin(calibrageright) * 5;
+			if (!check_valid(ptr->exp[(int)(ptr->py + (cos(calibrageright) * 5 * ptr->sprint))][(int)(ptr->px + (sin(calibrageright) * 5 * ptr->sprint))], "12D"))
+			{
+				ptr->px += cos(calibrageright) * 5;
+				ptr->py += sin(calibrageright) * 5;
+			}
 		}
+		if (check_valid(ptr->exp[(int)ptr->py][(int)ptr->px], "12D"))
+		{
+			ptr->px = ptr->validx;
+			ptr->py = ptr->validy;
+		}
+		ptr->validx = ptr->px;
+		ptr->validy = ptr->py;
 		draw_direction(ptr, rgb_to_hex(255, 0,214,111), ptr->fov);
 	}
 	//else
@@ -1322,19 +1371,35 @@ void	get_map_xy(char **map, t_mlx *ptr)
 	ptr->my = y;
 }
 
-int	adjacent(t_mlx *ptr, int x, int y)
+int	adjacent(t_mlx *ptr, int x, int y, char c)
 {
 	char **map;
 
 	map = ptr->map;
-	if (y > 0 && map[y - 1][x] == '2')
+	if (y > 0 && map[y - 1][x] == c)
+	{
+		if (map[y - 1][x] == 'D')
+			map[y - 1][x] = '0';
 		return (1);
-	if (y + 1< ptr->my && map[y + 1][x] == '2')
+	}
+	if (y + 1< ptr->my && map[y + 1][x] == c)
+	{
+		if (map[y + 1][x] == 'D')
+			map[y + 1][x] = '0';
 		return (1);
-	if (x > 0 && map[y][x - 1] == '2')
+	}
+	if (x > 0 && map[y][x - 1] == c)
+	{
+		if (map[y][x - 1] == 'D')
+			map[y][x - 1] = '0';
 		return (1);
-	if (x + 1 < ptr->mx && map[y][x + 1] == '2')
+	}
+	if (x + 1 < ptr->mx && map[y][x + 1] == c)
+	{
+		if (map[y][x + 1] == 'D')
+			map[y][x + 1] = '0';
 		return (1);
+	}
 	return (0);
 }
 
@@ -1355,7 +1420,7 @@ void	change_map(t_mlx *ptr)
 		x = 0;
 		while (map[y][x])
 		{
-			if (map[y][x] == '1' && adjacent(ptr, x, y))
+			if (map[y][x] == '1' && adjacent(ptr, x, y, '2'))
 			{
 				map[y][x] = '2';
 				x = 0;
@@ -1513,6 +1578,8 @@ int main(int ac, char **av)
 			ptr.vres = 720;
 			ptr.n_imgs = 10;
 			ptr.brightness = 4;
+			ptr.validx = ptr.px;
+			ptr.validy = ptr.py;
 			ptr.dra = deg_to_rad(0, ptr.fov) / (ptr.hres / 4);
 			ptr.raysize = (ptr.hres + 32) * ptr.vres * 4;
 			get_map_xy(ptr.map, &ptr);
