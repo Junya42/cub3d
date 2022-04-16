@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 00:16:22 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/17 00:39:11 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/04/17 00:44:02 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	check_cub_file(char *filename)
 	int	i;
 
 	i = ft_strlen(filename);
+	if (i < 5)
+		return (EXIT_FAILURE);
 	if (filename[i - 1] == '\\' || filename[i - 1] == '/')
 		return (EXIT_FAILURE);
 	if (filename[i - 1] != 'b')
