@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 22:37:05 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/16 01:42:20 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/04/17 00:34:34 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int ac, char **av)
 
 	if (ac != 2)
 		return (exit_parsing("Error in arguments\n"));
+	init_variable(&parse);
 	if (parsing(av, &parse) == 1)
 	{
 		free_data(&parse);

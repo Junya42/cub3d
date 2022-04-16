@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/16 01:54:07 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/04/17 00:38:10 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ unsigned int    rgb_to_hex(unsigned int r, unsigned int g, unsigned int b);
 /* UTILS */
 
 /* PARSING */
+void	init_variable(t_parse *p);
 int	parsing(char **av, t_parse *parse);
 int parse_data(t_parse *parse);
 int parse_map(t_parse *parse, char *fd_path);

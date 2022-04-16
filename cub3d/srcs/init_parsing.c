@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 00:16:22 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/15 04:04:38 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/04/17 00:39:11 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	try_open_cub_file(char *filename, t_parse *parse)
 
 int	parsing(char **av, t_parse *parse)
 {
-	(void)parse;
 	if (check_cub_file(av[1]) == 1)
 		return (exit_parsing("Error in file\n"));
 	if (try_open_cub_file(av[1], parse) == 1)

@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:41:53 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/16 02:10:48 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/04/17 00:38:08 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_variable(t_parse *p)
 	p->spath = NULL;
 	p->wpath = NULL;
 	p->epath = NULL;
+	p->map = NULL;
 }
 
 int	malloc_error(t_parse *p)
@@ -44,7 +45,6 @@ int	malloc_error(t_parse *p)
 
 int	parse_data(t_parse *p)
 {
-	init_variable(p);
 	while (42)
 	{
 		p->buffer = get_next_line(p->fd);
