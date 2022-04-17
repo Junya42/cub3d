@@ -6,7 +6,7 @@
 #    By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 17:38:35 by anremiki          #+#    #+#              #
-#    Updated: 2022/04/16 01:25:45 by cmarouf          ###   ########.fr        #
+#    Updated: 2022/04/17 01:36:52 by cmarouf          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRCS =	srcs/main.c	\
 		srcs/texture_position.c \
 		srcs/horizontal_ray.c \
 		srcs/vertical_ray.c \
+		srcs/create_mlx.c \
 
 
 INCLUDES = ./includes/

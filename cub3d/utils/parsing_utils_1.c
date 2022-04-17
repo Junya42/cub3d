@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 23:43:33 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/16 00:46:17 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/04/17 01:24:08 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	exit_parsing(char *str)
 
 int	is_num(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!str[0])
@@ -39,16 +39,16 @@ int	free_and_return(t_parse *p, int flag, int exitcode)
 	if (flag == 0)
 	{
 		if (p->buffer)
-        	free(p->buffer);
-    	if (p->mcontent)
-        	free_array(p->mcontent);
+			free(p->buffer);
+		if (p->mcontent)
+			free_array(p->mcontent);
 	}
 	if (flag == 1)
 		if (p->buffer)
-        	free(p->buffer);
+			free(p->buffer);
 	if (flag == 2)
 		if (p->mcontent)
-        	free_array(p->mcontent);
+			free_array(p->mcontent);
 	return (exitcode);
 }
 

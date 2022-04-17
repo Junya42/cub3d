@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:56:28 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/16 00:46:18 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/04/17 01:43:53 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ int	get_fd_size(char *filename)
 	return (len);
 }
 
-unsigned int    rgb_to_hex(unsigned int r, unsigned int g, unsigned int b)
+unsigned int	rgb_to_hex(unsigned int r, unsigned int g, unsigned int b)
 {
-    return ((0xff << 24) | ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff));
+	return ((0xff << 24) | ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff));
 }
 
 void	free_mlx(t_ray *ray)
@@ -46,11 +46,17 @@ void	free_mlx(t_ray *ray)
 	i = 0;
 	while (i < 5)
 	{
-		mlx_destroy_image(ray->mlx, ray->txt[i].img);
+		if (ray->txt[i].img)
+			mlx_destroy_image(ray->mlx, ray->txt[i].img);
 		i++;
 	}
-	mlx_destroy_image(ray->mlx, ray->img);
-	mlx_destroy_image(ray->mlx, ray->erase);
-	mlx_destroy_display(ray->mlx);
-    free(ray->mlx);
+	if (ray->img)
+		mlx_destroy_image(ray->mlx, ray->img);
+	if (ray->erase)
+		mlx_destroy_image(ray->mlx, ray->erase);
+	if (ray->mlx)
+	{
+		mlx_destroy_display(ray->mlx);
+		free(ray->mlx);
+	}
 }

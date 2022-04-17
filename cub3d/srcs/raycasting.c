@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 04:30:05 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/16 02:14:40 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/04/17 01:27:51 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	reset_var(t_ray *ray)
 
 void	init_var(t_ray *ray)
 {
-	ray->ra = ray->pa - (0.01745329251 * 60 / 2);
+	ray->ra = ray->pa - (RAD * 60 / 2);
 	if (ray->ra < 0)
 		ray->ra += 2 * PI;
 	if (ray->ra > 2 * PI)
@@ -37,7 +37,7 @@ void	init_var(t_ray *ray)
 void	next_ray(t_ray *ray)
 {
 	ray->ray += 1;
-	ray->ra += (0.01745329251);
+	ray->ra += (RAD);
 	if (ray->ra < 0)
 		ray->ra += 2 * PI;
 	if (ray->ra > 2 * PI)
@@ -46,20 +46,20 @@ void	next_ray(t_ray *ray)
 
 void	calcul_ray_dist(t_ray *ray)
 {
-	ray->distT = fixfisheye(ray->pa, ray->ra, ray->distT);
-	ray->wallH = 64 * ray->height / ray->distT;
-	if (ray->wallH >= ray->height * 64)
-		ray->wallH = ray->height * 64;
-	if (ray->wallH < 0)
-		ray->wallH = 0;
-	ray->dy = 64.0f / ray->wallH;
-	ray->offset = (ray->height / 2) - (ray->wallH / 2);
+	ray->distt = fixfisheye(ray->pa, ray->ra, ray->distt);
+	ray->wallh = 64 * ray->height / ray->distt;
+	if (ray->wallh >= ray->height * 64)
+		ray->wallh = ray->height * 64;
+	if (ray->wallh < 0)
+		ray->wallh = 0;
+	ray->dy = 64.0f / ray->wallh;
+	ray->offset = (ray->height / 2) - (ray->wallh / 2);
 }
 
 void	raycasting(t_ray *ray)
 {
 	init_var(ray);
-	while (ray->ray < 60)
+	while (ray->ray < FOV)
 	{
 		reset_var(ray);
 		horizontal_ray(ray);
@@ -67,7 +67,7 @@ void	raycasting(t_ray *ray)
 		choose_side(ray);
 		calcul_ray_dist(ray);
 		texture_side(ray);
-		while (ray->dof < ray->wallH)
+		while (ray->dof < ray->wallh)
 		{
 			ray->tcolor = get_txt_color(ray);
 			draw_raycasting(ray, (ray->ray * 8),

@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 01:26:06 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/16 02:16:42 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/04/17 01:21:37 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ void	choose_side(t_ray *ray)
 {
 	if (ray->hray < ray->vray)
 	{
-		ray->wallC = shade(0x8c03fc, 0.7);
-		ray->distT = ray->hray;
+		ray->wallc = shade(0x8c03fc, 0.7);
+		ray->distt = ray->hray;
 		ray->rx = ray->hx;
 		ray->ry = ray->hy;
 	}
 	if (ray->vray < ray->hray)
 	{
-		ray->wallC = 0x8c03fc;
-		ray->distT = ray->vray;
+		ray->wallc = 0x8c03fc;
+		ray->distt = ray->vray;
 		ray->rx = ray->vx;
 		ray->ry = ray->vy;
 	}

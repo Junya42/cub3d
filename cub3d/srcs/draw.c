@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 04:28:14 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/16 01:50:29 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/04/17 01:20:32 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	draw_floor(t_ray *ray)
 {
 	int	i;
 
-	i = ray->offset + ray->wallH;
+	i = ray->offset + ray->wallh;
 	if (ray->offset > ray->height)
 		return ;
 	while (i < ray->height)
