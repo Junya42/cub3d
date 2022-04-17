@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 16:31:16 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/16 01:51:17 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/04/17 16:33:36 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	which_side(char **mcontent)
 {
-	if (ft_strncmp(mcontent[0], "NE", 2) == 0)
+	if (ft_strncmp(mcontent[0], "NO", 2) == 0)
 		return (N);
 	if (ft_strncmp(mcontent[0], "SO", 2) == 0)
 		return (S);
@@ -23,13 +23,9 @@ int	which_side(char **mcontent)
 	if (ft_strncmp(mcontent[0], "EA", 2) == 0)
 		return (E);
 	if (ft_strncmp(mcontent[0], "C", 1) == 0)
-	{
 		return (C);
-	}
 	if (ft_strncmp(mcontent[0], "F", 1) == 0)
-	{
 		return (F);
-	}
 	return (NOTHING);
 }
 

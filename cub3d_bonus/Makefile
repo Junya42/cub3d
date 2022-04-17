@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+         #
+#    By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 17:38:35 by anremiki          #+#    #+#              #
-#    Updated: 2022/04/17 06:53:37 by anremiki         ###   ########.fr        #
+#    Updated: 2022/04/17 16:20:13 by cmarouf          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ RM = rm -rf
 
 CFLAGS = -Wall -Wextra -Werror -g3 -I $(INCLUDES)
 
-MLXFLAGS = ./minilibx/libmlx_Linux.a -lXext -lX11 -lXfixes -I ./minilibx/
+MLXFLAGS = ./minilibx/libmlx_Linux.a -lXext -lX11 -I ./minilibx/
 
 NAME = ./exec/cub3d
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 03:11:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/17 07:14:27 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/17 16:34:58 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ int main(int ac, char **av)
 		free_data(&parse);
 		return (1);
 	}
-	cub.map = parse.map;
+	cub.map = parse.map + 6;
 	init_cub(&cub);
 	cub.exp = expand(cub.map, cub.mx, cub.my, 64);
 	create_window(&cub);
