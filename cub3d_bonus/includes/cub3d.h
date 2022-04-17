@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/16 21:38:00 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/17 02:18:58 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@
 # include "/usr/include/X11/X.h"
 # include "../libft/includes/libft.h"
 # include "../ft_printf/includes/ft_printf.h"
-//# include "struct3d.h"
-//# include "define.h"
+# include "struct3d.h"
+# include "define.h"
 
-# define PI 3.1415926535
-# define NVALUE 0.017452925
-# define RAD 0.017452925
-
+//# define PI 3.1415926535
+//# define NVALUE 0.017452925
+//# define RAD 0.017452925
+/*
 enum	e_fd
 {
 	STDIN,
@@ -140,7 +140,7 @@ typedef struct s_mlx
 	void	*b2;
 	void	*b3;
 }			t_mlx;
-
+*/
 /*	Parsing data	*/
 
 /*int		init_data(char **av, t_cub *cub);
@@ -156,12 +156,17 @@ char	*skip_line(char *line);
 char	**parse_data(char **av);
 char	**parse_map(char **map); */
 
-/* Engine modification	*/
+/* -----------Engine mod-------		*/
 
-/*void	printmap(char **map);
+void	printmap(char **map);
 void	modify_map(char **map, char **exp, int mult);
 char	**expand(char **map, int x, int y, int mult);
-void	transform(char **map, int x, int y, char c);*/
+void	transform(char **map, int x, int y, char c);
+
+/*	----------textures----------	*/
+
+int				create_imgs(t_cub *cub);
+void			destroy_imgs(t_cub *cub, t_text *imgs);
 
 /*	----------init--------------	*/
 
@@ -179,6 +184,7 @@ float			deg_to_rad(float angle, float degree);
 /*	MAP	*/
 int				adjacent(t_cub *cub, int x, int y, char c);
 void			change_map(t_cub *cub);
+int				wipe_data(t_cub *cub);
 
 /*	----------Pixels-------------	*/
 
@@ -190,8 +196,8 @@ unsigned int	shade(unsigned int color, float shader);
 
 /*	----------minimap-------------	*/
 
-void	draw_player(t_cub *cub, float x, float y);
-void	draw_posmap(t_cub *cub, char **map, int x, int y);
+void			draw_player(t_cub *cub, float x, float y);
+void			draw_posmap(t_cub *cub, char **map, int x, int y);
 
 /*	----------raycast-------------	*/
 

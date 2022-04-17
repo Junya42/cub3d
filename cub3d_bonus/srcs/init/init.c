@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 03:11:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/16 20:40:04 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/17 01:59:55 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,9 @@ int	create_window(t_cub *cub)
 		return (0);
 	cub->win = mlx_new_window(cub->mlx, HRES, VRES, "cub3d");
 	if (!cub->win)
-	{
-		mlx_destroy_display(cub->mlx);
 		return (0);
-	}
-	return (select(t_cub *cub));
+	if (!create_imgs(cub))
+		return (0);
 }
 
 int main(int ac, char **av)

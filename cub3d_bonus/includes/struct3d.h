@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/16 18:47:54 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/17 02:09:36 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,42 +96,45 @@ typedef struct s_text
 
 typedef struct s_cub
 {
-	void		*mlx;
-	void		*win;
-	void		*imap;
-	void		*ihud;
-	void		*iray;
-	void		*no;
-	void		*ea;
-	void		*so;
-	void		*we;
-	char		*mapaddr;
-	char		*rayaddr;
-	int			bpp;
-	int			size_line;
-	int			endian;
-	int			color;
-	int			fcolor;
-	int			ccolor;
-	float		n_rad;
-	float		s_rad;
-	float		x;
-	float		y;
-	float		a;
-	int			mx;
-	int			my;
-	int			mp;
-	int			ex;
-	int			ey;
-	int			wx;
-	int			wy;
-	int			end;
-	char		**data;
-	char		**map;
-	char		**exp;
-	t_build		*build;
-	t_ray		*ray;
-	t_player	*player;
+	void			*mlx;
+	void			*win;
+	void			*imap;
+	void			*ihud;
+	void			*iray;
+	void			*no;
+	void			*ea;
+	void			*so;
+	void			*we;
+	char			*mapaddr;
+	char			*rayaddr;
+	int				m_bpp;
+	int				m_size;
+	int				m_end;
+	int				r_bpp;
+	int				r_size;
+	int				r_end;
+	unsigned int	color;
+	unsigned int	fcolor;
+	unsigned int	ccolor;
+	float			n_rad;
+	float			s_rad;
+	float			x;
+	float			y;
+	float			a;
+	int				mx;
+	int				my;
+	int				mp;
+	int				ex;
+	int				ey;
+	int				wx;
+	int				wy;
+	int				end;
+	char			**data;
+	char			**map;
+	char			**exp;
+	t_build			*build;
+	t_ray			*ray;
+	t_player		*player;
 }				t_cub;
 
 typedef struct s_parse
