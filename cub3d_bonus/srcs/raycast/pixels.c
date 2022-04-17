@@ -6,20 +6,20 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:11:43 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/10 23:14:12 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/17 06:44:46 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void	pxl_to_img(t_cub *cub, float x, float y, int flag)
+void	pxl_to_img(t_cub *cub, float x, float y, int i)
 {
 	char	*tmp;
 	t_text	*ptr;
 
 	ptr = cub->text;
-	tmp = ptr[i].addr + (int)(y * ptr[i].size_line + x * (ptr[i].bpp / 8));
-	*(unsigned int *)tmp = color;
+	tmp = ptr[i].addr + (int)(y * ptr[i].size + x * (ptr[i].bpp / 8));
+	*(unsigned int *)tmp = cub->color;
 }
 
 void	pxl_to_ray(t_cub *cub, float x, float y, unsigned int color)
@@ -36,10 +36,11 @@ void	pxl_to_ray(t_cub *cub, float x, float y, unsigned int color)
 		x = 0;
 	if (y < 0 && x)
 		y = 0;
-	size = (int)(y * ptr[0].size_line + x * (ptr[0].bpp / 8));
-	if (size < 0 || size >= ptr[0].res)
+	size = (int)(y * ptr[0].size + x * (ptr[0].bpp / 8));
+	if (size < 0 || size >= RES)
 		return ;
 	completer = -1;
+	tmp = ptr[0].addr + size;
 	while (++completer < 4)
 		*((unsigned int *)tmp + completer) = color;
 }
@@ -55,8 +56,8 @@ unsigned int	pxl_from_img(t_cub *cub, int x, int y, int i)
 		x = 0;
 	if (y < 0 && x)
 		y = 0;
-	size = (int)(y * ptr[i].size_line + x * (ptr[i].bpp / 8));
-	if (size < 0 || size >= ptr[i].res)
+	size = (int)(y * ptr[i].size + x * (ptr[i].bpp / 8));
+	if (size < 0 || size >= 1228800) //ptr[i].res
 		return (0x000000);
 	tmp = ptr[i].addr + size;
 	return (*(unsigned int *)tmp);

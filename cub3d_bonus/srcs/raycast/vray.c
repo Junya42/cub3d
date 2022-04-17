@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:50:23 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/11 00:50:31 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/17 06:54:55 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,23 @@ unsigned int	vertical_texture(t_cub *cub, t_ray *ray, int dir)
 
 	s = ray->shadow;
 	ms = s - 0.3;
-	if (ray == 1 && dir == 1)
-		return (shade(pxl_from_img(cub, ray->curr_px, ray->right, 1), s);
-	if (ray == 1 && dir == 2)
-		return (shade(pxl_from_img(cub, ray->curr_px, ray->left, 2), s);
-	if (ray == 1 && dir == 3)
-		return (shade(pxl_from_img(cub, ray->curr_px, ray->right, 5), ms);
-	if (ray == 1 && dir == 4)
-		return (shade(pxl_from_img(cub, ray->curr_px, ray->left, 5), ms);
-	return (shade(pxl_from_img(cub, ray->curr_px, ray->left, 5), ms);
+	if (ray->ray == 1 && dir == 1)
+		return (shade(pxl_from_img(cub, ray->curr_px, ray->right, 1), s));
+	if (ray->ray == 1 && dir == 2)
+		return (shade(pxl_from_img(cub, ray->curr_px, ray->left, 2), s));
+	if (ray->ray == 1 && dir == 3)
+		return (shade(pxl_from_img(cub, ray->curr_px, ray->right, 5), ms));
+	if (ray->ray == 1 && dir == 4)
+		return (shade(pxl_from_img(cub, ray->curr_px, ray->left, 5), ms));
+	return (shade(pxl_from_img(cub, ray->curr_px, ray->left, 5), ms));
 }
 
 void	dda_vertical(t_cub *cub, t_ray *ray)
 {
 	while (ray->limit < 20)
 	{
-		ray->mx = (int)rx;
-		ray->my = (int)ry;
+		ray->mx = (int)ray->rx;
+		ray->my = (int)ray->ry;
 		if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1 &&
 					ray->my > -1) && check_valid(cub->exp[ray->my][ray->mx],
 						"12DPLlr"))
@@ -56,7 +56,7 @@ void	dda_vertical(t_cub *cub, t_ray *ray)
 	}
 }
 
-void	hray(t_cub *cub, t_ray *ray)
+void	vray(t_cub *cub, t_ray *ray)
 {
 	if (ray->ra == PI || ray->ra == 0)
 	{

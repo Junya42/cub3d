@@ -6,11 +6,25 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:14:10 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/16 18:20:30 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/17 06:26:48 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+int	check_valid(char c, char *valid)
+{
+	int	i;
+
+	i = 0;
+	while (valid[i])
+	{
+		if (c == valid[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 int	adjacent(t_cub *cub, int x, int y, char c)
 {
@@ -23,7 +37,7 @@ int	adjacent(t_cub *cub, int x, int y, char c)
 		return (1);
 	if (x > 0 && map[y][x - 1] == c)
 		return (1);
-	if (x + 1 < cub->mx && cub[y][x + 1] == c)
+	if (x + 1 < cub->mx && map[y][x + 1] == c)
 		return (1);
 	return (0);
 }

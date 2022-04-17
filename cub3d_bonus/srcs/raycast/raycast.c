@@ -6,9 +6,11 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/11 22:41:05 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/17 06:50:00 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../../includes/cub3d.h"
 
 void	reset_values(t_cub *cub, t_ray *ray)
 {
@@ -23,25 +25,26 @@ void	reset_values(t_cub *cub, t_ray *ray)
 	ray->vx = cub->x;
 	ray->vy = cub->y;
 	ray->contan = (-1 / tan(ray->ra));
-	ray->ntan = (-tan(ra));
+	ray->ntan = (-tan(ray->ra));
 }
 
 unsigned int	case_texture(t_cub *cub, t_ray *ray)
 {
 	if (ray->vray < ray->hray)
-		return (vertical_texture(cub, ray, vdir));
+		return (vertical_texture(cub, ray, ray->vdir));
 	else
-		return (horizon_texture(cub, ray, hdir));
+		return (horizon_texture(cub, ray, ray->hdir));
 }
 
 void	dda_texture(t_cub *cub, t_ray *ray)
 {
+	(void)cub;
 	if (ray->shadow > 1)
 		ray->shadow = 1;
-	ray->curr_px = ray->next_px * ray->offpx;
+	ray->curr_px = ray->next_px * ray->off_px;
 	ray->top = (int)ray->rx % 64;
 	ray->bot = 64 - ray->top;
-	ray->right = (int)ry % 64;
+	ray->right = (int)ray->ry % 64;
 	ray->left = 64 - ray->right;
 	ray->nr = ray->r * 4;
 }
@@ -62,14 +65,14 @@ void	dda(t_cub *cub, t_ray *ray)
 	}
 	ray->ray = fix_fisheye(cub->a, ray->ra, ray->ray);
 	ray->raycast = (64 * VRES * cub->z / ray->ray);
-	ray->next_px = 64 / raycast;
-	ray->offpx = 0;
-	if (raycast > VRES * cub->z + 64)
+	ray->next_px = 64 / ray->raycast;
+	ray->off_px = 0;
+	if (ray->raycast > VRES * cub->z + 64)
 	{
-		ray->offpx = (raycast - VRES * cub->z) / 2;
+		ray->off_px = (ray->raycast - VRES * cub->z) / 2;
 		ray->raycast = VRES * cub->z + 64;
 	}
-	ray->offset = ((HALFVRES * ptr->z) - ray->raycast / 2);
+	ray->offset = ((HALFVRES * cub->z) - ray->raycast / 2);
 	ray->shadow = 7 / mysqrt(ray->ray);
 	dda_texture(cub, ray);
 }
@@ -87,7 +90,7 @@ void	raycast(t_cub *cub, t_ray *ray)
 		while (ray->i < ray->raycast)
 		{
 			ray->color = case_texture(cub, ray);
-			pxl_to_ray(cub, ray->nr, (float)(int)(ray->i + ray->offset, ray->color));
+			pxl_to_ray(cub, ray->nr, (float)(int)(ray->i + ray->offset), ray->color);
 			ray->curr_px += ray->next_px;
 			ray->i++;
 		}

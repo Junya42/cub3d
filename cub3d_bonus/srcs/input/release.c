@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 17:26:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/16 17:55:10 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/17 06:24:48 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	release(int keycode, t_cub *cub, t_player *player)
 {
 	if (keycode == 'f')
 	{
-		if (doors(cub, (int)cub->x >> 6, (int)cub->y >> 64, direction(cub)));
+		if (doors(cub, (int)cub->x >> 6, (int)cub->y >> 6, direction(cub)))
 		{
 			free(cub->exp);
 			cub->exp = expand(cub->map, cub->mx, cub->my, 64);

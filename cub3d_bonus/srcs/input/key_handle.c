@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 16:45:35 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/16 17:56:35 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/17 06:24:17 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int	save_position(t_cub *cub, t_player *player, char **exp)
 	cub->y = player->y;
 	cub->a = player->angle;
 	raycast(cub, cub->ray);
+	return (0);
 }
 
 int key_handle(int keycode, t_cub *cub, t_player *player)

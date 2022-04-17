@@ -6,11 +6,11 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 19:12:21 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/14 00:08:14 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/17 06:26:18 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./includes/cub3d.h"
+#include "../includes/cub3d.h"
 
 /*char	**get_map(int ac, char **av)
 {

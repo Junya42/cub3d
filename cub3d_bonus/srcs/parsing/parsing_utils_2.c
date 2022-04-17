@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   default.c                                          :+:      :+:    :+:   */
+/*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/11 22:43:56 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/11 22:47:29 by anremiki         ###   ########.fr       */
+/*   Created: 2022/04/03 16:42:19 by cmarouf           #+#    #+#             */
+/*   Updated: 2022/04/17 01:28:49 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3d.h"
+#include "../includes/cub3d.h"
 
-t_text	*create_default(t_cub *cub)
+int	is_charset(char c, char *set)
 {
-	t_text	*text;
+	int	i;
 
-	text = (t_text *)malloc(sizeof(t_text) * 10);
-
+	i = 0;
+	while (set[i])
+	{
+		if (c == set[i])
+			return (0);
+		i++;
+	}
+	return (1);
 }

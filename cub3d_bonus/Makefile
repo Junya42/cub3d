@@ -6,7 +6,7 @@
 #    By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 17:38:35 by anremiki          #+#    #+#              #
-#    Updated: 2022/04/13 23:33:24 by anremiki         ###   ########.fr        #
+#    Updated: 2022/04/17 06:53:37 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,24 @@
 		srcs/parsing_1.c \
 		srcs/parsing_2.c \
 
-SRCS = ./expandtab.c ./crash-test/test.c
+#SRCS = ./expandtab.c ./crash-test/test.c
+
+SRCS = ./srcs/parsing/check_data.c ./srcs/parsing/check_map.c \
+	   ./srcs/parsing/gather_data.c ./srcs/parsing/parsing_data.c \
+	   ./srcs/parsing/parsing_map.c ./srcs/parsing/parsing_utils_1.c \
+	   ./srcs/parsing/init_parsing.c ./srcs/parsing/parsing_utils_2.c \
+	   ./srcs/parsing/utils_1.c \
+	   ./srcs/hud/draw_map.c ./srcs/hud/draw_player.c \
+	   ./srcs/init/init.c ./srcs/init/textures.c \
+	   ./srcs/input/key_handle.c ./srcs/input/mouse.c \
+	   ./srcs/input/release.c ./srcs/input/anti_ghosting.c \
+	   ./srcs/input/input.c \
+	   ./srcs/utils/expandtab.c ./srcs/utils/map.c \
+	   ./srcs/utils/math.c ./srcs/utils/wipe.c \
+	   ./srcs/raycast/init_ray.c ./srcs/raycast/hray.c \
+	   ./srcs/raycast/vray.c ./srcs/raycast/pixels.c \
+	   ./srcs/raycast/floorcast.c ./srcs/raycast/skybox.c \
+	   ./srcs/raycast/raycast.c ./srcs/raycast/display.c \
 
 #SRCS = ./expandtab.c
 

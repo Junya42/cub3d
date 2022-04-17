@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/11 01:41:16 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/17 06:46:29 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	floorcast(t_cub *cub, t_ray *ray)
 	while (ray->j < VRES)
 	{
 		ray->offj = ray->j - (HALFVRES * cub->z);
-		ray->curr_px = distx / offj / fix;
-		ray->next_px = disty / offj / fix;
-		color = pxl_from_img(cub, (int)next_px % 64, (int)curr_px % 64, 5);
+		ray->curr_px = distx / ray->offj / fix;
+		ray->next_px = disty / ray->offj / fix;
+		color = pxl_from_img(cub, (int)ray->next_px % 64, (int)ray->curr_px % 64, 5);
 		color = shade(color, ray->shadow);
 		pxl_to_ray(cub, ray->nr, ray->j, color);
-		j++;
+		ray->j++;
 	}
 }

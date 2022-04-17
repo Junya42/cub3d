@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/17 02:18:58 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/17 06:15:50 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,12 +156,46 @@ char	*skip_line(char *line);
 char	**parse_data(char **av);
 char	**parse_map(char **map); */
 
+/*		kekw	*/
+
+void			free_data(t_parse *parse);
+int				free_and_return(t_parse *p, int flag, int exitcode);
+int				is_num(char *str);
+int				get_fd_size(char *filename);
+int				is_charset(char c, char *set);
+
+/*		kekw2	*/
+
+void			free_data(t_parse *parse);
+int				free_and_return(t_parse *p, int flag, int exitcode);
+int				is_num(char *str);
+int				get_fd_size(char *filename);
+int				is_charset(char c, char *set);void			init_variable(t_parse *p);
+int				parsing(char **av, t_parse *parse);
+int				parse_data(t_parse *parse);
+int				parse_map(t_parse *parse, char *fd_path);
+int				check_direction(char *side, t_parse *p);
+int				check_texture_path(char *path);
+int				check_floor_ceilings(char *side, t_parse *p);
+int				check_rgb(char *code, int i);
+int				check_map_content(char **mcontent, t_parse *p);
+int				check_char(char **map, char *set);
+int				closed_y(char **map, int x, int y);
+int				closed_x(char **map, int x, int y);
+int				out_of_bound(char **map, int reach_y, int reach_x);
+int				check_closed_wall(char **map, int x, int y);
+int				check_wall(char **map);
+void			gather_data(char **mcontent, t_parse *p, int flag);
+int				try_open_cub_file(char *filename, t_parse *parse);
+int				exit_parsing(char *str);
+
 /* -----------Engine mod-------		*/
 
-void	printmap(char **map);
-void	modify_map(char **map, char **exp, int mult);
-char	**expand(char **map, int x, int y, int mult);
-void	transform(char **map, int x, int y, char c);
+void			printmap(char **map);
+int				check_valid(char c, char *valid);
+void			modify_map(char **map, char **exp, int mult);
+char			**expand(char **map, int x, int y, int mult);
+void			transform(char **map, int x, int y, char c);
 
 /*	----------textures----------	*/
 

@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:39:55 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/11 00:50:01 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/17 06:28:57 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,26 @@ unsigned int	horizon_texture(t_cub *cub, t_ray *ray, int dir)
 
 	s = ray->shadow;
 	if (dir == 1)
-		return (shade(pxl_from_img(cub, ray->curr_px, ray->top, 3), s);
+		return (shade(pxl_from_img(cub, ray->curr_px, ray->top, 3), s));
 	if (dir == 2)
-		return (shade(pxl_from_img(cub, ray->curr_px, ray->bot, 4), s);
+		return (shade(pxl_from_img(cub, ray->curr_px, ray->bot, 4), s));
 	if (dir == 3)
-		return (shade(pxl_from_img(cub, ray->curr_px, ray->top, 5), ms);
+		return (shade(pxl_from_img(cub, ray->curr_px, ray->top, 5), s));
 	if (dir == 4)
-		return (shade(pxl_from_img(cub, ray->curr_px, ray->bot, 5), ms);
+		return (shade(pxl_from_img(cub, ray->curr_px, ray->bot, 5), s));
 	if (dir == 5)
-		return (shade(pxl_from_img(cub, ray->curr_px, ray->top, 8), ms);
+		return (shade(pxl_from_img(cub, ray->curr_px, ray->top, 8), s));
 	if (dir == 6)
-		return (shade(pxl_from_img(cub, ray->curr_px, ray->bot, 8), ms);
-	return (shade(pxl_from_img(cub, ray->curr_px, ray->bot, 4), ms);
+		return (shade(pxl_from_img(cub, ray->curr_px, ray->bot, 8), s));
+	return (shade(pxl_from_img(cub, ray->curr_px, ray->bot, 4), s));
 }
 
 void	dda_horizon(t_cub *cub, t_ray *ray)
 {
 	while (ray->limit < 20)
 	{
-		ray->mx = (int)rx;
-		ray->my = (int)ry;
+		ray->mx = (int)ray->rx;
+		ray->my = (int)ray->ry;
 		if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1 &&
 					ray->my > -1) && check_valid(cub->exp[ray->my][ray->mx],
 						"12DPLlr"))

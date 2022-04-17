@@ -6,18 +6,60 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/17 02:09:36 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/17 06:45:13 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT3D_H
 # define STRUCT3D_H
 
+enum	e_side
+{
+	NOTHING,
+	N,
+	S,
+	W,
+	E,
+	C,
+	F
+};
+
+enum	e_fd
+{
+	STDIN,
+	STDOUT,
+	STDERR,
+	gnl_loop
+};
+
+typedef struct s_parse
+{
+	int				total;
+	int				fd;
+	char			*buffer;
+	char			**mcontent;
+	int				check_ne;
+	int				check_so;
+	int				check_we;
+	int				check_ea;
+	int				check_c;
+	int				check_f;
+	char			*npath;
+	char			*spath;
+	char			*wpath;
+	char			*epath;
+	unsigned int	colorc;
+	unsigned int	colorf;
+	char			**map;
+}				t_parse;
+
 typedef struct s_player
 {
 	float	x;
 	float	y;
 	double	z;
+	float	safex;
+	float	safey;
 	float	lstraf;
 	float	rstraf;
 	float	dx;
@@ -37,6 +79,8 @@ typedef struct s_ray
 	float			raycast;
 	float			contan;
 	float			ntan;
+	float			r;
+	float			ray;
 	float			ra;
 	float			dra;
 	float			rx;
@@ -101,10 +145,10 @@ typedef struct s_cub
 	void			*imap;
 	void			*ihud;
 	void			*iray;
-	void			*no;
-	void			*ea;
-	void			*so;
-	void			*we;
+	char			*no;
+	char			*ea;
+	char			*so;
+	char			*we;
 	char			*mapaddr;
 	char			*rayaddr;
 	int				m_bpp;
@@ -121,6 +165,7 @@ typedef struct s_cub
 	float			x;
 	float			y;
 	float			a;
+	float			z;
 	int				mx;
 	int				my;
 	int				mp;
@@ -135,9 +180,10 @@ typedef struct s_cub
 	t_build			*build;
 	t_ray			*ray;
 	t_player		*player;
+	t_text			*text;
 }				t_cub;
 
-typedef struct s_parse
+/*typedef struct s_parse
 {
 	char	**map;
 	char	**data;
@@ -150,5 +196,5 @@ typedef struct s_parse
 	int		map_start;
 	int		x;
 }				t_parse;
-
+*/
 #endif

@@ -6,11 +6,20 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:04:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/16 18:09:07 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/17 06:26:00 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+void	usleep_(long int time)
+{
+	while (time)
+	{
+		usleep(time / 10);
+		time /= 10;
+	}
+}
 
 int	anti_ghosting(t_cub *cub, t_player *player)
 {

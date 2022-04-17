@@ -6,31 +6,11 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:10:22 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/11 22:10:24 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/17 04:23:58 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-void	draw_player(t_cub *cub, float x, float y)
-{
-	float	xmax;
-	float	ymax;
-	float	xsave;
-
-	xmax = x + 7;
-	ymax = y + 7;
-	xsave = x;
-	while (y < ymax)
-	{
-		x = xsave;
-		while (x < xmax)
-		{
-			mlx_pixel_put(cub->mlx, cub->win, y, x, 0x7b00ff);
-			x++;
-		}
-	}
-}
 
 int	get_offset(int x)
 {
@@ -43,7 +23,7 @@ int	get_offset(int x)
 			x--;
 		else
 			break ;
-		offset++
+		offset++;
 	}
 	return (offset);
 }
@@ -59,7 +39,7 @@ int	get_new_value(int n)
 			n--;
 		else
 			break ;
-		offset++
+		offset++;
 	}
 	return (n);
 }
@@ -105,7 +85,6 @@ void	draw_posmap(t_cub *cub, char **map, int x, int y)
 {
 	int	xmax;
 	int	ymax;
-	int	savex;
 	int	offset;
 
 	ymax = y + 5;
