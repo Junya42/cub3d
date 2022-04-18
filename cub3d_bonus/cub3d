@@ -2,5 +2,5 @@
 xset r rate 30
 xset -r 41
 ./exec/cub3d $1 $2 $3 $4 $5
-xset r rate 660
+xset r rate 500
 xset r 41

@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:50:23 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/17 06:54:55 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/18 18:51:43 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ unsigned int	vertical_texture(t_cub *cub, t_ray *ray, int dir)
 	float	ms;
 
 	s = ray->shadow;
-	ms = s - 0.3;
-	if (ray->ray == 1 && dir == 1)
+	s = 1;
+	ms = s; //s - 0.3
+	if (dir == 1) //ray->ray == 1 && dir == 1
 		return (shade(pxl_from_img(cub, ray->curr_px, ray->right, 1), s));
-	if (ray->ray == 1 && dir == 2)
+	if (dir == 2)
 		return (shade(pxl_from_img(cub, ray->curr_px, ray->left, 2), s));
-	if (ray->ray == 1 && dir == 3)
+	if (dir == 3)
 		return (shade(pxl_from_img(cub, ray->curr_px, ray->right, 5), ms));
-	if (ray->ray == 1 && dir == 4)
+	if (dir == 4)
 		return (shade(pxl_from_img(cub, ray->curr_px, ray->left, 5), ms));
 	return (shade(pxl_from_img(cub, ray->curr_px, ray->left, 5), ms));
 }
@@ -62,8 +63,9 @@ void	vray(t_cub *cub, t_ray *ray)
 	{
 		ray->rx = cub->x;
 		ray->ry = cub->y;
+		ray->limit = 20;
 	}
-	else if (ray->ra > PI)
+	else if (ray->ra > PI2 && ray->ra < PI3)
 	{
 		ray->vdir = 1;
 		ray->rx = ray->npx - 0.0001;
@@ -71,7 +73,7 @@ void	vray(t_cub *cub, t_ray *ray)
 		ray->xo = -64;
 		ray->yo = -ray->xo * ray->ntan;
 	}
-	else if (ray->ra < PI)
+	else if (ray->ra < PI2 || ray->ra > PI3)
 	{
 		ray->vdir = 2;
 		ray->rx = ray->npx + 64;

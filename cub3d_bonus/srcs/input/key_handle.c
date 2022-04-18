@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 16:45:35 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/17 06:24:17 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/18 04:43:12 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,11 @@ void	lateral(int keycode, t_player *player, char **exp)
 
 int	save_position(t_cub *cub, t_player *player, char **exp)
 {
+	t_ray *ray;
+
+	ray = cub->ray;
+	printf("ray dra = %f\n", ray->dra);
+	printf("y = %d >>> x = %d\n", (int)player->y, (int)player->x);
 	if (check_valid(exp[(int)player->y][(int)player->x], "12D"))
 	{
 		player->x = player->safex;
@@ -93,12 +98,15 @@ int	save_position(t_cub *cub, t_player *player, char **exp)
 	cub->x = player->x;
 	cub->y = player->y;
 	cub->a = player->angle;
-	raycast(cub, cub->ray);
+	raycast(cub, ray);
 	return (0);
 }
 
-int key_handle(int keycode, t_cub *cub, t_player *player)
+int key_handle(int keycode, t_cub *cub)
 {
+	t_player *player;
+
+	player = cub->player;
 	if (keycode == 65307)
 		cub->end = 1;
 	if (player->released && player->released != keycode)

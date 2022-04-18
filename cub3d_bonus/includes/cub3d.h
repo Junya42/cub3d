@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/17 06:15:50 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/18 05:01:48 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 # include "define.h"
 
 //# define PI 3.1415926535
-//# define NVALUE 0.017452925
-//# define RAD 0.017452925
+# define NVALUE 0.017452925
+# define RAD 0.017452925
 /*
 enum	e_fd
 {
@@ -251,11 +251,11 @@ void			rotate(int keycode, t_player *player);
 void			longitudinal(int keycode, t_player *player, char **exp);
 void			lateral(int keycode, t_player *player, char **exp);
 int				save_position(t_cub *cub, t_player *player, char **exp);
-int				key_handle(int keycode, t_cub *cub, t_player *player);
+int				key_handle(int keycode, t_cub *cub);
 int				direction(t_cub *cub);
-int				release(int keycode, t_cub *cub, t_player *player);
+int				release(int keycode, t_cub *cub);
 int				mouse_rotation(int x, int y, t_cub *cub, t_player *player);
-int				anti_ghosting(t_cub *cub, t_player *player);
+int				anti_ghosting(t_cub *cub);
 void			create_hooks(t_cub *cub);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 21:46:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/11 01:38:47 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/18 05:00:51 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ float	fix_fisheye(float pa, float ra, float ray)
 	fix = pa - ra;
 	if (fix < 0)
 		fix += DPI;
-	if ( fix > DPI)
+	if (fix > DPI)
 		fix -= DPI;
 	return (ray * (cos(fix)));
 }

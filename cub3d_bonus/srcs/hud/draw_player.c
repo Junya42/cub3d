@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:09:46 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/11 22:10:32 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/18 16:22:56 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,19 @@ void	draw_player(t_cub *cub, float x, float y)
 {
 	float	xmax;
 	float	ymax;
-	float	xsave;
+	float	ysave;
 
 	xmax = x + 7;
 	ymax = y + 7;
-	xsave = x;
-	while (y < ymax)
+	ysave = y;
+	while (x < xmax)
 	{
-		x = xsave;
-		while (x < xmax)
+		y = ysave;
+		while (y < ymax)
 		{
-			mlx_pixel_put(cub->mlx, cub->win, y, x, 0x7b00ff);
-			x++;
+			mlx_pixel_put(cub->mlx, cub->win, x, y, 0x7b00ff);
+			y++;
 		}
+		x++;
 	}
 }

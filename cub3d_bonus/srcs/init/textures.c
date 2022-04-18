@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 01:30:53 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/17 06:58:25 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/18 23:30:10 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ int	imgs(t_cub *cub, t_text *t, void *(*xpm)(void *, char *, int *, int *))
 	int	i;
 
 	i = -1;
-	t[0].img = mlx_new_image(cub->mlx, HRES, VRES);
+	//t[0].img = mlx_new_image(cub->mlx, HRES, VRES);
+	t[0].img = (*xpm)(cub->mlx, "./imgs/torch2.xpm", &t[0].a, &t[0].b);
 	t[1].img = (*xpm)(cub->mlx, "./imgs/bookshelf.xpm", &t[1].a, &t[1].b);
 	t[2].img = (*xpm)(cub->mlx, "./imgs/birch_planks.xpm", &t[2].a, &t[2].b);
 	t[3].img = (*xpm)(cub->mlx, "./imgs/blackstone.xpm", &t[3].a, &t[3].b);
@@ -58,7 +59,7 @@ int	imgs(t_cub *cub, t_text *t, void *(*xpm)(void *, char *, int *, int *))
 		if (!t[i].img)
 			return (0);
 	cub->imap = mlx_new_image(cub->mlx, 9 * 16, 9 * 16);
-	cub->iray = mlx_new_image(cub->mlx, HRES - 1, VRES -1);
+	cub->iray = mlx_new_image(cub->mlx, HRES, VRES);
 	if (!cub->imap || !cub->iray)
 		return (0);
 	return (1);
@@ -66,13 +67,16 @@ int	imgs(t_cub *cub, t_text *t, void *(*xpm)(void *, char *, int *, int *))
 
 int	create_imgs(t_cub *cub)
 {
-	t_text images[11];
+	//t_text images[11];
+	t_text	*images;
 
-	cub->text = images;
+	images = (t_text *)malloc(sizeof(t_text) * 11);
+
 	if (!imgs(cub, images, mlx_xpm_file_to_image))
 		return (0);
 	if (!addr(cub, images, mlx_get_data_addr))
 		return (0);
+	cub->text = images;
 	return (1);
 }
 

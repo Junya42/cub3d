@@ -1,9 +1,9 @@
-NO ./textures/path_to_the_north_texture
-SO ./textures/path_to_the_south_texture
+NO ./imgs/path_to_the_north_texture
+SO ./imgs/path_to_the_south_texture
 
 
-WE ./textures/path_to_the_west_texture
-EA ./textures/path_to_the_east_texture
+WE ./imgs/path_to_the_west_texture
+EA ./imgs/path_to_the_east_texture
 
 F 220,100,0
 
@@ -14,8 +14,8 @@ C 225,30,0
 10100001
 10001101
 10001101
-1000D001
+10000001
 10N01111
 11000001
 11111101
-111  111
+11111111

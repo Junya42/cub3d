@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:10:22 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/17 04:23:58 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/18 05:00:14 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	draw_index(t_cub *cub, int x, int y, char c)
 	int				dx;
 	int				dy;
 	int				savey;
+	unsigned int	color;
 
 	if (c == '0')
 		return ;
@@ -74,7 +75,11 @@ void	draw_index(t_cub *cub, int x, int y, char c)
 		while (y < dy)
 		{
 			if (!(y % 2))
-				mlx_pixel_put(cub->mlx, cub->win, x, y, get_mapcolor(c));
+			{
+				color = get_mapcolor(c);
+				if (color != 42)
+					mlx_pixel_put(cub->mlx, cub->win, x, y, color);
+			}
 			y++;
 		}
 		x++;

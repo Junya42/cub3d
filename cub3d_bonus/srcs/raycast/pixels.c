@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:11:43 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/17 06:44:46 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/18 23:37:02 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,30 @@ void	pxl_to_img(t_cub *cub, float x, float y, int i)
 void	pxl_to_ray(t_cub *cub, float x, float y, unsigned int color)
 {
 	char	*tmp;
-	t_text	*ptr;
+	//t_text	*ptr;
 	int		size;
 	int		completer;
 
-	ptr = cub->text;
-	if (!ptr[0].addr)
+	//ptr = cub->text;
+	//if (!ptr[0].addr)
+	if (!cub->rayaddr)
 		return ;
 	if (y == 0 && x < 0)
 		x = 0;
 	if (y < 0 && x)
 		y = 0;
-	size = (int)(y * ptr[0].size + x * (ptr[0].bpp / 8));
+	//size = (int)(y * ptr[0].size + x * (ptr[0].bpp / 8));
+	size = (int)(y * cub->r_size + x * (cub->r_bpp / 8));
 	if (size < 0 || size >= RES)
 		return ;
-	completer = -1;
-	tmp = ptr[0].addr + size;
-	while (++completer < 4)
+	completer = 0;
+	//tmp = ptr[0].addr + size;
+	tmp = cub->rayaddr + size;
+	while (completer < 4)
+	{
 		*((unsigned int *)tmp + completer) = color;
+		completer++;
+	}
 }
 
 unsigned int	pxl_from_img(t_cub *cub, int x, int y, int i)
@@ -54,12 +60,14 @@ unsigned int	pxl_from_img(t_cub *cub, int x, int y, int i)
 	ptr = cub->text;
 	if (y == 0 && x < 0)
 		x = 0;
-	if (y < 0 && x)
+	if (y < 0)
 		y = 0;
 	size = (int)(y * ptr[i].size + x * (ptr[i].bpp / 8));
 	if (size < 0 || size >= 1228800) //ptr[i].res
-		return (0x000000);
+		return (0xffffff);
 	tmp = ptr[i].addr + size;
+	if (cub->ray->r == 0)
+		printf("pxl = %u >> size = %d >>> x = %d >>> y = %d\n", (*(unsigned int *)tmp), size, x , y);
 	return (*(unsigned int *)tmp);
 }
 

@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/17 06:50:00 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/18 23:06:04 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	dda(t_cub *cub, t_ray *ray)
 		ray->ry = ray->hy;
 		ray->ray = ray->hray;
 	}
-	else
+	if (ray->vray < ray->hray)
 	{
 		ray->ray = ray->vray;
 		ray->rx = ray->vx;
@@ -90,13 +90,15 @@ void	raycast(t_cub *cub, t_ray *ray)
 		while (ray->i < ray->raycast)
 		{
 			ray->color = case_texture(cub, ray);
+			if (ray->r == NRAY / 2)
+				printf("%u\n", ray->color);
 			pxl_to_ray(cub, ray->nr, (float)(int)(ray->i + ray->offset), ray->color);
 			ray->curr_px += ray->next_px;
 			ray->i++;
 		}
 		skybox(cub, ray);
 		floorcast(cub, ray);
-		secure_radians(ray->ra, ray->dra);
+		ray->ra = secure_radians(ray->ra, ray->dra);
 		ray->r++;
 	}
 	display(cub);

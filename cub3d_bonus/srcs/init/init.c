@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 03:11:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/17 16:34:58 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/04/18 23:12:58 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,24 +58,28 @@ void    get_map_xy(char **map, t_cub *cub)
 
 void	init_cub(t_cub *cub)
 {
-	t_player	player;
-	t_ray		ray;
+	t_player	*player;
+	t_ray		*ray;
 
+	player = (t_player *)malloc(sizeof(t_player) * 1);
+	ray = (t_ray *)malloc(sizeof(t_ray) * 1);
 	get_map_xy(cub->map, cub);
-	player.dx = cos(cub->a) * 5;
-	player.dy = sin(cub->a) * 5;
-	player.angle = cub->a;
-	player.released = 0;
-	player.last_pressed = 0;
-	player.input_fix = 0;
-	player.ms = 1;
-	player.x = cub->x;
-	player.y = cub->y;
-	player.safex = player.x;
-	player.safey = player.y;
-	ray.dra = deg_to_rad(0, FOV) / (HALFHRES >> 1);
-	cub->player = &player;
-	cub->ray = &ray;
+	player->dx = cos(cub->a) * 5;
+	player->dy = sin(cub->a) * 5;
+	player->angle = cub->a;
+	player->released = 0;
+	player->last_pressed = 0;
+	player->input_fix = 0;
+	player->ms = 1;
+	player->x = cub->x;
+	player->y = cub->y;
+	printf("cub x = %f, cub->y = %f\n", cub->x, cub->y);
+	player->safex = player->x;
+	player->safey = player->y;
+	ray->dra = deg_to_rad(0, FOV) / (HALFHRES >> 1);
+	cub->player = player;
+	cub->end = 0;
+	cub->ray = ray;
 	cub->z = 1;
 	cub->ex = cub->mx << 6;
 	cub->ey = cub->my << 6;
@@ -83,6 +87,7 @@ void	init_cub(t_cub *cub)
 
 int	create_window(t_cub *cub)
 {
+	cub->mlx = NULL;
 	cub->mlx = mlx_init();
 	if (!cub->mlx)
 		return (0);
@@ -91,6 +96,7 @@ int	create_window(t_cub *cub)
 		return (0);
 	if (!create_imgs(cub))
 		return (0);
+	raycast(cub, cub->ray);
 	return (1);
 }
 
@@ -125,10 +131,21 @@ int main(int ac, char **av)
 		free_data(&parse);
 		return (1);
 	}
+	cub.ray = NULL;
 	cub.map = parse.map + 6;
 	init_cub(&cub);
+	if (cub.ray)
+		printf("ray exist\n");
+	printf("main cub x = %f, cub->y = %f\n", cub.x, cub.y);
+	printf("main p x = %f, p y = %f\n", cub.player->x, cub.player->y);
+	printf("player ms = %f\n", cub.player->ms);
+	change_map(&cub);
 	cub.exp = expand(cub.map, cub.mx, cub.my, 64);
-	create_window(&cub);
+	if (!create_window(&cub))
+	{
+		wipe_data(&cub);
+		return (42);
+	}
 	create_hooks(&cub);
 	mlx_loop_hook(cub.mlx, anti_ghosting, &cub);
 	mlx_loop(cub.mlx);

@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:39:55 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/17 06:28:57 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/18 23:14:25 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ unsigned int	horizon_texture(t_cub *cub, t_ray *ray, int dir)
 	float	s;
 
 	s = ray->shadow;
+	s = 1;
 	if (dir == 1)
 		return (shade(pxl_from_img(cub, ray->curr_px, ray->top, 3), s));
 	if (dir == 2)
@@ -64,6 +65,7 @@ void	hray(t_cub *cub, t_ray *ray)
 	{
 		ray->rx = cub->x;
 		ray->ry = cub->y;
+		ray->limit = 20;
 	}
 	else if (ray->ra > PI)
 	{
