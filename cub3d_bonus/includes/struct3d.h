@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/18 03:09:45 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/19 16:22:28 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ typedef struct s_cub
 	float			y;
 	float			a;
 	float			z;
+	int				dir;
 	int				mx;
 	int				my;
 	int				mp;

@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 22:41:32 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/17 06:41:05 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/19 02:37:31 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # define THIRDH 426
 # define THIRDV 240
 # define RES 3778560
-# define FOV 60
+# define FOV 68
 # define NRAY 320
 # define SCAN 0.52358775
 # define MALLOC_ERR "Memory allocation failed\n"

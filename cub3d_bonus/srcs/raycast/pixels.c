@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:11:43 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/18 23:37:02 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/19 16:15:20 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,6 @@ unsigned int	pxl_from_img(t_cub *cub, int x, int y, int i)
 	if (size < 0 || size >= 1228800) //ptr[i].res
 		return (0xffffff);
 	tmp = ptr[i].addr + size;
-	if (cub->ray->r == 0)
-		printf("pxl = %u >> size = %d >>> x = %d >>> y = %d\n", (*(unsigned int *)tmp), size, x , y);
 	return (*(unsigned int *)tmp);
 }
 
@@ -76,18 +74,18 @@ unsigned int	rgb_to_hex(unsigned int r, unsigned int g, unsigned int b)
 	return ((0xff << 24) | ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff));
 }
 
-unsigned int	shade(unsigned int color, float shader)
+int	shade(int color, float shader)
 {
-	unsigned int	r;
-	unsigned int	g;
-	unsigned int	b;
+	int	r;
+	int	g;
+	int	b;
 
 	if (shader < 0)
 		shader = 0;
 	if (shader > 1)
 		shader = 1;
 	r = (color >> 16) * shader;
-	g = ((color >> 8) * 0x00ff) * shader;
+	g = ((color >> 8) & 0x00ff) * shader;
 	b = (color & 0x0000ff) * shader;
 	return ((0xff << 24) | ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff));
 }

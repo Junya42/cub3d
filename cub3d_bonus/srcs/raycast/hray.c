@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:39:55 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/18 23:14:25 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/19 17:55:02 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,19 @@ unsigned int	horizon_texture(t_cub *cub, t_ray *ray, int dir)
 	float	s;
 
 	s = ray->shadow;
-	s = 1;
 	if (dir == 1)
-		return (shade(pxl_from_img(cub, ray->curr_px, ray->top, 3), s));
+		return (shade(pxl_from_img(cub, (int)ray->curr_px % 64, ray->top, 3), s));
 	if (dir == 2)
-		return (shade(pxl_from_img(cub, ray->curr_px, ray->bot, 4), s));
+		return (shade(pxl_from_img(cub, (int)ray->curr_px % 64, ray->bot, 4), s));
 	if (dir == 3)
-		return (shade(pxl_from_img(cub, ray->curr_px, ray->top, 5), s));
+		return (shade(pxl_from_img(cub, (int)ray->curr_px % 64, ray->top, 5), s));
 	if (dir == 4)
-		return (shade(pxl_from_img(cub, ray->curr_px, ray->bot, 5), s));
+		return (shade(pxl_from_img(cub, (int)ray->curr_px % 64, ray->bot, 5), s));
 	if (dir == 5)
-		return (shade(pxl_from_img(cub, ray->curr_px, ray->top, 8), s));
+		return (shade(pxl_from_img(cub, (int)ray->curr_px % 64, ray->top, 8), s));
 	if (dir == 6)
-		return (shade(pxl_from_img(cub, ray->curr_px, ray->bot, 8), s));
-	return (shade(pxl_from_img(cub, ray->curr_px, ray->bot, 4), s));
+		return (shade(pxl_from_img(cub, (int)ray->curr_px % 64, ray->bot, 8), s));
+	return (shade(pxl_from_img(cub, (int)ray->curr_px % 64, ray->bot, 4), s));
 }
 
 void	dda_horizon(t_cub *cub, t_ray *ray)
@@ -43,6 +42,20 @@ void	dda_horizon(t_cub *cub, t_ray *ray)
 					ray->my > -1) && check_valid(cub->exp[ray->my][ray->mx],
 						"12DPLlr"))
 		{
+			/*if (hdir == 1)
+			{
+				if (cub->exp[ray->my][ray->mx] == 'D')
+				{
+					if (ray->rx % 64 >= 64 - cub->doormap[ray->my][ray->mx]) //v = 12
+					{
+						ray->rx += ray->xo;
+						ray->ry += ray->yo;
+						ray->limit++;
+						continue;
+					}
+
+				}
+			}*/
 			if (cub->exp[ray->my][ray->mx] == '2')
 				ray->hdir += 2;
 			ray->hx = ray->rx;

@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 01:30:53 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/18 23:30:10 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/19 16:58:32 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	imgs(t_cub *cub, t_text *t, void *(*xpm)(void *, char *, int *, int *))
 	t[7].img = (*xpm)(cub->mlx, "./imgs/redsky.xpm", &t[7].a, &t[7].b);
 	t[8].img = (*xpm)(cub->mlx, "./imgs/tabdeath.xpm", &t[8].a, &t[8].b);
 	t[9].img = (*xpm)(cub->mlx, "./imgs/mapbg.xpm", &t[9].a, &t[9].b);
-	t[10].img = (*xpm)(cub->mlx, "./imgs/redsky2.xpm", &t[10].a, &t[10].b);
+	t[10].img = (*xpm)(cub->mlx, "./imgs/redskyfix.xpm", &t[10].a, &t[10].b);
 	while (++i < 11)
 		if (!t[i].img)
 			return (0);

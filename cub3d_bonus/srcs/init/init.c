@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 03:11:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/18 23:12:58 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/19 02:52:26 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,6 @@ int main(int ac, char **av)
 	mlx_loop_hook(cub.mlx, anti_ghosting, &cub);
 	mlx_loop(cub.mlx);
 	mlx_destroy_display(cub.mlx);
-	wipe_data(&cub);
+	//wipe_data(&cub);
 	return (0);
 }

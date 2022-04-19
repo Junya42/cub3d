@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/18 23:06:04 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/19 16:59:26 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,25 @@ void	reset_values(t_cub *cub, t_ray *ray)
 unsigned int	case_texture(t_cub *cub, t_ray *ray)
 {
 	if (ray->vray < ray->hray)
+	{
+		if (ray->vdir % 2)
+			cub->dir = 1;
+		else
+			cub->dir = 2;
 		return (vertical_texture(cub, ray, ray->vdir));
+	}
 	else
+	{
+		if (ray->hdir % 2)
+			cub->dir = 1;
+		else
+			cub->dir = 2;
 		return (horizon_texture(cub, ray, ray->hdir));
+	}
 }
 
-void	dda_texture(t_cub *cub, t_ray *ray)
+void	dda_texture(t_ray *ray)
 {
-	(void)cub;
 	if (ray->shadow > 1)
 		ray->shadow = 1;
 	ray->curr_px = ray->next_px * ray->off_px;
@@ -51,7 +62,7 @@ void	dda_texture(t_cub *cub, t_ray *ray)
 
 void	dda(t_cub *cub, t_ray *ray)
 {
-	if (ray->hray <= ray->vray)
+	if (ray->hray < ray->vray)
 	{
 		ray->rx = ray->hx;
 		ray->ry = ray->hy;
@@ -74,7 +85,6 @@ void	dda(t_cub *cub, t_ray *ray)
 	}
 	ray->offset = ((HALFVRES * cub->z) - ray->raycast / 2);
 	ray->shadow = 7 / mysqrt(ray->ray);
-	dda_texture(cub, ray);
 }
 
 void	raycast(t_cub *cub, t_ray *ray)
@@ -87,11 +97,10 @@ void	raycast(t_cub *cub, t_ray *ray)
 		ray->limit = 0;
 		vray(cub, ray);
 		dda(cub, ray);
+		dda_texture(ray);
 		while (ray->i < ray->raycast)
 		{
 			ray->color = case_texture(cub, ray);
-			if (ray->r == NRAY / 2)
-				printf("%u\n", ray->color);
 			pxl_to_ray(cub, ray->nr, (float)(int)(ray->i + ray->offset), ray->color);
 			ray->curr_px += ray->next_px;
 			ray->i++;

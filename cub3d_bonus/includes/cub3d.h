@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/18 05:01:48 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/19 15:59:46 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,7 @@ void			pxl_to_img(t_cub *cub, float x, float y, int flag);
 void			pxl_to_ray(t_cub *cub, float x, float y, unsigned int color);
 unsigned int	pxl_from_img(t_cub *cub, int x, int y, int i);
 unsigned int	rgb_to_hex(unsigned int r, unsigned int g, unsigned int b);
-unsigned int	shade(unsigned int color, float shader);
+int				shade(int color, float shader);
 
 /*	----------minimap-------------	*/
 

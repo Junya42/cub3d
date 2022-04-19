@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 16:45:35 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/18 04:43:12 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/19 16:37:31 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,6 @@ int	save_position(t_cub *cub, t_player *player, char **exp)
 	t_ray *ray;
 
 	ray = cub->ray;
-	printf("ray dra = %f\n", ray->dra);
-	printf("y = %d >>> x = %d\n", (int)player->y, (int)player->x);
 	if (check_valid(exp[(int)player->y][(int)player->x], "12D"))
 	{
 		player->x = player->safex;
