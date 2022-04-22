@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 03:11:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/19 02:52:26 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/22 04:42:40 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	init_cub(t_cub *cub)
 	cub->player = player;
 	cub->end = 0;
 	cub->ray = ray;
-	cub->z = 1;
+	cub->z = 0;
 	cub->ex = cub->mx << 6;
 	cub->ey = cub->my << 6;
 }

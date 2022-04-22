@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/18 16:04:41 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/22 04:43:21 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	floorcast(t_cub *cub, t_ray *ray)
 	{
 		//distx = cub->x / 2 + cos(ray->ra) * 200 * 64;
 		//disty = cub->y / 2 + sin(ray->ra) * 200 * 64;
-		ray->offj = ray->j - (HALFVRES * cub->z);
+		ray->offj = ray->j - (HALFVRES - cub->z);
 		ray->curr_px = cub->x / 2 + cos(ray->ra) * 200 * 64 / ray->offj / fix;
 		ray->next_px = cub->y / 2 + sin(ray->ra) * 200 * 64 / ray->offj / fix;
 		//ray->curr_px = distx / ray->offj / fix;

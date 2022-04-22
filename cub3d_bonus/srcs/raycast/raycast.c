@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/19 16:59:26 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/22 04:41:51 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,15 +75,15 @@ void	dda(t_cub *cub, t_ray *ray)
 		ray->ry = ray->vy;
 	}
 	ray->ray = fix_fisheye(cub->a, ray->ra, ray->ray);
-	ray->raycast = (64 * VRES * cub->z / ray->ray);
+	ray->raycast = (64 * VRES / ray->ray);
 	ray->next_px = 64 / ray->raycast;
 	ray->off_px = 0;
-	if (ray->raycast > VRES * cub->z + 64)
+	if (ray->raycast > VRES + 64)
 	{
-		ray->off_px = (ray->raycast - VRES * cub->z) / 2;
-		ray->raycast = VRES * cub->z + 64;
+		ray->off_px = (ray->raycast - VRES) / 2;
+		ray->raycast = VRES + 64;
 	}
-	ray->offset = ((HALFVRES * cub->z) - ray->raycast / 2);
+	ray->offset = ((HALFVRES - cub->z) - ray->raycast / 2);
 	ray->shadow = 7 / mysqrt(ray->ray);
 }
 
