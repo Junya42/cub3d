@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 03:11:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/22 04:42:40 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/23 08:22:27 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ void	init_cub(t_cub *cub)
 	player->ms = 1;
 	player->x = cub->x;
 	player->y = cub->y;
-	printf("cub x = %f, cub->y = %f\n", cub->x, cub->y);
 	player->safex = player->x;
 	player->safey = player->y;
 	ray->dra = deg_to_rad(0, FOV) / (HALFHRES >> 1);
@@ -83,10 +82,14 @@ void	init_cub(t_cub *cub)
 	cub->z = 0;
 	cub->ex = cub->mx << 6;
 	cub->ey = cub->my << 6;
+	cub->h = 0.25;
+	cub->jump = 0;
 }
 
 int	create_window(t_cub *cub)
 {
+	cub->z = -VRES;
+	cub->scroll = 0;
 	cub->mlx = NULL;
 	cub->mlx = mlx_init();
 	if (!cub->mlx)
@@ -96,7 +99,13 @@ int	create_window(t_cub *cub)
 		return (0);
 	if (!create_imgs(cub))
 		return (0);
-	raycast(cub, cub->ray);
+	cub->z = 0;
+	//while (cub->z < 4)
+//	{
+		raycast(cub, cub->ray, 0);
+//		cub->z += 2;
+//	}*/
+	cub->z = 0;
 	return (1);
 }
 

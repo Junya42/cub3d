@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 01:30:53 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/19 16:58:32 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/22 07:11:58 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	imgs(t_cub *cub, t_text *t, void *(*xpm)(void *, char *, int *, int *))
 	int	i;
 
 	i = -1;
-	//t[0].img = mlx_new_image(cub->mlx, HRES, VRES);
-	t[0].img = (*xpm)(cub->mlx, "./imgs/torch2.xpm", &t[0].a, &t[0].b);
+	t[0].img = mlx_new_image(cub->mlx, HRES, VRES);
+	//t[0].img = (*xpm)(cub->mlx, "./imgs/torch2.xpm", &t[0].a, &t[0].b);
 	t[1].img = (*xpm)(cub->mlx, "./imgs/bookshelf.xpm", &t[1].a, &t[1].b);
 	t[2].img = (*xpm)(cub->mlx, "./imgs/birch_planks.xpm", &t[2].a, &t[2].b);
 	t[3].img = (*xpm)(cub->mlx, "./imgs/blackstone.xpm", &t[3].a, &t[3].b);

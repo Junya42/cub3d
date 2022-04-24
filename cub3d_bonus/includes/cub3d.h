@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/19 15:59:46 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/22 07:36:19 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,12 +242,12 @@ void			hray(t_cub *cub, t_ray *ray);
 void			vray(t_cub *cub, t_ray *ray);
 void			skybox(t_cub *cub, t_ray *ray);
 void			floorcast(t_cub *cub, t_ray *ray);
-void			display(t_cub *cub);
-void			raycast(t_cub *cub, t_ray *ray);
+void			display(t_cub *cub, int draw);
+void			raycast(t_cub *cub, t_ray *ray, int draw);
 
 /*	----------input-----------------	*/
 
-void			rotate(int keycode, t_player *player);
+void			rotate(int keycode, t_cub *cub, t_player *player);
 void			longitudinal(int keycode, t_player *player, char **exp);
 void			lateral(int keycode, t_player *player, char **exp);
 int				save_position(t_cub *cub, t_player *player, char **exp);

@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:50:23 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/19 16:16:58 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/24 21:47:27 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ unsigned int	vertical_texture(t_cub *cub, t_ray *ray, int dir)
 	float	ms;
 
 	s = ray->shadow;
-	ms = s - 0.3;
+	//ms = s - 0.3;
+	ms = s;
 	if (dir == 1) //ray->ray == 1 && dir == 1
 		return (shade(pxl_from_img(cub, (int)ray->curr_px % 64, ray->right, 1), s));
 	if (dir == 2)

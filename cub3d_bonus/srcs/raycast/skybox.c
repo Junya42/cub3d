@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:09 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/19 16:58:24 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/22 06:59:47 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	skybox(t_cub *cub, t_ray *ray)
 
 	ray->i = 0;
 	fix_nra = 0;
-	ra_to_pxl = ray->ra * 360;
+	ra_to_pxl = ray->ra * 360 - cub->scroll;
 	if (ra_to_pxl >= 1280)
 		fix_nra = 1;
 	while (ray->i < ray->offset)
@@ -49,7 +49,7 @@ void	skybox(t_cub *cub, t_ray *ray)
 			cub->color = pxl_skybox(cub, ray->i, (int)ra_to_pxl - 1280, 10);
 		if (cub->color == 0xffffff)
 		{
-			printf("rapxl = %f\n", ra_to_pxl);
+	//		printf("rapxl = %f\n", ra_to_pxl);
 			break;
 		}
 		pxl_to_ray(cub, ray->nr, ray->i, cub->color);

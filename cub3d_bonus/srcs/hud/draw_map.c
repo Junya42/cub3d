@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:10:22 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/18 05:00:14 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/22 07:05:15 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,9 @@ void	draw_posmap(t_cub *cub, char **map, int x, int y)
 
 	ymax = y + 5;
 	xmax = x + 5;
+	offset = get_offset(x);
 	y = get_new_value(y);
 	x = get_new_value(x);
-	offset = get_offset(x);
 	if (y < 0 || x < 0)
 		return ;
 	while (map[y] && y <= ymax)

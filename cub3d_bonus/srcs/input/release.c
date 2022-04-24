@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 17:26:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/18 03:08:54 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/22 05:18:39 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	release(int keycode, t_cub *cub)
 		{
 			free(cub->exp);
 			cub->exp = expand(cub->map, cub->mx, cub->my, 64);
-			raycast(cub, cub->ray);
+			raycast(cub, cub->ray, 0);
 		}
 	}
 	if (player->released == keycode)

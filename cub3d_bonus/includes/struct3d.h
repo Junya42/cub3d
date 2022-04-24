@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/19 16:22:28 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/23 07:37:38 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,19 +166,20 @@ typedef struct s_cub
 	float			y;
 	float			a;
 	float			z;
+	double			h;
+	int				jump;
 	int				dir;
 	int				mx;
 	int				my;
 	int				mp;
 	int				ex;
 	int				ey;
-	int				wx;
-	int				wy;
 	int				end;
 	char			**data;
 	char			**map;
 	char			**exp;
-	t_build			*build;
+	//t_build			*build;
+	float			scroll;
 	t_ray			*ray;
 	t_player		*player;
 	t_text			*text;

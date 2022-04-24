@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:39:55 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/19 17:55:02 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/24 08:41:23 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,6 @@ void	dda_horizon(t_cub *cub, t_ray *ray)
 					ray->my > -1) && check_valid(cub->exp[ray->my][ray->mx],
 						"12DPLlr"))
 		{
-			/*if (hdir == 1)
-			{
-				if (cub->exp[ray->my][ray->mx] == 'D')
-				{
-					if (ray->rx % 64 >= 64 - cub->doormap[ray->my][ray->mx]) //v = 12
-					{
-						ray->rx += ray->xo;
-						ray->ry += ray->yo;
-						ray->limit++;
-						continue;
-					}
-
-				}
-			}*/
 			if (cub->exp[ray->my][ray->mx] == '2')
 				ray->hdir += 2;
 			ray->hx = ray->rx;
