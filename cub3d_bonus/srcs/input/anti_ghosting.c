@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:04:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/23 07:49:45 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/25 01:51:25 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,17 @@ void	usleep_(long int time)
 	}
 }
 
+void	jump(t_cub *cub)
+{
+	if (cub->jump == 1 && cub->h <= 0.50)
+		cub->h += 0.01;
+	if (cub->h >= 0.50)
+		cub->jump = 0;
+	if (cub->h > 0.25 && cub->jump == 0)
+		cub->h -= 0.02;
+	if (cub->h < 0.25 && cub->jump == 0)
+		cub->h = 0.25;
+}
 int	anti_ghosting(t_cub *cub)
 {
 	t_player *player;
@@ -40,17 +51,12 @@ int	anti_ghosting(t_cub *cub)
 		save_position(cub, player, cub->exp);
 	}
 	(void)player;
-	if (cub->jump == 1 && cub->h <= 0.50)
-		cub->h += 0.01;
-	if (cub->h >= 0.50)
-		cub->jump = 0;
-	if (cub->h > 0.25 && cub->jump == 0)
-		cub->h -= 0.02;
-	if (cub->h < 0.25 && cub->jump == 0)
-		cub->h = 0.25;
+	jump(cub);
 	raycast(cub, cub->ray, 0);
+	//sprite_casting(cub);
+	display(cub, 0);
 	/*if (cub->scroll > 0)
-		cub->scroll = -VRES;
-	cub->scroll += 0.2;*/
+	  cub->scroll = -VRES;
+	  cub->scroll += 0.2;*/
 	return (0);
 }
