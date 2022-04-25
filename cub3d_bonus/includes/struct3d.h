@@ -6,12 +6,14 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/23 07:37:38 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/25 20:30:29 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT3D_H
 # define STRUCT3D_H
+
+# include "./define.h"
 
 enum	e_side
 {
@@ -30,6 +32,17 @@ enum	e_fd
 	STDOUT,
 	STDERR,
 	gnl_loop
+};
+
+enum	e_color
+{
+	SHADE,
+	RED,
+	GREEN,
+	BLUE,
+	CYAN,
+	PURPLE,
+	YELLOW
 };
 
 typedef struct s_parse
@@ -73,13 +86,61 @@ typedef struct s_player
 	double	crouch;
 }				t_player;
 
+typedef struct s_csp
+{
+	int				size;
+	int				dbpp;
+	float			index;
+	float			dist;
+	float			sx;
+	float			sy;
+	float			a;
+	float			b;
+	float			CS;
+	float			SN;
+	int				bpp;
+	int				sizeline;
+	int				endian;
+	int				ae;
+	int				be;
+	void			*img;
+	void			*addr;
+	char			*tmp;
+	unsigned int	color;
+	float			j;
+	float			x;
+	float			scale;
+	float			ncolor;
+	float			cx;
+	float			cy;
+}			t_csp;
+
+typedef struct s_sp
+{
+	void	*img;
+	char	*addr;
+	float	x;
+	float	y;
+	int		z;
+	int		a;
+	int		b;
+	int		bpp;
+	int		dbpp;
+	int		sizeline;
+	int		size;
+	int		end;
+	t_csp	csp;
+}			t_sp;
+
 typedef struct s_ray
 {
+	float			l1;
+	float			l2;
 	float			offset;
 	float			raycast;
 	float			contan;
 	float			ntan;
-	float			r;
+	int				r;
 	float			ray;
 	float			ra;
 	float			dra;
@@ -151,6 +212,7 @@ typedef struct s_cub
 	char			*we;
 	char			*mapaddr;
 	char			*rayaddr;
+	//int				nsprite;
 	int				m_bpp;
 	int				m_size;
 	int				m_end;
@@ -165,6 +227,8 @@ typedef struct s_cub
 	float			x;
 	float			y;
 	float			a;
+	float			sin;
+	float			cos;
 	float			z;
 	double			h;
 	int				jump;
@@ -175,6 +239,9 @@ typedef struct s_cub
 	int				ex;
 	int				ey;
 	int				end;
+	int				flot;
+	float			sz;
+	int				zbuf[NRAY];
 	char			**data;
 	char			**map;
 	char			**exp;
@@ -183,20 +250,21 @@ typedef struct s_cub
 	t_ray			*ray;
 	t_player		*player;
 	t_text			*text;
+	t_sp			sp[NB_SPRITE];
 }				t_cub;
 
 /*typedef struct s_parse
-{
-	char	**map;
-	char	**data;
-	char	*tmpdata;
-	char	*total;
-	char	*line;
-	int		fd;
-	int		arg;
-	int		checker;
-	int		map_start;
-	int		x;
-}				t_parse;
-*/
+  {
+  char	**map;
+  char	**data;
+  char	*tmpdata;
+  char	*total;
+  char	*line;
+  int		fd;
+  int		arg;
+  int		checker;
+  int		map_start;
+  int		x;
+  }				t_parse;
+  */
 #endif

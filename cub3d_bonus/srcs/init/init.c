@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 03:11:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/23 08:22:27 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/25 20:40:49 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,36 +56,6 @@ void    get_map_xy(char **map, t_cub *cub)
 	cub->my = y;
 }
 
-void	init_cub(t_cub *cub)
-{
-	t_player	*player;
-	t_ray		*ray;
-
-	player = (t_player *)malloc(sizeof(t_player) * 1);
-	ray = (t_ray *)malloc(sizeof(t_ray) * 1);
-	get_map_xy(cub->map, cub);
-	player->dx = cos(cub->a) * 5;
-	player->dy = sin(cub->a) * 5;
-	player->angle = cub->a;
-	player->released = 0;
-	player->last_pressed = 0;
-	player->input_fix = 0;
-	player->ms = 1;
-	player->x = cub->x;
-	player->y = cub->y;
-	player->safex = player->x;
-	player->safey = player->y;
-	ray->dra = deg_to_rad(0, FOV) / (HALFHRES >> 1);
-	cub->player = player;
-	cub->end = 0;
-	cub->ray = ray;
-	cub->z = 0;
-	cub->ex = cub->mx << 6;
-	cub->ey = cub->my << 6;
-	cub->h = 0.25;
-	cub->jump = 0;
-}
-
 int	create_window(t_cub *cub)
 {
 	cub->z = -VRES;
@@ -131,6 +101,7 @@ int main(int ac, char **av)
 {
 	t_cub	cub;
 	t_parse	parse;
+	int		x;
 
 	if (ac != 2)
 		return (printf("\033[1;31mError\033[0m - Usage : ./cub3d_bonus map_name\n"));
@@ -142,12 +113,12 @@ int main(int ac, char **av)
 	}
 	cub.ray = NULL;
 	cub.map = parse.map + 6;
-	init_cub(&cub);
-	if (cub.ray)
-		printf("ray exist\n");
-	printf("main cub x = %f, cub->y = %f\n", cub.x, cub.y);
-	printf("main p x = %f, p y = %f\n", cub.player->x, cub.player->y);
-	printf("player ms = %f\n", cub.player->ms);
+	x = init_cub(&cub);
+	if (x)
+	{
+		printf("init cub = %d\n", x);
+		return (0);
+	}
 	change_map(&cub);
 	cub.exp = expand(cub.map, cub.mx, cub.my, 64);
 	if (!create_window(&cub))
@@ -156,6 +127,8 @@ int main(int ac, char **av)
 		return (42);
 	}
 	create_hooks(&cub);
+	if (!get_sprite_txt(&cub))
+		return (0);
 	mlx_loop_hook(cub.mlx, anti_ghosting, &cub);
 	mlx_loop(cub.mlx);
 	mlx_destroy_display(cub.mlx);

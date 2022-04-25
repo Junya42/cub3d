@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/23 08:24:15 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/25 23:01:56 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ void	floorcast(t_cub *cub, t_ray *ray)
 {
 	float			fix;
 	unsigned int	color;
+	float			distx;
+	float			disty;
 	/*float			vx;
 	float			vy;
 	int				len;
@@ -76,11 +78,14 @@ void	floorcast(t_cub *cub, t_ray *ray)
 			ycpy += stepy;
 		}
 	}*/
+	distx = cos(ray->ra) * 180 * (0.75 + cub->h) * 64 * (0.75 + cub->h);
+	disty = sin(ray->ra) * 180 * (0.75 + cub->h) * 64 * (0.75 + cub->h);
+
 	while (ray->j < VRES)
 	{
 		ray->offj = ray->j - (HALFVRES - cub->z);
-		ray->curr_px = cub->x / 2 + cos(ray->ra) * 200 * 64 * (0.75 + cub->h) / ray->offj / fix;
-		ray->next_px = cub->y / 2 + sin(ray->ra) * 200 * 64 * (0.75 + cub->h) / ray->offj / fix;
+		ray->curr_px = cub->x / 2 + distx / ray->offj / fix;
+		ray->next_px = cub->y / 2 + disty / ray->offj / fix;
 		/*if (ray->r == NRAY / 2)
 		{
 			printf("offj %f >>> ", ray->offj);

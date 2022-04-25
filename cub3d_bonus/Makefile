@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+         #
+#    By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/04/02 17:38:35 by anremiki          #+#    #+#              #
-#    Updated: 2022/04/17 16:20:13 by cmarouf          ###   ########.fr        #
+#    Created: 2022/04/02 19:16:48 by anremiki          #+#    #+#              #
+#    Updated: 2022/04/25 20:28:04 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS = ./srcs/parsing/check_data.c ./srcs/parsing/check_map.c \
 	   ./srcs/parsing/parsing_map.c ./srcs/parsing/parsing_utils_1.c \
 	   ./srcs/parsing/init_parsing.c ./srcs/parsing/parsing_utils_2.c \
 	   ./srcs/parsing/utils_1.c \
+	   ./srcs/init/init_cub.c \
 	   ./srcs/hud/draw_map.c ./srcs/hud/draw_player.c \
 	   ./srcs/init/init.c ./srcs/init/textures.c \
 	   ./srcs/input/key_handle.c ./srcs/input/mouse.c \
@@ -31,10 +32,12 @@ SRCS = ./srcs/parsing/check_data.c ./srcs/parsing/check_map.c \
 	   ./srcs/input/input.c \
 	   ./srcs/utils/expandtab.c ./srcs/utils/map.c \
 	   ./srcs/utils/math.c ./srcs/utils/wipe.c \
+	   ./srcs/shader/colors.c ./srcs/shader/shade.c \
 	   ./srcs/raycast/init_ray.c ./srcs/raycast/hray.c \
 	   ./srcs/raycast/vray.c ./srcs/raycast/pixels.c \
 	   ./srcs/raycast/floorcast.c ./srcs/raycast/skybox.c \
 	   ./srcs/raycast/raycast.c ./srcs/raycast/display.c \
+	   ./srcs/sprites/init_sprites.c ./srcs/sprites/sprites_casting.c \
 
 #SRCS = ./expandtab.c
 

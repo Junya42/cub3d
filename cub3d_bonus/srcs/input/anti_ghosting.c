@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:04:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/25 01:51:25 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/25 21:18:15 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,19 @@ void	jump(t_cub *cub)
 	if (cub->h < 0.25 && cub->jump == 0)
 		cub->h = 0.25;
 }
+
+void	floating(t_cub *cub)
+{
+	if (cub->flot == 0)
+		cub->sz += 0.030;
+	else if (cub->flot == 1)
+		cub->sz -= 0.030;
+	if (cub->sz > 7)
+		cub->flot = 1;
+	else if (cub->sz < 0)
+		cub->flot = 0;
+}
+
 int	anti_ghosting(t_cub *cub)
 {
 	t_player *player;
@@ -53,7 +66,8 @@ int	anti_ghosting(t_cub *cub)
 	(void)player;
 	jump(cub);
 	raycast(cub, cub->ray, 0);
-	//sprite_casting(cub);
+	floating(cub);
+	sprite_casting(cub);
 	display(cub, 0);
 	/*if (cub->scroll > 0)
 	  cub->scroll = -VRES;

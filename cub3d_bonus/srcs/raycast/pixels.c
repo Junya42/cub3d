@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:11:43 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/19 16:15:20 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/25 19:54:30 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,24 @@ void	pxl_to_img(t_cub *cub, float x, float y, int i)
 	ptr = cub->text;
 	tmp = ptr[i].addr + (int)(y * ptr[i].size + x * (ptr[i].bpp / 8));
 	*(unsigned int *)tmp = cub->color;
+}
+
+void	spxl_to_ray(t_cub *cub, float x, float y, unsigned int color)
+{
+	char	*tmp;
+	int		size;
+
+	if (!cub->rayaddr)
+		return ;
+	if (y == 0 && x < 0)
+		x = 0;
+	if (y < 0 && x)
+		y = 0;
+	size = (int)(y * cub->r_size + x * (cub->r_bpp / 8));
+	if (size < 0 || size >= RES)
+		return ;
+	tmp = cub->rayaddr + size;
+	*(unsigned int *)tmp = color;
 }
 
 void	pxl_to_ray(t_cub *cub, float x, float y, unsigned int color)
@@ -71,21 +89,5 @@ unsigned int	pxl_from_img(t_cub *cub, int x, int y, int i)
 
 unsigned int	rgb_to_hex(unsigned int r, unsigned int g, unsigned int b)
 {
-	return ((0xff << 24) | ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff));
-}
-
-int	shade(int color, float shader)
-{
-	int	r;
-	int	g;
-	int	b;
-
-	if (shader < 0)
-		shader = 0;
-	if (shader > 1)
-		shader = 1;
-	r = (color >> 16) * shader;
-	g = ((color >> 8) & 0x00ff) * shader;
-	b = (color & 0x0000ff) * shader;
 	return ((0xff << 24) | ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff));
 }

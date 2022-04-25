@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/25 01:50:51 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/25 22:17:51 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	dda_texture(t_ray *ray)
 	ray->nr = ray->r * 4;
 }
 
-void	dda(t_cub *cub, t_ray *ray)
+int	dda(t_cub *cub, t_ray *ray)
 {
 	if (ray->hray < ray->vray)
 	{
@@ -132,19 +132,19 @@ void	dda(t_cub *cub, t_ray *ray)
 	//float pal = acos((ray->ray * ray->ray + len * len - plen * plen) / (2 * ray->ray * len));
 
 	if (blocked == 0)
-		i = (1.0f / 250) * (250 - len);
+		i = (1.0f / 320) * (320 - len);
 	if (blocked2 == 0)
-		i2 = (1.0f / 200) * (200 - len2);
+		i2 = (1.0f / 230) * (230 - len2);
 	if (i < 0)
 		i = 0;
 	if (i2 < 0)
 		i2 = 0;
 	if (ray->r == NRAY / 2)
 	{
-		printf("\ni %f >>> i2 %f\n", i, i2);
+		//printf("\ni %f >>> i2 %f\n", i, i2);
+		//printf("LEN : len light mur = %f\n", len);
 		/*printf("\nRAY : len player mur = %f\n", ray->ray);
 		printf(" PLEN : len player light = %f\n", plen);
-		printf("LEN : len light mur = %f\n", len);
 		printf("ra = %f\n", ray->ra * 180 / PI);
 		printf("i = %f\n", i);
 		printf("degree player|WALL|light = %f\n", pal * 180 / PI);
@@ -153,17 +153,19 @@ void	dda(t_cub *cub, t_ray *ray)
 	}
 //	printf("ny %f >>> nx %f\n", ny, nx);
 	ray->ray = fix_fisheye(cub->a, ray->ra, ray->ray);
+	cub->zbuf[(int)ray->r] = ray->ray;
 	ray->raycast = (64 * VRES / ray->ray);
 	ray->next_px = 64 / ray->raycast;
 	ray->off_px = 0;
-	if (ray->raycast > VRES)
+	/*if (ray->raycast > VRES)
 	{
 		ray->off_px = (ray->raycast - VRES) / 2;
 		ray->raycast = VRES;
-	}
+	}*/
 	ray->offset = ((HALFVRES - cub->z) - ray->raycast * (0.75 - cub->h));
 	//ray->shadow = 2 / mysqrt(ray->ray) + i;
 	ray->shadow = i2 + i;
+	//ray->shadow = i;
 	if (ray->shadow > 1)
 		ray->shadow = 1;
 	(void)lx;
@@ -172,6 +174,15 @@ void	dda(t_cub *cub, t_ray *ray)
 	(void)len;
 //	(void)plen;
 //	(void)pal;
+	ray->l1 = i;
+	ray->l2 = i2;
+	if (i && i2)
+		return (3);
+	if (i)
+		return (2);
+	if (i2)
+		return (1);
+	return (0);
 }
 
 void	raycast(t_cub *cub, t_ray *ray, int draw)
@@ -179,21 +190,49 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 	(void)draw;
 	init_ray(cub, ray);
 	//mlx_put_image_to_window(cub->mlx, cub->win, cub->text[0].img, 0, 0);
+	int	flag = 0;
 	while (ray->r < NRAY)
 	{
 		reset_values(cub, ray);
 		hray(cub, ray);
 		ray->limit = 0;
 		vray(cub, ray);
-		dda(cub, ray);
+		flag = dda(cub, ray);
 		dda_texture(ray);
+		float	z = 2;
+		float	scale = ray->shadow / ray->raycast;
+		float	dim = 0;
+		int		lever = 0;
 		while (ray->i < ray->raycast)
 		{
 			ray->color = case_texture(cub, ray);
+			if (flag == 0)
+				ray->color = shade(ray->color, 0);
+			if (flag > 0)
+			{
+				ray->color = addshade(ray->color, dim);
+				/*if (flag == 3)
+				{
+					ray->color = colorize(ray->color, ray->shadow, 5);
+					//ray->color = colorize(ray->color, ray->l2, 2);
+					//ray->color = colorize(ray->color, dim, 3);
+				}*/
+				/*if (flag == 2)
+					ray->color = colorize(ray->color, ray->l1, 5);
+				if (flag == 1)
+					ray->color = colorize(ray->color, ray->l2, 4);*/
+			}
 			pxl_to_ray(cub, ray->nr, (float)(int)(ray->i + ray->offset + draw), ray->color);
 			ray->curr_px += ray->next_px;
 			ray->i++;
+			if (dim >= ray->shadow)
+				lever = 1;
+			if (lever)
+				dim -= scale;
+			else
+				dim += scale * z;
 		}
+		(void)z;
 		skybox(cub, ray);
 		floorcast(cub, ray);
 		ray->ra = secure_radians(ray->ra, ray->dra);

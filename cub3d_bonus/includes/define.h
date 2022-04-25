@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 22:41:32 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/19 02:37:31 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/25 20:42:10 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,10 @@
 # define THIRDH 426
 # define THIRDV 240
 # define RES 3778560
-# define FOV 68
+# define FOV 60
 # define NRAY 320
 # define SCAN 0.52358775
+# define NB_SPRITE 2
 # define MALLOC_ERR "Memory allocation failed\n"
 # define MLX_ERR "MLX failure\n"
 # define FD_ERR "Invalid file descriptor\n"

@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/22 07:36:19 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/25 20:41:21 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,150 +27,17 @@
 # include "struct3d.h"
 # include "define.h"
 
-//# define PI 3.1415926535
 # define NVALUE 0.017452925
 # define RAD 0.017452925
-/*
-enum	e_fd
-{
-	STDIN,
-	STDOUT,
-	STDERR,
-	GATHER
-};
 
-typedef struct s_parse
-{
-	char	**map;
-	char	**data;
-	char	*tmpdata;
-	char	*total;
-	char	*line;
-	int		fd;
-	int		arg;
-	int		checker;
-	int		map_start;
-	int		x;
-}				t_parse;
-
-typedef struct s_text
-{
-	void	*texture;
-	void	*addr;
-	char	*name;
-	int		bpp;
-	int		size;
-	int		end;
-	int		a;
-	int		b;
-}				t_text;
-
-typedef struct s_hud
-{
-	void	*hud;
-	int		a;
-	int		b;
-}				t_hud;
-
-typedef struct s_mlx
-{
-	void	*mlx;
-	void	*win;
-	t_hud	*hud;
-	float	anim;
-	void	*imap;
-	char	*addr;
-	char	**map;
-	char	**exp;
-	char	**pixmap;
-	int		n_imgs;
-	int		color;
-	int		bpp;
-	int		bbpp;
-	int		raysize;
-	int		size_line;
-	int		bsize_line;
-	int		imgsize;
-	int		next;
-	int		endian;
-	int		bendian;
-	void	*iplayer;
-	void	*texture;
-	char	*textaddr;
-	char	**rtext;
-	int		last_ray;
-	int		i;
-	int		j;
-	int		bg_r;
-	int		bg_g;
-	int		bg_b;
-	int		hres;
-	int		vres;
-	int		mx;
-	int		my;
-	int		ex;
-	int		ey;
-	int		fov;
-	float	dra;
-	float	px;
-	float	pdx;
-	float	py;
-	float	pdy;
-	float	validx;
-	float	validy;
-	double	pa;
-	double	pz;
-	int		brightness;
-	int		released;
-	int		last_pressed;
-	int		press_start;
-	double	sprint;
-	int		end;
-	int		paintings;
-	float	lx;
-	float	la;
-	float	ly;
-	float	lz;
-	float	pi2;
-	float	dpi;
-	float	pi3;
-	int		magic;
-	t_text	*text;
-	void	*b1;
-	void	*b2;
-	void	*b3;
-}			t_mlx;
-*/
-/*	Parsing data	*/
-
-/*int		init_data(char **av, t_cub *cub);
-int		gather_data(char *av, t_parse *data, int fd, t_cub *cub);
-int		split_data(t_parse *data, t_cub *cub);
-int		check_valid(char c, char *sep);
-int		check_comma(char *line);
-int		check_rgb(char *line);
-int		check_path(char *line, int arg);
-int		parse_line(char *line, int arg);
-char	*ft_strndup(char *str, int limit);
-char	*skip_line(char *line);
-char	**parse_data(char **av);
-char	**parse_map(char **map); */
-
-/*		kekw	*/
+/*	-----------Parsing----------	*/
 
 void			free_data(t_parse *parse);
 int				free_and_return(t_parse *p, int flag, int exitcode);
 int				is_num(char *str);
 int				get_fd_size(char *filename);
 int				is_charset(char c, char *set);
-
-/*		kekw2	*/
-
-void			free_data(t_parse *parse);
-int				free_and_return(t_parse *p, int flag, int exitcode);
-int				is_num(char *str);
-int				get_fd_size(char *filename);
-int				is_charset(char c, char *set);void			init_variable(t_parse *p);
+void			init_variable(t_parse *p);
 int				parsing(char **av, t_parse *parse);
 int				parse_data(t_parse *parse);
 int				parse_map(t_parse *parse, char *fd_path);
@@ -189,7 +56,15 @@ void			gather_data(char **mcontent, t_parse *p, int flag);
 int				try_open_cub_file(char *filename, t_parse *parse);
 int				exit_parsing(char *str);
 
-/* -----------Engine mod-------		*/
+/*	----------Init--------------	*/
+
+void			get_angle(t_cub *cub, char dir);
+void			get_map_xy(char **map, t_cub *cub);
+int				init_cub(t_cub *cub);
+int				create_window(t_cub *cub);
+int				get_sprite_txt(t_cub *cub);
+
+/* -----------Engine mod--------	*/
 
 void			printmap(char **map);
 int				check_valid(char c, char *valid);
@@ -201,12 +76,6 @@ void			transform(char **map, int x, int y, char c);
 
 int				create_imgs(t_cub *cub);
 void			destroy_imgs(t_cub *cub, t_text *imgs);
-
-/*	----------init--------------	*/
-
-void			init_cub(t_cub *cub);
-//select
-int				create_window(t_cub *cub);
 
 /*	----------utils--------------	*/
 /*	MATHS	*/
@@ -220,20 +89,34 @@ int				adjacent(t_cub *cub, int x, int y, char c);
 void			change_map(t_cub *cub);
 int				wipe_data(t_cub *cub);
 
+/*	----------Shaders------------	*/
+
+int				red(int color, float shader);
+int				green(int color, float shader);
+int				blue(int color, float shader);
+int				shade(int color, float shader);
+int				addshade(int color, float shader);
+int				colorize(int base, float shader, int color);
+
 /*	----------Pixels-------------	*/
 
+void			spxl_to_ray(t_cub *cub, float x, float y, unsigned int color);
 void			pxl_to_img(t_cub *cub, float x, float y, int flag);
 void			pxl_to_ray(t_cub *cub, float x, float y, unsigned int color);
 unsigned int	pxl_from_img(t_cub *cub, int x, int y, int i);
 unsigned int	rgb_to_hex(unsigned int r, unsigned int g, unsigned int b);
-int				shade(int color, float shader);
 
-/*	----------minimap-------------	*/
+/*	----------Sprites-------------	*/
+
+void			sprite_casting(t_cub *cub);
+void			print_sprite(t_cub *cub, t_csp *s);
+
+/*	----------Minimap-------------	*/
 
 void			draw_player(t_cub *cub, float x, float y);
 void			draw_posmap(t_cub *cub, char **map, int x, int y);
 
-/*	----------raycast-------------	*/
+/*	----------Raycast-------------	*/
 
 void			init_ray(t_cub *cub, t_ray *ray);
 unsigned int	horizon_texture(t_cub *cub, t_ray *ray, int dir);
@@ -245,7 +128,7 @@ void			floorcast(t_cub *cub, t_ray *ray);
 void			display(t_cub *cub, int draw);
 void			raycast(t_cub *cub, t_ray *ray, int draw);
 
-/*	----------input-----------------	*/
+/*	----------Input-----------------	*/
 
 void			rotate(int keycode, t_cub *cub, t_player *player);
 void			longitudinal(int keycode, t_player *player, char **exp);

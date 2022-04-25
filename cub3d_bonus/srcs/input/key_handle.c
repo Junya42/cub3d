@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 16:45:35 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/23 07:52:21 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/25 22:13:48 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,25 @@ void	rotate(int keycode, t_cub *cub, t_player *player)
 	if (keycode == 65361)
 	{
 		player->angle = secure_radians(player->angle, -0.07);
-		player->dx = cos(player->angle) * 5;
-		player->dy = sin(player->angle) * 5;
+		cub->cos = cos(player->angle);
+		cub->sin = sin(player->angle);
+		player->dx = cub->cos * 5;
+		player->dy = cub->sin * 5;
 	}
 	if (keycode == 65363)
 	{
 		player->angle = secure_radians(player->angle, 0.07);
-		player->dx = cos(player->angle) * 5;
-		player->dy = sin(player->angle) * 5;
+		cub->cos = cos(player->angle);
+		cub->sin = sin(player->angle);
+		player->dx = cub->cos * 5;
+		player->dy = cub->sin * 5;
 	}
 	if (keycode == 65364)
-		cub->z += 15;
+		if (cub->z < 300)
+			cub->z += 15;
 	if (keycode == 65362)
-		cub->z -= 15;
+		if (cub->z > -300)
+			cub->z -= 15;
 }
 
 void	slide(t_player *player, float x, float y, char **exp)

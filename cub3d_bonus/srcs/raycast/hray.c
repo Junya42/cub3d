@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:39:55 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/24 08:41:23 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/25 02:19:17 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,19 @@ unsigned int	horizon_texture(t_cub *cub, t_ray *ray, int dir)
 
 	s = ray->shadow;
 	if (dir == 1)
-		return (shade(pxl_from_img(cub, (int)ray->curr_px % 64, ray->top, 3), s));
+		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->top, 3)));
 	if (dir == 2)
-		return (shade(pxl_from_img(cub, (int)ray->curr_px % 64, ray->bot, 4), s));
+		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->bot, 4)));
 	if (dir == 3)
-		return (shade(pxl_from_img(cub, (int)ray->curr_px % 64, ray->top, 5), s));
+		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->top, 5)));
 	if (dir == 4)
-		return (shade(pxl_from_img(cub, (int)ray->curr_px % 64, ray->bot, 5), s));
+		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->bot, 5)));
 	if (dir == 5)
-		return (shade(pxl_from_img(cub, (int)ray->curr_px % 64, ray->top, 8), s));
+		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->top, 8)));
 	if (dir == 6)
-		return (shade(pxl_from_img(cub, (int)ray->curr_px % 64, ray->bot, 8), s));
-	return (shade(pxl_from_img(cub, (int)ray->curr_px % 64, ray->bot, 4), s));
+		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->bot, 8)));
+	(void)s;
+	return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->bot, 4)));
 }
 
 void	dda_horizon(t_cub *cub, t_ray *ray)
