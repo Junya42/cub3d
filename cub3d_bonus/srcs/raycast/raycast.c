@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/25 22:17:51 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/27 22:09:51 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ unsigned int	case_texture(t_cub *cub, t_ray *ray)
 	else
 	{
 		if (ray->hdir % 2)
-			cub->dir = 1;
+			cub->dir = 3;
 		else
-			cub->dir = 2;
+			cub->dir = 4;
 		return (horizon_texture(cub, ray, ray->hdir));
 	}
 }
@@ -75,7 +75,7 @@ int	dda(t_cub *cub, t_ray *ray)
 		ray->ry = ray->vy;
 	}
 	float	lx = 352.0;
-	float	ly = 288.0;
+	float	ly = 96.0 + 192.0;
 	float	lx2 = 288.0 - 64;
 	float	ly2 = 416.0;
 	float	dx = ray->rx - lx;
@@ -130,11 +130,21 @@ int	dda(t_cub *cub, t_ray *ray)
 		yl2 += stepy2;
 	}
 	//float pal = acos((ray->ray * ray->ray + len * len - plen * plen) / (2 * ray->ray * len));
-
+	float	max;
 	if (blocked == 0)
-		i = (1.0f / 320) * (320 - len);
+	{
+		i = (1.0f / 320) * (320 - len * cub->sz);
+		max = (1.0f / 320) * (320 - len);
+		if (i > max)
+			i = max;
+	}
 	if (blocked2 == 0)
-		i2 = (1.0f / 230) * (230 - len2);
+	{
+		i2 = (1.0f / 230) * (230 - len2 * cub->sz);
+		max = (1.0f / 230) * (230 - len2);
+		if (i2 > max)
+			i2 = max;
+	}
 	if (i < 0)
 		i = 0;
 	if (i2 < 0)
@@ -199,28 +209,26 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 		vray(cub, ray);
 		flag = dda(cub, ray);
 		dda_texture(ray);
-		float	z = 2;
 		float	scale = ray->shadow / ray->raycast;
+		//float	z = 1 + cub->sz;
 		float	dim = 0;
 		int		lever = 0;
 		while (ray->i < ray->raycast)
 		{
 			ray->color = case_texture(cub, ray);
 			if (flag == 0)
-				ray->color = shade(ray->color, 0);
-			if (flag > 0)
+				ray->color = shade(ray->color, 0.015);
+			else
 			{
-				ray->color = addshade(ray->color, dim);
-				/*if (flag == 3)
-				{
-					ray->color = colorize(ray->color, ray->shadow, 5);
-					//ray->color = colorize(ray->color, ray->l2, 2);
-					//ray->color = colorize(ray->color, dim, 3);
-				}*/
-				/*if (flag == 2)
-					ray->color = colorize(ray->color, ray->l1, 5);
 				if (flag == 1)
-					ray->color = colorize(ray->color, ray->l2, 4);*/
+					ray->color = colorize(ray->color, ray->shadow, dim, PURPLE);
+				if (flag == 2)
+					ray->color = colorize(ray->color, ray->shadow, dim, CYAN);
+				if (flag == 3)
+				{
+					ray->color = colorize(ray->color, 1, dim, PURPLE);
+					ray->color = colorize(ray->color, ray->shadow, dim, CYAN);
+				}
 			}
 			pxl_to_ray(cub, ray->nr, (float)(int)(ray->i + ray->offset + draw), ray->color);
 			ray->curr_px += ray->next_px;
@@ -230,9 +238,9 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 			if (lever)
 				dim -= scale;
 			else
-				dim += scale * z;
+				dim += scale;
 		}
-		(void)z;
+		//(void)dim;
 		skybox(cub, ray);
 		floorcast(cub, ray);
 		ray->ra = secure_radians(ray->ra, ray->dra);

@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 05:13:38 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/25 19:51:31 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/26 01:10:25 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,12 @@ int addshade(int color, float shader)
 	return ((0xff << 24) | ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff));
 }
 
-int colorize(int base, float shader, int color)
+int colorize(int base, float shader, float dim, int color)
 {
 	if (color == SHADE)
 		return (shade(base, shader));
-	else if (color == RED)
+	base = shade(base, dim);
+	if (color == RED)
 	{
 		base = green(base, shader);
 		base = blue(base, shader);
@@ -70,5 +71,5 @@ int colorize(int base, float shader, int color)
 		return (green(base, shader));
 	else if (color == YELLOW)
 		return (blue(base, shader));
-	return (addshade(base, shader));
+	return (base);
 }

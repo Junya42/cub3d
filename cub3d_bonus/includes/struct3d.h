@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/25 20:30:29 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/26 06:22:59 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,6 +176,10 @@ typedef struct s_ray
 	int				limit;
 	int				fov;
 	int				nray;
+	double			camx;
+	double			raydirx;
+	double			raydiry;
+	double			wallx;
 }				t_ray;
 
 typedef struct s_build
@@ -231,6 +235,8 @@ typedef struct s_cub
 	float			cos;
 	float			z;
 	double			h;
+	double			xplane;
+	double			yplane;
 	int				jump;
 	int				dir;
 	int				mx;

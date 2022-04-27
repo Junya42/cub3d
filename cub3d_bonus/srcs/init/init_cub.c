@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:58:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/25 20:43:37 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/26 06:20:56 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	get_sprite_txt(t_cub *cub)
 	}
 	printf("before texture sprite\n");
 	cub->sp[0].img = mlx_xpm_file_to_image(cub->mlx,
-			"./imgs/tabdeath.xpm", &cub->sp[0].a, &cub->sp[0].b);
+			"./imgs/light2.xpm", &cub->sp[0].a, &cub->sp[0].b);
 	if (!cub->sp[0].img)
 		return (0);
 	printf("first texture sprite ok\n");
@@ -80,7 +80,7 @@ t_player *alloc_player(t_cub *cub)
 void	sprite_pos(t_cub *cub)
 {
 	cub->sp[0].x = 352.0;
-	cub->sp[0].y = 288.0;
+	cub->sp[0].y = 96.0 + 192.0;
 	cub->sp[1].x = 288.0 - 64;
 	cub->sp[1].y = 416.0;
 	cub->flot = 0;

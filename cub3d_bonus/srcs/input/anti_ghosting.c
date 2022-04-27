@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:04:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/25 21:18:15 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/27 22:35:10 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,11 @@ void	jump(t_cub *cub)
 	if (cub->h >= 0.50)
 		cub->jump = 0;
 	if (cub->h > 0.25 && cub->jump == 0)
-		cub->h -= 0.02;
+		cub->h -= 0.01;
 	if (cub->h < 0.25 && cub->jump == 0)
 		cub->h = 0.25;
+	//if (cub->jump == -1)
+	//	cub->h -= 0.01;
 }
 
 void	floating(t_cub *cub)
@@ -71,6 +73,6 @@ int	anti_ghosting(t_cub *cub)
 	display(cub, 0);
 	/*if (cub->scroll > 0)
 	  cub->scroll = -VRES;
-	  cub->scroll += 0.2;*/
+	cub->scroll += 0.2;*/
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 02:06:07 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/25 22:52:18 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/26 06:47:39 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static inline void sort_sprite(t_sp *sp)
 {
 	int	i;
 	t_sp ptr;
-	
+
 	i = 0;
 	while (i + 1 < NB_SPRITE)
 	{

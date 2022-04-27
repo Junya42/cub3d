@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:50:23 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/25 02:18:12 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/26 03:57:36 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	dda_vertical(t_cub *cub, t_ray *ray)
 		ray->my = (int)ray->ry;
 		if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1 &&
 					ray->my > -1) && check_valid(cub->exp[ray->my][ray->mx],
-						"12DPLlr"))
+						"12"))
 		{
 			if (cub->exp[ray->my][ray->mx] == '2')
 				ray->vdir += 2;

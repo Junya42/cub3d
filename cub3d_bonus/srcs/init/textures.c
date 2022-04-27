@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 01:30:53 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/22 07:11:58 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/27 22:25:25 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,18 @@ int	addr(t_cub *cub, t_text *t, char *(*add)(void *, int *, int *, int *))
 	int	i;
 
 	i = -1;
-	t[0].addr = (*add)(t[0].img, &t[0].bpp, &t[0].size, &t[0].end);
+	cub->mapaddr = (*add)(cub->imap, &cub->m_bpp, &cub->m_size, &cub->m_end);
+	cub->rayaddr = (*add)(cub->iray, &cub->r_bpp, &cub->r_size, &cub->r_end);
+	if (!cub->mapaddr || !cub->rayaddr)
+		return (0);
+	t[0].addr = cub->rayaddr;
 	t[1].addr = (*add)(t[1].img, &t[1].bpp, &t[1].size, &t[1].end);
 	t[2].addr = (*add)(t[2].img, &t[2].bpp, &t[2].size, &t[2].end);
 	t[3].addr = (*add)(t[3].img, &t[3].bpp, &t[3].size, &t[3].end);
 	t[4].addr = (*add)(t[4].img, &t[4].bpp, &t[4].size, &t[4].end);
 	t[5].addr = (*add)(t[5].img, &t[5].bpp, &t[5].size, &t[5].end);
 	t[6].addr = (*add)(t[6].img, &t[6].bpp, &t[6].size, &t[6].end);
+	printf("bpp = %d\n", t[6].bpp);
 	t[7].addr = (*add)(t[7].img, &t[7].bpp, &t[7].size, &t[7].end);
 	t[8].addr = (*add)(t[8].img, &t[8].bpp, &t[8].size, &t[8].end);
 	t[9].addr = (*add)(t[9].img, &t[9].bpp, &t[9].size, &t[9].end);
@@ -31,10 +36,6 @@ int	addr(t_cub *cub, t_text *t, char *(*add)(void *, int *, int *, int *))
 	while (++i < 11)
 		if (!t[i].addr)
 			return (0);
-	cub->mapaddr = (*add)(cub->imap, &cub->m_bpp, &cub->m_size, &cub->m_end);
-	cub->rayaddr = (*add)(cub->iray, &cub->r_bpp, &cub->r_size, &cub->r_end);
-	if (!cub->mapaddr || !cub->rayaddr)
-		return (0);
 	return (1);
 }
 
@@ -53,7 +54,7 @@ int	imgs(t_cub *cub, t_text *t, void *(*xpm)(void *, char *, int *, int *))
 	t[6].img = (*xpm)(cub->mlx, "./imgs/doomfloor.xpm", &t[6].a, &t[6].b);
 	t[7].img = (*xpm)(cub->mlx, "./imgs/redsky.xpm", &t[7].a, &t[7].b);
 	t[8].img = (*xpm)(cub->mlx, "./imgs/tabdeath.xpm", &t[8].a, &t[8].b);
-	t[9].img = (*xpm)(cub->mlx, "./imgs/mapbg.xpm", &t[9].a, &t[9].b);
+	t[9].img = (*xpm)(cub->mlx, "./imgs/torch2.xpm", &t[9].a, &t[9].b);
 	t[10].img = (*xpm)(cub->mlx, "./imgs/redskyfix.xpm", &t[10].a, &t[10].b);
 	while (++i < 11)
 		if (!t[i].img)

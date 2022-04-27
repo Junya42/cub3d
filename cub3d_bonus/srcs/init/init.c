@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 03:11:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/25 20:40:49 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/26 07:08:16 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int main(int ac, char **av)
 	create_hooks(&cub);
 	if (!get_sprite_txt(&cub))
 		return (0);
+	printf("cub.x = %f	cub.y = %f\n", cub.x, cub.y);
 	mlx_loop_hook(cub.mlx, anti_ghosting, &cub);
 	mlx_loop(cub.mlx);
 	mlx_destroy_display(cub.mlx);
