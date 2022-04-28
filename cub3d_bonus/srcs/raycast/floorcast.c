@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/27 22:26:42 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/29 00:04:07 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,16 @@ void	ceiling(t_cub *cub, t_ray *ray)
 		end--;
 		ray->j++;
 	}
+}
+
+void	glass(t_cub *cub, float x, float y, float lvl)
+{
+	unsigned int	color;
+
+	color = pxl_from_img(cub, x, y, -1);
+	color = colorize(color, 0.55, 0.55, SHADE);
+	pxl_to_ray(cub, (int)x, (int)y, color);
+	(void)lvl;
 }
 
 void	floorcast(t_cub *cub, t_ray *ray)
@@ -107,6 +117,7 @@ void	floorcast(t_cub *cub, t_ray *ray)
 	float	dy;
 	float	lvl;
 	float	max;
+	int		limiter = 0;
 	while (ray->j < heightfix)
 	{
 		ray->offj = ray->j - (HALFVRES - cub->z);
@@ -115,24 +126,56 @@ void	floorcast(t_cub *cub, t_ray *ray)
 		dx = ray->curr_px * 2 - lx;
 		dy = ray->next_px * 2 - ly;
 		len = sqrt(dx *dx + dy * dy);
-		lvl = (1.0f / 230) * (230 - len * cub->sz);
-		max = (1.0f / 230) * (230 - len);
-		if (lvl > max)
-			lvl = max;
-		if (ray->r == NRAY / 2)
-			printf("lvl = %f\n", cub->sz);
+		lvl = 0;
+		int	blocked = 0;
+		float	stepx = dx / 10; //100 = full precision
+		float	stepy = dy / 10;
+		float	dlx = lx + stepx;
+		float	dly = ly + stepy;
+		float	sx;
+		float	sy;
+		while (1)
+		{
+			sx = lx - dlx;
+			sy = ly - dly;
+			if (sqrt(sx * sx + sy * sy) >= len)
+				break ;
+			if (check_valid(cub->exp[(int)dly][(int)dlx], "12"))
+			{
+				blocked = 1;
+				break ;
+			}
+			dlx += stepx;
+			dly += stepy;
+		}
+		if (blocked == 0)
+		{
+			lvl = (1.0f / 230) * (230 - len * cub->sz);
+			max = (1.0f / 230) * (230 - len);
+			if (lvl > max)
+				lvl = max;
+		}
+		//if (ray->r == NRAY / 2)
+		//	printf("lvl = %f\n", cub->sz);
 		color = pxl_from_img(cub, (int)ray->next_px % 64, (int)ray->curr_px % 64, 6);
+		if (limiter < ray->raycast)
+			color += case_texture(cub, ray);
 		color = colorize(color, lvl, lvl, PURPLE);
 		pxl_to_ray(cub, ray->nr, ray->j, color);
 		if (cub->map[((int)(ray->next_px) >> 5)][((int)(ray->curr_px) >> 5)] == 32)
 		{
 			color = pxl_from_img(cub, (int)ray->next_px % 64, (int)ray->curr_px % 64, 5);
 			color = colorize(color, lvl, lvl - cub->sz / 5, PURPLE);
-			//pxl_to_ray(cub, ray->nr, (VRES - cub->z - (ray->j + cub->z)) - jumpfix, color);
 			pxl_to_ray(cub, ray->nr, (int)(ray->offset - i), color);
 		}
+		/*if (cub->map[((int)(ray->next_px) >> 5)][((int)(ray->curr_px) >> 5)] == 32)
+			if ((VRES - cub->z - (ray->j + cub->z) > 0))
+				glass(cub, ray->nr, (VRES - cub->z - (ray->j + cub->z)), lvl);*/
+			//glass(cub, ray->nr, (int)(ray->offset - i), lvl);
 		ray->j++;
 		i++;
+		limiter++;
+		ray->curr_px -= ray->next_px;
 	}
 	(void)jumpfix;
 	/*if (ray->r == NRAY / 2)

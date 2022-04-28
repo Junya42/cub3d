@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:11:43 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/27 22:28:53 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/28 22:27:09 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,21 @@ void	spxl_to_ray(t_cub *cub, float x, float y, unsigned int color)
 void	pxl_to_ray(t_cub *cub, float x, float y, unsigned int color)
 {
 	char	*tmp;
-	//t_text	*ptr;
 	int		size;
 	int		completer;
 
-	//ptr = cub->text;
-	//if (!ptr[0].addr)
 	if (!cub->rayaddr)
 		return ;
 	if (y == 0 && x < 0)
 		x = 0;
 	if (y < 0 && x)
 		y = 0;
-	//size = (int)(y * ptr[0].size + x * (ptr[0].bpp / 8));
 	size = (int)(y * cub->r_size + x * (cub->r_bpp / 8));
 	if (size < 0 || size >= RES)
 		return ;
 	completer = 0;
-	//tmp = ptr[0].addr + size;
 	tmp = cub->rayaddr + size;
-	while (completer < 4)
+	while (completer < cub->brightness)
 	{
 		*((unsigned int *)tmp + completer) = color;
 		completer++;
@@ -81,15 +76,18 @@ unsigned int	pxl_from_img(t_cub *cub, int x, int y, int i)
 	if (y < 0)
 		y = 0;
 	if (i == -1)
+	{
 		size = (int)(y * cub->r_size + x * (cub->r_bpp / 8));
-	else
-		size = (int)(y * ptr[i].size + x * (ptr[i].bpp / 8));
-	if (size < 0 || size >= 1228800) //ptr[i].res
-		return (0xffffff);
-	if (i == -1)
+		if (size < 0 || size >= 220)
 		tmp = cub->rayaddr + size;
+	}
 	else
+	{
+		size = (int)(y * ptr[i].size + x * (ptr[i].bpp / 8));
+		if (size < 0 || size >= 1228800) //ptr[i].res
+			return (0xffffff);
 		tmp = ptr[i].addr + size;
+	}
 	return (*(unsigned int *)tmp);
 }
 

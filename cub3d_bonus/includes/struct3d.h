@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/26 06:22:59 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/28 07:33:54 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,6 +253,7 @@ typedef struct s_cub
 	char			**exp;
 	//t_build			*build;
 	float			scroll;
+	int				brightness;
 	t_ray			*ray;
 	t_player		*player;
 	t_text			*text;

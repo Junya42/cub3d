@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:58:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/26 06:20:56 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/28 07:37:43 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ int	init_cub(t_cub *cub)
 	cub->ey = cub->my << 6;
 	cub->h = 0.25;
 	cub->jump = 0;
+	cub->brightness = 4;
 	sprite_pos(cub);
 	return (0);
 }

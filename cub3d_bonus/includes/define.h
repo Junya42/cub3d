@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 22:41:32 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/25 20:42:10 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/28 02:50:42 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define BLOCSIZE 64
 # define PI 3.1415926535
 # define RAD 0.017452925
+# define SKY 0.00087264625
 # define DPI 6.283185307
 # define PI2 1.57079632675
 # define PI3 4.71238898025

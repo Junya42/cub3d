@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 01:30:53 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/27 22:25:25 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/28 05:45:56 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@ int	imgs(t_cub *cub, t_text *t, void *(*xpm)(void *, char *, int *, int *))
 	t[4].img = (*xpm)(cub->mlx, "./imgs/bricks.xpm", &t[4].a, &t[4].b);
 	t[5].img = (*xpm)(cub->mlx, "./imgs/pblackstone.xpm", &t[5].a, &t[5].b);
 	t[6].img = (*xpm)(cub->mlx, "./imgs/doomfloor.xpm", &t[6].a, &t[6].b);
-	t[7].img = (*xpm)(cub->mlx, "./imgs/redsky.xpm", &t[7].a, &t[7].b);
+	t[7].img = (*xpm)(cub->mlx, "./imgs/null.xpm", &t[7].a, &t[7].b);
+	printf("7 a : %d\n", t[7].a);
+	printf("7 b : %d\n", t[7].b);
 	t[8].img = (*xpm)(cub->mlx, "./imgs/tabdeath.xpm", &t[8].a, &t[8].b);
 	t[9].img = (*xpm)(cub->mlx, "./imgs/torch2.xpm", &t[9].a, &t[9].b);
 	t[10].img = (*xpm)(cub->mlx, "./imgs/redskyfix.xpm", &t[10].a, &t[10].b);

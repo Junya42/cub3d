@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/26 01:10:02 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/28 01:32:20 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int				blue(int color, float shader);
 int				shade(int color, float shader);
 int				addshade(int color, float shader);
 int				colorize(int base, float shader, float dim, int color);
+unsigned int	case_texture(t_cub *cub, t_ray *ray);
 
 /*	----------Pixels-------------	*/
 

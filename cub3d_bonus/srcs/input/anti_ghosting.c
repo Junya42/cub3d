@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:04:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/27 22:35:10 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/29 00:04:55 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	floating(t_cub *cub)
 		cub->flot = 1;
 	else if (cub->sz < 0)
 		cub->flot = 0;
+//	cub->flot = 0;
 }
 
 int	anti_ghosting(t_cub *cub)
@@ -71,8 +72,6 @@ int	anti_ghosting(t_cub *cub)
 	floating(cub);
 	sprite_casting(cub);
 	display(cub, 0);
-	/*if (cub->scroll > 0)
-	  cub->scroll = -VRES;
-	cub->scroll += 0.2;*/
+	cub->scroll = secure_radians(cub->scroll, SKY);
 	return (0);
 }
