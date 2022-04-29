@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/28 07:33:54 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/29 01:31:04 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,12 @@ enum	e_color
 	CYAN,
 	PURPLE,
 	YELLOW
+};
+
+enum	e_type
+{
+	SPRITE,
+	LIGHT
 };
 
 typedef struct s_parse
@@ -86,8 +92,21 @@ typedef struct s_player
 	double	crouch;
 }				t_player;
 
+typedef struct s_text
+{
+	void	*img;
+	void	*addr;
+	int		bpp;
+	int		size;
+	int		end;
+	int		a;
+	int		b;
+}			t_text;
+
 typedef struct s_csp
 {
+	int				type;
+	int				moveable;
 	int				size;
 	int				dbpp;
 	float			index;
@@ -117,6 +136,11 @@ typedef struct s_csp
 
 typedef struct s_sp
 {
+	int		type;
+	char	type;
+	int		hue;
+	int		range;
+	t_text	*imgs;
 	void	*img;
 	char	*addr;
 	float	x;
@@ -192,16 +216,6 @@ typedef struct s_build
 	char	player;
 }				t_build;
 
-typedef struct s_text
-{
-	void	*img;
-	void	*addr;
-	int		bpp;
-	int		size;
-	int		end;
-	int		a;
-	int		b;
-}			t_text;
 
 typedef struct s_cub
 {

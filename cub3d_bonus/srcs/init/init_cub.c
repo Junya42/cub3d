@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:58:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/28 07:37:43 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/04/29 03:13:24 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,16 @@ int	get_sprite_txt(t_cub *cub)
 		cub->sp[i].addr = NULL;
 		i++;
 	}
-	printf("before texture sprite\n");
 	cub->sp[0].img = mlx_xpm_file_to_image(cub->mlx,
 			"./imgs/light2.xpm", &cub->sp[0].a, &cub->sp[0].b);
 	if (!cub->sp[0].img)
 		return (0);
-	printf("first texture sprite ok\n");
 	cub->sp[0].addr = mlx_get_data_addr(cub->sp[0].img,
 			&cub->sp[0].bpp, &cub->sp[0].sizeline,  &cub->sp[0].end);
 	cub->sp[1].img = mlx_xpm_file_to_image(cub->mlx,
 			"./imgs/light.xpm", &cub->sp[1].a, &cub->sp[1].b);
 	if (!cub->sp[1].img)
 		return (0);
-	printf("second texture sprite ok\n");
 	cub->sp[1].addr = mlx_get_data_addr(cub->sp[1].img,
 			&cub->sp[1].bpp, &cub->sp[1].sizeline,  &cub->sp[1].end);
 	cub->sp[0].dbpp = cub->sp[0].bpp >> 3;
