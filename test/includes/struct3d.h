@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/29 03:14:12 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/01 00:33:26 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,8 @@ typedef struct s_text
 
 typedef struct s_csp
 {
-	int				type;
-	int				moveable;
+	//int				type;
+	//int				moveable;
 	int				size;
 	int				dbpp;
 	float			index;
@@ -130,11 +130,11 @@ typedef struct s_csp
 
 typedef struct s_sp
 {
-	int		type;
-	char	name;
-	int		hue;
-	int		range;
-	t_text	*imgs;
+	//int		type;
+//	char	name;
+//	int		hue;
+//	int		range;
+//	t_text	*imgs;
 	void	*img;
 	char	*addr;
 	float	x;
@@ -254,9 +254,9 @@ typedef struct s_cub
 	int				ey;
 	int				end;
 	int				flot;
-	int				search_i;
-	int				search_j;
-	int				nb_sprites;
+	//int				search_i;
+	//int				search_j;
+	//int				nb_sprites;
 	float			sz;
 	int				zbuf[NRAY];
 	char			**data;
