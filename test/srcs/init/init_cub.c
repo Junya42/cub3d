@@ -6,37 +6,11 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:58:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/29 03:17:10 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/01 00:45:19 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-/*int	get_sprite_txt(t_cub *cub)
-{
-	int	i;
-
-	i = 0;
-	get_nb_sprites(cub);
-	if (create_sprites(cub) == 0)
-		return (0);
-	cub->search_j = 0;
-	cub->search_i = 0;
-	while (i < cub->nb_sprites)
-	{
-		cub->sp[i].type = search_type(cub);
-		cub->sp[i].x = (float)cub->search_j * 64 + 32;
-		cub->sp[i].y = (float)cub->search_i * 64 + 32;
-		cub->sp[i].img = NULL;
-		cub->sp[i].addr = NULL;
-		cub->sp[i].csp.moveable = 0;
-		if (!assign_texture(&cub->sp[i], cub))
-			return (0);
-		cub->search_j++;
-		i++;
-	}
-	return (1);
-}*/
 
 int	get_sprite_txt(t_cub *cub)
 {
