@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:50:23 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/26 03:57:36 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/01 02:19:47 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ unsigned int	vertical_texture(t_cub *cub, t_ray *ray, int dir)
 
 void	dda_vertical(t_cub *cub, t_ray *ray)
 {
-	while (ray->limit < 20)
+	while (ray->limit < cub->ex)
 	{
 		ray->mx = (int)ray->rx;
 		ray->my = (int)ray->ry;

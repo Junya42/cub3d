@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/29 00:04:07 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/01 02:34:21 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,16 +162,21 @@ void	floorcast(t_cub *cub, t_ray *ray)
 			color += case_texture(cub, ray);
 		color = colorize(color, lvl, lvl, PURPLE);
 		pxl_to_ray(cub, ray->nr, ray->j, color);
-		if (cub->map[((int)(ray->next_px) >> 5)][((int)(ray->curr_px) >> 5)] == 32)
+	//	printf("y = %d\n", (int)(ray->next_px) >> 5);
+	//	printf("x = %d\n", (int)(ray->curr_px) >> 5);
+		if (((int)(ray->next_px) >> 5) > -1 && ((int)(ray->curr_px) >> 5) > -1)
 		{
-			color = pxl_from_img(cub, (int)ray->next_px % 64, (int)ray->curr_px % 64, 5);
-			color = colorize(color, lvl, lvl - cub->sz / 5, PURPLE);
-			pxl_to_ray(cub, ray->nr, (int)(ray->offset - i), color);
+			if (cub->map[((int)(ray->next_px) >> 5)][((int)(ray->curr_px) >> 5)] == 32)
+			{
+				color = pxl_from_img(cub, (int)ray->next_px % 64, (int)ray->curr_px % 64, 5);
+				color = colorize(color, lvl, lvl - cub->sz / 5, PURPLE);
+				pxl_to_ray(cub, ray->nr, (int)(ray->offset - i), color);
+			}
 		}
 		/*if (cub->map[((int)(ray->next_px) >> 5)][((int)(ray->curr_px) >> 5)] == 32)
-			if ((VRES - cub->z - (ray->j + cub->z) > 0))
-				glass(cub, ray->nr, (VRES - cub->z - (ray->j + cub->z)), lvl);*/
-			//glass(cub, ray->nr, (int)(ray->offset - i), lvl);
+		  if ((VRES - cub->z - (ray->j + cub->z) > 0))
+		  glass(cub, ray->nr, (VRES - cub->z - (ray->j + cub->z)), lvl);*/
+		//glass(cub, ray->nr, (int)(ray->offset - i), lvl);
 		ray->j++;
 		i++;
 		limiter++;
@@ -179,51 +184,51 @@ void	floorcast(t_cub *cub, t_ray *ray)
 	}
 	(void)jumpfix;
 	/*if (ray->r == NRAY / 2)
-	{
-		printf("j = %d\n", ray->j);
-		printf("heightfix = %f\n", heightfix);
-		printf("VRES = %d\n", VRES);
-	}*/
-//	if (cub->exp[((int)(ray->ry - 1))][((int)(ray->rx - 1))] == 32 || cub->exp[((int)(ray->ry + 1))][((int)(ray->rx + 1))] == 32)
-//		ceiling(cub, ray);
+	  {
+	  printf("j = %d\n", ray->j);
+	  printf("heightfix = %f\n", heightfix);
+	  printf("VRES = %d\n", VRES);
+	  }*/
+	//	if (cub->exp[((int)(ray->ry - 1))][((int)(ray->rx - 1))] == 32 || cub->exp[((int)(ray->ry + 1))][((int)(ray->rx + 1))] == 32)
+	//		ceiling(cub, ray);
 }
 
 /*void	floorcast(t_cub *cub, t_ray *ray)
-{
-	float	target;
-	float	fix;
-	char	*addr;
+  {
+  float	target;
+  float	fix;
+  char	*addr;
 
-	ray->j = ray->offset + ray->raycast;
-	fix = fix_fisheye(cub->a, ray->ra, 1);
-	target = ray->j * (1024 * 32) + (32 * ray->r);
-	addr = cub->rayaddr;
-	while (ray->j < VRES)
-	{
-		float	ratio = 64 / (ray->j - HALFVRES);
-		float	distance = (200 * ratio) * fix;
-		float	x = distance * cos(ray->ra);
-		float	y = distance * sin(ray->ra);
+  ray->j = ray->offset + ray->raycast;
+  fix = fix_fisheye(cub->a, ray->ra, 1);
+  target = ray->j * (1024 * 32) + (32 * ray->r);
+  addr = cub->rayaddr;
+  while (ray->j < VRES)
+  {
+  float	ratio = 64 / (ray->j - HALFVRES);
+  float	distance = (200 * ratio) * fix;
+  float	x = distance * cos(ray->ra);
+  float	y = distance * sin(ray->ra);
 
-		x += cub->x;
-		y += cub->y;
-		
-		int	cellx = (x / 64);
-		int	celly = (y / 64);	
+  x += cub->x;
+  y += cub->y;
 
-		if (ray->r == NRAY / 2)
-		{
-			printf("cellx : %d	celly : %d\n", cellx, celly);
-		}
-		if ((cellx < cub->mx) && (celly < cub->my) && (cellx > -1) && (celly > -1))
-		{
-			int	ximg = ((int)x % 64);
-			int	yimg = ((int)y % 64);
-			int	color = pxl_from_img(cub, ximg, yimg, 6);
-			if (target > -1 && target < RES)
-				*((unsigned int *)addr + (int)target) = color;
-			target += (32 * 1024);
-		}
-		ray->j++;
-	}
-}*/
+  int	cellx = (x / 64);
+  int	celly = (y / 64);	
+
+  if (ray->r == NRAY / 2)
+  {
+  printf("cellx : %d	celly : %d\n", cellx, celly);
+  }
+  if ((cellx < cub->mx) && (celly < cub->my) && (cellx > -1) && (celly > -1))
+  {
+  int	ximg = ((int)x % 64);
+  int	yimg = ((int)y % 64);
+  int	color = pxl_from_img(cub, ximg, yimg, 6);
+  if (target > -1 && target < RES)
+ *((unsigned int *)addr + (int)target) = color;
+ target += (32 * 1024);
+ }
+ ray->j++;
+ }
+ }*/

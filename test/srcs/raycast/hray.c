@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:39:55 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/27 01:52:16 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/01 02:19:57 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ unsigned int	horizon_texture(t_cub *cub, t_ray *ray, int dir)
 
 void	dda_horizon(t_cub *cub, t_ray *ray)
 {
-	while (ray->limit < 20)
+	while (ray->limit < cub->ey)
 	{
 		ray->mx = (int)ray->rx;
 		ray->my = (int)ray->ry;

@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/29 00:55:12 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/01 02:33:18 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,15 +153,15 @@ int	dda(t_cub *cub, t_ray *ray)
 	{
 		//printf("\ni %f >>> i2 %f\n", i, i2);
 		//printf("LEN : len light mur = %f\n", len);
-		/*printf("\nRAY : len player mur = %f\n", ray->ray);
-		printf(" PLEN : len player light = %f\n", plen);
-		printf("ra = %f\n", ray->ra * 180 / PI);
-		printf("i = %f\n", i);
-		printf("degree player|WALL|light = %f\n", pal * 180 / PI);
-		printf("degree wall|PLAYER|light = %f\n", cub->a * 180 / PI);
-		printf("degree player|LIGHT|wall = %f\n", 180 - pal * 180 / PI - cub->a * 180 / PI);*/
+		//printf("\nRAY : len player mur = %f\n", ray->ray);
+	//	printf(" PLEN : len player light = %f\n", plen);
+	//	printf("ra = %f\n", ray->ra * 180 / PI);
+	//	printf("i = %f\n", i);
+	//	printf("degree player|WALL|light = %f\n", pal * 180 / PI);
+	//	printf("degree wall|PLAYER|light = %f\n", cub->a * 180 / PI);
+	//	printf("degree player|LIGHT|wall = %f\n", 180 - pal * 180 / PI - cub->a * 180 / PI);*/
 	}
-//	printf("ny %f >>> nx %f\n", ny, nx);
+//	printf("ny %f >>> nx %f\n", ny, nx);*/
 	ray->ray = fix_fisheye(cub->a, ray->ra, ray->ray);
 	cub->zbuf[(int)ray->r] = ray->ray;
 	ray->raycast = (64 * VRES / ray->ray);
@@ -175,13 +175,13 @@ int	dda(t_cub *cub, t_ray *ray)
 	ray->offset = ((HALFVRES - cub->z) - ray->raycast * (0.75 - cub->h));
 	//ray->shadow = 2 / mysqrt(ray->ray) + i;
 	ray->shadow = i2 + i;
-	//ray->shadow = i;
+	//ray->shadow = 1;
 	if (ray->shadow > 1)
 		ray->shadow = 1;
-	(void)lx;
-	(void)ly;
-	(void)i;
-	(void)len;
+	//(void)lx;
+//	(void)ly;
+//	(void)i;
+//	(void)len;
 //	(void)plen;
 //	(void)pal;
 	ray->l1 = i;
@@ -216,7 +216,9 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 		{
 			ray->color = case_texture(cub, ray);
 			if (flag == 0)
+			{
 				ray->color = shade(ray->color, 0.015);
+			}
 			else
 			{
 				if (flag == 1)
