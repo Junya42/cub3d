@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct3d.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/01 00:33:26 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/01 01:28:19 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@ enum	e_side
 	E,
 	C,
 	F
+};
+
+enum	e_sprite_type
+{
+	PC,
 };
 
 enum	e_fd
@@ -47,6 +52,7 @@ enum	e_color
 
 typedef struct s_parse
 {
+	int				i;
 	int				total;
 	int				fd;
 	char			*buffer;
@@ -99,8 +105,8 @@ typedef struct s_text
 
 typedef struct s_csp
 {
-	//int				type;
-	//int				moveable;
+	int				type;
+	int				moveable;
 	int				size;
 	int				dbpp;
 	float			index;
@@ -128,13 +134,24 @@ typedef struct s_csp
 	float			cy;
 }			t_csp;
 
+typedef struct s_anim
+{
+	void	*img;
+	char	*addr;
+	int		a;
+	int		b;
+	int		bpp;
+	int		size;
+	int		end;  
+}			t_anim;
+
 typedef struct s_sp
 {
-	//int		type;
-//	char	name;
-//	int		hue;
-//	int		range;
-//	t_text	*imgs;
+	char	*anim_paths[8];
+	int		animated;
+	char	type;
+	int		s_type;
+	int		hue;
 	void	*img;
 	char	*addr;
 	float	x;
@@ -147,7 +164,9 @@ typedef struct s_sp
 	int		sizeline;
 	int		size;
 	int		end;
+	int		index;
 	t_csp	csp;
+	t_anim	anim[NB_FRAME];
 }			t_sp;
 
 typedef struct s_ray
@@ -254,9 +273,9 @@ typedef struct s_cub
 	int				ey;
 	int				end;
 	int				flot;
-	//int				search_i;
-	//int				search_j;
-	//int				nb_sprites;
+	int				search_i;
+	int				search_j;
+	int				nb_sprites;
 	float			sz;
 	int				zbuf[NRAY];
 	char			**data;
@@ -268,7 +287,7 @@ typedef struct s_cub
 	t_ray			*ray;
 	t_player		*player;
 	t_text			*text;
-	t_sp			sp[NB_SPRITE];
+	t_sp			*sp;
 }				t_cub;
 
 /*typedef struct s_parse

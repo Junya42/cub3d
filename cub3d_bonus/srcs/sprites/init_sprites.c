@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 02:06:07 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/26 06:47:39 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/01 00:35:30 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,23 @@ static inline void init_sprite_var(t_cub *cub, t_csp *csp, int i)
 	csp->sx = csp->a;	
 	csp->sy = csp->b;
 	csp->sx = (csp->sx * 1250.0 / csp->sy) + (HALFHRES);
+	//if (csp->moveable == 1)
 	csp->sy = ((cub->sz + adjust) * 1250.0 / csp->sy) + (HALFVRES);
+//	else
+//		csp->sy = ((0 + adjust) * 1250.0 / csp->sy) + (HALFVRES);
 	csp->sy -= cub->z;
 	if (csp->scale < 10)
 		csp->scale = 10;
 	csp->ncolor = cub->sp[i].size / csp->scale;
 }
 
-static inline void sort_sprite(t_sp *sp)
+static inline void sort_sprite(t_sp *sp, t_cub *cub)
 {
 	int	i;
 	t_sp ptr;
-
+	
 	i = 0;
+	(void)cub;
 	while (i + 1 < NB_SPRITE)
 	{
 		if (sp[i].csp.dist < sp[i + 1].csp.dist)
@@ -67,7 +71,7 @@ void    sprite_casting(t_cub *cub)
 		init_sprite_var(cub, &cub->sp[i].csp, i);
 		i++;
 	}
-	sort_sprite(cub->sp);
+	sort_sprite(cub->sp, cub);
 	i = 0;
 	while (i < NB_SPRITE)
 	{

@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:41:53 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/29 03:38:19 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/01 01:21:50 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,9 @@ int	parse_data(t_parse *p)
 		}
 		if (p->buffer[0] == '#')
 		{
-			printf("COMMENT\n");
 			free(p->buffer);
 			continue ;
 		}
-		if (p->buffer[0] == '\n')
-			printf("\n");
-		else
-			printf("ELSE\n");
 		p->mcontent = ft_split(p->buffer, ' ');
 		if (!p->mcontent)
 			return (free_and_return(p, 1, EXIT_FAILURE));

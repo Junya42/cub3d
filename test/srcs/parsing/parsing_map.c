@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 19:25:14 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/16 02:11:19 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/01 01:45:17 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,37 @@
 int	check_rules(char **map, char *to_free)
 {
 	free(to_free);
-	if (check_char(map, "NSEW01 ") == 1)
+	if (check_char(map, VALID) == 1)
 		return (EXIT_FAILURE);
 	if (check_wall(map) == 1)
+	{
+		printf("here\n");
 		return (EXIT_FAILURE);
+	}
 	return (EXIT_SUCCESS);
 }
 
-int	parse_map(t_parse *p, char *filename)
+int	parse_map(t_parse *p, char *fd_path)
 {
 	char	*str;
-	int		end;
 	int		size;
+	char	c;
 
-	size = get_fd_size(filename);
+	size = get_fd_size(p->fd, fd_path, 0);
+	if (size <= 0)
+		return (0);
 	str = malloc(sizeof(char) * size + 1);
 	if (!str)
 		return (EXIT_FAILURE);
-	if (try_open_cub_file(filename, p) == 1)
-		return (EXIT_FAILURE);
-	end = read(p->fd, str, size);
-	str[end] = '\0';
+	while (read(p->fd, &c, 1) > 0)
+	{
+		if (c == '#')
+			while (read(p->fd, &c, 1) > 0 && (c != '\n'))
+				c = '\0';
+		str[p->i] = c;	
+		p->i++;	
+	}
+	str[size] = '\0';
 	close(p->fd);
 	p->map = ft_split(str, '\n');
 	if (!p->map)
@@ -43,7 +53,7 @@ int	parse_map(t_parse *p, char *filename)
 		free(str);
 		return (EXIT_FAILURE);
 	}
-	if (check_rules(p->map + 6, str) == 1)
+	if (check_rules(p->map, str) == 1)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

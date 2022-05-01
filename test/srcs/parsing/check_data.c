@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 05:14:37 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/17 16:29:40 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/01 01:19:14 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	check_rgb(char *code, int i)
 	}
 	while (i < 3)
 	{
-		range[i][ft_strlen(range[i]) - 1] = '\0';
+		range[i][ft_strlen(range[i])] = '\0';
 		if ((is_num(range[i]) == 1) || ft_atoi(range[i]) > 255
 			|| ft_atoi(range[i]) < 0)
 		{

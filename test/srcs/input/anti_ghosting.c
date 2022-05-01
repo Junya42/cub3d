@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   anti_ghosting.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:04:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/29 00:04:55 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/01 00:58:06 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	jump(t_cub *cub)
 		cub->h -= 0.01;
 	if (cub->h < 0.25 && cub->jump == 0)
 		cub->h = 0.25;
-	//if (cub->jump == -1)
-	//	cub->h -= 0.01;
 }
 
 void	floating(t_cub *cub)
@@ -45,7 +43,24 @@ void	floating(t_cub *cub)
 		cub->flot = 1;
 	else if (cub->sz < 0)
 		cub->flot = 0;
-//	cub->flot = 0;
+}
+
+void	animation(t_cub *cub)
+{
+	int	i;
+
+	i = 0;
+	while (i < cub->nb_sprites)
+	{
+		if (cub->sp[i].animated == 1)
+		{
+			if (cub->sp[i].index >= 8)
+				cub->sp[i].index = 0;
+			cub->sp[i].addr = cub->sp[i].anim[(int)cub->sz].addr; 
+			cub->sp[i].index++;
+		}
+		i++;
+	}
 }
 
 int	anti_ghosting(t_cub *cub)
@@ -70,6 +85,7 @@ int	anti_ghosting(t_cub *cub)
 	jump(cub);
 	raycast(cub, cub->ray, 0);
 	floating(cub);
+	animation(cub);
 	sprite_casting(cub);
 	display(cub, 0);
 	cub->scroll = secure_radians(cub->scroll, SKY);

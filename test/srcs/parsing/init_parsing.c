@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 00:16:22 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/17 16:33:58 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/01 01:20:58 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	parsing(char **av, t_parse *parse)
 		return (exit_parsing("Error in file\n"));
 	if (parse_data(parse) == 1)
 		return (exit_parsing("Error in data parsing\n"));
-	close(parse->fd);
 	if (parse_map(parse, av[1]) == 1)
 		return (exit_parsing("Error in map parsing\n"));
 	return (EXIT_SUCCESS);

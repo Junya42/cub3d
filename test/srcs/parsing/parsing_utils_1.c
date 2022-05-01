@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 23:43:33 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/17 01:24:08 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/01 01:18:25 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	is_num(char *str)
 	i = 0;
 	if (!str[0])
 		return (EXIT_FAILURE);
-	while (str[i])
+	while (str[i] && str[i] != '\n')
 	{
 		if (ft_isdigit(str[i]) == 0)
 			return (EXIT_FAILURE);

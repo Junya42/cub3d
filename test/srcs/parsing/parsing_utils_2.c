@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 16:42:19 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/17 01:28:49 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/01 01:53:34 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	is_charset(char c, char *set)
 	while (set[i])
 	{
 		if (c == set[i])
-			return (0);
+			return (1);
 		i++;
 	}
-	return (1);
+	return (0);
 }

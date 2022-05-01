@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 03:11:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/26 07:08:16 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/01 02:01:11 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	create_window(t_cub *cub)
 //		cub->z += 2;
 //	}*/
 	cub->z = 0;
+	cub->nb_sprites = 0;
 	return (1);
 }
 
@@ -95,6 +96,7 @@ void	init_parsing_variable(t_parse *p)
 	p->wpath = NULL;
 	p->epath = NULL;
 	p->map = NULL;
+	p->i = 0;
 }
 
 int main(int ac, char **av)
@@ -112,7 +114,7 @@ int main(int ac, char **av)
 		return (1);
 	}
 	cub.ray = NULL;
-	cub.map = parse.map + 6;
+	cub.map = parse.map;
 	x = init_cub(&cub);
 	if (x)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/29 01:37:29 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/01 01:26:24 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 void			free_data(t_parse *parse);
 int				free_and_return(t_parse *p, int flag, int exitcode);
 int				is_num(char *str);
-int				get_fd_size(char *filename);
+int	            get_fd_size(int saved_fd, char *filename, int len);
 int				is_charset(char c, char *set);
 void			init_variable(t_parse *p);
 int				parsing(char **av, t_parse *parse);
@@ -112,7 +112,7 @@ unsigned int	rgb_to_hex(unsigned int r, unsigned int g, unsigned int b);
 int				create_sprites(t_cub *cub);
 void			get_nb_sprites(t_cub *cub);
 char			search_type(t_cub *cub);
-int				assign_texture(t_sp *sp, t_cub *cub);
+int	            give_sprite_texture(t_sp *sp, t_cub *cub);
 int				txt_light(t_sp *sp, t_cub *cub);
 int				txt_light_red(t_sp *sp, t_cub *cub);
 int				txt_light_green(t_sp *sp, t_cub *cub);
@@ -120,7 +120,7 @@ int				txt_light_blue(t_sp *sp, t_cub *cub);
 int				txt_light_cyan(t_sp *sp, t_cub *cub);
 int				txt_light_purple(t_sp *sp, t_cub *cub);
 int				txt_light_yellow(t_sp *sp, t_cub *cub);
-int				choose_texture(t_sp *sp, t_cub *cub);
+int	            choose_sprite_texture(t_sp *sp, t_cub *cub);
 void			sprite_casting(t_cub *cub);
 void			print_sprite(t_cub *cub, t_csp *s);
 

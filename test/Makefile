@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+         #
+#    By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 19:16:48 by anremiki          #+#    #+#              #
-#    Updated: 2022/04/25 20:28:04 by anremiki         ###   ########.fr        #
+#    Updated: 2022/05/01 01:06:41 by cmarouf          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,11 @@ SRCS = ./srcs/parsing/check_data.c ./srcs/parsing/check_map.c \
 	   ./srcs/raycast/floorcast.c ./srcs/raycast/skybox.c \
 	   ./srcs/raycast/raycast.c ./srcs/raycast/display.c \
 	   ./srcs/sprites/init_sprites.c ./srcs/sprites/sprites_casting.c \
+	   ./srcs/sprites/sprites_parsing.c ./srcs/sprites/s_light_blue.c \
+	   ./srcs/sprites/s_light_cyan.c ./srcs/sprites/s_light_green.c \
+	   ./srcs/sprites/s_light_purple.c ./srcs/sprites/s_light_red.c \
+	   ./srcs/sprites/s_light_yellow.c ./srcs/sprites/s_light.c \
+	   
 
 #SRCS = ./expandtab.c
 

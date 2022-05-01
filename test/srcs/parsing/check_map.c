@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 03:36:45 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/16 01:49:58 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/01 01:57:16 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	check_char(char **map, char *set)
 		j = 0;
 		while (map[i][j])
 		{
-			if (is_charset(map[i][j], set) == 1)
+			if (is_charset(map[i][j], set) == 0)
 				return (EXIT_FAILURE);
-			if (is_charset(map[i][j], "NSEW") == 0)
+			if (is_charset(map[i][j], "NSEW") == 1)
 				check++;
 			j++;
 		}
@@ -103,7 +103,7 @@ int	check_wall(char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			if (is_charset(map[i][j], "0NSEW ") == 0)
+			if (is_charset(map[i][j], CLOSED_VALID) == 1)
 				if (check_closed_wall(map, j, i) == 1)
 					return (EXIT_FAILURE);
 			j++;

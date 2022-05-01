@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 22:41:32 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/29 01:33:51 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/01 01:52:45 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@
 # define FOV 60
 # define NRAY 320
 # define SCAN 0.52358775
-# define NB_SPRITE 2
+# define NB_FRAME 8
 # define SPRITE 0
 # define LIGHT 1
-# define VALID "GUPLRGBCYDNSEW01"
-# define CLOSE_VALID "UPLRGBCYDNSEW0 "
-# define SPRITE_VALID "UPLRGBCY"
+# define VALID "UPLRGBCYDNSEW01 "
+# define CLOSED_VALID "UPLRGBCYDNSEW0 "
+# define SPRITE_VALID "UPLRBCY"
 # define MALLOC_ERR "Memory allocation failed\n"
 # define MLX_ERR "MLX failure\n"
 # define FD_ERR "Invalid file descriptor\n"
