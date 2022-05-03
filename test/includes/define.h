@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 22:41:32 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/01 01:52:45 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/03 13:47:35 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 # define LIGHT 1
 # define VALID "UPLRGBCYDNSEW01 "
 # define CLOSED_VALID "UPLRGBCYDNSEW0 "
-# define SPRITE_VALID "UPLRBCY"
+# define SPRITE_VALID "UPLRGBCY"
 # define MALLOC_ERR "Memory allocation failed\n"
 # define MLX_ERR "MLX failure\n"
 # define FD_ERR "Invalid file descriptor\n"

@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/01 01:26:24 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/03 13:36:53 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,15 @@ void			get_map_xy(char **map, t_cub *cub);
 int				init_cub(t_cub *cub);
 int				create_window(t_cub *cub);
 int				get_sprite_txt(t_cub *cub);
+
+/*	----------Chunks------------	*/
+
+void	free_matrix(char ***matrix, int b, int c);
+char	***allocate_matrix(int a, int b, int c);
+void	lighthray(t_cub *cub, t_light *light, t_ray *ray);
+void	lightvray(t_cub *cub, t_light *light, t_ray *ray);
+void	chunk(t_cub *cub, t_light *light, t_ray *ray);
+t_light	*create_lights(t_cub *cub, t_sp *sp);
 
 /* -----------Engine mod--------	*/
 

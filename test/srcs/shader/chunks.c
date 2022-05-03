@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 00:47:38 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/01 18:45:26 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/03 13:58:02 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,17 @@ void	assign_light_values(t_cub *cub, t_light *light, t_sp *sp)
 t_light	*create_lights(t_cub *cub, t_sp *sp)
 {
 	t_light	*light;
+	t_ray	ray;
+	int		i;
 
-	light = (light *)malloc(sizeof(t_light) * cub->lights);
+	i = 0;
+	light = (t_light *)malloc(sizeof(t_light) * cub->lights);
 	if (!light)
 		return (NULL);
 	assign_light_values(cub, light, sp);
 	cub->chunk = allocate_matrix(cub->ey, cub->ex, cub->lights);
+	printf("ey = %d\nex = %d\nlights = %d\n", cub->ey, cub->ex, cub->lights);
+	while (i < cub->lights)
+		chunk(cub, &light[i++], &ray);
+	return (light);
 }

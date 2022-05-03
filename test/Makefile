@@ -6,7 +6,7 @@
 #    By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 19:16:48 by anremiki          #+#    #+#              #
-#    Updated: 2022/05/01 01:06:41 by cmarouf          ###   ########.fr        #
+#    Updated: 2022/05/03 14:13:59 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,9 @@ SRCS = ./srcs/parsing/check_data.c ./srcs/parsing/check_map.c \
 	   ./srcs/parsing/parsing_map.c ./srcs/parsing/parsing_utils_1.c \
 	   ./srcs/parsing/init_parsing.c ./srcs/parsing/parsing_utils_2.c \
 	   ./srcs/parsing/utils_1.c \
+	   ./srcs/shader/chunks.c ./srcs/shader/matrix.c \
+	   ./srcs/shader/lighthray.c ./srcs/shader/lightvray.c \
+	   ./srcs/shader/chunkcasting.c \
 	   ./srcs/init/init_cub.c \
 	   ./srcs/hud/draw_map.c ./srcs/hud/draw_player.c \
 	   ./srcs/init/init.c ./srcs/init/textures.c \
@@ -54,7 +57,7 @@ OBJS = ${SRCS:.c=.o}
 
 RM = rm -rf
 
-CFLAGS = -Wall -Wextra -Werror -g3 -I $(INCLUDES)
+CFLAGS = -Wall -Wextra -Werror -g3 -I $(INCLUDES) -O0
 
 MLXFLAGS = ./minilibx/libmlx_Linux.a -lXext -lX11 -I ./minilibx/
 

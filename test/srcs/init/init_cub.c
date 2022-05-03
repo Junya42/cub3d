@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:58:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/01 01:16:22 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/03 13:48:19 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ int	get_sprite_txt(t_cub *cub)
 	while (i < cub->nb_sprites)
 	{
 		cub->sp[i].type = search_type(cub);
+		cub->sp[i].s_type = SPRITE;
+		if (check_valid(cub->sp[i].type, "ULRGBCY"))
+				cub->sp[i].s_type = LIGHT;
+		if (cub->sp[i].s_type == LIGHT)
+			cub->lights++;
 		cub->sp[i].index = 0;
 		cub->sp[i].x = (float)cub->search_j * 64 + 32;
 		cub->sp[i].y = (float)cub->search_i * 64 + 32;
@@ -36,6 +41,7 @@ int	get_sprite_txt(t_cub *cub)
 		cub->search_j++;
 		i++;
 	}
+	printf("LIGHTS ============ %d\n", cub->lights);
 	return (1);
 }
 
@@ -96,5 +102,7 @@ int	init_cub(t_cub *cub)
 	cub->brightness = 4;
 	cub->flot = 0;
 	cub->sz = 0;
+	cub->nb_sprites = 0;
+	cub->lights = 0;
 	return (0);
 }

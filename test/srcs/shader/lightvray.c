@@ -1,38 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lighthray.c                                        :+:      :+:    :+:   */
+/*   lightvray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/01 16:45:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/03 14:25:09 by anremiki         ###   ########.fr       */
+/*   Created: 2022/05/03 12:14:45 by anremiki          #+#    #+#             */
+/*   Updated: 2022/05/03 13:38:37 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void	light_horizon(t_cub *cub, t_ray *ray, t_light *light)
+void	light_vertical(t_cub *cub, t_ray *ray, t_light *light)
 {
-	while (ray->limit < cub->ey)
+	while (ray->limit < cub->ex)
 	{
 		ray->mx = (int)ray->rx;
 		ray->my = (int)ray->ry;
 		if (ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1 &&
 					ray->my > -1)
 		{
-			printf("y = %d\nx = %d\nindex = %d\n", ray->my, ray->mx, light->id - 1);
-			printf("=========================\n");
-			printf("%p\n", cub->chunk[ray->my][ray->mx]);
-			printf("=========================\n");
-			cub->chunk[ray->my][ray->mx][light->id - 1] = light->id + 48;
+			cub->chunk[ray->my][ray->mx][light->id - 1] = light->id;
 			if (check_valid(cub->exp[ray->my][ray->mx], "12"))
 			{
 				if (cub->exp[ray->my][ray->mx] == '2')
 					ray->hdir += 2;
-				ray->hx = ray->rx;
-				ray->hy = ray->ry;
-				ray->hray = dist(cub->x , cub->y, ray->hx, ray->hy);
+				ray->vx = ray->vx;
+				ray->vy = ray->vy;
+				ray->vray = dist(cub->x , cub->y, ray->hx, ray->hy);
 				break ;
 			}
 		}
@@ -45,13 +41,13 @@ void	light_horizon(t_cub *cub, t_ray *ray, t_light *light)
 	}
 }
 
-void	lighthray(t_cub *cub, t_light *light, t_ray *ray)
+void	lightvray(t_cub *cub, t_light *light, t_ray *ray)
 {
 	if (ray->ra == PI || ray->ra == 0)
 	{
 		ray->rx = light->x;
 		ray->ry = light->y;
-		ray->limit = cub->ey;
+		ray->limit = cub->ex;
 	}
 	else if (ray->ra > PI)
 	{
@@ -60,8 +56,8 @@ void	lighthray(t_cub *cub, t_light *light, t_ray *ray)
 		ray->rx = light->x;
 		//ray->ry = ray->npy - 0.0001;
 		//ray->rx = (light->y - ray->ry) * ray->contan + light->x;
-		ray->yo = -64;
-		ray->xo = -ray->yo * ray->contan;
+		ray->xo = -64;
+		ray->yo = -ray->xo * ray->ntan;
 		ray->yo /= 64;
 		ray->xo /= 64;
 	}
@@ -72,10 +68,10 @@ void	lighthray(t_cub *cub, t_light *light, t_ray *ray)
 		ray->rx = light->x;
 		//ray->ry = ray->npy + 64;
 		//ray->rx = (light->y - ray->ry) * ray->contan + light->x;
-		ray->yo = 64;
-		ray->xo = -ray->yo * ray->contan;
+		ray->xo = 64;
+		ray->yo = -ray->xo * ray->ntan;
 		ray->yo /= 64;
 		ray->xo /= 64;
 	}
-	light_horizon(cub, ray, light);
+	light_vertical(cub, ray, light);
 }

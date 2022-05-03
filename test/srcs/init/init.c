@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 03:11:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/01 16:53:06 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/03 13:52:31 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void    get_map_xy(char **map, t_cub *cub)
 
 int	create_window(t_cub *cub)
 {
+	void	*img;
 	cub->z = -VRES;
 	cub->scroll = 0;
 	cub->mlx = NULL;
@@ -67,8 +68,18 @@ int	create_window(t_cub *cub)
 	cub->win = mlx_new_window(cub->mlx, HRES, VRES, "cub3d");
 	if (!cub->win)
 		return (0);
+	img = mlx_new_image(cub->mlx, HRES, VRES);
+	mlx_string_put(cub->mlx, cub->win, HALFHRES, HALFVRES, 0xFFFFFF, "Loading Sprites");
+	if (!get_sprite_txt(cub))
+		return (0);
+	mlx_put_image_to_window(cub->mlx, cub->win, img, 0, 0);
+	mlx_string_put(cub->mlx, cub->win, HALFHRES, HALFVRES, 0xFFFFFF, "Loading Chunks");
+	cub->light = create_lights(cub, cub->sp);
+	mlx_put_image_to_window(cub->mlx, cub->win, img, 0, 0);
+	mlx_string_put(cub->mlx, cub->win, HALFHRES, HALFVRES, 0xFFFFFF, "Loading Textures");
 	if (!create_imgs(cub))
 		return (0);
+	mlx_destroy_image(cub->mlx, img);
 	cub->z = 0;
 	//while (cub->z < 4)
 //	{
@@ -76,7 +87,7 @@ int	create_window(t_cub *cub)
 //		cub->z += 2;
 //	}*/
 	cub->z = 0;
-	cub->nb_sprites = 0;
+	//cub->nb_sprites = 0;
 	return (1);
 }
 
@@ -123,14 +134,13 @@ int main(int ac, char **av)
 	}
 	change_map(&cub);
 	cub.exp = expand(cub.map, cub.mx, cub.my, 64);
+	cub.z = 0;
 	if (!create_window(&cub))
 	{
 		wipe_data(&cub);
 		return (42);
 	}
 	create_hooks(&cub);
-	if (!get_sprite_txt(&cub))
-		return (0);
 	printf("cub.x = %f	cub.y = %f\n", cub.x, cub.y);
 	mlx_loop_hook(cub.mlx, anti_ghosting, &cub);
 	mlx_loop(cub.mlx);
