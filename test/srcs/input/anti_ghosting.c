@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:04:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/01 00:58:06 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/01 17:19:28 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,11 @@ int	anti_ghosting(t_cub *cub)
 	}
 	(void)player;
 	jump(cub);
+	//printmap(cub->map);
 	raycast(cub, cub->ray, 0);
+	//printf("\n\n");
+	//printmap(cub->map);
+	//exit(0);
 	floating(cub);
 	animation(cub);
 	sprite_casting(cub);

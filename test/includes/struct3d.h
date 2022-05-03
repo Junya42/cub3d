@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/01 01:28:19 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/01 18:49:47 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,17 @@ typedef struct s_build
 	char	player;
 }				t_build;
 
+typedef struct t_light
+{
+	float	angle;
+	int		x;
+	int		y;
+	int		chunk;
+	int		id;
+	int		range;
+	int		color;
+	int		cursor;
+}
 
 typedef struct s_cub
 {
@@ -278,9 +289,11 @@ typedef struct s_cub
 	int				nb_sprites;
 	float			sz;
 	int				zbuf[NRAY];
+	int				update;
 	char			**data;
 	char			**map;
 	char			**exp;
+	char			***chunk;
 	//t_build			*build;
 	float			scroll;
 	int				brightness;
@@ -288,6 +301,7 @@ typedef struct s_cub
 	t_player		*player;
 	t_text			*text;
 	t_sp			*sp;
+	t_light			*light;
 }				t_cub;
 
 /*typedef struct s_parse

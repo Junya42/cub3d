@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/01 02:34:21 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/01 17:02:44 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,20 +110,20 @@ void	floorcast(t_cub *cub, t_ray *ray)
 	if (cub->z < 0)
 		heightfix -= cub->z * 2;
 	int	i = -1;
-	float	lx = 288.0 - 64.0;
-	float	ly = 416.0;
-	float	len;
-	float	dx;
-	float	dy;
-	float	lvl;
-	float	max;
+//	float	lx = 32.0;
+//	float	ly = 32.0;
+//	float	len;
+//	float	dx;
+//	float	dy;
+//	float	lvl;
+//	float	max;
 	int		limiter = 0;
 	while (ray->j < heightfix)
 	{
 		ray->offj = ray->j - (HALFVRES - cub->z);
 		ray->curr_px = cub->x / 2 + distx / ray->offj / fix;
 		ray->next_px = cub->y / 2 + disty / ray->offj / fix;
-		dx = ray->curr_px * 2 - lx;
+	/*	dx = ray->curr_px * 2 - lx;
 		dy = ray->next_px * 2 - ly;
 		len = sqrt(dx *dx + dy * dy);
 		lvl = 0;
@@ -154,13 +154,13 @@ void	floorcast(t_cub *cub, t_ray *ray)
 			max = (1.0f / 230) * (230 - len);
 			if (lvl > max)
 				lvl = max;
-		}
+		}*/
 		//if (ray->r == NRAY / 2)
 		//	printf("lvl = %f\n", cub->sz);
 		color = pxl_from_img(cub, (int)ray->next_px % 64, (int)ray->curr_px % 64, 6);
 		if (limiter < ray->raycast)
 			color += case_texture(cub, ray);
-		color = colorize(color, lvl, lvl, PURPLE);
+		//color = colorize(color, lvl, lvl, PURPLE);
 		pxl_to_ray(cub, ray->nr, ray->j, color);
 	//	printf("y = %d\n", (int)(ray->next_px) >> 5);
 	//	printf("x = %d\n", (int)(ray->curr_px) >> 5);
@@ -169,7 +169,7 @@ void	floorcast(t_cub *cub, t_ray *ray)
 			if (cub->map[((int)(ray->next_px) >> 5)][((int)(ray->curr_px) >> 5)] == 32)
 			{
 				color = pxl_from_img(cub, (int)ray->next_px % 64, (int)ray->curr_px % 64, 5);
-				color = colorize(color, lvl, lvl - cub->sz / 5, PURPLE);
+			//	color = colorize(color, lvl, lvl - cub->sz / 5, PURPLE);
 				pxl_to_ray(cub, ray->nr, (int)(ray->offset - i), color);
 			}
 		}

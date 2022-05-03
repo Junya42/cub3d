@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 03:11:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/01 02:01:11 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/01 16:53:06 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int	create_window(t_cub *cub)
 	cub->z = 0;
 	//while (cub->z < 4)
 //	{
-		raycast(cub, cub->ray, 0);
+		//raycast(cub, cub->ray, 0);
 //		cub->z += 2;
 //	}*/
 	cub->z = 0;

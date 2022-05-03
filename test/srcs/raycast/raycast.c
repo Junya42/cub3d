@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/01 02:33:18 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/01 16:56:20 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	dda(t_cub *cub, t_ray *ray)
 		ray->rx = ray->vx;
 		ray->ry = ray->vy;
 	}
-	float	lx = 352.0;
+	/*float	lx = 352.0;
 	float	ly = 96.0 + 192.0;
 	float	lx2 = 288.0 - 64;
 	float	ly2 = 416.0;
@@ -159,7 +159,7 @@ int	dda(t_cub *cub, t_ray *ray)
 	//	printf("i = %f\n", i);
 	//	printf("degree player|WALL|light = %f\n", pal * 180 / PI);
 	//	printf("degree wall|PLAYER|light = %f\n", cub->a * 180 / PI);
-	//	printf("degree player|LIGHT|wall = %f\n", 180 - pal * 180 / PI - cub->a * 180 / PI);*/
+	//	printf("degree player|LIGHT|wall = %f\n", 180 - pal * 180 / PI - cub->a * 180 / PI);
 	}
 //	printf("ny %f >>> nx %f\n", ny, nx);*/
 	ray->ray = fix_fisheye(cub->a, ray->ra, ray->ray);
@@ -174,8 +174,8 @@ int	dda(t_cub *cub, t_ray *ray)
 	}*/
 	ray->offset = ((HALFVRES - cub->z) - ray->raycast * (0.75 - cub->h));
 	//ray->shadow = 2 / mysqrt(ray->ray) + i;
-	ray->shadow = i2 + i;
-	//ray->shadow = 1;
+	//ray->shadow = i2 + i;
+	ray->shadow = 1;
 	if (ray->shadow > 1)
 		ray->shadow = 1;
 	//(void)lx;
@@ -184,14 +184,14 @@ int	dda(t_cub *cub, t_ray *ray)
 //	(void)len;
 //	(void)plen;
 //	(void)pal;
-	ray->l1 = i;
-	ray->l2 = i2;
-	if (i && i2)
-		return (3);
-	if (i)
-		return (2);
-	if (i2)
-		return (1);
+//	ray->l1 = i;
+//	ray->l2 = i2;
+//	if (i && i2)
+//		return (3);
+//	if (i)
+//		return (2);
+//	if (i2)
+//		return (1);
 	return (0);
 }
 
@@ -217,7 +217,7 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 			ray->color = case_texture(cub, ray);
 			if (flag == 0)
 			{
-				ray->color = shade(ray->color, 0.015);
+				ray->color = shade(ray->color, 1);
 			}
 			else
 			{
