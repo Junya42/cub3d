@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/03 13:36:53 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/04 12:55:25 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ int				get_sprite_txt(t_cub *cub);
 
 /*	----------Chunks------------	*/
 
-void	free_matrix(char ***matrix, int b, int c);
-char	***allocate_matrix(int a, int b, int c);
+void	free_matrix(int ***matrix, int b, int c);
+int		***allocate_matrix(int a, int b, int c);
 void	lighthray(t_cub *cub, t_light *light, t_ray *ray);
 void	lightvray(t_cub *cub, t_light *light, t_ray *ray);
 void	chunk(t_cub *cub, t_light *light, t_ray *ray);

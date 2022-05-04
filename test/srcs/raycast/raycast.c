@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/01 16:56:20 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/04 13:14:33 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,6 +212,10 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 		float	scale = ray->shadow / ray->raycast;
 		float	dim = 0;
 		int		lever = 0;
+		/*if (ray->r == NRAY / 2)
+		{
+			printf("%d\n", cub->chunk[(int)ray->ry][(int)ray->rx][0]);
+		}*/
 		while (ray->i < ray->raycast)
 		{
 			ray->color = case_texture(cub, ray);

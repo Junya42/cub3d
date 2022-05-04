@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/03 13:28:04 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/04 12:54:48 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -294,7 +294,7 @@ typedef struct s_cub
 	char			**data;
 	char			**map;
 	char			**exp;
-	char			***chunk;
+	int				***chunk;
 	//t_build			*build;
 	float			scroll;
 	int				brightness;

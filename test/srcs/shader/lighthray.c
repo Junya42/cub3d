@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 16:45:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/03 14:25:09 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/04 13:04:30 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ void	light_horizon(t_cub *cub, t_ray *ray, t_light *light)
 		if (ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1 &&
 					ray->my > -1)
 		{
-			printf("y = %d\nx = %d\nindex = %d\n", ray->my, ray->mx, light->id - 1);
-			printf("=========================\n");
-			printf("%p\n", cub->chunk[ray->my][ray->mx]);
-			printf("=========================\n");
-			cub->chunk[ray->my][ray->mx][light->id - 1] = light->id + 48;
+			//printf("\ny = %d\nx = %d\nindex = %d\n", ray->my, ray->mx, light->id - 1);
+			//printf("=========================\n");
+			//printf("%p\n", cub->chunk[ray->my][ray->mx]);
+			//printf("=========================\n");
+			cub->chunk[ray->my][ray->mx][light->id - 1] = light->id;
 			if (check_valid(cub->exp[ray->my][ray->mx], "12"))
 			{
 				if (cub->exp[ray->my][ray->mx] == '2')
@@ -36,12 +36,9 @@ void	light_horizon(t_cub *cub, t_ray *ray, t_light *light)
 				break ;
 			}
 		}
-		else
-		{
-			ray->rx += ray->xo;
-			ray->ry += ray->yo;
-			ray->limit++;
-		}
+		ray->rx += ray->xo;
+		ray->ry += ray->yo;
+		ray->limit++;
 	}
 }
 

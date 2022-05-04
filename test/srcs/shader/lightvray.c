@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:14:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/03 13:38:37 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/04 13:04:45 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,9 @@ void	light_vertical(t_cub *cub, t_ray *ray, t_light *light)
 				break ;
 			}
 		}
-		else
-		{
-			ray->rx += ray->xo;
-			ray->ry += ray->yo;
-			ray->limit++;
-		}
+		ray->rx += ray->xo;
+		ray->ry += ray->yo;
+		ray->limit++;
 	}
 }
 

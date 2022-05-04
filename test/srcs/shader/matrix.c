@@ -6,17 +6,18 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 18:25:29 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/03 14:38:18 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/04 12:59:46 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-void	free_matrix(char ***matrix, int b, int c)
+void	free_matrix(int ***matrix, int b, int c)
 {
 	int	i;
 	int	j;
 
+	printf("free matrix\n");
 	if (matrix)
 	{
 		i = 0;
@@ -39,12 +40,12 @@ void	free_matrix(char ***matrix, int b, int c)
 	}
 }
 
-char	**allocate_sub_matrix(char ***matrix, int b, int c)
+int	**allocate_sub_matrix(int ***matrix, int b, int c)
 {
-	char	**tmp;
+	int	**tmp;
 
 	tmp = NULL;
-	tmp = (char **)malloc(sizeof(char *) * b);
+	tmp = (int **)malloc(sizeof(int *) * b);
 	if (!tmp)
 	{
 		free_matrix(matrix, b, c);
@@ -54,12 +55,12 @@ char	**allocate_sub_matrix(char ***matrix, int b, int c)
 	return (tmp);
 }
 
-char	*allocate_last_matrix(char ***matrix, int b, int c)
+int	*allocate_last_matrix(int ***matrix, int b, int c)
 {
-	char	*tmp;
+	int	*tmp;
 
 	tmp = NULL;
-	tmp = (char *)malloc(sizeof(char) * c);
+	tmp = (int *)malloc(sizeof(int) * c);
 	if (!tmp)
 	{
 		free_matrix(matrix, b, c);
@@ -69,14 +70,13 @@ char	*allocate_last_matrix(char ***matrix, int b, int c)
 	return (tmp);
 }
 
-char	***allocate_matrix(int a, int b, int c)
+int	***allocate_matrix(int a, int b, int c)
 {
-	char	***matrix;
+	int	***matrix;
 	int		i;
 	int		j;
 
-	matrix = NULL;
-	matrix = (char ***)malloc(sizeof(char **) * a);
+	matrix = (int ***)malloc(sizeof(int **) * a);
 	if (!matrix)
 	{
 		printf("Matrix malloc failure\n");
@@ -94,7 +94,7 @@ char	***allocate_matrix(int a, int b, int c)
 			return (NULL);
 		}
 		j = 0;
-		while (matrix[i][j])
+		while (j < b)
 		{
 			matrix[i][j] = allocate_last_matrix(matrix, b, c);
 			if (!matrix[i][j])
@@ -105,6 +105,14 @@ char	***allocate_matrix(int a, int b, int c)
 			j++;
 		}
 		i++;
+	}
+	for (i = 0; i < a; i++)
+	{
+		for (j = 0; j < b; j++)
+		{
+			for (int k = 0; k < c; k++)
+				matrix[i][j][k] = 0;
+		}
 	}
 	printf("matrix allocation success\n");
 	return (matrix);
