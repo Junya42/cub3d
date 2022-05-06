@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 16:25:53 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/03 13:37:58 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/06 01:12:33 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_chunk(t_light *light, t_ray *ray)
 	ray->ray = 0;
 	ray->npx = (((int)light->x >> 6) << 6);
 	ray->npy = (((int)light->y >> 6) << 6);
-	ray->ra = RAD;
+	ray->ra = 0.00001;
 	ray->r = 0;
 }
 
@@ -50,6 +50,6 @@ void	chunk(t_cub *cub, t_light *light, t_ray *ray)
 		lighthray(cub, light, ray);
 		ray->limit = 0;
 		lightvray(cub, light, ray);
-		ray->ra += RAD;
+		ray->ra += LIGHTSTEP / 10;
 	}
 }

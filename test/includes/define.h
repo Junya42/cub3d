@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 22:41:32 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/03 13:47:35 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/06 00:59:05 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define FOV 60
 # define NRAY 320
 # define SCAN 0.52358775
+# define LIGHTSTEP 0.00087264625
 # define NB_FRAME 8
 # define SPRITE 0
 # define LIGHT 1

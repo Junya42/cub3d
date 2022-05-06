@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/04 12:54:48 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/06 00:37:13 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,8 +232,8 @@ typedef struct s_build
 typedef struct s_light
 {
 	float	angle;
-	int		x;
-	int		y;
+	float	x;
+	float	y;
 	int		chunk;
 	int		id;
 	int		range;

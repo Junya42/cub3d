@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:58:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/03 13:48:19 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/06 00:42:33 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	get_sprite_txt(t_cub *cub)
 	while (i < cub->nb_sprites)
 	{
 		cub->sp[i].type = search_type(cub);
+		printf("sp[%d].type = %c\n", i, cub->sp[i].type);
 		cub->sp[i].s_type = SPRITE;
 		if (check_valid(cub->sp[i].type, "ULRGBCY"))
 				cub->sp[i].s_type = LIGHT;
@@ -33,6 +34,11 @@ int	get_sprite_txt(t_cub *cub)
 		cub->sp[i].index = 0;
 		cub->sp[i].x = (float)cub->search_j * 64 + 32;
 		cub->sp[i].y = (float)cub->search_i * 64 + 32;
+		if (cub->sp[i].s_type == LIGHT)
+		{
+			printf("sp[%d].x = %f\n", i, cub->sp[i].x);
+			printf("sp[%d].x = %f\n", i, cub->sp[i].y);
+		}
 		cub->sp[i].img = NULL;
 		cub->sp[i].addr = NULL;
 		cub->sp[i].csp.moveable = 0;

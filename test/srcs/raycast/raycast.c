@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/04 13:14:33 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/06 01:13:44 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,9 +175,9 @@ int	dda(t_cub *cub, t_ray *ray)
 	ray->offset = ((HALFVRES - cub->z) - ray->raycast * (0.75 - cub->h));
 	//ray->shadow = 2 / mysqrt(ray->ray) + i;
 	//ray->shadow = i2 + i;
-	ray->shadow = 1;
-	if (ray->shadow > 1)
-		ray->shadow = 1;
+	//ray->shadow = 1;
+	//if (ray->shadow > 1)
+	//	ray->shadow = 1;
 	//(void)lx;
 //	(void)ly;
 //	(void)i;
@@ -192,7 +192,7 @@ int	dda(t_cub *cub, t_ray *ray)
 //		return (2);
 //	if (i2)
 //		return (1);
-	return (0);
+	return (light(cub, cub->light, ray, cub->chunk));
 }
 
 void	raycast(t_cub *cub, t_ray *ray, int draw)
@@ -221,7 +221,7 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 			ray->color = case_texture(cub, ray);
 			if (flag == 0)
 			{
-				ray->color = shade(ray->color, 1);
+				ray->color = shade(ray->color, 0.05);
 			}
 			else
 			{
@@ -231,8 +231,8 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 					ray->color = colorize(ray->color, ray->shadow, dim, CYAN);
 				if (flag == 3)
 				{
-					ray->color = colorize(ray->color, 1, dim, PURPLE);
-					ray->color = colorize(ray->color, ray->shadow, dim, CYAN);
+					//ray->color = colorize(ray->color, 1, dim, PURPLE);
+					ray->color = colorize(ray->color, ray->shadow, dim, YELLOW);
 				}
 			}
 			pxl_to_ray(cub, ray->nr, (float)(int)(ray->i + ray->offset + draw), ray->color);

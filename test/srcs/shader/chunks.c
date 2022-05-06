@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 00:47:38 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/04 13:03:41 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/06 00:45:41 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@ void	assign_light_values(t_cub *cub, t_light *light, t_sp *sp)
 	{
 		if (sp[i].s_type == LIGHT)
 		{
+			printf("i = %d\n", i);
 			light[j].x = sp[i].x;
+			printf("Light.x = %f\n", light[j].x);
 			light[j].y = sp[i].y;
+			printf("Light.y = %f\n", light[j].y);
 			light[j].angle = PI;
 			light[j].range = 0;
 			light[j].id = j + 1;

@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:14:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/04 13:04:45 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/06 02:45:43 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	lightvray(t_cub *cub, t_light *light, t_ray *ray)
 		ray->ry = light->y;
 		ray->limit = cub->ex;
 	}
-	else if (ray->ra > PI)
+	else if (ray->ra > PI2 && ray->ra < PI3)
 	{
 		ray->hdir = 1;
 		ray->ry = light->y;
@@ -58,7 +58,7 @@ void	lightvray(t_cub *cub, t_light *light, t_ray *ray)
 		ray->yo /= 64;
 		ray->xo /= 64;
 	}
-	else if (ray->ra < PI)
+	else if (ray->ra < PI2 || ray->ra > PI3)
 	{
 		ray->hdir = 2;
 		ray->ry = light->y;

@@ -6,7 +6,7 @@
 #    By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 19:16:48 by anremiki          #+#    #+#              #
-#    Updated: 2022/05/03 14:13:59 by anremiki         ###   ########.fr        #
+#    Updated: 2022/05/06 00:29:01 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ SRCS = ./srcs/parsing/check_data.c ./srcs/parsing/check_map.c \
 	   ./srcs/parsing/utils_1.c \
 	   ./srcs/shader/chunks.c ./srcs/shader/matrix.c \
 	   ./srcs/shader/lighthray.c ./srcs/shader/lightvray.c \
-	   ./srcs/shader/chunkcasting.c \
+	   ./srcs/shader/chunkcasting.c ./srcs/shader/light.c \
 	   ./srcs/init/init_cub.c \
 	   ./srcs/hud/draw_map.c ./srcs/hud/draw_player.c \
 	   ./srcs/init/init.c ./srcs/init/textures.c \
