@@ -3,59 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   init_cub.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:58:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/06 00:42:33 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:25:35 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int	get_sprite_txt(t_cub *cub)
-{
-	int	i;
-
-	i = 0;
-	get_nb_sprites(cub);
-	if (create_sprites(cub) == 0)
-		return (0);
-	cub->search_j = 0;
-	cub->search_i = 0;
-	while (i < cub->nb_sprites)
-	{
-		cub->sp[i].type = search_type(cub);
-		printf("sp[%d].type = %c\n", i, cub->sp[i].type);
-		cub->sp[i].s_type = SPRITE;
-		if (check_valid(cub->sp[i].type, "ULRGBCY"))
-				cub->sp[i].s_type = LIGHT;
-		if (cub->sp[i].s_type == LIGHT)
-			cub->lights++;
-		cub->sp[i].index = 0;
-		cub->sp[i].x = (float)cub->search_j * 64 + 32;
-		cub->sp[i].y = (float)cub->search_i * 64 + 32;
-		if (cub->sp[i].s_type == LIGHT)
-		{
-			printf("sp[%d].x = %f\n", i, cub->sp[i].x);
-			printf("sp[%d].x = %f\n", i, cub->sp[i].y);
-		}
-		cub->sp[i].img = NULL;
-		cub->sp[i].addr = NULL;
-		cub->sp[i].csp.moveable = 0;
-		if (give_sprite_texture(&cub->sp[i], cub) == 0)
-			return (0);
-		cub->search_j++;
-		i++;
-	}
-	printf("LIGHTS ============ %d\n", cub->lights);
-	return (1);
-}
-
 t_ray *alloc_ray(void)
 {
 	t_ray *ray;
 
-	ray = (t_ray *)malloc(sizeof(t_ray) * 1);
+	ray = (t_ray *)malloc(sizeof(t_ray));
 	if (!ray)
 		return (NULL);
 	ray->dra = deg_to_rad(0, FOV) / (HALFHRES >> 1);
@@ -66,7 +27,7 @@ t_player *alloc_player(t_cub *cub)
 {
 	t_player *player;
 
-	player = (t_player *)malloc(sizeof(t_player) * 1);
+	player = (t_player *)malloc(sizeof(t_player));
 	if (!player)
 		return (NULL);
 	player->dx = cub->cos * 5;
@@ -83,22 +44,29 @@ t_player *alloc_player(t_cub *cub)
 	return (player);
 }
 
-int	init_cub(t_cub *cub)
+int	alloc_stuff(t_cub *cub)
 {
-	int	check;
+	cub->player = NULL;
+	cub->ray = NULL;
+	cub->player = alloc_player(cub);
+	cub->ray = alloc_ray();
+	if (!cub->player || !cub->ray)
+	{
+		if (cub->player)
+			free(cub->player);
+		if (cub->ray)
+			free(cub->ray);
+		return (0);
+	}
+	return (1);
+}
 
-	check = 0;
+int	init_cub(t_cub *cub, t_parse *parse)
+{
+	cub->map = parse->map;
 	get_map_xy(cub->map, cub);
 	cub->cos = cos(cub->a);
 	cub->sin = sin(cub->a);
-	cub->player = alloc_player(cub);
-	if (!cub->player)
-		check = 1;
-	cub->ray = alloc_ray();
-	if (!cub->ray)
-		check += 2;
-	if (check)
-		return (check);
 	cub->end = 0;
 	cub->z = 0;
 	cub->ex = cub->mx << 6;
@@ -108,7 +76,11 @@ int	init_cub(t_cub *cub)
 	cub->brightness = 4;
 	cub->flot = 0;
 	cub->sz = 0;
+	cub->z = 0;
 	cub->nb_sprites = 0;
 	cub->lights = 0;
-	return (0);
+	cub->scroll = 0;
+	if (alloc_stuff(cub) == 0)
+		return (0);
+	return (1);
 }

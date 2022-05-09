@@ -3,21 +3,12 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+         #
+#    By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 19:16:48 by anremiki          #+#    #+#              #
-#    Updated: 2022/05/06 00:29:01 by anremiki         ###   ########.fr        #
+#    Updated: 2022/05/09 17:04:35 by cmarouf          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-#SRCS =	srcs/main.c	\
-		utils/parsing_utils_1.c \
-		utils/parsing_utils_2.c \
-		utils/utils_1.c \
-		srcs/parsing_1.c \
-		srcs/parsing_2.c \
-
-#SRCS = ./expandtab.c ./crash-test/test.c
 
 SRCS = ./srcs/parsing/check_data.c ./srcs/parsing/check_map.c \
 	   ./srcs/parsing/gather_data.c ./srcs/parsing/parsing_data.c \
@@ -45,13 +36,13 @@ SRCS = ./srcs/parsing/check_data.c ./srcs/parsing/check_map.c \
 	   ./srcs/sprites/s_light_cyan.c ./srcs/sprites/s_light_green.c \
 	   ./srcs/sprites/s_light_purple.c ./srcs/sprites/s_light_red.c \
 	   ./srcs/sprites/s_light_yellow.c ./srcs/sprites/s_light.c \
-	   
-
-#SRCS = ./expandtab.c
+	   ./srcs/utils/time.c ./srcs/sound/init_audio.c \
+	   ./srcs/init/init_pos.c ./srcs/sprites/start_sprites.c \
+	   ./srcs/init/quit.c ./srcs/init/create_window.c \
 
 INCLUDES = ./includes/
 
-LIB = ./libft/libft.a ./ft_printf/libftprintf.a
+LIB = ./libft/libft.a ./SDL_MIXER/lib/libSDL2_mixer.a
 
 OBJS = ${SRCS:.c=.o}
 
@@ -59,7 +50,7 @@ RM = rm -rf
 
 CFLAGS = -Wall -Wextra -Werror -g3 -I $(INCLUDES) -O0
 
-MLXFLAGS = ./minilibx/libmlx_Linux.a -lXext -lX11 -I ./minilibx/
+MLXFLAGS = ./minilibx/libmlx_Linux.a -lXext -lX11 -I ./minilibx/ -I ./SDL_MIXER/include/SDL2
 
 NAME = ./exec/cub3d
 
@@ -89,7 +80,7 @@ DEFAULTRATE = $(shell xset -q | grep delay | awk '{printf"%d", $$4}')
 
 .c.o:
 		@echo "Building $< $(CURRENT)/$(TOTAL)"
-		${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -lm
+		${CC} ${CFLAGS} -c $< -o ${<:.c=.o} -lm -I ./SDL_MIXER/include/SDL2
 
 all:	$(NAME)
 
@@ -102,7 +93,7 @@ $(NAME): $(OBJS)
 		@make bonus -C ./libft
 		@make -C ./ft_printf
 		@echo "\033[1;32mBuilding executable $(PNAME)\033[0m"
-		$(CC) $(CFLAGS) $(OBJS) $(MLXFLAGS) $(LIB) -o $(NAME) -lm
+		$(CC) $(CFLAGS) $(OBJS) $(MLXFLAGS) $(LIB) -o $(NAME) -lm -lSDL2
 		@echo "#! /bin/sh" > cub3d
 		@echo "xset r rate 30" >> cub3d
 		@echo "xset -r 41" >> cub3d
@@ -131,8 +122,6 @@ endif
 		@make clean -C ./minilibx
 		@echo
 		@make clean -C ./libft
-		@echo
-		@make clean -C ./ft_printf
 
 fclean: clean
 ifeq ($(NAMEEXIST), 1)
@@ -147,8 +136,6 @@ endif
 		$(RM) ./minilibx/libmlx.a
 		@echo
 		@make fclean -C ./libft
-		@echo
-		@make fclean -C ./ft_printf
 
 re:		fclean all
 

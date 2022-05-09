@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/06 00:27:51 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/09 18:27:27 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,13 @@
 # include <fcntl.h>
 # include <sys/stat.h>
 # include <sys/types.h>
+# include <sys/time.h>
 # include <math.h>
+# include "SDL.h"
+# include "SDL_mixer.h"
 # include "../minilibx/mlx.h"
 # include "/usr/include/X11/X.h"
 # include "../libft/includes/libft.h"
-# include "../ft_printf/includes/ft_printf.h"
 # include "struct3d.h"
 # include "define.h"
 
@@ -60,9 +62,10 @@ int				exit_parsing(char *str);
 
 void			get_angle(t_cub *cub, char dir);
 void			get_map_xy(char **map, t_cub *cub);
-int				init_cub(t_cub *cub);
-int				create_window(t_cub *cub);
-int				get_sprite_txt(t_cub *cub);
+int				init_cub(t_cub *cub, t_parse *parse);
+int				create_window(t_cub *cub, t_parse *parse);
+int	            quit(t_cub *cub);
+
 
 /*	----------Chunks------------	*/
 
@@ -84,7 +87,7 @@ void			transform(char **map, int x, int y, char c);
 
 /*	----------textures----------	*/
 
-int				create_imgs(t_cub *cub);
+int				create_imgs(t_cub *cub, t_parse *parse);
 void			destroy_imgs(t_cub *cub, t_text *imgs);
 
 /*	----------utils--------------	*/
@@ -97,7 +100,10 @@ float			deg_to_rad(float angle, float degree);
 /*	MAP	*/
 int				adjacent(t_cub *cub, int x, int y, char c);
 void			change_map(t_cub *cub);
-int				wipe_data(t_cub *cub);
+int				wipe_data(t_cub *cub, t_parse *parse);
+/*	TIME	*/
+long long	    timestamp(void);
+void	        usleep_(long int time);
 
 /*	----------Shaders------------	*/
 
@@ -119,6 +125,7 @@ unsigned int	rgb_to_hex(unsigned int r, unsigned int g, unsigned int b);
 
 /*	----------Sprites-------------	*/
 
+int	            get_sprite_txt(t_cub *cub, int i);
 int				create_sprites(t_cub *cub);
 void			get_nb_sprites(t_cub *cub);
 char			search_type(t_cub *cub);
@@ -133,6 +140,10 @@ int				txt_light_yellow(t_sp *sp, t_cub *cub);
 int	            choose_sprite_texture(t_sp *sp, t_cub *cub);
 void			sprite_casting(t_cub *cub);
 void			print_sprite(t_cub *cub, t_csp *s);
+
+/*	----------Sound-------------	*/
+int	    init_audio(t_cub *cub, int i);
+int     close_audio(t_cub *cub);
 
 /*	----------Minimap-------------	*/
 
@@ -154,8 +165,8 @@ void			raycast(t_cub *cub, t_ray *ray, int draw);
 /*	----------Input-----------------	*/
 
 void			rotate(int keycode, t_cub *cub, t_player *player);
-void			longitudinal(int keycode, t_player *player, char **exp);
-void			lateral(int keycode, t_player *player, char **exp);
+void			longitudinal(int keycode, t_player *player, char **exp, t_cub *cub);
+void			lateral(int keycode, t_player *player, char **exp, t_cub *cub);
 int				save_position(t_cub *cub, t_player *player, char **exp);
 int				key_handle(int keycode, t_cub *cub);
 int				direction(t_cub *cub);

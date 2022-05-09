@@ -47,7 +47,8 @@ int	light(t_cub *cub, t_light *light, t_ray *ray, int ***matrix)
 						bonus = 360;
 					else
 						bonus = 0;
-					printf("angle of light to wall = %f\n", atan(dy/dx) * 180 / PI + bonus);
+					(void)bonus;
+					//printf("angle of light to wall = %f\n", atan(dy/dx) * 180 / PI + bonus);
 					
 				}
 				if (shade > max)

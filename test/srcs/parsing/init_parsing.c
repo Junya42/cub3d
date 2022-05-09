@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_parsing.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 00:16:22 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/01 01:20:58 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/09 16:38:42 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,28 @@ int	try_open_cub_file(char *filename, t_parse *parse)
 	return (EXIT_SUCCESS);
 }
 
+void	init_parsing_variable(t_parse *p)
+{
+	p->buffer = NULL;
+	p->mcontent = NULL;
+	p->total = 0;
+	p->check_ne = 0;
+	p->check_so = 0;
+	p->check_we = 0;
+	p->check_ea = 0;
+	p->check_c = 0;
+	p->check_f = 0;
+	p->npath = NULL;
+	p->spath = NULL;
+	p->wpath = NULL;
+	p->epath = NULL;
+	p->map = NULL;
+	p->i = 0;
+}
+
 int	parsing(char **av, t_parse *parse)
 {
+	init_parsing_variable(parse);
 	if (check_cub_file(av[1]) == 1)
 		return (exit_parsing("Error in file\n"));
 	if (try_open_cub_file(av[1], parse) == 1)
@@ -50,5 +70,5 @@ int	parsing(char **av, t_parse *parse)
 		return (exit_parsing("Error in data parsing\n"));
 	if (parse_map(parse, av[1]) == 1)
 		return (exit_parsing("Error in map parsing\n"));
-	return (EXIT_SUCCESS);
+	return (1);
 }

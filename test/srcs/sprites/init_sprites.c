@@ -12,21 +12,35 @@
 
 #include "../../includes/cub3d.h"
 
-static inline void init_sprite_var(t_cub *cub, t_csp *csp, int i)
+static inline void set_texture_addr(t_cub *cub, t_csp *csp, int i)
 {
-	float	adjust;
-	
-	csp->j = 0;
 	csp->size = cub->sp[i].size;
 	csp->img = cub->sp[i].img;
 	csp->addr = cub->sp[i].addr;
 	csp->dbpp = cub->sp[i].dbpp;
 	csp->sizeline = cub->sp[i].sizeline;
+}
+
+static inline void set_sound_value(t_cub *cub, t_csp *csp)
+{
+	csp->dist = sqrt((csp->sx * csp->sx) + (csp->sy * csp->sy));
+	cub->sp_dist = csp->dist;
+	cub->sp_angle = atan2(csp->a, csp->b) * 180 / PI;
+	if (cub->sp_angle < 0)
+		cub->sp_angle += 360;
+}
+
+static inline void init_sprite_var(t_cub *cub, t_csp *csp, int i)
+{
+	float	adjust;
+	
+	csp->j = 0;
+	set_texture_addr(cub, csp, i);
 	csp->sx = cub->sp[i].x - cub->x;
 	csp->sy = cub->sp[i].y - cub->y;
-	csp->dist = sqrt((csp->sx * csp->sx) + (csp->sy * csp->sy));
 	csp->a = (csp->sy * cub->cos) - (csp->sx * cub->sin);
 	csp->b = (csp->sx * cub->cos) + (csp->sy * cub->sin);
+	set_sound_value(cub, csp);
 	csp->scale = cub->sp[i].size * 80 / csp->b;
 	adjust = (cub->h * 28 - 7);
 	csp->sx = csp->a;	

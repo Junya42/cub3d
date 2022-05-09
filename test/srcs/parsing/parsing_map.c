@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 19:25:14 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/01 01:45:17 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/09 12:55:22 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,7 @@ int	check_rules(char **map, char *to_free)
 	if (check_char(map, VALID) == 1)
 		return (EXIT_FAILURE);
 	if (check_wall(map) == 1)
-	{
-		printf("here\n");
 		return (EXIT_FAILURE);
-	}
 	return (EXIT_SUCCESS);
 }
 

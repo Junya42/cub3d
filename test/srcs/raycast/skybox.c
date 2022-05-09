@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   skybox.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:09 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/28 06:42:29 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/09 15:27:48 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	skybox(t_cub *cub, t_ray *ray)
 
 	ray->i = 0;
 	fix_nra = 0;
-	ra_to_pxl = secure_radians(ray->ra, 0) * 721;
+	ra_to_pxl = secure_radians(ray->ra, cub->scroll) * 721;
 	//ra_to_pxl = ray->ra * 1024;
 	float	ra_back = secure_radians(ray->ra, 170 * PI / 180);
 	ra_back = secure_radians(ra_back, 0) * 721;

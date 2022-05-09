@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   s_light_blue.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 03:08:13 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/30 18:43:41 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/09 12:29:15 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ int	check_animation_light_blue(t_sp *s)
 	int	i;
 
 	i = -1;
-	s->anim_paths[0] = "./imgs/blue0.xpm";
-	s->anim_paths[1] = "./imgs/blue1.xpm";
-	s->anim_paths[2] = "./imgs/blue2.xpm";
-	s->anim_paths[3] = "./imgs/blue3.xpm";
-	s->anim_paths[4] = "./imgs/blue4.xpm";
-	s->anim_paths[5] = "./imgs/blue5.xpm";
-	s->anim_paths[6] = "./imgs/blue6.xpm";
-	s->anim_paths[7] = "./imgs/blue7.xpm";
+	s->anim_paths[0] = "./imgs/s_blue/blue0.xpm";
+	s->anim_paths[1] = "./imgs/s_blue/blue1.xpm";
+	s->anim_paths[2] = "./imgs/s_blue/blue2.xpm";
+	s->anim_paths[3] = "./imgs/s_blue/blue3.xpm";
+	s->anim_paths[4] = "./imgs/s_blue/blue4.xpm";
+	s->anim_paths[5] = "./imgs/s_blue/blue5.xpm";
+	s->anim_paths[6] = "./imgs/s_blue/blue6.xpm";
+	s->anim_paths[7] = "./imgs/s_blue/blue7.xpm";
 	while (++i < 8)
 		if (open(s->anim_paths[i], O_RDONLY) < 1)
 			return (0);

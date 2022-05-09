@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct3d.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/06 00:37:13 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/09 17:02:54 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,9 +243,14 @@ typedef struct s_light
 
 typedef struct s_cub
 {
+	Mix_Chunk *light_aura;
+	Mix_Chunk *foot_steps[4];
+	int				mixing;
+	int				foot;
 	int				lights;
 	void			*mlx;
 	void			*win;
+	void			*erase;
 	void			*imap;
 	void			*ihud;
 	void			*iray;
@@ -255,7 +260,6 @@ typedef struct s_cub
 	char			*we;
 	char			*mapaddr;
 	char			*rayaddr;
-	//int				nsprite;
 	int				m_bpp;
 	int				m_size;
 	int				m_end;
@@ -291,6 +295,12 @@ typedef struct s_cub
 	float			sz;
 	int				zbuf[NRAY];
 	int				update;
+	int				sp_dist;
+	float			sp_angle;
+	long long		curr_time;
+	long long		time_move;
+	float			lastx;
+	float			lasty;
 	char			**data;
 	char			**map;
 	char			**exp;
@@ -305,18 +315,4 @@ typedef struct s_cub
 	t_light			*light;
 }				t_cub;
 
-/*typedef struct s_parse
-  {
-  char	**map;
-  char	**data;
-  char	*tmpdata;
-  char	*total;
-  char	*line;
-  int		fd;
-  int		arg;
-  int		checker;
-  int		map_start;
-  int		x;
-  }				t_parse;
-  */
 #endif

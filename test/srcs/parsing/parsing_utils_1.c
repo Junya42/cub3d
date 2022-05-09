@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 23:43:33 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/01 01:18:25 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/09 16:37:59 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	exit_parsing(char *str)
 {
 	write(STDERR, str, ft_strlen(str));
-	return (EXIT_FAILURE);
+	return (0);
 }
 
 int	is_num(char *str)

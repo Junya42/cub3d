@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   anti_ghosting.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:04:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/01 17:19:28 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/09 12:37:46 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-void	usleep_(long int time)
-{
-	while (time)
-	{
-		usleep(time / 10);
-		time /= 10;
-	}
-}
 
 void	jump(t_cub *cub)
 {
@@ -63,6 +54,31 @@ void	animation(t_cub *cub)
 	}
 }
 
+void	update_3d_sound(t_cub *cub, t_player *player)
+{
+	if (cub->mixing >= 4)
+		cub->mixing = 0;
+	cub->curr_time = timestamp();
+	if (cub->sp_dist > 250)
+		cub->sp_dist = 250;
+	Mix_SetPosition(1, (int)cub->sp_angle, cub->sp_dist);
+	if (cub->curr_time - cub->time_move >= 300)
+	{
+		if (player->x == cub->lastx && player->y == cub->lasty)
+		{
+			Mix_FadeOutChannel(0, 200);
+			cub->foot = 1;
+		}
+		else
+		{
+			cub->lastx = player->x;
+			cub->lasty = player->y;
+		}
+	}
+	if (Mix_Playing(0) == 0 && cub->foot != 1)
+		Mix_PlayChannel(0, cub->foot_steps[cub->mixing], -1);
+}
+
 int	anti_ghosting(t_cub *cub)
 {
 	t_player *player;
@@ -77,17 +93,13 @@ int	anti_ghosting(t_cub *cub)
 	{
 		usleep_(100000);
 		rotate(player->released, cub, player);
-		longitudinal(player->released, player, cub->exp);
-		lateral(player->released, player, cub->exp);
+		longitudinal(player->released, player, cub->exp, cub);
+		lateral(player->released, player, cub->exp, cub);
 		save_position(cub, player, cub->exp);
 	}
-	(void)player;
+	update_3d_sound(cub, player);
 	jump(cub);
-	//printmap(cub->map);
 	raycast(cub, cub->ray, 0);
-	//printf("\n\n");
-	//printmap(cub->map);
-	//exit(0);
 	floating(cub);
 	animation(cub);
 	sprite_casting(cub);

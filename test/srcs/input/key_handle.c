@@ -75,19 +75,32 @@ void	slide(t_player *player, float x, float y, char **exp)
 			player->x = x;
 	}
 }
-void	longitudinal(int keycode, t_player *player, char **exp)
+
+void	foot_steps(t_cub *cub, t_player *player)
+{
+	Mix_Volume(0, 32);
+	cub->mixing++;
+	cub->foot = 0;
+	cub->time_move = timestamp();
+	cub->lastx = player->x;
+	cub->lasty = player->y;
+}
+
+void	longitudinal(int keycode, t_player *player, char **exp, t_cub *cub)
 {
 	float	x;
 	float	y;
 
 	if (keycode == 'w')
 	{
+		foot_steps(cub, player);
 		x = (player->x + (player->dx * player->ms));
 		y = (player->y + (player->dy * player->ms));
 		slide(player, x, y, exp);
 	}
 	if (keycode == 's')
 	{
+		foot_steps(cub, player);
 		x = (player->x - (player->dx * player->ms));
 		y = (player->y - (player->dy * player->ms));
 		slide(player, x, y, exp);
@@ -95,13 +108,14 @@ void	longitudinal(int keycode, t_player *player, char **exp)
 
 }
 
-void	lateral(int keycode, t_player *player, char **exp)
+void	lateral(int keycode, t_player *player, char **exp, t_cub *cub)
 {
 	float	x;
 	float	y;
 
 	if (keycode == 'a')
 	{
+		foot_steps(cub, player);
 		player->lstraf = secure_radians(player->angle, -PI2);
 		x = (player->x + cos(player->lstraf) * 5 * player->ms);
 		y = (player->y + sin(player->lstraf) * 5 * player->ms);
@@ -109,6 +123,7 @@ void	lateral(int keycode, t_player *player, char **exp)
 	}
 	if (keycode == 'd')
 	{
+		foot_steps(cub, player);
 		player->rstraf = secure_radians(player->angle, PI2);
 		x = (player->x + cos(player->rstraf) * 5 * player->ms);
 		y = (player->y + sin(player->rstraf) * 5 * player->ms);
@@ -118,9 +133,6 @@ void	lateral(int keycode, t_player *player, char **exp)
 
 int	save_position(t_cub *cub, t_player *player, char **exp)
 {
-	//t_ray *ray;
-
-	//ray = cub->ray;
 	if (check_valid(exp[(int)player->y][(int)player->x], "12D"))
 	{
 		player->x = player->safex;
@@ -131,7 +143,6 @@ int	save_position(t_cub *cub, t_player *player, char **exp)
 	cub->x = player->x;
 	cub->y = player->y;
 	cub->a = player->angle;
-	//raycast(cub, ray, 0);
 	return (0);
 }
 
@@ -154,11 +165,11 @@ int key_handle(int keycode, t_cub *cub)
 	if (player->released != keycode)
 	{
 		rotate(player->released, cub, player);
-		longitudinal(player->released, player, cub->exp);
-		lateral(player->released, player, cub->exp);
+		longitudinal(player->released, player, cub->exp, cub);
+		lateral(player->released, player, cub->exp, cub);
 	}
 	rotate(keycode, cub, player);
-	longitudinal(keycode, player, cub->exp);
-	lateral(keycode, player, cub->exp);
+	longitudinal(keycode, player, cub->exp, cub);
+	lateral(keycode, player, cub->exp, cub);
 	return (save_position(cub, player, cub->exp));
 }
