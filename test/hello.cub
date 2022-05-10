@@ -6,7 +6,7 @@
 #    By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/29 03:33:28 by anremiki          #+#    #+#              #
-#    Updated: 2022/05/10 14:44:03 by cmarouf          ###   ########.fr        #
+#    Updated: 2022/05/10 14:44:31 by cmarouf          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SO ./imgs/blackstone.xpm
 WE ./imgs/birch_planks.xpm
 EA ./imgs/bookshelf.xpm
 
-F 10,10,780
+F 10,10,0
 C 10,10,10
 
 11111111
