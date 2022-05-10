@@ -6,13 +6,13 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:01:58 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/10 11:55:39 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/10 14:43:27 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int	close_audio(t_cub *cub)
+int	close_game(t_cub *cub, t_parse *parse)
 {
 	int i;
 
@@ -24,6 +24,8 @@ int	close_audio(t_cub *cub)
 		Mix_FreeChunk(cub->light_aura);
 	Mix_CloseAudio();
 	SDL_Quit();
+	free_mlx(cub);
+	free_data(parse);
 	return (0);
 }
 

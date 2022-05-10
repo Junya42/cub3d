@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 20:23:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/10 12:45:25 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/10 14:41:12 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,12 @@ int	wipe_data(t_cub *cub, t_parse *parse)
 {
 	destroy_imgs(cub, cub->text);
 	free(cub->text);
-	free_data(parse);
 	free_array(cub->exp);
 	free(cub->ray);
 	free(cub->player);
 	free(cub->light);
 	free_sprites(cub);
-	mlx_destroy_display(cub->mlx);
-	free(cub->mlx);
+	close_game(cub, parse);
 	free_matrix(cub->chunk, cub->ey, cub->ex);
 	return (0);
 }

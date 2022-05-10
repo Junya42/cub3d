@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 03:11:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/10 13:37:53 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/10 14:42:24 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	launch_game_loop(t_cub *cub)
 
 void	quit_game(t_cub *cub, t_parse *parse)
 {
-	close_audio(cub);
 	wipe_data(cub, parse);
 }
 
@@ -39,24 +38,15 @@ int	launch_mlx(t_cub *cub)
 int	load_game(t_cub *cub, t_parse *parse, char **av)
 {
 	if (parsing(av, parse) == 0)
-	{
-		free_data(parse);
-		return (0);
-	}
+		return (free_data(parse));
 	if (launch_mlx(cub) == 0)
-		return (0);
+		return (free_data(parse));
 	if (init_audio(cub, -1) == 0)
-		return (close_audio(cub));
+		return (close_game(cub, parse));
 	if (init_cub(cub, parse) == 0)
-	{
-		close_audio(cub);
-		free_data(parse);
-		return (0);
-	}
+		return (close_game(cub, parse));
 	if (create_window(cub, parse) == 0)
 	{
-		free_data(parse);
-		close_audio(cub);
 		wipe_data(cub, parse);
 		return (0);
 	}

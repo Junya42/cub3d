@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/10 11:55:40 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/10 14:39:39 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 
 /*	-----------Parsing----------	*/
 
-void			free_data(t_parse *parse);
+int			       free_data(t_parse *parse);
 int				free_and_return(t_parse *p, int flag, int exitcode);
 int				is_num(char *str);
 int	            get_fd_size(int saved_fd, char *filename, int len);
@@ -84,6 +84,7 @@ int				check_valid(char c, char *valid);
 void			modify_map(char **map, char **exp, int mult);
 char			**expand(char **map, int x, int y, int mult);
 void			transform(char **map, int x, int y, char c);
+int             close_game(t_cub *cub, t_parse *parse);
 
 /*	----------textures----------	*/
 
@@ -98,6 +99,7 @@ float			fix_fisheye(float pa, float ra, float ray);
 float			secure_radians(float angle, float delta);
 float			deg_to_rad(float angle, float degree);
 /*	MAP	*/
+void	        free_mlx(t_cub *cub);
 int				adjacent(t_cub *cub, int x, int y, char c);
 void			change_map(t_cub *cub);
 int				wipe_data(t_cub *cub, t_parse *parse);
@@ -143,7 +145,6 @@ void			print_sprite(t_cub *cub, t_csp *s);
 
 /*	----------Sound-------------	*/
 int	    init_audio(t_cub *cub, int i);
-int     close_audio(t_cub *cub);
 
 /*	----------Minimap-------------	*/
 

@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 23:43:33 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/09 16:37:59 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/10 14:33:36 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	free_and_return(t_parse *p, int flag, int exitcode)
 	return (exitcode);
 }
 
-void	free_data(t_parse *p)
+int	free_data(t_parse *p)
 {
 	if (p->npath)
 		free(p->npath);
@@ -64,4 +64,5 @@ void	free_data(t_parse *p)
 		free(p->epath);
 	if (p->map)
 		free_array(p->map);
+	return (0);
 }
