@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 03:11:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/09 18:47:56 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/10 13:37:53 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	launch_game_loop(t_cub *cub)
 void	quit_game(t_cub *cub, t_parse *parse)
 {
 	close_audio(cub);
-	free_data(parse);
-	//wipe_data(cub, parse);
+	wipe_data(cub, parse);
 }
 
 int	launch_mlx(t_cub *cub)
@@ -37,6 +36,33 @@ int	launch_mlx(t_cub *cub)
 	return (1);
 }
 
+int	load_game(t_cub *cub, t_parse *parse, char **av)
+{
+	if (parsing(av, parse) == 0)
+	{
+		free_data(parse);
+		return (0);
+	}
+	if (launch_mlx(cub) == 0)
+		return (0);
+	if (init_audio(cub, -1) == 0)
+		return (close_audio(cub));
+	if (init_cub(cub, parse) == 0)
+	{
+		close_audio(cub);
+		free_data(parse);
+		return (0);
+	}
+	if (create_window(cub, parse) == 0)
+	{
+		free_data(parse);
+		close_audio(cub);
+		wipe_data(cub, parse);
+		return (0);
+	}
+	return (1);
+}
+
 int main(int ac, char **av)
 {
 	t_cub	cub;
@@ -44,30 +70,9 @@ int main(int ac, char **av)
 
 	if (ac != 2)
 		return (printf("\033[1;31mError\033[0m - Usage : ./cub3d_bonus map_name\n"));
-	if (launch_mlx(&cub) == 0)
-		return (0);
-	if (init_audio(&cub, -1) == 0)
-		return (close_audio(&cub));
-	if (parsing(av, &parse) == 0)
-	{
-		close_audio(&cub);
-		free_data(&parse);
-		return (0);
-	}
-	if (init_cub(&cub, &parse) == 0)
-	{
-		close_audio(&cub);
-		free_data(&parse);
-		return (0);
-	}
-	if (create_window(&cub, &parse) == 0)
-	{
-		free_data(&parse);
-		close_audio(&cub);
-		wipe_data(&cub, &parse);
-		return (0);
-	}
+	if (load_game(&cub, &parse, av) == 0)
+		return (1);
 	launch_game_loop(&cub);
 	quit_game(&cub, &parse);
-	return (1);
+	return (0);
 }

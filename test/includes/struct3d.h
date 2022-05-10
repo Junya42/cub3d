@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/09 17:02:54 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/10 11:07:40 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,7 +305,6 @@ typedef struct s_cub
 	char			**map;
 	char			**exp;
 	int				***chunk;
-	//t_build			*build;
 	float			scroll;
 	int				brightness;
 	t_ray			*ray;
