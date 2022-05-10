@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 05:14:37 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/01 01:19:14 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/10 18:16:49 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,12 +68,13 @@ int	check_rgb(char *code, int i)
 	range = ft_split(code, ',');
 	if (!range)
 		return (EXIT_FAILURE);
-	if (!range[0] || !range[1] || !range[2] || range[3])
+	if ((!range[0] || !range[1] || !range[2] || range[3])
+		|| is_num(range[0]) || is_num(range[1]) || is_num(range[2]))
 	{
 		free_array(range);
 		return (EXIT_FAILURE);
 	}
-	while (i < 3)
+	while (++i < 3)
 	{
 		range[i][ft_strlen(range[i])] = '\0';
 		if ((is_num(range[i]) == 1) || ft_atoi(range[i]) > 255
@@ -82,7 +83,6 @@ int	check_rgb(char *code, int i)
 			free_array(range);
 			return (EXIT_FAILURE);
 		}
-		i++;
 	}
 	free_array(range);
 	return (EXIT_SUCCESS);
@@ -99,7 +99,7 @@ int	check_map_content(char **mcontent, t_parse *p)
 	}
 	else if (!mcontent[0] || check_floor_ceilings(mcontent[0], p) == 0)
 	{
-		if (!mcontent[1] || check_rgb(mcontent[1], 0) == 1)
+		if (!mcontent[1] || check_rgb(mcontent[1], -1) == 1)
 			return (EXIT_FAILURE);
 		gather_data(mcontent, p, RGB);
 		return (EXIT_SUCCESS);

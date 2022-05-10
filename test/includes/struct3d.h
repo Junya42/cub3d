@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/10 11:07:40 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/10 17:12:35 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,6 +245,8 @@ typedef struct s_cub
 {
 	Mix_Chunk *light_aura;
 	Mix_Chunk *foot_steps[4];
+	int				sp_error;
+	int				exit_code;
 	int				mixing;
 	int				foot;
 	int				lights;

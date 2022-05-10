@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 01:30:53 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/09 16:26:53 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/10 17:12:25 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ int	create_imgs(t_cub *cub, t_parse *parse)
 	images = (t_text *)malloc(sizeof(t_text) * 11);
 	if (!images)
 		return (0);
+	init_null(cub, images);
 	cub->text = images;
-	init_null(cub, cub->text);
 	if (!imgs(parse, cub, cub->text, mlx_xpm_file_to_image))
 		return (0);
 	if (!addr(cub, cub->text, mlx_get_data_addr))
@@ -100,12 +100,11 @@ void	destroy_imgs(t_cub *cub, t_text *imgs)
 {
 	int	i;
 
-	i = 0;
-	while (i < 11)
+	i = -1;
+	while (++i < 11)
 	{
 		if (imgs[i].img)
 			mlx_destroy_image(cub->mlx, imgs[i].img);
-		i++;
 	}
 	if (cub->imap)
 		mlx_destroy_image(cub->mlx, cub->imap);

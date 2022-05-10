@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 03:08:30 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/09 12:29:33 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/10 15:39:51 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static int	init_animation(t_sp *s, t_cub *cub)
 
 int	txt_light_purple(t_sp *sp, t_cub *cub)
 {
+	sp->img = NULL;
 	if (check_animation_light_purple(sp) == 0)
 		return (0);
 	if (init_animation(sp, cub) == 0)

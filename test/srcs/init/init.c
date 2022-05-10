@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 03:11:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/10 14:49:57 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/10 18:14:26 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	load_game(t_cub *cub, t_parse *parse, char **av)
 {
 	if (parsing(av, parse) == 0)
 		return (free_data(parse));
+	exit(0);
 	if (launch_mlx(cub) == 0)
 		return (free_data(parse));
 	if (init_audio(cub, -1) == 0)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 22:41:32 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/06 00:59:05 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/10 17:12:38 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,8 @@
 # define FD_ERR "Invalid file descriptor\n"
 # define PARSING_ERR "Invalid number / type of arguments\n"
 # define MAP_ERR "Invalid map\n"
+# define SPRITE_ERR 1
+# define MATRIX_ERR 2
+# define TEXTURE_ERR 3
 
 #endif

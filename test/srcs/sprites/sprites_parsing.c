@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 03:03:41 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/09 12:26:14 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/10 15:57:36 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	create_sprites(t_cub *cub)
 {
 	cub->search_j = 0;
 	cub->search_i = 0;
+	cub->sp_error = 1;
 	cub->sp = (t_sp *)malloc(sizeof(t_sp) * cub->nb_sprites);
 	if (!cub->sp)
 		return (0);

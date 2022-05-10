@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:22:24 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/09 12:23:10 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/10 15:57:33 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	get_sprite_txt(t_cub *cub, int i)
 		cub->sp[i].addr = NULL;
 		cub->sp[i].csp.moveable = 0;
 		if (give_sprite_texture(&cub->sp[i], cub) == 0)
-			return (0);
+			cub->sp_error = 0;
 		cub->search_j++;
 		i++;
 	}
-	return (1);
+	return (cub->sp_error);
 }

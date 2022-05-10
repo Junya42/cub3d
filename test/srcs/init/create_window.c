@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 17:03:50 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/09 18:25:33 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/10 15:59:57 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int loading_screen(t_cub *cub, t_parse *parse)
 	if (!get_sprite_txt(cub, 0))
     {
         printf("ERROR LOADING SPRITES\n");
-		return (0);
+		return (SPRITE_ERR);
     }
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->erase , 0, 0);
 	mlx_string_put(cub->mlx, cub->win, HALFHRES, HALFVRES, 0xFFFFFF, "Loading Chunks");
@@ -35,25 +35,33 @@ int loading_screen(t_cub *cub, t_parse *parse)
     if (!cub->light)
     {
         printf("ERROR LOADING LIGHTS\n");
-        return (0);
+        return (MATRIX_ERR);
     }
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->erase , 0, 0);
 	mlx_string_put(cub->mlx, cub->win, HALFHRES, HALFVRES, 0xFFFFFF, "Loading Textures");
 	if (!create_imgs(cub, parse))
     {
         printf("ERROR LOADING TEXTURES\n");
-		return (0);
+		return (TEXTURE_ERR);
     }
-    return (1);
+    return (0);
 }
 
 int	create_window(t_cub *cub, t_parse *parse)
 {
     init_erase_var(cub);
+    init_struct_null(cub);
     change_map(cub);
 	cub->exp = expand(cub->map, cub->mx, cub->my, 64);
-    if (loading_screen(cub, parse) == 0)
+    cub->exit_code = loading_screen(cub, parse);
+    if (cub->exit_code != 0)
+    {
+        if (cub->erase)
+	        mlx_destroy_image(cub->mlx, cub->erase);
+        if (cub->win)
+            mlx_destroy_window(cub->mlx, cub->win);
         return (0);
+    }
     if (cub->erase)
 	    mlx_destroy_image(cub->mlx, cub->erase);
 	return (1);

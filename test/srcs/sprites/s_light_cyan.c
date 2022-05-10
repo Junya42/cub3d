@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 03:08:19 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/09 12:29:25 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/10 15:39:59 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static int	init_animation(t_sp *s, t_cub *cub)
 
 int	txt_light_cyan(t_sp *sp, t_cub *cub)
 {
+	sp->img = NULL;
 	if (check_animation_light_cyan(sp) == 0)
 		return (0);
 	if (init_animation(sp, cub) == 0)

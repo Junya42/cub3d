@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 23:43:33 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/10 14:33:36 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/10 18:15:41 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	is_num(char *str)
 
 	i = 0;
 	if (!str[0])
+		return (EXIT_FAILURE);
+	if (str[0] == '\n')
 		return (EXIT_FAILURE);
 	while (str[i] && str[i] != '\n')
 	{
