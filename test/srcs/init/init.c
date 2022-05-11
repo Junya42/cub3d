@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 03:11:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/10 18:14:26 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/11 08:15:37 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	load_game(t_cub *cub, t_parse *parse, char **av)
 {
 	if (parsing(av, parse) == 0)
 		return (free_data(parse));
-	exit(0);
 	if (launch_mlx(cub) == 0)
 		return (free_data(parse));
 	if (init_audio(cub, -1) == 0)
@@ -60,7 +59,8 @@ int main(int ac, char **av)
 	t_parse	parse;
 
 	if (ac != 2)
-		return (printf("\033[1;31mError\033[0m - Usage : ./cub3d_bonus map_name\n"));
+		return (printf("\033[1;31mError\033[0m - Usage "
+			": ./cub3d_bonus map_name\n"));
 	if (load_game(&cub, &parse, av) == 0)
 		return (1);
 	launch_game_loop(&cub);

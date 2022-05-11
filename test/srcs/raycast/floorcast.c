@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/01 17:02:44 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/11 09:10:59 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,16 +160,34 @@ void	floorcast(t_cub *cub, t_ray *ray)
 		color = pxl_from_img(cub, (int)ray->next_px % 64, (int)ray->curr_px % 64, 6);
 		if (limiter < ray->raycast)
 			color += case_texture(cub, ray);
-		//color = colorize(color, lvl, lvl, PURPLE);
+		ray->rx = (int)ray->curr_px * 2;
+		ray->ry = (int)ray->next_px * 2;
+		int flag = light(cub, cub->light, ray, cub->chunk);
+		if (flag == 0)
+			color = shade(color, 0.05);
+		else if (flag == 1)
+			color = colorize(color, ray->shadow, ray->shadow, PURPLE);
+		else if (flag == 2)
+			color = colorize(color, ray->shadow, ray->shadow, CYAN);
+		else if (flag == 3)
+			color = colorize(color, ray->shadow, ray->shadow, YELLOW);
 		pxl_to_ray(cub, ray->nr, ray->j, color);
-	//	printf("y = %d\n", (int)(ray->next_px) >> 5);
-	//	printf("x = %d\n", (int)(ray->curr_px) >> 5);
+		//printf("y = %d\n", (int)(ray->next_px) * 2);
+		//printf("x = %d\n", (int)(ray->curr_px) * 2);
 		if (((int)(ray->next_px) >> 5) > -1 && ((int)(ray->curr_px) >> 5) > -1)
 		{
 			if (cub->map[((int)(ray->next_px) >> 5)][((int)(ray->curr_px) >> 5)] == 32)
 			{
 				color = pxl_from_img(cub, (int)ray->next_px % 64, (int)ray->curr_px % 64, 5);
-			//	color = colorize(color, lvl, lvl - cub->sz / 5, PURPLE);
+				if (flag == 0)
+					color = shade(color, 0.05);
+				else if (flag == 1)
+					color = colorize(color, ray->shadow, ray->shadow - cub->sz / 5, PURPLE);
+				else if (flag == 2)
+					color = colorize(color, ray->shadow, ray->shadow - cub->sz / 5, CYAN);
+				else if (flag == 3)
+					color = colorize(color, ray->shadow, ray->shadow - cub->sz / 5, YELLOW);
+				//color = colorize(color, ray->shadow, ray->shadow - cub->sz / 5, PURPLE);
 				pxl_to_ray(cub, ray->nr, (int)(ray->offset - i), color);
 			}
 		}

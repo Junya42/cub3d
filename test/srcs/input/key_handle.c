@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 16:45:35 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/10 13:17:13 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/11 08:01:47 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,15 @@ void	slide(t_player *player, float x, float y, char **exp)
 
 	ox = player->x;
 	oy = player->y;
-	if (!check_valid(exp[(int)player->y][(int)x], "12D"))
+	if (!check_valid(exp[(int)player->y][(int)x], "12Dx"))
 		player->x = x;
-	if (!check_valid(exp[(int)y][(int)x], "12D"))
+	if (!check_valid(exp[(int)y][(int)x], "12Dx"))
 		player->y = y;
 	if (player->x == ox && player->y == oy)
 	{
-		if (!check_valid(exp[(int)y][(int)ox], "12D"))
+		if (!check_valid(exp[(int)y][(int)ox], "12Dx"))
 			player->y = y;
-		if (!check_valid(exp[(int)y][(int)x], "12D"))
+		if (!check_valid(exp[(int)y][(int)x], "12Dx"))
 			player->x = x;
 	}
 }
@@ -133,7 +133,7 @@ void	lateral(int keycode, t_player *player, char **exp, t_cub *cub)
 
 int	save_position(t_cub *cub, t_player *player, char **exp)
 {
-	if (check_valid(exp[(int)player->y][(int)player->x], "12D"))
+	if (check_valid(exp[(int)player->y][(int)player->x], "12Dx"))
 	{
 		player->x = player->safex;
 		player->y = player->safey;

@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/09 15:53:29 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/11 09:15:28 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,13 +121,13 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 			else
 			{
 				if (flag == 1)
-					ray->color = colorize(ray->color, ray->shadow, dim, PURPLE);
+					ray->color = colorize(ray->color, ray->shadow, dim + 0.05, PURPLE);
 				if (flag == 2)
-					ray->color = colorize(ray->color, ray->shadow, dim, CYAN);
+					ray->color = colorize(ray->color, ray->shadow, dim + 0.05, CYAN);
 				if (flag == 3)
 				{
 					//ray->color = colorize(ray->color, 1, dim, PURPLE);
-					ray->color = colorize(ray->color, ray->shadow, dim, YELLOW);
+					ray->color = colorize(ray->color, ray->shadow, dim + 0.05, YELLOW);
 				}
 			}
 			pxl_to_ray(cub, ray->nr, (float)(int)(ray->i + ray->offset + draw), ray->color);

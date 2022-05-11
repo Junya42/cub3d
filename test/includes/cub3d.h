@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/10 17:12:37 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/11 08:37:01 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@
 
 /*	-----------Parsing----------	*/
 
-int			       free_data(t_parse *parse);
+int				free_data(t_parse *parse);
 int				free_and_return(t_parse *p, int flag, int exitcode);
 int				is_num(char *str);
-int	            get_fd_size(int saved_fd, char *filename, int len);
+int				get_fd_size(int saved_fd, char *filename, int len);
 int				is_charset(char c, char *set);
 void			init_variable(t_parse *p);
 int				parsing(char **av, t_parse *parse);
@@ -69,13 +69,13 @@ int	            quit(t_cub *cub);
 
 /*	----------Chunks------------	*/
 
-void	free_matrix(int ***matrix, int b, int c);
-int		***allocate_matrix(int a, int b, int c);
-void	lighthray(t_cub *cub, t_light *light, t_ray *ray);
-void	lightvray(t_cub *cub, t_light *light, t_ray *ray);
-void	chunk(t_cub *cub, t_light *light, t_ray *ray);
-t_light	*create_lights(t_cub *cub, t_sp *sp);
-int		light(t_cub *cub, t_light *light, t_ray *ray, int ***matrix);
+void			free_matrix(int ***matrix, int b, int c);
+int				***allocate_matrix(int a, int b, int c);
+void			lighthray(t_cub *cub, t_light *light, t_ray *ray, int flag);
+void			lightvray(t_cub *cub, t_light *light, t_ray *ray, int flag);
+void			chunk(t_cub *cub, t_light *light, t_ray *ray);
+t_light			*create_lights(t_cub *cub, t_sp *sp);
+int				light(t_cub *cub, t_light *light, t_ray *ray, int ***matrix);
 
 /* -----------Engine mod--------	*/
 
@@ -101,6 +101,7 @@ float			deg_to_rad(float angle, float degree);
 /*	MAP	*/
 void	        free_mlx(t_cub *cub);
 int				adjacent(t_cub *cub, int x, int y, char c);
+void			update_hitbox(t_cub *cub, int x, int y, char **map);
 void			change_map(t_cub *cub);
 int				wipe_data(t_cub *cub, t_parse *parse);
 void	        init_struct_null(t_cub *cub);

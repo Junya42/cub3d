@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 17:03:50 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/10 15:59:57 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/11 08:18:33 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	create_window(t_cub *cub, t_parse *parse)
     init_struct_null(cub);
     change_map(cub);
 	cub->exp = expand(cub->map, cub->mx, cub->my, 64);
+    update_hitbox(cub, 0, 0, cub->exp);
     cub->exit_code = loading_screen(cub, parse);
     if (cub->exit_code != 0)
     {

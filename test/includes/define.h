@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 22:41:32 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/10 17:12:38 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/11 07:59:31 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define BLOCSIZE 64
 # define PI 3.1415926535
 # define RAD 0.017452925
-# define SKY 0.00087264625
+# define SKY 0.000387264625
 # define DPI 6.283185307
 # define PI2 1.57079632675
 # define PI3 4.71238898025
