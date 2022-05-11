@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 22:41:32 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/11 07:59:31 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/11 10:57:06 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define NB_FRAME 8
 # define SPRITE 0
 # define LIGHT 1
+# define MINLIGHT 0.15
 # define VALID "UPLRGBCYDNSEW01 "
 # define CLOSED_VALID "UPLRGBCYDNSEW0 "
 # define SPRITE_VALID "UPLRGBCY"

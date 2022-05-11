@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 00:20:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/11 09:16:42 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/11 10:57:22 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ int	light(t_cub *cub, t_light *light, t_ray *ray, int ***matrix)
 	//exit (0);
 	if (ray->shadow > 1)
 		ray->shadow = 1;
-	if (ray->shadow < 0.05)
+	if (ray->shadow < MINLIGHT)
 	{
-		ray->shadow = 0.05;
+		ray->shadow = MINLIGHT;
 		return (0);
 	}
 	(void)matrix;

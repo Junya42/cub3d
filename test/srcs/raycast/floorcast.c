@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/11 09:10:59 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/11 10:58:05 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,7 @@ void	floorcast(t_cub *cub, t_ray *ray)
 		ray->ry = (int)ray->next_px * 2;
 		int flag = light(cub, cub->light, ray, cub->chunk);
 		if (flag == 0)
-			color = shade(color, 0.05);
+			color = shade(color, MINLIGHT);
 		else if (flag == 1)
 			color = colorize(color, ray->shadow, ray->shadow, PURPLE);
 		else if (flag == 2)

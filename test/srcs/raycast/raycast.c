@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/11 09:15:28 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/11 10:57:52 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,18 +116,18 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 			ray->color = case_texture(cub, ray);
 			if (flag == 0)
 			{
-				ray->color = shade(ray->color, 0.05);
+				ray->color = shade(ray->color, MINLIGHT);
 			}
 			else
 			{
 				if (flag == 1)
-					ray->color = colorize(ray->color, ray->shadow, dim + 0.05, PURPLE);
+					ray->color = colorize(ray->color, ray->shadow, dim + MINLIGHT, PURPLE);
 				if (flag == 2)
-					ray->color = colorize(ray->color, ray->shadow, dim + 0.05, CYAN);
+					ray->color = colorize(ray->color, ray->shadow, dim + MINLIGHT, CYAN);
 				if (flag == 3)
 				{
 					//ray->color = colorize(ray->color, 1, dim, PURPLE);
-					ray->color = colorize(ray->color, ray->shadow, dim + 0.05, YELLOW);
+					ray->color = colorize(ray->color, ray->shadow, dim + MINLIGHT, YELLOW);
 				}
 			}
 			pxl_to_ray(cub, ray->nr, (float)(int)(ray->i + ray->offset + draw), ray->color);
