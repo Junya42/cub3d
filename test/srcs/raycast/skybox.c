@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:09 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/09 15:27:48 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/12 01:47:07 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,15 @@ void	skybox(t_cub *cub, t_ray *ray)
 	{
 		//ra_to_pxl = ray->ra * (180 / PI);
 		if (!fix_nra)
-			cub->color = pxl_skybox(cub, ray->i + HALFVRES + cub->z, (int)ra_to_pxl, 7);
+			cub->scolor = pxl_skybox(cub, ray->i + HALFVRES + cub->z, (int)ra_to_pxl, 7);
 		//else
-		//	cub->color = pxl_skybox(cub, ray->i, (int)ra_back, 7);
-		if (cub->color == 0xffffff)
+		//	cub->scolor = pxl_skybox(cub, ray->i, (int)ra_back, 7);
+		if (cub->scolor == 0xffffff)
 		{
 	//		printf("rapxl = %f\n", ra_to_pxl);
 		//	break;
 		}
-		pxl_to_ray(cub, ray->nr, ray->i, cub->color);
+		pxl_to_ray(cub, ray->nr, ray->i, cub->scolor);
 		ray->i++;
 	}
 }

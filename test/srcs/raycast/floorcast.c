@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 01:20:10 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/12 01:52:16 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,13 +157,17 @@ void	floorcast(t_cub *cub, t_ray *ray)
 		}*/
 		//if (ray->r == NRAY / 2)
 		//	printf("lvl = %f\n", cub->sz);
+		float	ra_sky = secure_radians(ray->ra, cub->scroll) * 721;
+		if (ra_sky < cub->text[7].b)
+			cub->scolor = pxl_skybox(cub, ray->j - (ray->offset + ray->raycast) + HALFVRES, (int)ra_sky, 7);
+		color = cub->scolor;
 		if (limiter < ray->raycast)
 		{
-			color = shade(case_texture(cub, ray), MINLIGHT);
+			color += shade(case_texture(cub, ray), MINLIGHT);
 			color += (pxl_from_img(cub, (int)ray->floor_y % 64, (int)ray->floor_x % 64, 6));
 		}
 		else
-			color = pxl_from_img(cub, (int)ray->floor_y % 64, (int)ray->floor_x % 64, 6);
+			color += pxl_from_img(cub, (int)ray->floor_y % 64, (int)ray->floor_x % 64, 6);
 		//if (limiter < ray->raycast)
 		//	color += case_texture(cub, ray);
 		ray->rx = (int)ray->floor_x * 2;

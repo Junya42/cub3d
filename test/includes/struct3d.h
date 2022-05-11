@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 00:17:57 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/12 01:42:05 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,6 +271,7 @@ typedef struct s_cub
 	int				r_size;
 	int				r_end;
 	unsigned int	color;
+	unsigned int	scolor;
 	unsigned int	fcolor;
 	unsigned int	ccolor;
 	float			n_rad;
