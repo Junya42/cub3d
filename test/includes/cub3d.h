@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/11 08:37:01 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/12 00:26:17 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,12 @@ void	        usleep_(long int time);
 
 /*	----------Shaders------------	*/
 
-int				red(int color, float shader);
-int				green(int color, float shader);
-int				blue(int color, float shader);
-int				shade(int color, float shader);
-int				addshade(int color, float shader);
-int				colorize(int base, float shader, float dim, int color);
+unsigned int	red(unsigned int color, float shader);
+unsigned int	green(unsigned int color, float shader);
+unsigned int	blue(unsigned int color, float shader);
+unsigned int	shade(unsigned int color, float shader);
+unsigned int	addshade(unsigned int color, float shader);
+unsigned int	colorize(unsigned int base, float shader, float dim, int color);
 unsigned int	case_texture(t_cub *cub, t_ray *ray);
 
 /*	----------Pixels-------------	*/

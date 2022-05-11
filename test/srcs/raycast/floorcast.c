@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/11 10:58:05 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/12 01:20:10 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ void	ceiling(t_cub *cub, t_ray *ray)
 	while (end >= 0)
 	{
 		ray->offj = ray->j - (HALFVRES - cub->z);
-		ray->curr_px = cub->x / 2 + cos(ray->ra) * 200 * 64 / ray->offj / fix;
-		ray->next_px = cub->y / 2 + sin(ray->ra) * 200 * 64 / ray->offj / fix;
-		color = pxl_from_img(cub, (int)ray->next_px % 64, (int)ray->curr_px % 64, 6);
+		ray->floor_x = cub->x / 2 + cos(ray->ra) * 200 * 64 / ray->offj / fix;
+		ray->floor_y = cub->y / 2 + sin(ray->ra) * 200 * 64 / ray->offj / fix;
+		color = pxl_from_img(cub, (int)ray->floor_y % 64, (int)ray->floor_x % 64, 6);
 		pxl_to_ray(cub, ray->nr, end, color);
 		end--;
 		ray->j++;
@@ -121,10 +121,10 @@ void	floorcast(t_cub *cub, t_ray *ray)
 	while (ray->j < heightfix)
 	{
 		ray->offj = ray->j - (HALFVRES - cub->z);
-		ray->curr_px = cub->x / 2 + distx / ray->offj / fix;
-		ray->next_px = cub->y / 2 + disty / ray->offj / fix;
-	/*	dx = ray->curr_px * 2 - lx;
-		dy = ray->next_px * 2 - ly;
+		ray->floor_x = cub->x / 2 + distx / ray->offj / fix;
+		ray->floor_y = cub->y / 2 + disty / ray->offj / fix;
+	/*	dx = ray->floor_x * 2 - lx;
+		dy = ray->floor_y * 2 - ly;
 		len = sqrt(dx *dx + dy * dy);
 		lvl = 0;
 		int	blocked = 0;
@@ -157,11 +157,17 @@ void	floorcast(t_cub *cub, t_ray *ray)
 		}*/
 		//if (ray->r == NRAY / 2)
 		//	printf("lvl = %f\n", cub->sz);
-		color = pxl_from_img(cub, (int)ray->next_px % 64, (int)ray->curr_px % 64, 6);
 		if (limiter < ray->raycast)
-			color += case_texture(cub, ray);
-		ray->rx = (int)ray->curr_px * 2;
-		ray->ry = (int)ray->next_px * 2;
+		{
+			color = shade(case_texture(cub, ray), MINLIGHT);
+			color += (pxl_from_img(cub, (int)ray->floor_y % 64, (int)ray->floor_x % 64, 6));
+		}
+		else
+			color = pxl_from_img(cub, (int)ray->floor_y % 64, (int)ray->floor_x % 64, 6);
+		//if (limiter < ray->raycast)
+		//	color += case_texture(cub, ray);
+		ray->rx = (int)ray->floor_x * 2;
+		ray->ry = (int)ray->floor_y * 2;
 		int flag = light(cub, cub->light, ray, cub->chunk);
 		if (flag == 0)
 			color = shade(color, MINLIGHT);
@@ -172,13 +178,13 @@ void	floorcast(t_cub *cub, t_ray *ray)
 		else if (flag == 3)
 			color = colorize(color, ray->shadow, ray->shadow, YELLOW);
 		pxl_to_ray(cub, ray->nr, ray->j, color);
-		//printf("y = %d\n", (int)(ray->next_px) * 2);
-		//printf("x = %d\n", (int)(ray->curr_px) * 2);
-		if (((int)(ray->next_px) >> 5) > -1 && ((int)(ray->curr_px) >> 5) > -1)
+		//printf("y = %d\n", (int)(ray->floor_y) * 2);
+		//printf("x = %d\n", (int)(ray->floor_x) * 2);
+		if (((int)(ray->floor_y) >> 5) > -1 && ((int)(ray->floor_x) >> 5) > -1)
 		{
-			if (cub->map[((int)(ray->next_px) >> 5)][((int)(ray->curr_px) >> 5)] == 32)
+			if (cub->map[((int)(ray->floor_y) >> 5)][((int)(ray->floor_x) >> 5)] == 32)
 			{
-				color = pxl_from_img(cub, (int)ray->next_px % 64, (int)ray->curr_px % 64, 5);
+				color = pxl_from_img(cub, (int)ray->floor_y % 64, (int)ray->floor_x % 64, 5);
 				if (flag == 0)
 					color = shade(color, 0.05);
 				else if (flag == 1)
@@ -191,7 +197,7 @@ void	floorcast(t_cub *cub, t_ray *ray)
 				pxl_to_ray(cub, ray->nr, (int)(ray->offset - i), color);
 			}
 		}
-		/*if (cub->map[((int)(ray->next_px) >> 5)][((int)(ray->curr_px) >> 5)] == 32)
+		/*if (cub->map[((int)(ray->floor_y) >> 5)][((int)(ray->floor_x) >> 5)] == 32)
 		  if ((VRES - cub->z - (ray->j + cub->z) > 0))
 		  glass(cub, ray->nr, (VRES - cub->z - (ray->j + cub->z)), lvl);*/
 		//glass(cub, ray->nr, (int)(ray->offset - i), lvl);
