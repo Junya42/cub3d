@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 01:52:16 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/12 10:43:47 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,9 +158,17 @@ void	floorcast(t_cub *cub, t_ray *ray)
 		//if (ray->r == NRAY / 2)
 		//	printf("lvl = %f\n", cub->sz);
 		float	ra_sky = secure_radians(ray->ra, cub->scroll) * 721;
-		if (ra_sky < cub->text[7].b)
-			cub->scolor = pxl_skybox(cub, ray->j - (ray->offset + ray->raycast) + HALFVRES, (int)ra_sky, 7);
-		color = cub->scolor;
+		int	ceilcheck = 0;
+		if (cub->map[((int)(ray->floor_y) >> 5)][((int)(ray->floor_x) >> 5)] == 32)
+			ceilcheck = 1;
+		if (!ceilcheck)
+		{
+			if (ra_sky < cub->text[7].b)
+				cub->scolor = pxl_skybox(cub, ray->j - (ray->offset + ray->raycast) + HALFVRES, (int)ra_sky, 7);
+			color = cub->scolor;
+		}
+		else
+			color = 0;
 		if (limiter < ray->raycast)
 		{
 			color += shade(case_texture(cub, ray), MINLIGHT);
@@ -174,7 +182,9 @@ void	floorcast(t_cub *cub, t_ray *ray)
 		ray->ry = (int)ray->floor_y * 2;
 		int flag = light(cub, cub->light, ray, cub->chunk);
 		if (flag == 0)
-			color = shade(color, MINLIGHT);
+		{
+				color = shade(color, MINLIGHT);
+		}
 		else if (flag == 1)
 			color = colorize(color, ray->shadow, ray->shadow, PURPLE);
 		else if (flag == 2)
@@ -186,7 +196,7 @@ void	floorcast(t_cub *cub, t_ray *ray)
 		//printf("x = %d\n", (int)(ray->floor_x) * 2);
 		if (((int)(ray->floor_y) >> 5) > -1 && ((int)(ray->floor_x) >> 5) > -1)
 		{
-			if (cub->map[((int)(ray->floor_y) >> 5)][((int)(ray->floor_x) >> 5)] == 32)
+			if (ceilcheck)
 			{
 				color = pxl_from_img(cub, (int)ray->floor_y % 64, (int)ray->floor_x % 64, 5);
 				if (flag == 0)

@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 01:51:05 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/12 10:36:51 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ float			deg_to_rad(float angle, float degree);
 /*	MAP	*/
 void	        free_mlx(t_cub *cub);
 int				adjacent(t_cub *cub, int x, int y, char c);
+int				adjacent_exp(t_cub *cub, int x, int y, char c);
 void			update_hitbox(t_cub *cub, int x, int y, char **map);
 void			change_map(t_cub *cub);
 int				wipe_data(t_cub *cub, t_parse *parse);

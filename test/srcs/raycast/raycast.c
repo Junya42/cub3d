@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 01:47:11 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/12 10:37:47 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,15 +121,19 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 			else
 			{
 				if (flag == 1)
-					ray->color = colorize(ray->color, ray->shadow, dim + MINLIGHT, PURPLE);
+					ray->color = colorize(ray->color, ray->shadow, dim, PURPLE);
 				if (flag == 2)
-					ray->color = colorize(ray->color, ray->shadow, dim + MINLIGHT, CYAN);
+					ray->color = colorize(ray->color, ray->shadow, dim, CYAN);
 				if (flag == 3)
 				{
 					//ray->color = colorize(ray->color, 1, dim, PURPLE);
-					ray->color = colorize(ray->color, ray->shadow, dim + MINLIGHT, YELLOW);
+					ray->color = colorize(ray->color, ray->shadow, dim, YELLOW);
 				}
 			}
+			float	ra_sky = secure_radians(ray->ra, cub->scroll) * 721;
+			if (!adjacent_exp(cub, (int)ray->rx, (int)ray->ry, 32))
+				if (ra_sky < cub->text[7].b)
+					ray->color += shade(pxl_skybox(cub, ray->i + ray->ray, (int)ra_sky, 7), 0.05);
 			pxl_to_ray(cub, ray->nr, (float)(int)(ray->i + ray->offset + draw), ray->color);
 			ray->curr_px += ray->next_px;
 			ray->i++;
