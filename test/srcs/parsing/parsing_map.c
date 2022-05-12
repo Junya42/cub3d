@@ -6,18 +6,61 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 19:25:14 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/09 12:55:22 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/12 11:20:28 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	check_rules(char **map, char *to_free)
+int	check_map_rules(t_parse *p, char **map)
 {
-	free(to_free);
 	if (check_char(map, VALID) == 1)
 		return (EXIT_FAILURE);
 	if (check_wall(map) == 1)
+		return (EXIT_FAILURE);
+	get_height_width(p, map);
+	return (EXIT_SUCCESS);
+}
+
+int	check_roof_rules(char **roof, t_parse *p)
+{
+	if (check_char_rf(roof, ROOF_VALID) == 1)
+	{
+		return (EXIT_FAILURE);
+	}
+	if (check_width_height("ROOF", roof, p) == 1)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+int	check_floor_rules(char **floor, t_parse *p)
+{
+	if (check_char_rf(floor, FLOOR_VALID) == 1)
+		return (EXIT_FAILURE);
+	if (check_width_height("FLOOR", floor, p) == 1)
+		return (EXIT_FAILURE);
+	return (EXIT_SUCCESS);
+}
+
+int	check_all_rules(t_parse *p, char **rw_map, char *to_free)
+{
+	free(to_free);
+	if (!rw_map[0] || !rw_map[1] || !rw_map[2] || rw_map[3])
+		return (EXIT_FAILURE);
+	p->map = ft_split(rw_map[0], '\n');
+	if (!p->map)
+		return (EXIT_FAILURE);
+	p->roof = ft_split(rw_map[1], '\n');
+	if (!p->map)
+		return (EXIT_FAILURE);
+	p->floor = ft_split(rw_map[2], '\n');
+	if (!p->map)
+		return (EXIT_FAILURE);
+	if (check_map_rules(p, p->map) == 1)
+		return (EXIT_FAILURE);
+	if (check_roof_rules(p->roof, p) == 1)
+		return (EXIT_FAILURE);
+	if (check_floor_rules(p->floor, p) == 1)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
@@ -43,14 +86,13 @@ int	parse_map(t_parse *p, char *fd_path)
 		p->i++;	
 	}
 	str[size] = '\0';
-	close(p->fd);
-	p->map = ft_split(str, '\n');
-	if (!p->map)
+	p->all_map = ft_split(str, '*');
+	if (!p->all_map)
 	{
 		free(str);
 		return (EXIT_FAILURE);
 	}
-	if (check_rules(p->map, str) == 1)
+	if (check_all_rules(p, p->all_map, str) == 1)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

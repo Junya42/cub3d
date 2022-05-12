@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 10:36:51 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/12 11:12:14 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ int				check_wall(char **map);
 void			gather_data(char **mcontent, t_parse *p, int flag);
 int				try_open_cub_file(char *filename, t_parse *parse);
 int				exit_parsing(char *str);
+void	        get_height_width(t_parse *parse, char **map);
+void	        get_expanded_height_width(t_cub *cub, char **map);
+int	            check_char_rf(char **map, char *set);
+int	            check_width_height(char *name, char **map, t_parse *p);
 
 /*	----------Init--------------	*/
 

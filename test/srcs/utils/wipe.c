@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 20:23:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/10 15:57:41 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/12 11:29:52 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ int	wipe_data(t_cub *cub, t_parse *parse)
 	}
 	free_data(parse);
 	free_array(cub->exp);
+	free_array(cub->floor);
+	free_array(cub->roof);
+	free(cub->map_len);
 	free(cub->ray);
 	free(cub->player);
 	free(cub->light);

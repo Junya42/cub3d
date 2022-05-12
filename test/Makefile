@@ -6,7 +6,7 @@
 #    By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 19:16:48 by anremiki          #+#    #+#              #
-#    Updated: 2022/05/10 14:27:45 by cmarouf          ###   ########.fr        #
+#    Updated: 2022/05/12 11:10:59 by cmarouf          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ SRCS = ./srcs/parsing/check_data.c ./srcs/parsing/check_map.c \
 	   ./srcs/utils/time.c ./srcs/sound/init_audio.c \
 	   ./srcs/init/init_pos.c ./srcs/sprites/start_sprites.c \
 	   ./srcs/init/quit.c ./srcs/init/create_window.c \
+	   ./srcs/parsing/get_map_len.c \
 
 INCLUDES = ./includes/
 

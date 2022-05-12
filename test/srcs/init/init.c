@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 03:11:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/11 08:15:37 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/12 11:18:20 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ int	load_game(t_cub *cub, t_parse *parse, char **av)
 	if (launch_mlx(cub) == 0)
 		return (free_data(parse));
 	if (init_audio(cub, -1) == 0)
+	{
+		ft_putstr_fd("ERROR LOADING SOUNDS\n", STDERR);
 		return (close_game(cub, parse));
+	}
 	if (init_cub(cub, parse) == 0)
 		return (close_game(cub, parse));
 	if (create_window(cub, parse) == 0)

@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 22:41:32 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/11 23:51:58 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/12 11:13:54 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,10 @@
 # define LIGHT 1
 # define MINLIGHT 0.15
 # define VALID "UPLRGBCYDNSEW01 "
+# define FLOOR_VALID "01"
+# define ROOF_VALID "01G"
 # define CLOSED_VALID "UPLRGBCYDNSEW0 "
 # define SPRITE_VALID "UPLRGBCY"
-# define MALLOC_ERR "Memory allocation failed\n"
-# define MLX_ERR "MLX failure\n"
-# define FD_ERR "Invalid file descriptor\n"
-# define PARSING_ERR "Invalid number / type of arguments\n"
-# define MAP_ERR "Invalid map\n"
 # define SPRITE_ERR 1
 # define MATRIX_ERR 2
 # define TEXTURE_ERR 3

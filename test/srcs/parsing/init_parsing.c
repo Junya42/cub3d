@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 00:16:22 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/09 16:38:42 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/12 11:20:04 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,11 @@ void	init_parsing_variable(t_parse *p)
 	p->spath = NULL;
 	p->wpath = NULL;
 	p->epath = NULL;
+	p->all_map = NULL;
 	p->map = NULL;
+	p->roof = NULL;
+	p->floor = NULL;
+	p->width = NULL;
 	p->i = 0;
 }
 

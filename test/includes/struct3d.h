@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 01:42:05 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/12 11:16:37 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ typedef struct s_parse
 	int				i;
 	int				total;
 	int				fd;
+	int				*width;
+	int				height;
 	char			*buffer;
 	char			**mcontent;
 	int				check_ne;
@@ -69,7 +71,10 @@ typedef struct s_parse
 	char			*epath;
 	unsigned int	colorc;
 	unsigned int	colorf;
+	char			**all_map;
 	char			**map;
+	char			**roof;
+	char			**floor;
 }				t_parse;
 
 typedef struct s_player
@@ -306,7 +311,11 @@ typedef struct s_cub
 	long long		time_move;
 	float			lastx;
 	float			lasty;
+	int				*map_len;
+	int				map_height;
 	char			**data;
+	char			**roof;
+	char			**floor;
 	char			**map;
 	char			**exp;
 	int				***chunk;
