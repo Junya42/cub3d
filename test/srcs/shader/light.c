@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 00:20:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 10:31:06 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/12 14:11:45 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	light(t_cub *cub, t_light *light, t_ray *ray, int ***matrix)
 				dist = sqrt(dx * dx + dy * dy);
 				shade = (1.0f / 320) * (320 - dist * cub->sz);
 				max = (1.0f / 320) * (320 - dist);
-				if (i == 1 && ray->r == NRAY / 2)
+				/*if (i == 1 && ray->r == NRAY / 2)
 				{
 					if (ray->rx < light[i].x && ray->ry < light[i].y)
 						bonus = 180;
@@ -47,10 +47,10 @@ int	light(t_cub *cub, t_light *light, t_ray *ray, int ***matrix)
 						bonus = 360;
 					else
 						bonus = 0;
+					printf("angle of light to wall = %f\n", atan(dy/dx) * 180 / PI + bonus);
 					(void)bonus;
-					//printf("angle of light to wall = %f\n", atan(dy/dx) * 180 / PI + bonus);
 
-				}
+				}*/
 				if (shade > max)
 					shade = max;
 				if (shade < 0)

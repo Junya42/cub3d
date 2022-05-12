@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:04:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 01:24:28 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/12 13:09:09 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,15 @@ void	jump(t_cub *cub)
 
 void	floating(t_cub *cub)
 {
-	if (cub->flot == 0)
+	/*if (cub->flot == 0)
 		cub->sz += 0.030;
 	else if (cub->flot == 1)
 		cub->sz -= 0.030;
 	if (cub->sz > 7)
 		cub->flot = 1;
 	else if (cub->sz < 0)
-		cub->flot = 0;
+		cub->flot = 0;*/
+	cub->sz = 0;
 }
 
 void	animation(t_cub *cub)

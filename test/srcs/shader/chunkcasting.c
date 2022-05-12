@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 16:25:53 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/11 08:57:35 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/12 14:03:46 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_chunk(t_light *light, t_ray *ray)
 	ray->ray = 0;
 	ray->npx = (((int)light->x >> 6) << 6);
 	ray->npy = (((int)light->y >> 6) << 6);
-	ray->ra = 0;
+	ray->ra = 0.00000000000001;
 	ray->r = 0;
 }
 
@@ -29,18 +29,15 @@ void	reset_ray(t_light *light, t_ray *ray)
 {
 	ray->i = 0;
 	ray->limit = 0;
-	ray->hray = 1000000;
-	ray->vray = 1000000;
+	ray->hray = 10000000;
+	ray->vray = 10000000;
 	ray->hdir = 0;
 	ray->vdir = 0;
 	ray->hx = light->x;
 	ray->hy = light->y;
 	ray->vx = light->x;
 	ray->vy = light->y;
-	if (ray->ra == 0)
-		ray->contan = 0;
-	else
-		ray->contan = (-1 / ray->ra);
+	ray->contan = (-1 / tan(ray->ra));
 	ray->ntan = (-tan(ray->ra));
 }
 
@@ -53,10 +50,16 @@ void	chunk(t_cub *cub, t_light *light, t_ray *ray)
 		lighthray(cub, light, ray, 1);
 		ray->limit = 0;
 		lightvray(cub, light, ray, 1);
-		/*if (ray->hray < ray->vray)
+		if (ray->hray < ray->vray)
+		{
+			reset_ray(light, ray);
 			lighthray(cub, light, ray, 1);
+		}
 		else
-			lightvray(cub, light, ray, 1);*/
+		{
+			reset_ray(light, ray);
+			lightvray(cub, light, ray, 1);
+		}
 		ray->ra += LIGHTSTEP / 10;
 	}
 }

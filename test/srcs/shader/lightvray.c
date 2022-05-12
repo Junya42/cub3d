@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:14:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/11 08:52:32 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/12 13:57:14 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	light_vertical(t_cub *cub, t_ray *ray, t_light *light, int flag)
 
 void	lightvray(t_cub *cub, t_light *light, t_ray *ray, int flag)
 {
-	if (ray->ra == NORTH || ray->ra == SOUTH)
+	if (ray->ra == PI || ray->ra == 0)
 	{
 		ray->rx = light->x;
 		ray->ry = light->y;
