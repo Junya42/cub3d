@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 11:12:14 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/14 18:04:55 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ int				save_position(t_cub *cub, t_player *player, char **exp);
 int				key_handle(int keycode, t_cub *cub);
 int				direction(t_cub *cub);
 int				release(int keycode, t_cub *cub);
-int				mouse_rotation(int x, int y, t_cub *cub, t_player *player);
+int				mouse_rotation(int x, int y, t_cub *cub);
 int				anti_ghosting(t_cub *cub);
 void			create_hooks(t_cub *cub);
 

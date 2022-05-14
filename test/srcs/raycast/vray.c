@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:50:23 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/01 02:19:47 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/14 17:03:52 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,29 @@ void	dda_vertical(t_cub *cub, t_ray *ray)
 		ray->my = (int)ray->ry;
 		if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1 &&
 					ray->my > -1) && check_valid(cub->exp[ray->my][ray->mx],
+						"D"))
+		{
+			ray->rx += ray->xo / 2;
+			ray->ry += ray->yo / 2;
+			if (((int)ray->ry % 64 - (int)cub->door) > 0 && ray->vdir == 1)
+			{
+				ray->vx = ray->rx;
+				ray->vy = ray->ry;
+				ray->vray = dist(cub->x , cub->y, ray->vx, ray->vy);
+				break ;
+			}
+			if (64 - ((int)ray->ry % 64 + (int)cub->door) > 0 && ray->vdir == 2)
+			{
+				ray->vx = ray->rx;
+				ray->vy = ray->ry;
+				ray->vray = dist(cub->x , cub->y, ray->vx, ray->vy);
+				break ;
+			}
+			ray->rx += ray->xo / 2;
+			ray->ry += ray->yo / 2;
+		}
+		if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1 &&
+					ray->my > -1) && check_valid(cub->exp[ray->my][ray->mx],
 						"12"))
 		{
 			if (cub->exp[ray->my][ray->mx] == '2')
@@ -50,12 +73,9 @@ void	dda_vertical(t_cub *cub, t_ray *ray)
 			ray->vray = dist(cub->x , cub->y, ray->vx, ray->vy);
 			break ;
 		}
-		else
-		{
-			ray->rx += ray->xo;
-			ray->ry += ray->yo;
-			ray->limit++;
-		}
+		ray->rx += ray->xo;
+		ray->ry += ray->yo;
+		ray->limit++;
 	}
 }
 

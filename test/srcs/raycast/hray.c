@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:39:55 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/14 12:45:49 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/14 17:00:55 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,10 @@ unsigned int	horizon_texture(t_cub *cub, t_ray *ray, int dir)
 
 void	dda_horizon(t_cub *cub, t_ray *ray)
 {
-	//ray->rx = cub->x;
-	//ray->ry = cub->y;
 	while (ray->limit < cub->ey)
 	{
 		ray->mx = (int)ray->rx;
 		ray->my = (int)ray->ry;
-		//if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1 &&
-		//			ray->my > -1))
-	//	{
-//			if (cub->exp[ray->my][ray->mx] != '1')
-//				if (cub->exp[ray->my][ray->mx] != '2')
-//					cub->exp[ray->my][ray->mx] = '*';
-//		}
 		if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1 &&
 					ray->my > -1) && check_valid(cub->exp[ray->my][ray->mx],
 						"D"))
