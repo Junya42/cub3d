@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 10:37:47 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/13 22:24:28 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,11 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 		vray(cub, ray);
 		flag = dda(cub, ray);
 		dda_texture(ray);
-		float	scale = ray->shadow / ray->raycast;
+		float scale;
+		//if (ray->shadow == 0)
+		//	scale = 0;
+		//else
+		scale = ray->shadow / ray->raycast;
 		float	dim = 0;
 		int		lever = 0;
 		/*if (ray->r == NRAY / 2)
@@ -120,15 +124,14 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 			}
 			else
 			{
-				if (flag == 1)
+				if (dim <= 0.1)
+					ray->color = shade(ray->color, MINLIGHT);
+				else if (flag == 1)
 					ray->color = colorize(ray->color, ray->shadow, dim, PURPLE);
-				if (flag == 2)
+				else if (flag == 2)
 					ray->color = colorize(ray->color, ray->shadow, dim, CYAN);
-				if (flag == 3)
-				{
-					//ray->color = colorize(ray->color, 1, dim, PURPLE);
+				else if (flag == 3)
 					ray->color = colorize(ray->color, ray->shadow, dim, YELLOW);
-				}
 			}
 			float	ra_sky = secure_radians(ray->ra, cub->scroll) * 721;
 			if (!adjacent_exp(cub, (int)ray->rx, (int)ray->ry, 32))
@@ -142,8 +145,9 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 			if (lever)
 				dim -= scale;
 			else
-				dim += scale;
+				dim += scale / 2;
 		}
+		(void)lever;
 		//(void)dim;
 		skybox(cub, ray);
 		floorcast(cub, ray);

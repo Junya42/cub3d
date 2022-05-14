@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:04:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 13:09:09 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/14 12:42:56 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,14 @@ void	jump(t_cub *cub)
 
 void	floating(t_cub *cub)
 {
-	/*if (cub->flot == 0)
+	if (cub->flot == 0)
 		cub->sz += 0.030;
 	else if (cub->flot == 1)
 		cub->sz -= 0.030;
 	if (cub->sz > 7)
 		cub->flot = 1;
 	else if (cub->sz < 0)
-		cub->flot = 0;*/
-	cub->sz = 0;
+		cub->flot = 0;
 }
 
 void	animation(t_cub *cub)
@@ -52,6 +51,20 @@ void	animation(t_cub *cub)
 			cub->sp[i].index++;
 		}
 		i++;
+	}
+}
+
+void	open_door(t_cub *cub)
+{
+	if (cub->doorcheck == 1)
+	{
+		if (cub->door < 60)
+			cub->door += 0.3;
+	}
+	if (!cub->doorcheck)
+	{
+		if (cub->door > 0.3)
+			cub->door -= 0.3;
 	}
 }
 
@@ -100,8 +113,10 @@ int	anti_ghosting(t_cub *cub)
 	}
 	update_3d_sound(cub, player);
 	jump(cub);
+	open_door(cub);
 	raycast(cub, cub->ray, 0);
-	floating(cub);
+	if (cub->pause == 1)
+		floating(cub);
 	animation(cub);
 	sprite_casting(cub);
 	display(cub, 0);

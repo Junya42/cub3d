@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:39:55 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 13:48:59 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/14 12:45:49 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,29 @@ void	dda_horizon(t_cub *cub, t_ray *ray)
 //		}
 		if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1 &&
 					ray->my > -1) && check_valid(cub->exp[ray->my][ray->mx],
+						"D"))
+		{
+			ray->rx += ray->xo / 2;
+			ray->ry += ray->yo / 2;
+			if (((int)ray->rx % 64 - (int)cub->door) > 0 && ray->hdir == 1)
+			{
+				ray->hx = ray->rx;
+				ray->hy = ray->ry;
+				ray->hray = dist(cub->x , cub->y, ray->hx, ray->hy);
+				break ;
+			}
+			if (64 - ((int)ray->rx % 64 + (int)cub->door) > 0 && ray->hdir == 2)
+			{
+				ray->hx = ray->rx;
+				ray->hy = ray->ry;
+				ray->hray = dist(cub->x , cub->y, ray->hx, ray->hy);
+				break ;
+			}
+			ray->rx += ray->xo / 2;
+			ray->ry += ray->yo / 2;
+		}
+		if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1 &&
+					ray->my > -1) && check_valid(cub->exp[ray->my][ray->mx],
 						"12"))
 		{
 			if (cub->exp[ray->my][ray->mx] == '2')
@@ -57,15 +80,11 @@ void	dda_horizon(t_cub *cub, t_ray *ray)
 			ray->hx = ray->rx;
 			ray->hy = ray->ry;
 			ray->hray = dist(cub->x , cub->y, ray->hx, ray->hy);
-		//	cub->exp[ray->my][ray->mx] = '*';
 			break ;
 		}
-		else
-		{
-			ray->rx += ray->xo;
-			ray->ry += ray->yo;
-			ray->limit++;
-		}
+		ray->rx += ray->xo;
+		ray->ry += ray->yo;
+		ray->limit++;
 	}
 }
 

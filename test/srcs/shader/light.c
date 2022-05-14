@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 00:20:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 14:11:45 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/13 22:14:52 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	light(t_cub *cub, t_light *light, t_ray *ray, int ***matrix)
 	int		count;
 
 	i = 0;
-	int	bonus = 0;
+	//int	bonus = 0;
 	ray->shadow = 0;
 	count = 0;
 	if (ray->rx >= 0 && ray->ry >= 0 && ray->rx < cub->ex && ray->ry < cub->ey)
@@ -55,10 +55,10 @@ int	light(t_cub *cub, t_light *light, t_ray *ray, int ***matrix)
 					shade = max;
 				if (shade < 0)
 					shade = 0;
-				if (i == 0)
+				/*if (i == 0)
 					ray->l1 = shade;
 				if (i > 0)
-					ray->l2 = shade;
+					ray->l2 = shade;*/
 				ray->shadow += shade;
 				if (shade > 0)
 					count += light[i].id;

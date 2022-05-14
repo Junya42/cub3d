@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 16:45:35 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/11 08:01:47 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/13 22:27:19 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,10 @@ int key_handle(int keycode, t_cub *cub)
 	player = cub->player;
 	if (keycode == 'r')
 		cub->z = 0;
+	if (keycode == 'p')
+		cub->pause = 0;
+	if (keycode == 'o')
+		cub->pause = 1;
 	if (keycode == 65307)
 		cub->end = 1;
 	if (player->released && player->released != keycode)

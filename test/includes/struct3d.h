@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 11:16:37 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/14 12:25:40 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -306,6 +306,7 @@ typedef struct s_cub
 	int				zbuf[NRAY];
 	int				update;
 	int				sp_dist;
+	int				pause;
 	float			sp_angle;
 	long long		curr_time;
 	long long		time_move;
@@ -321,6 +322,8 @@ typedef struct s_cub
 	int				***chunk;
 	float			scroll;
 	int				brightness;
+	float			door;
+	int				doorcheck;
 	t_ray			*ray;
 	t_player		*player;
 	t_text			*text;

@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 03:11:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 11:18:20 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/13 22:28:47 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	load_game(t_cub *cub, t_parse *parse, char **av)
 		wipe_data(cub, parse);
 		return (0);
 	}
+	cub->pause = 0;
 	return (1);
 }
 
