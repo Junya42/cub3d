@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 16:45:35 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/13 22:27:19 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/15 12:31:23 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,17 +56,46 @@ void	rotate(int keycode, t_cub *cub, t_player *player)
 			cub->z -= 15;
 }
 
-void	slide(t_player *player, float x, float y, char **exp)
+/*int		degree_convert(float angle)
 {
+	int	degree;
+
+	degree = (int)(angle * 180 / PI);
+
+	if (degree > 315 || degree < 45)
+		return (1);
+	if (degree >= 45 && degree < 135)
+		return (2);
+	if (degree >= 135 && degree < 225)
+		return (3);
+	if (degree >= 225 && degree <= 315)
+		return (4);
+	return (0);
+}
+
+void	slide(t_cub *cub, float x, float y, char **exp)
+{
+	t_player *player;
 	float	ox;
 	float	oy;
+	int		degree;
 
+	player = cub->player;
 	ox = player->x;
 	oy = player->y;
-	if (!check_valid(exp[(int)player->y][(int)x], "12Dx"))
+	degree = degree_convert(player->angle);
+	if (!check_valid(exp[(int)player->y][(int)x], "12xD"))
 		player->x = x;
-	if (!check_valid(exp[(int)y][(int)x], "12Dx"))
+	if (!check_valid(exp[(int)y][(int)x], "12xD"))
 		player->y = y;
+	if (exp[(int)y][(int)x] == 'D' && degree == 4)
+	{
+		if ((int)((int)x % 64) - (int)(cub->door) < 0)
+		{
+			player->x = x;
+			player->y = y;
+		}
+	}
 	if (player->x == ox && player->y == oy)
 	{
 		if (!check_valid(exp[(int)y][(int)ox], "12Dx"))
@@ -75,7 +104,7 @@ void	slide(t_player *player, float x, float y, char **exp)
 			player->x = x;
 	}
 }
-
+*/
 void	foot_steps(t_cub *cub, t_player *player)
 {
 	Mix_Volume(0, 32);
@@ -96,14 +125,14 @@ void	longitudinal(int keycode, t_player *player, char **exp, t_cub *cub)
 		foot_steps(cub, player);
 		x = (player->x + (player->dx * player->ms));
 		y = (player->y + (player->dy * player->ms));
-		slide(player, x, y, exp);
+		slide(cub, x, y, exp);
 	}
 	if (keycode == 's')
 	{
 		foot_steps(cub, player);
 		x = (player->x - (player->dx * player->ms));
 		y = (player->y - (player->dy * player->ms));
-		slide(player, x, y, exp);
+		slide(cub, x, y, exp);
 	}
 
 }
@@ -119,7 +148,7 @@ void	lateral(int keycode, t_player *player, char **exp, t_cub *cub)
 		player->lstraf = secure_radians(player->angle, -PI2);
 		x = (player->x + cos(player->lstraf) * 5 * player->ms);
 		y = (player->y + sin(player->lstraf) * 5 * player->ms);
-		slide(player, x, y, exp);
+		slide(cub, x, y, exp);
 	}
 	if (keycode == 'd')
 	{
@@ -127,13 +156,13 @@ void	lateral(int keycode, t_player *player, char **exp, t_cub *cub)
 		player->rstraf = secure_radians(player->angle, PI2);
 		x = (player->x + cos(player->rstraf) * 5 * player->ms);
 		y = (player->y + sin(player->rstraf) * 5 * player->ms);
-		slide(player, x, y, exp);
+		slide(cub, x, y, exp);
 	}
 }
 
 int	save_position(t_cub *cub, t_player *player, char **exp)
 {
-	if (check_valid(exp[(int)player->y][(int)player->x], "12Dx"))
+	if (check_valid(exp[(int)player->y][(int)player->x], "12x"))
 	{
 		player->x = player->safex;
 		player->y = player->safey;

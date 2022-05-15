@@ -6,7 +6,7 @@
 #    By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 19:16:48 by anremiki          #+#    #+#              #
-#    Updated: 2022/05/12 11:10:59 by cmarouf          ###   ########.fr        #
+#    Updated: 2022/05/15 12:29:55 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,13 @@ SRCS = ./srcs/parsing/check_data.c ./srcs/parsing/check_map.c \
 	   ./srcs/init/init_cub.c \
 	   ./srcs/hud/draw_map.c ./srcs/hud/draw_player.c \
 	   ./srcs/init/init.c ./srcs/init/textures.c \
+	   ./srcs/input/collision.c \
 	   ./srcs/input/key_handle.c ./srcs/input/mouse.c \
 	   ./srcs/input/release.c ./srcs/input/anti_ghosting.c \
 	   ./srcs/input/input.c \
 	   ./srcs/utils/expandtab.c ./srcs/utils/map.c \
 	   ./srcs/utils/math.c ./srcs/utils/wipe.c \
+	   ./srcs/utils/degree.c \
 	   ./srcs/shader/colors.c ./srcs/shader/shade.c \
 	   ./srcs/raycast/init_ray.c ./srcs/raycast/hray.c \
 	   ./srcs/raycast/vray.c ./srcs/raycast/pixels.c \

@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:58:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/14 12:27:41 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/15 12:11:49 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	init_cub(t_cub *cub, t_parse *parse)
 	cub->z = 0;
 	cub->door = 0;
 	cub->doorcheck = 0;
+	cub->degree = 0;
 	cub->nb_sprites = 0;
 	cub->lights = 0;
 	cub->scroll = 0;

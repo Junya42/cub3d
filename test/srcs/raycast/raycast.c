@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/13 22:24:28 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/15 23:06:45 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,14 @@ int	dda(t_cub *cub, t_ray *ray)
 		ray->rx = ray->hx;
 		ray->ry = ray->hy;
 		ray->ray = ray->hray;
+		cub->glass = cub->hglass;
 	}
 	if (ray->vray < ray->hray)
 	{
 		ray->ray = ray->vray;
 		ray->rx = ray->vx;
 		ray->ry = ray->vy;
+		cub->glass = cub->vglass;
 	}
 	
 	ray->ray = fix_fisheye(cub->a, ray->ra, ray->ray);
@@ -80,13 +82,16 @@ int	dda(t_cub *cub, t_ray *ray)
 	ray->raycast = (64 * VRES / ray->ray);
 	ray->next_px = 64 / ray->raycast;
 	ray->off_px = 0;
-	/*if (ray->raycast > VRES)
+	ray->diff = ray->raycast;
+	if (ray->raycast > VRES)
 	{
 		ray->off_px = (ray->raycast - VRES) / 2;
+		//if (ray->r == NRAY / 2 && cub->z != 0)
+		//	printf("off_px = %f\n", ray->off_px);
 		ray->raycast = VRES;
-	}*/
-	ray->offset = ((HALFVRES - cub->z) - ray->raycast * (0.75 - cub->h));
-
+	}
+	//ray->diff -= ray->raycast;
+	ray->offset = ((HALFVRES - cub->z) - (ray->raycast) * (0.75 - cub->h));
 	return (light(cub, cub->light, ray, cub->chunk));
 }
 
@@ -111,10 +116,6 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 		scale = ray->shadow / ray->raycast;
 		float	dim = 0;
 		int		lever = 0;
-		/*if (ray->r == NRAY / 2)
-		{
-			printf("%d\n", cub->chunk[(int)ray->ry][(int)ray->rx][0]);
-		}*/
 		while (ray->i < ray->raycast)
 		{
 			ray->color = case_texture(cub, ray);
@@ -124,9 +125,9 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 			}
 			else
 			{
-				if (dim <= 0.1)
-					ray->color = shade(ray->color, MINLIGHT);
-				else if (flag == 1)
+				//if (dim <= 0.1)
+				//	ray->color = shade(ray->color, dim);
+				if (flag == 1)
 					ray->color = colorize(ray->color, ray->shadow, dim, PURPLE);
 				else if (flag == 2)
 					ray->color = colorize(ray->color, ray->shadow, dim, CYAN);
@@ -137,7 +138,7 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 			if (!adjacent_exp(cub, (int)ray->rx, (int)ray->ry, 32))
 				if (ra_sky < cub->text[7].b)
 					ray->color += shade(pxl_skybox(cub, ray->i + ray->ray, (int)ra_sky, 7), 0.05);
-			pxl_to_ray(cub, ray->nr, (float)(int)(ray->i + ray->offset + draw), ray->color);
+			pxl_to_ray(cub, ray->nr, (float)(int)(ray->i + ray->offset), ray->color);
 			ray->curr_px += ray->next_px;
 			ray->i++;
 			if (dim >= ray->shadow)
@@ -145,7 +146,7 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 			if (lever)
 				dim -= scale;
 			else
-				dim += scale / 2;
+				dim += scale;
 		}
 		(void)lever;
 		//(void)dim;

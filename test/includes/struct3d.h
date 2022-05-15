@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/14 12:25:40 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/15 18:21:01 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ typedef struct s_ray
 	float			l2;
 	float			offset;
 	float			raycast;
+	float			diff;
 	float			contan;
 	float			ntan;
 	int				r;
@@ -324,6 +325,10 @@ typedef struct s_cub
 	int				brightness;
 	float			door;
 	int				doorcheck;
+	int				degree;
+	int				vglass;
+	int				hglass;
+	int				glass;
 	t_ray			*ray;
 	t_player		*player;
 	t_text			*text;

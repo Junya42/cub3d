@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/14 18:04:55 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/15 12:31:10 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ float			dist(float ax, float ay, float bx, float by);
 float			fix_fisheye(float pa, float ra, float ray);
 float			secure_radians(float angle, float delta);
 float			deg_to_rad(float angle, float degree);
+float			degree_convert(float angle);
+int				quadrant_direction(float angle);
 /*	MAP	*/
 void	        free_mlx(t_cub *cub);
 int				adjacent(t_cub *cub, int x, int y, char c);
@@ -173,6 +175,7 @@ void			raycast(t_cub *cub, t_ray *ray, int draw);
 
 /*	----------Input-----------------	*/
 
+void			slide(t_cub *cub, float x, float y, char **exp);
 void			rotate(int keycode, t_cub *cub, t_player *player);
 void			longitudinal(int keycode, t_player *player, char **exp, t_cub *cub);
 void			lateral(int keycode, t_player *player, char **exp, t_cub *cub);

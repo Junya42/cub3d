@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:04:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/14 12:42:56 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/15 17:56:55 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,18 +53,38 @@ void	animation(t_cub *cub)
 		i++;
 	}
 }
+int	proximity(t_cub *cub, int x, int y, int dir)
+{
+	char **map;
 
+	map = cub->map;
+	if (y > 0 && check_valid(map[y - 1][x], "dD") && dir == 1)
+		return (1);
+	if (y  + 1 < cub->my && check_valid(map[y + 1][x], "dD") && dir == 3)
+		return (1);
+	if (x > 0 && check_valid(map[y][x - 1], "dD") && dir == 2)
+		return (1);
+	if (x  + 1 < cub->mx && check_valid(map[y][x + 1], "dD") && dir == 4)
+		return (1);
+	return (0);
+}
 void	open_door(t_cub *cub)
 {
-	if (cub->doorcheck == 1)
+	int	adj;
+
+	adj = proximity(cub, (int)cub->x >> 6, (int)cub->y >> 6, direction(cub));
+	if (cub->exp[(int)cub->y][(int)cub->x] != 'D')
 	{
-		if (cub->door < 60)
-			cub->door += 0.3;
-	}
-	if (!cub->doorcheck)
-	{
-		if (cub->door > 0.3)
-			cub->door -= 0.3;
+		if (adj)
+		{
+			if (cub->door < 60)
+				cub->door += 0.5;
+		}
+		if (!adj)
+		{
+			if (cub->door > 0.5)
+				cub->door -= 0.5;
+		}
 	}
 }
 
@@ -98,6 +118,13 @@ int	anti_ghosting(t_cub *cub)
 	t_player *player;
 
 	player = cub->player;
+	if (cub->map[(int)cub->y / 64][(int)cub->x / 64] == '3')
+	{
+		player->x = 4 * 64 + 32;
+		player->y = 7 * 64 + 32;
+		cub->x = player->x;
+		cub->y = player->y;
+	}
 	if (cub->end == 1)
 	{
 		mlx_destroy_window(cub->mlx, cub->win);

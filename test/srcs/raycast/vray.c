@@ -6,11 +6,26 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:50:23 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/14 17:03:52 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/15 18:02:48 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+unsigned int	vert_door_txt(t_cub *cub, t_ray *ray, int dir)
+{
+	ray->right = ((int)ray->ry - (int)cub->door) % 128;
+	ray->left = 128 - ((int)ray->ry + (int)cub->door) % 128;
+	if (dir == 1)
+		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->right, 8))); //s
+	if (dir == 2)
+		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->left, 8))); //s
+	if (dir == 3)
+		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->right, 8))); //ms
+	if (dir == 4)
+		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->left, 8))); //ms
+	return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->left, 8))); //s
+}
 
 unsigned int	vertical_texture(t_cub *cub, t_ray *ray, int dir)
 {
@@ -20,6 +35,8 @@ unsigned int	vertical_texture(t_cub *cub, t_ray *ray, int dir)
 	s = ray->shadow;
 	//ms = s - 0.3;
 	ms = s;
+	if (cub->glass)
+		return (vert_door_txt(cub, ray, dir));
 	if (dir == 1) //ray->ray == 1 && dir == 1
 		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->right, 1))); //s
 	if (dir == 2)
@@ -35,6 +52,7 @@ unsigned int	vertical_texture(t_cub *cub, t_ray *ray, int dir)
 
 void	dda_vertical(t_cub *cub, t_ray *ray)
 {
+	cub->vglass = 0;
 	while (ray->limit < cub->ex)
 	{
 		ray->mx = (int)ray->rx;
@@ -47,6 +65,7 @@ void	dda_vertical(t_cub *cub, t_ray *ray)
 			ray->ry += ray->yo / 2;
 			if (((int)ray->ry % 64 - (int)cub->door) > 0 && ray->vdir == 1)
 			{
+				cub->vglass = 1;
 				ray->vx = ray->rx;
 				ray->vy = ray->ry;
 				ray->vray = dist(cub->x , cub->y, ray->vx, ray->vy);
@@ -54,6 +73,7 @@ void	dda_vertical(t_cub *cub, t_ray *ray)
 			}
 			if (64 - ((int)ray->ry % 64 + (int)cub->door) > 0 && ray->vdir == 2)
 			{
+				cub->vglass = 1;
 				ray->vx = ray->rx;
 				ray->vy = ray->ry;
 				ray->vray = dist(cub->x , cub->y, ray->vx, ray->vy);

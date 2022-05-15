@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 16:25:53 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 14:03:46 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/15 12:42:12 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	chunk(t_cub *cub, t_light *light, t_ray *ray)
 	while (ray->ra <= DPI)
 	{
 		reset_ray(light, ray);
-		lighthray(cub, light, ray, 1);
+		lighthray(cub, light, ray, 0);
 		ray->limit = 0;
-		lightvray(cub, light, ray, 1);
+		lightvray(cub, light, ray, 0);
 		if (ray->hray < ray->vray)
 		{
 			reset_ray(light, ray);
