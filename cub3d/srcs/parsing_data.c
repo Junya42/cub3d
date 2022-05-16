@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:41:53 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/17 00:38:08 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/16 14:20:58 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_variable(t_parse *p)
 	p->buffer = NULL;
 	p->mcontent = NULL;
 	p->total = 0;
-	p->check_ne = 0;
+	p->check_no = 0;
 	p->check_so = 0;
 	p->check_we = 0;
 	p->check_ea = 0;

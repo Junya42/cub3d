@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/17 02:03:33 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/04/23 19:21:57 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,11 @@ int				exit_parsing(char *str);
 
 /*RAYCASTING*/
 int				create_mlx(t_ray *ray);
+unsigned int	get_texture_color(t_ray *ray, int y, int x, int i);
 unsigned int	get_txt_color(t_ray *ray);
 int				shade(int color, float shader);
 void			pxl_to_ray(t_ray *ray, float x, float y, unsigned int color);
+void			spxl_to_ray(t_ray *ray, float x, float y, unsigned int color);
 void			pxl_to_image(t_ray *ray, int a, int c, int color);
 int				count_x(char **map);
 int				count_y(char **map);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_raycast.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:26:45 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/17 01:50:40 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/16 14:09:53 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,17 @@ void	init_mlx_var(t_ray *ray, t_parse *parse)
 {
 	ray->quit = 0;
 	ray->move = 0;
-	ray->firsta = 1;
 	ray->map = parse->map + 6;
 }
 
 void	init_position_var(t_ray *ray)
 {
+	ray->cos = cos(ray->pa);
+	ray->sin = sin(ray->pa);
 	ray->pdx = cos(ray->pa) * 5;
 	ray->pdy = sin(ray->pa) * 5;
-	ray->width = count_x(ray->map) * BLOCSIZE;
-	ray->height = count_y(ray->map) * BLOCSIZE;
+	ray->width = 480;
+	ray->height = 640;
 	ray->x = count_x(ray->map);
 	ray->y = count_y(ray->map);
 }
