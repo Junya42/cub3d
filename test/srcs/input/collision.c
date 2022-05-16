@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 12:00:19 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/15 20:57:14 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/16 14:22:46 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	horizontal_slide(char **exp, float x, float y, t_player *player)
 {
-	int	xo;
+/*	int	xo;
 	int	yo;
 
 	xo = 20;
@@ -27,11 +27,16 @@ void	horizontal_slide(char **exp, float x, float y, t_player *player)
 		player->x = x;
 	if (!check_valid(exp[(int)player->y + yo][(int)player->x + xo], HITBOX))
 		player->y = y;
+		*/
+	if (!check_valid(exp[(int)player->y][(int)x], HITBOX))
+		player->x = x;
+	if (!check_valid(exp[(int)y][(int)x], HITBOX))
+		player->y = y;
 }
 
 void	vertical_slide(char **exp, float x, float y, t_player *player)
 {
-	int	xo;
+	/*int	xo;
 	int	yo;
 
 	xo = 20;
@@ -43,6 +48,11 @@ void	vertical_slide(char **exp, float x, float y, t_player *player)
 	if (!check_valid(exp[(int)player->y + yo][(int)player->x], HITBOX))
 		player->y = y;
 	if (!check_valid(exp[(int)player->y + yo][(int)player->x + xo], HITBOX))
+		player->x = x;
+		*/
+	if (!check_valid(exp[(int)y][(int)player->x], HITBOX))
+		player->y = y;
+	if (!check_valid(exp[(int)y][(int)x], HITBOX))
 		player->x = x;
 }
 
@@ -93,9 +103,12 @@ void	slide(t_cub *cub, float x, float y, char **exp)
 	ox = player->x;
 	oy = player->y;
 	cub->degree = quadrant_direction(player->angle);
-	horizontal_slide(exp, x, y, player);
 	if (exp[(int)y][(int)x] == 'D')
+	{
 		cross_doors(cub, x, y, player);
-	if (player->x == ox && player->y == oy)
+		return ;
+	}
+	horizontal_slide(exp, x, y, player);
+	if(player->x == ox && player->y == oy)
 		vertical_slide(exp, x, y, player);
 }

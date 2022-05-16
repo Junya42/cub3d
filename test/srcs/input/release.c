@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 17:26:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/14 12:42:14 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/16 14:40:46 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,40 @@ int	doors(t_cub *cub, int x, int y, int dir)
 	return (0);
 }
 
+void	findnewlight(t_cub *cub, t_light *light, int x, int y)
+{
+	int	i;
+
+	i = 0;
+	printf("cub->lights = %d\n", cub->lights);
+	printf("x = %d >>> y = %d\n", x, y);
+	while (i < cub->lights)
+	{
+		printf("INT	light[%d].x = %d\n", i, (int)light[i].x / 64);
+		printf("INT	light[%d].y = %d\n\n", i, (int)light[i].y / 64);
+		printf("light[%d].x = %f\n", i, light[i].x);
+		printf("light[%d].y = %f\n\n", i, light[i].y);
+		if ((int)light[i].x / 64 == x && (int)light[i].y / 64 == y)
+		{
+			
+			printf("Teleportation...\n");
+			printf("Old X = %f >>> Old y = %f\n", cub->x, cub->y);
+			if (i + 1 < cub->lights && cub->lights > 1)
+				i++;
+			else
+				i = 0;
+			cub->player->x = light[i].x;
+			cub->player->y = light[i].y;
+			cub->x = cub->player->x;
+			cub->y = cub->player->y;
+			printf("New X = %f >>> new y = %f\n", cub->x, cub->y);
+			return ;
+		}
+		i++;
+	}
+	printf("Didnt found light\n");
+}
+
 int	release(int keycode, t_cub *cub)
 {
 	t_player *player;
@@ -88,7 +122,12 @@ int	release(int keycode, t_cub *cub)
 		  cub->exp = expand(cub->map, cub->mx, cub->my, 64);
 		  raycast(cub, cub->ray, 0);
 		  }*/
-		doors(cub, (int)cub->x >> 6, (int)cub->y >> 6, direction(cub));
+		//doors(cub, (int)cub->x >> 6, (int)cub->y >> 6, direction(cub));
+		if (check_valid(cub->exp[(int)cub->y][(int)cub->x], LIGHTCODE))
+		{
+			printf("Lightcode\n");
+			findnewlight(cub, cub->light, cub->x / 64, cub->y / 64);
+		}
 	}
 	if (player->released == keycode)
 	{

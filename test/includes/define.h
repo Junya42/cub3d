@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 22:41:32 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/15 19:38:52 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/16 14:32:12 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 # define SPRITE 0
 # define LIGHT 1
 # define MINLIGHT 0.15
+# define LIGHTCODE "LRGBCYU"
 # define VALID "UPLRGBCYDNSEW013 "
 # define FLOOR_VALID "01"
 # define ROOF_VALID "01G"
@@ -52,6 +53,6 @@
 # define SPRITE_ERR 1
 # define MATRIX_ERR 2
 # define TEXTURE_ERR 3
-# define HITBOX "12xD"
+# define HITBOX "12x"
 
 #endif

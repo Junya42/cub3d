@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:04:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/15 17:56:55 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/16 14:42:33 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,13 +118,13 @@ int	anti_ghosting(t_cub *cub)
 	t_player *player;
 
 	player = cub->player;
-	if (cub->map[(int)cub->y / 64][(int)cub->x / 64] == '3')
+	/*if (cub->map[(int)cub->y / 64][(int)cub->x / 64] == '3')
 	{
 		player->x = 4 * 64 + 32;
 		player->y = 7 * 64 + 32;
 		cub->x = player->x;
 		cub->y = player->y;
-	}
+	}*/
 	if (cub->end == 1)
 	{
 		mlx_destroy_window(cub->mlx, cub->win);
