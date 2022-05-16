@@ -6,7 +6,7 @@
 #    By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 19:16:48 by anremiki          #+#    #+#              #
-#    Updated: 2022/05/15 12:29:55 by anremiki         ###   ########.fr        #
+#    Updated: 2022/05/16 20:43:04 by cmarouf          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -140,7 +140,8 @@ endif
 		@echo
 		@make fclean -C ./libft
 
-re:		fclean all
+re:		fclean 
+		make all
 
 .PHONY: all clean fclean re
 

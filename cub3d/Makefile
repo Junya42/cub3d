@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+         #
+#    By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 17:38:35 by anremiki          #+#    #+#              #
-#    Updated: 2022/04/17 01:36:52 by cmarouf          ###   ########.fr        #
+#    Updated: 2022/05/16 20:44:38 by cmarouf          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -130,7 +130,8 @@ endif
 		@echo
 		@make fclean -C ./libft
 
-re:		fclean all
+re:		fclean 
+		make all
 
 .PHONY: all clean fclean re
 

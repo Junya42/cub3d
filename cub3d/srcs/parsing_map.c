@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 19:25:14 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/16 14:25:23 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/16 20:51:39 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	parse_map(t_parse *p, char *filename)
 	str = malloc(sizeof(char) * size + 1);
 	if (!str)
 		return (EXIT_FAILURE);
+	if (try_open_cub_file(filename, p) == 1)
+		return (EXIT_FAILURE);
 	end = read(p->fd, str, size);
 	str[end] = '\0';
 	p->map = ft_split(str, '\n');
@@ -40,7 +42,7 @@ int	parse_map(t_parse *p, char *filename)
 		free(str);
 		return (EXIT_FAILURE);
 	}
-	if (check_rules(p->map, str) == 1)
+	if (check_rules(p->map + 6, str) == 1)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
