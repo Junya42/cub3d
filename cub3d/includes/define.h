@@ -16,8 +16,6 @@
 # define PI 3.1415926535
 # define RAD 0.01745329251
 # define FOV 60
-# define FD_ERR "Invalid file descriptor\n"
-# define PARSING_ERR "Invalid number / type of arguments\n"
 # define UP 119
 # define DOWN 115
 # define LEFT 97
@@ -28,5 +26,8 @@
 # define BLOCSIZE 64
 # define TEXTURE 1
 # define RGB 2
+# define NB_SPRITE 2
+# define HALF_H 320
+# define HALF_W 240
 
 #endif

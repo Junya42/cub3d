@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_loop.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 04:29:03 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/16 02:15:35 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/16 14:20:21 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,11 @@ void	move_point_of_view(int keycode, t_ray *ray)
 	{
 		ray->pa += 0.1;
 		if (ray->pa > 2 * PI)
-			ray->pa = 0;
+			ray->pa -= 2 * PI;
 		ray->pdx = cos(ray->pa) * 5;
 		ray->pdy = sin(ray->pa) * 5;
+		ray->cos = cos(ray->pa);
+		ray->sin = sin(ray->pa);
 		ray->move = 1;
 	}
 	if (keycode == ALEFT)
@@ -72,6 +74,8 @@ void	move_point_of_view(int keycode, t_ray *ray)
 			ray->pa += 2 * PI;
 		ray->pdx = cos(ray->pa) * 5;
 		ray->pdy = sin(ray->pa) * 5;
+		ray->cos = cos(ray->pa);
+		ray->sin = sin(ray->pa);
 		ray->move = 1;
 	}
 }
@@ -93,18 +97,7 @@ int	rayloop(t_ray *ray)
 		mlx_destroy_window(ray->mlx, ray->win);
 		return (0);
 	}
-	if (ray->move == 1)
-	{
-		if (ray->px < 0 || ray->px > ray->width
-			|| ray->py < 0 || ray->py > ray->height)
-			mlx_put_image_to_window(ray->mlx, ray->win, ray->img, 0, 0);
-		else
-		{
-			if (ray->px >= 0 && ray->px <= ray->width && ray->py >= 0
-				&& ray->py <= ray->height)
-				raycasting(ray);
-		}
-	}
-	ray->move = 0;
+	raycasting(ray);
+	mlx_put_image_to_window(ray->mlx, ray->win, ray->txt[0].img, 0, 0);
 	return (0);
 }

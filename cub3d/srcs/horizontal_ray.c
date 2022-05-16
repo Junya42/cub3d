@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   horizontal_ray.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 01:26:19 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/16 01:58:22 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/16 14:20:10 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	horizontal_wall_hit(t_ray *ray)
 {
-	while (ray->i < ray->y && ray->rx < ray->width && ray->ry < ray->height)
+	while (ray->i < 20)
 	{
 		ray->mx = (int)(ray->rx) >> 6;
 		ray->my = (int)(ray->ry) >> 6;
@@ -30,7 +30,7 @@ void	horizontal_wall_hit(t_ray *ray)
 				ray->hy = ray->ry;
 				ray->hray = sqrt((ray->hx - ray->px) * (ray->hx - ray->px)
 						+ (ray->hy - ray->py) * (ray->hy - ray->py));
-				ray->i = 20;
+				break ;
 			}
 		}
 		ray->rx += ray->xo;

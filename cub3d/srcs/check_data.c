@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 05:14:37 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/16 01:48:16 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/04/19 20:02:56 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	check_direction(char *side, t_parse *p)
 {
-	if (ft_strncmp(side, "NE", 2) == 0 && p->check_ne == 0)
+	if (ft_strncmp(side, "NO", 2) == 0 && p->check_no == 0)
 	{
-		p->check_ne = 1;
+		p->check_no = 1;
 		return (EXIT_SUCCESS);
 	}
 	if (ft_strncmp(side, "SO", 2) == 0 && p->check_so == 0)

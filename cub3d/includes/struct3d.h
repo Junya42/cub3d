@@ -38,7 +38,7 @@ typedef struct s_parse
 	int				fd;
 	char			*buffer;
 	char			**mcontent;
-	int				check_ne;
+	int				check_no;
 	int				check_so;
 	int				check_we;
 	int				check_ea;
@@ -67,6 +67,8 @@ typedef struct s_txt
 
 typedef struct s_ray
 {
+	float			sin;
+	float			cos;
 	unsigned int	colorc;
 	unsigned int	colorf;
 	int				x;
@@ -86,22 +88,16 @@ typedef struct s_ray
 	float			south;
 	float			east;
 	float			west;
-	char			*dnwall;
-	char			*tnwall;
-	void			*wall;
 	float			strafel;
 	float			strafer;
 	int				hdir;
 	int				vdir;
 	float			vray;
 	float			hray;
-	unsigned int	wallc;
 	void			*erase;
 	char			**map;
 	int				width;
 	int				height;
-	int				widthr;
-	int				heightr;
 	void			*mlx;
 	void			*win;
 	float			px;
@@ -110,7 +106,6 @@ typedef struct s_ray
 	float			pdy;
 	float			pa;
 	int				move;
-	int				firsta;
 	int				color;
 	float			ray;
 	int				mx;

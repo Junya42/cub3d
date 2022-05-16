@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 01:36:33 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/17 02:02:43 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/04/23 19:25:33 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	create_mlx(t_ray *ray)
 	if (!ray->mlx)
 		return (1);
 	get_text_addr(ray);
-	ray->win = mlx_new_window(ray->mlx, 480, ray->height, "wolf3d");
+	ray->win = mlx_new_window(ray->mlx, ray->width, ray->height, "wolf3d");
 	if (!ray->win)
 		return (1);
 	ray->erase = mlx_new_image(ray->mlx, ray->width, ray->height);

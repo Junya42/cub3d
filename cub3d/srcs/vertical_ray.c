@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vertical_ray.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 01:26:30 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/16 02:16:46 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/16 14:20:12 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	vertical_wall_hit(t_ray *ray)
 {
-	while (ray->i < ray->x && ray->rx < ray->width && ray->ry < ray->height)
+	while (ray->i < 20)
 	{
 		ray->mx = (int)(ray->rx) >> 6;
 		ray->my = (int)(ray->ry) >> 6;

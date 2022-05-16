@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 04:26:46 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/16 02:05:09 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/04/19 23:34:19 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 float	deg_to_rad(float angle, float degree)
 {
-	angle += (0.0174533 * degree);
+	angle += (RAD * degree);
 	if (angle < 0)
 		angle += 2 * PI;
 	if (angle > 2 * PI)
