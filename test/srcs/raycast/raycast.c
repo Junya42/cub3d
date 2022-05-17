@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/15 23:06:45 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/17 17:39:06 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,13 +76,12 @@ int	dda(t_cub *cub, t_ray *ray)
 		ray->ry = ray->vy;
 		cub->glass = cub->vglass;
 	}
-	
+	ray->diff = ray->ray;
 	ray->ray = fix_fisheye(cub->a, ray->ra, ray->ray);
 	cub->zbuf[(int)ray->r] = ray->ray;
 	ray->raycast = (64 * VRES / ray->ray);
 	ray->next_px = 64 / ray->raycast;
 	ray->off_px = 0;
-	ray->diff = ray->raycast;
 	if (ray->raycast > VRES)
 	{
 		ray->off_px = (ray->raycast - VRES) / 2;
@@ -97,7 +96,7 @@ int	dda(t_cub *cub, t_ray *ray)
 
 void	raycast(t_cub *cub, t_ray *ray, int draw)
 {
-	(void)draw;
+	//(void)draw;
 	init_ray(cub, ray);
 	//mlx_put_image_to_window(cub->mlx, cub->win, cub->text[0].img, 0, 0);
 	int	flag = 0;
@@ -116,6 +115,15 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 		scale = ray->shadow / ray->raycast;
 		float	dim = 0;
 		int		lever = 0;
+		if (ray->r == NRAY / 2 && draw)
+		{
+			printf("Dist Horizontal = %f\n", ray->hray);
+			printf("Dist Vertical = %f\n", ray->vray);
+			if (ray->diff == ray->hray)
+				printf("Horizontal rendering\n");
+			else
+				printf("Vertical rendering\n");
+		}
 		while (ray->i < ray->raycast)
 		{
 			ray->color = case_texture(cub, ray);

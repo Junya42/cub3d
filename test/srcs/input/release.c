@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 17:26:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/17 12:53:15 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/17 17:27:41 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ int	release(int keycode, t_cub *cub)
 		  raycast(cub, cub->ray, 0);
 		  }*/
 		//doors(cub, (int)cub->x >> 6, (int)cub->y >> 6, direction(cub));
+		raycast(cub, cub->ray, 1);
 		if (check_valid(cub->expl[(int)cub->y][(int)cub->x], LIGHTCODE))
 		{
 			printf("Lightcode\n");
