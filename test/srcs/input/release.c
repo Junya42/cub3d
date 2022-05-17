@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   release.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 17:26:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/16 14:40:46 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/17 12:53:15 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	release(int keycode, t_cub *cub)
 		  raycast(cub, cub->ray, 0);
 		  }*/
 		//doors(cub, (int)cub->x >> 6, (int)cub->y >> 6, direction(cub));
-		if (check_valid(cub->exp[(int)cub->y][(int)cub->x], LIGHTCODE))
+		if (check_valid(cub->expl[(int)cub->y][(int)cub->x], LIGHTCODE))
 		{
 			printf("Lightcode\n");
 			findnewlight(cub, cub->light, cub->x / 64, cub->y / 64);

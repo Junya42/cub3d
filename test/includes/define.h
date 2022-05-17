@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 22:41:32 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/16 14:32:12 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/17 13:27:18 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@
 # define LIGHT 1
 # define MINLIGHT 0.15
 # define LIGHTCODE "LRGBCYU"
-# define VALID "UPLRGBCYDNSEW013 "
-# define FLOOR_VALID "01"
-# define ROOF_VALID "01G"
-# define CLOSED_VALID "UPLRGBCYDNSEW0 "
+# define VALID "NSEW013 "
+# define FLOOR_VALID "0UPLRGBCY"
+# define ROOF_VALID "01"
+# define CLOSED_VALID "UPLRGBCYNSEW0 "
 # define SPRITE_VALID "UPLRGBCY"
 # define SPRITE_ERR 1
 # define MATRIX_ERR 2

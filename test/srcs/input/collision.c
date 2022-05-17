@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   collision.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 12:00:19 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/16 14:22:46 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/17 13:23:34 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	slide(t_cub *cub, float x, float y, char **exp)
 	ox = player->x;
 	oy = player->y;
 	cub->degree = quadrant_direction(player->angle);
-	if (exp[(int)y][(int)x] == 'D')
+	if (exp[(int)y][(int)x] == ' ')
 	{
 		cross_doors(cub, x, y, player);
 		return ;

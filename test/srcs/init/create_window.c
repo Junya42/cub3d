@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 17:03:50 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/12 11:17:13 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/17 13:21:41 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,10 @@ int	create_window(t_cub *cub, t_parse *parse)
     init_struct_null(cub);
     change_map(cub);
 	cub->exp = expand(cub->map, cub->mx, cub->my, 64);
-    cub->roof = expand(parse->roof, cub->mx, cub->my, 64);
-    cub->floor = expand(parse->floor, cub->mx, cub->my, 64);
+    cub->roof = parse->roof;
+    cub->floor = parse->floor;
+    cub->expl = expand(cub->floor, cub->mx, cub->my, 64);
+    cub->expr = expand(cub->roof, cub->mx, cub->my, 64);
     get_expanded_height_width(cub, cub->exp);
     cub->exit_code = loading_screen(cub, parse);
     if (cub->exit_code != 0)

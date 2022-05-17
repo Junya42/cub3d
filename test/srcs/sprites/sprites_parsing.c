@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 03:03:41 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/10 15:57:36 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/17 11:29:37 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,13 @@ void	get_nb_sprites(t_cub *cub)
 
 	i = 0;
 	j = 0;
-	while (cub->map[i])
+	cub->nb_sprites = 0;
+	while (cub->floor[i])
 	{
 		j = 0;
-		while (cub->map[i][j])
+		while (cub->floor[i][j])
 		{
-			if (check_valid(cub->map[i][j], SPRITE_VALID) == 1)
+			if (check_valid(cub->floor[i][j], SPRITE_VALID) == 1)
 				cub->nb_sprites++;
 			j++;
 		}
@@ -45,14 +46,14 @@ void	get_nb_sprites(t_cub *cub)
 
 char	search_type(t_cub *c)
 {
-	while (c->map[c->search_i])
+	while (c->floor[c->search_i])
 	{
-        if (!c->map[c->search_i][c->search_j])
+        if (!c->floor[c->search_i][c->search_j])
             c->search_j = 0;
-		while (c->map[c->search_i][c->search_j])
+		while (c->floor[c->search_i][c->search_j])
 		{
-			if (check_valid(c->map[c->search_i][c->search_j], SPRITE_VALID) == 1)
-				return (c->map[c->search_i][c->search_j]);
+			if (check_valid(c->floor[c->search_i][c->search_j], SPRITE_VALID) == 1)
+				return (c->floor[c->search_i][c->search_j]);
 			c->search_j++;
 		}
 		c->search_i++;

@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/15 12:31:10 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/16 21:13:34 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	        get_height_width(t_parse *parse, char **map);
 void	        get_expanded_height_width(t_cub *cub, char **map);
 int	            check_char_rf(char **map, char *set);
 int	            check_width_height(char *name, char **map, t_parse *p);
+int             check_wrong_placement(char **floor, t_parse *p);
 
 /*	----------Init--------------	*/
 

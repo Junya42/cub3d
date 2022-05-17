@@ -67,6 +67,8 @@ typedef struct s_txt
 
 typedef struct s_ray
 {
+	float				map_w;
+	float				map_h;
 	float			sin;
 	float			cos;
 	unsigned int	colorc;

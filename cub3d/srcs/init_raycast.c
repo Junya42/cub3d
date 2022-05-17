@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:26:45 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/16 14:09:53 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/17 11:50:12 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	init_position_var(t_ray *ray)
 	ray->pdy = sin(ray->pa) * 5;
 	ray->width = 480;
 	ray->height = 640;
+	ray->map_w = count_x(ray->map) * 64;
+	ray->map_h = count_y(ray->map) * 64;
 	ray->x = count_x(ray->map);
 	ray->y = count_y(ray->map);
 }
@@ -59,6 +61,8 @@ void	init_raycasting(t_parse *parse)
 		return ;
 	}
 	raycasting(&ray);
+	mlx_put_image_to_window(ray.mlx, ray.win, ray.img, 0, 0);
+	mlx_put_image_to_window(ray.mlx, ray.win, ray.txt[0].img, 0, 0);
 	mlx_loop_hook(ray.mlx, &rayloop, &ray);
 	mlx_hook(ray.win, 17, (1L << 17), &quit, &ray);
 	mlx_hook(ray.win, KeyPress, KeyRelease, &key_handle, &ray);

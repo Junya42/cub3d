@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:04:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/16 14:42:33 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/17 13:23:06 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ int	proximity(t_cub *cub, int x, int y, int dir)
 	char **map;
 
 	map = cub->map;
-	if (y > 0 && check_valid(map[y - 1][x], "dD") && dir == 1)
+	if (y > 0 && check_valid(map[y - 1][x], "d ") && dir == 1)
 		return (1);
-	if (y  + 1 < cub->my && check_valid(map[y + 1][x], "dD") && dir == 3)
+	if (y  + 1 < cub->my && check_valid(map[y + 1][x], "d ") && dir == 3)
 		return (1);
-	if (x > 0 && check_valid(map[y][x - 1], "dD") && dir == 2)
+	if (x > 0 && check_valid(map[y][x - 1], "d ") && dir == 2)
 		return (1);
-	if (x  + 1 < cub->mx && check_valid(map[y][x + 1], "dD") && dir == 4)
+	if (x  + 1 < cub->mx && check_valid(map[y][x + 1], "d ") && dir == 4)
 		return (1);
 	return (0);
 }
@@ -73,7 +73,7 @@ void	open_door(t_cub *cub)
 	int	adj;
 
 	adj = proximity(cub, (int)cub->x >> 6, (int)cub->y >> 6, direction(cub));
-	if (cub->exp[(int)cub->y][(int)cub->x] != 'D')
+	if (cub->exp[(int)cub->y][(int)cub->x] != ' ')
 	{
 		if (adj)
 		{

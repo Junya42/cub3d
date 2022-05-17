@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vray.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:50:23 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/15 18:02:48 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/17 13:22:09 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	dda_vertical(t_cub *cub, t_ray *ray)
 		ray->my = (int)ray->ry;
 		if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1 &&
 					ray->my > -1) && check_valid(cub->exp[ray->my][ray->mx],
-						"D"))
+						" "))
 		{
 			ray->rx += ray->xo / 2;
 			ray->ry += ray->yo / 2;

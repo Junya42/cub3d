@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   floorcast.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/13 22:00:13 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/17 13:21:09 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	floorcast(t_cub *cub, t_ray *ray)
 		float	ra_sky = secure_radians(ray->ra, cub->scroll) * 721;
 		int	ceilcheck = 0;
 		if (((int)(ray->floor_y) >> 5) > -1 && ((int)(ray->floor_x) >> 5) > -1)
-			if (cub->map[((int)(ray->floor_y) >> 5)][((int)(ray->floor_x) >> 5)] == 32)
+			if (cub->roof[((int)(ray->floor_y) >> 5)][((int)(ray->floor_x) >> 5)] == '1')
 				ceilcheck = 1;
 		if (!ceilcheck)
 		{

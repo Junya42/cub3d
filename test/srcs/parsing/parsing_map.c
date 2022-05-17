@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 19:25:14 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/12 11:20:28 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/16 21:17:48 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ int	check_map_rules(t_parse *p, char **map)
 int	check_roof_rules(char **roof, t_parse *p)
 {
 	if (check_char_rf(roof, ROOF_VALID) == 1)
-	{
 		return (EXIT_FAILURE);
-	}
 	if (check_width_height("ROOF", roof, p) == 1)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
@@ -38,6 +36,8 @@ int	check_floor_rules(char **floor, t_parse *p)
 	if (check_char_rf(floor, FLOOR_VALID) == 1)
 		return (EXIT_FAILURE);
 	if (check_width_height("FLOOR", floor, p) == 1)
+		return (EXIT_FAILURE);
+	if (check_wrong_placement(floor, p) == 1)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }

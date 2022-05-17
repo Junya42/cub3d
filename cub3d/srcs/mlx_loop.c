@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 04:29:03 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/16 14:20:21 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/17 11:57:16 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,23 @@ int	rayloop(t_ray *ray)
 		mlx_destroy_window(ray->mlx, ray->win);
 		return (0);
 	}
-	raycasting(ray);
-	mlx_put_image_to_window(ray->mlx, ray->win, ray->txt[0].img, 0, 0);
+	if (ray->move == 1)
+	{
+		if (ray->px < 0 || ray->px > ray->map_w
+			|| ray->py < 0 || ray->py > ray->map_h)
+			mlx_put_image_to_window(ray->mlx, ray->win, ray->img, 0, 0);
+		else
+		{
+			if (ray->px >= 0 && ray->px <= ray->map_w && ray->py >= 0
+				&& ray->py <= ray->map_h)
+			{
+				raycasting(ray);
+				mlx_put_image_to_window(ray->mlx, ray->win,
+					ray->txt[0].img, 0, 0);
+			}
+		}
+	}
+	//raycasting(ray);
+	//mlx_put_image_to_window(ray->mlx, ray->win, ray->txt[0].img, 0, 0);
 	return (0);
 }
