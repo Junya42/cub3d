@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 22:41:32 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/18 02:17:22 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/18 12:26:05 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@
 # define SCAN 0.52358775
 # define LIGHTSTEP 0.00087264625
 # define NB_FRAME 8
-# define SPRITE 0
-# define LIGHT 1
+# define SPRITE 6
+# define LIGHT 7
 # define MINLIGHT 0.4
 # define LIGHTCODE "LRGBCYU"
 # define VALID "NSEW013 "

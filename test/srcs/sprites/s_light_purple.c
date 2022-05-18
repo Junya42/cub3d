@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 03:08:30 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/10 15:39:51 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/18 12:17:49 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ int	txt_light_purple(t_sp *sp, t_cub *cub)
 	sp->csp.moveable = 1;
 	sp->animated = 1;
 	sp->hue = RED;
+	sp->csp.type = LIGHT;
 	return (1);
 }

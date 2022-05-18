@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 03:03:41 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/17 11:29:37 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/18 12:42:39 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,41 +61,20 @@ char	search_type(t_cub *c)
     return ('\0');
 }
 
-int	choose_sprite_texture(t_sp *sp, t_cub *cub)
-{
-	if (sp->type == 'P')
-	{
-		sp->img = mlx_xpm_file_to_image(cub->mlx, "./imgs/tabdeath.xpm", &sp->a, &sp->b);
-		if (!sp->img)
-			return (0);
-		sp->csp.moveable = 0;
-		sp->animated = 0;
-		sp->s_type = PC;
-		return (1);
-	}
-	if (sp->type == 'L')
-		return (txt_light(sp, cub));
-	if (sp->type == 'R')
-		return (txt_light_red(sp, cub));
-	if (sp->type == 'G')
-		return (txt_light_green(sp, cub));
-	if (sp->type == 'B')
-		return (txt_light_blue(sp, cub));
-	if (sp->type == 'C')
-		return (txt_light_cyan(sp, cub));
-	if (sp->type == 'U')
-		return (txt_light_purple(sp, cub));
-	if (sp->type == 'Y')
-		return (txt_light_yellow(sp, cub));
-	return (0);
-}
-
 int	give_sprite_texture(t_sp *sp, t_cub *cub)
 {
 	if (choose_sprite_texture(sp, cub) == 0)
 		return (0);
 	sp->addr = mlx_get_data_addr(sp->img, &sp->bpp, &sp->sizeline, &sp->end);
 	sp->dbpp = sp->bpp >> 3;
-	sp->size = 64;
+	if (sp->csp.type == SPRITE)
+		sp->csp.z = 0;
+	if (sp->csp.type == STATUE)
+	{
+		sp->csp.z = -9;
+		sp->size = 384;
+	}
+	else
+		sp->size = 64;
 	return (1);
 }

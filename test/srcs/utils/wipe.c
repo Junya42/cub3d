@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 20:23:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/17 13:09:06 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/18 12:49:48 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,14 @@ void	free_sprites(t_cub *cub)
 		j = 0;
 		if (cub->sp[i].img)
 			mlx_destroy_image(cub->mlx, cub->sp[i].img);
-		while (j < NB_FRAME)
+		if (cub->sp[i].animated == 1)
 		{
-			if (cub->sp[i].anim[j].img)
-				mlx_destroy_image(cub->mlx, cub->sp[i].anim[j].img);
-			j++;
+			while (j < NB_FRAME)
+			{
+				if (cub->sp[i].anim[j].img)
+					mlx_destroy_image(cub->mlx, cub->sp[i].anim[j].img);
+				j++;
+			}
 		}
 		i++;
 	}

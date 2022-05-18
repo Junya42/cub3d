@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/16 21:13:34 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/18 12:03:55 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,8 @@ int				txt_light_yellow(t_sp *sp, t_cub *cub);
 int	            choose_sprite_texture(t_sp *sp, t_cub *cub);
 void			sprite_casting(t_cub *cub);
 void			print_sprite(t_cub *cub, t_csp *s);
+int	            choose_sprite_texture(t_sp *sp, t_cub *cub);
+int	            choose_light_texture(t_sp *sp, t_cub *cub);
 
 /*	----------Sound-------------	*/
 int	    init_audio(t_cub *cub, int i);

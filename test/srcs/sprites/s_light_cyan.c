@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 03:08:19 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/10 15:39:59 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/18 12:18:07 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,6 @@ int	txt_light_cyan(t_sp *sp, t_cub *cub)
 	sp->csp.moveable = 1;
 	sp->animated = 1;
 	sp->hue = CYAN;
+	sp->csp.type = LIGHT;
 	return (1);
 }

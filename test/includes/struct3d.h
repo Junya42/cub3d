@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/18 00:40:46 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/18 12:26:29 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@ enum	e_side
 enum	e_sprite_type
 {
 	PC,
+	STATUE,
+	BIG_STATUE,
+	GRASS,
 };
 
 enum	e_fd
@@ -111,6 +114,7 @@ typedef struct s_text
 typedef struct s_csp
 {
 	int				type;
+	int				z;
 	int				moveable;
 	int				size;
 	int				dbpp;
