@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 17:03:50 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/17 13:21:41 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/18 15:21:01 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	create_window(t_cub *cub, t_parse *parse)
             mlx_destroy_window(cub->mlx, cub->win);
         return (0);
     }
+    Mix_PlayMusic(cub->opening_theme, 0);
+    Mix_FadeInChannel(1, cub->light_aura, -1, 3000);
     if (cub->erase)
 	    mlx_destroy_image(cub->mlx, cub->erase);
 	return (1);

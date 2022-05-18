@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:04:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/18 12:55:54 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/18 14:51:11 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,16 +80,18 @@ void	open_door(t_cub *cub)
 		{
 			if (cub->door < 60)
 			{
-				//sound ouverture;
+				if (Mix_Playing(2) == 0 && cub->closed == 0)
+					Mix_PlayChannel(2, cub->door_opening, 0);
 				cub->door += 0.5;
+				cub->closed = 1;
 			}
 		}
 		if (!adj)
 		{
 			if (cub->door > 0.5)
 			{
-				//sound fermeture;
 				cub->door -= 0.5;
+				cub->closed = 0;
 			}
 		}
 	}

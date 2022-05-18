@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/18 12:26:29 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/18 15:11:17 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,7 +256,11 @@ typedef struct s_light
 typedef struct s_cub
 {
 	Mix_Chunk		*light_aura;
+	Mix_Chunk		*door_opening;
+	Mix_Chunk		*teleportation;
 	Mix_Chunk		*foot_steps[4];
+	Mix_Music		*opening_theme;
+	int				closed;
 	int				debug;
 	int				sp_error;
 	int				exit_code;

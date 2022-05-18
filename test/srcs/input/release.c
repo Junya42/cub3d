@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 17:26:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/18 01:04:05 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/18 15:05:14 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ void	findnewlight(t_cub *cub, t_light *light, int x, int y)
 				i++;
 			else
 				i = 0;
+			//if (Mix_Playing(3) == 0)
+					Mix_PlayChannel(3, cub->teleportation, 0);
 			cub->player->x = light[i].x;
 			cub->player->y = light[i].y;
 			cub->x = cub->player->x;

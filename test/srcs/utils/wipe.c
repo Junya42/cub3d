@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 20:23:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/18 12:49:48 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/18 15:11:51 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ int	close_audio(t_cub *cub)
 			Mix_FreeChunk(cub->foot_steps[i]);
 	if (cub->light_aura)
 		Mix_FreeChunk(cub->light_aura);
+	if (cub->door_opening)
+		Mix_FreeChunk(cub->door_opening);
+	if (cub->teleportation)
+		Mix_FreeChunk(cub->teleportation);
+	if (cub->opening_theme)
+		Mix_FreeMusic(cub->opening_theme);
 	Mix_CloseAudio();
 	SDL_Quit();
 	return (0);
