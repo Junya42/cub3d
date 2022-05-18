@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:14:10 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/11 08:28:29 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/18 01:42:31 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ int	adjacent_exp(t_cub *cub, int x, int y, char c)
 	char **map;
 
 	map = cub->exp;
-	if (y > 0 && map[y - 1][x] == c)
+	if (y > 0 && y < cub->ey && x > -1 && x < cub->ex && map[y - 1][x] == c)
 		return (1);
-	if (y + 1 < cub->ey && map[y + 1][x] == c)
+	if (y > -1 && y + 1 < cub->ey && x > -1 && x < cub->ex && map[y + 1][x] == c)
 		return (1);
-	if (x > 0 && map[y][x - 1] == c)
+	if (x > 0 && x < cub->ex && y > -1 && y < cub->ey && map[y][x - 1] == c)
 		return (1);
-	if (x + 1 < cub->ex && map[y][x + 1] == c)
+	if (x > - 1 && x + 1 < cub->ex && y > -1 && y < cub->ey && map[y][x + 1] == c)
 		return (1);
 	return (0);
 }

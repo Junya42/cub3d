@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/17 17:39:06 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/18 00:00:00 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,9 @@ int	dda(t_cub *cub, t_ray *ray)
 void	raycast(t_cub *cub, t_ray *ray, int draw)
 {
 	//(void)draw;
+	cub->debug = 0;
+	if (draw)
+		cub->debug = 1;
 	init_ray(cub, ray);
 	//mlx_put_image_to_window(cub->mlx, cub->win, cub->text[0].img, 0, 0);
 	int	flag = 0;

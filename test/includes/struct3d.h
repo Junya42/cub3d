@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/17 13:08:55 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/18 00:40:46 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,10 +187,10 @@ typedef struct s_ray
 	float			ray;
 	float			ra;
 	float			dra;
-	float			rx;
-	float			ry;
-	float			npx;
-	float			npy;
+	double			rx;
+	double			ry;
+	double			npx;
+	double			npy;
 	float			nr;
 	float			curr_px;
 	float			next_px;
@@ -253,6 +253,7 @@ typedef struct s_cub
 {
 	Mix_Chunk		*light_aura;
 	Mix_Chunk		*foot_steps[4];
+	int				debug;
 	int				sp_error;
 	int				exit_code;
 	int				mixing;

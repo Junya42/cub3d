@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 22:41:32 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/17 16:20:57 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/18 02:17:22 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define PI3 4.71238898025
 # define PIOFF 0.52359877559
 # define NORTH 4.71238
+# define PDIST 1108.51251684
 # define EAST 0
 # define SOUTH PI2
 # define WEST PI

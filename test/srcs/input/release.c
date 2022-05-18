@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 17:26:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/17 17:27:41 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/18 01:04:05 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	findnewlight(t_cub *cub, t_light *light, int x, int y)
 			cub->x = cub->player->x;
 			cub->y = cub->player->y;
 			printf("New X = %f >>> new y = %f\n", cub->x, cub->y);
+			//sound teleportation
 			return ;
 		}
 		i++;
@@ -124,6 +125,8 @@ int	release(int keycode, t_cub *cub)
 		  }*/
 		//doors(cub, (int)cub->x >> 6, (int)cub->y >> 6, direction(cub));
 		raycast(cub, cub->ray, 1);
+		printf("cub->x = %f\n", cub->x);
+		printf("cub->y = %f\n", cub->y);
 		if (check_valid(cub->expl[(int)cub->y][(int)cub->x], LIGHTCODE))
 		{
 			printf("Lightcode\n");

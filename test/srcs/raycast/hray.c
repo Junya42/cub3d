@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:39:55 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/17 13:22:01 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/18 01:35:10 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,41 @@ void	dda_horizon(t_cub *cub, t_ray *ray)
 		ray->my = (int)ray->ry;
 		if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1 &&
 					ray->my > -1) && check_valid(cub->exp[ray->my][ray->mx],
+						"3"))
+		{
+			if (ray->hdir == 1)
+			{
+				if (ray->mx % 64 < 32)
+				{
+					//ray->rx = ray->rx + (ray->mx % 64);
+					ray->ry = ray->ry + ray->xo / 64 * (32 - ray->mx % 64);
+				}
+				else
+				{
+					//ray->rx = ray->rx + (ray->mx % 64 - 32);
+					ray->ry = ray->ry + ray->xo / 64 * (ray->mx % 64 - 32);
+				}
+			}
+			else
+			{
+				if (64 - ray->mx % 64 < 32)
+				{
+					//ray->rx = ray->rx + (32 - (64 - ray->mx % 64));
+					ray->ry = ray->ry + ray->xo / 64 * (32 - (64 - ray->mx % 64));
+				}
+				else
+				{
+					//ray->rx = ray->rx + (64 - ray->mx % 64 - 32);
+					ray->ry = ray->ry + ray->xo / 64 * (64 - ray->mx % 64 - 32);
+				}
+			}
+			ray->hx = ray->rx;
+			ray->hy = ray->ry;
+			ray->hray = dist(cub->x , cub->y, ray->hx, ray->hy);
+			break ;
+		}
+		if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1 &&
+					ray->my > -1) && check_valid(cub->exp[ray->my][ray->mx],
 						" "))
 		{
 			ray->rx += ray->xo / 2;
@@ -99,9 +134,10 @@ void	hray(t_cub *cub, t_ray *ray)
 {
 	if (ray->ra == PI || ray->ra == 0)
 	{
+		ray->hdir = 0;
 		ray->rx = cub->x;
 		ray->ry = cub->y;
-		ray->limit = 20;
+		ray->limit = cub->ey;
 	}
 	else if (ray->ra > PI)
 	{
@@ -118,6 +154,12 @@ void	hray(t_cub *cub, t_ray *ray)
 		ray->rx = (cub->y - ray->ry) * ray->contan + cub->x;
 		ray->yo = 64;
 		ray->xo = -ray->yo * ray->contan;
+	}
+	if (cub->debug && ray->r == NRAY / 2)
+	{
+		printf("HDIR = %d\n", ray->hdir);
+		printf("hrx = %lf\n", ray->rx);
+		printf("hry = %lf\n", ray->ry);
 	}
 	dda_horizon(cub, ray);
 }

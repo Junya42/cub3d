@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:04:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/17 13:23:06 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/18 01:03:14 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	proximity(t_cub *cub, int x, int y, int dir)
 		return (1);
 	return (0);
 }
+
 void	open_door(t_cub *cub)
 {
 	int	adj;
@@ -78,12 +79,18 @@ void	open_door(t_cub *cub)
 		if (adj)
 		{
 			if (cub->door < 60)
+			{
+				//sound ouverture;
 				cub->door += 0.5;
+			}
 		}
 		if (!adj)
 		{
 			if (cub->door > 0.5)
+			{
+				//sound fermeture;
 				cub->door -= 0.5;
+			}
 		}
 	}
 }

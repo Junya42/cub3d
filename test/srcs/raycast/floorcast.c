@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/17 13:21:09 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/18 02:49:12 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,11 @@ void	floorcast(t_cub *cub, t_ray *ray)
 	fix = fix_fisheye(cub->a, ray->ra, 1);
 	distx = cos(ray->ra) * 360 * (0.75 + cub->h) * 32 * (0.75 + cub->h);
 	disty = sin(ray->ra) * 360 * (0.75 + cub->h) * 32 * (0.75 + cub->h);
+	if (cub->debug && ray->r == NRAY / 2)
+	{
+		printf("distX = %f\n", distx);
+		printf("distY = %f\n", disty);
+	}
 	ray->offj = ray->j - (HALFVRES - cub->z);
 	jumpfix = 0;
 	if (cub->h < 0.25)
@@ -113,7 +118,8 @@ void	floorcast(t_cub *cub, t_ray *ray)
 			else if (flag == 3)
 				color = colorize(color, ray->shadow, ray->shadow - cub->sz / 5, YELLOW);
 			//color = colorize(color, ray->shadow, ray->shadow - cub->sz / 5, PURPLE);
-			pxl_to_ray(cub, ray->nr, (int)((ray->offset - i * (1.25 - cub->h))), color);
+			pxl_to_ray(cub, ray->nr, (int)(((ray->offset - i) - (0.75 + cub->h))), color);
+			//pxl_to_ray(cub, ray->nr, VRES - ray->j, color);
 		}
 		//if (ceilcheck)
 		//	glass(cub, ray->nr, (int)(ray->offset - i), MINLIGHT);
