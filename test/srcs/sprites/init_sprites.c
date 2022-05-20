@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 02:06:07 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/18 13:00:25 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/20 16:39:31 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static inline void set_sound_value(t_cub *cub, t_csp *csp)
 {
 	if (csp->type == LIGHT)
 	{
-		csp->dist = sqrt((csp->sx * csp->sx) + (csp->sy * csp->sy));
 		cub->sp_dist = csp->dist;
 		cub->sp_angle = atan2(csp->a, csp->b) * 180 / PI;
 		if (cub->sp_angle < 0)
@@ -43,6 +42,7 @@ static inline void init_sprite_var(t_cub *cub, t_csp *csp, int i)
 	csp->sy = cub->sp[i].y - cub->y;
 	csp->a = (csp->sy * cub->cos) - (csp->sx * cub->sin);
 	csp->b = (csp->sx * cub->cos) + (csp->sy * cub->sin);
+	csp->dist = sqrt((csp->sx * csp->sx) + (csp->sy * csp->sy));
 	set_sound_value(cub, csp);
 	csp->scale = cub->sp[i].size * 80 / csp->b;
 	adjust = (cub->h * 28 - 7);
