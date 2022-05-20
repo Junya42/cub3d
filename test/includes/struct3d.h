@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/18 15:11:17 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/20 12:28:04 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,17 @@ enum	e_color
 	CYAN,
 	PURPLE,
 	YELLOW
+};
+
+enum	e_lightcol
+{
+	LSHADE,
+	LRED,
+	LBLUE,
+	LPURPLE,
+	LGREEN,
+	LYELLOW,
+	LCYAN
 };
 
 typedef struct s_parse
@@ -178,6 +189,24 @@ typedef struct s_sp
 	t_anim	anim[NB_FRAME];
 }			t_sp;
 
+typedef struct s_cast
+{
+	float			heightfix;
+	float			fix;
+	unsigned int	color;
+	float			distx;
+	float			disty;
+	float			dceilx;
+	float			dceily;
+	float			ceilx;
+	float			ceily;
+	float			ra_sky;
+	int				ceilcheck;
+	int				i;
+	int				limiter;
+	int				flag;
+}				t_cast;
+
 typedef struct s_ray
 {
 	float			l1;
@@ -253,6 +282,16 @@ typedef struct s_light
 	int		cursor;
 }				t_light;
 
+typedef struct s_lightmath
+{
+	float	dist;
+	float	dx;
+	float	dy;
+	float	shade;
+	int		i;
+	int		count;
+}				t_lightmath;
+
 typedef struct s_cub
 {
 	Mix_Chunk		*light_aura;
@@ -285,6 +324,7 @@ typedef struct s_cub
 	int				r_bpp;
 	int				r_size;
 	int				r_end;
+	int				hue;
 	unsigned int	color;
 	unsigned int	scolor;
 	unsigned int	fcolor;

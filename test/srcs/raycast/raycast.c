@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/18 00:00:00 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/19 22:49:49 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,12 +138,13 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 			{
 				//if (dim <= 0.1)
 				//	ray->color = shade(ray->color, dim);
-				if (flag == 1)
+				/*if (flag == 1)
 					ray->color = colorize(ray->color, ray->shadow, dim, PURPLE);
 				else if (flag == 2)
 					ray->color = colorize(ray->color, ray->shadow, dim, CYAN);
 				else if (flag == 3)
-					ray->color = colorize(ray->color, ray->shadow, dim, YELLOW);
+					ray->color = colorize(ray->color, ray->shadow, dim, YELLOW);*/
+				ray->color = colorize(ray->color, ray->shadow, dim, cub->hue);
 			}
 			float	ra_sky = secure_radians(ray->ra, cub->scroll) * 721;
 			if (!adjacent_exp(cub, (int)ray->rx, (int)ray->ry, 32))

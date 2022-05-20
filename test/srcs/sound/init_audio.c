@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:01:58 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/18 15:29:16 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/18 16:25:47 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@ int	load_sound_path(t_cub *cub, int i)
 	cub->door_opening = Mix_LoadWAV("./Sound/Door.wav");
 	if (!cub->door_opening)
 		return (0);
-	cub->teleportation = Mix_LoadWAV("./Sound/TP1.wav");
+	cub->teleportation = Mix_LoadWAV("./Sound/TP2.wav");
 	if (!cub->teleportation)
 		return (0);
-	cub->opening_theme = Mix_LoadMUS("./Sound/ab_theme3.wav");
+	cub->opening_theme = Mix_LoadMUS("./Sound/ab_theme2.wav");
 	if (!cub->opening_theme)
 	{
 		printf("Mix_PlayMusic: %s\n", Mix_GetError());

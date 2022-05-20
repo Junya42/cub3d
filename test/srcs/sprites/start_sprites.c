@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:22:24 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/18 12:48:21 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/19 22:37:41 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	get_sprite_txt(t_cub *cub, int i)
 	{
 		cub->sp[i].type = search_type(cub);
 		cub->sp[i].s_type = SPRITE;
-		if (check_valid(cub->sp[i].type, "ULRGBCY"))
+		if (check_valid(cub->sp[i].type, LIGHTCODE))
 				cub->sp[i].s_type = LIGHT;
 		if (cub->sp[i].s_type == LIGHT)
 			cub->lights++;

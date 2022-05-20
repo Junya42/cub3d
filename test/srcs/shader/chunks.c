@@ -6,11 +6,28 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 00:47:38 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 13:32:38 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/19 22:45:31 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+int	assign_color(int color)
+{
+	if (color == SHADE)
+		return (LSHADE);
+	else if (color == RED)
+		return (LRED);
+	else if (color == GREEN)
+		return (LGREEN);
+	else if (color == BLUE)
+		return (LBLUE );
+	else if (color == CYAN)
+		return (LCYAN);
+	else if (color == PURPLE)
+		return (LPURPLE);
+	return (LYELLOW);
+}
 
 void	assign_light_values(t_cub *cub, t_light *light, t_sp *sp)
 {
@@ -30,7 +47,7 @@ void	assign_light_values(t_cub *cub, t_light *light, t_sp *sp)
 			light[j].id = j + 1;
 			light[j].chunk = 64;
 			light[j].cursor = 0;
-			light[j].color = sp[i].hue;
+			light[j].color = assign_color(sp[i].hue);
 			j++;
 		}
 		i++;

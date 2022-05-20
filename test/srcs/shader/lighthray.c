@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 16:45:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 14:03:29 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/20 13:37:00 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ void	light_horizon(t_cub *cub, t_ray *ray, t_light *light, int flag)
 			//printf("%p\n", cub->chunk[ray->my][ray->mx]);
 			//printf("=========================\n");
 			if (flag)
-				cub->chunk[ray->my][ray->mx][light->id - 1] = light->id;
+			{
+				ray->hray = dist(light->x , light->y, ray->rx, ray->ry);
+				if (ray->hray <= 320)
+					cub->chunk[ray->my][ray->mx][light->id - 1] = light->id;
+			}
 			if (check_valid(cub->exp[ray->my][ray->mx], "12"))
 			{
 				if (cub->exp[ray->my][ray->mx] == '2')

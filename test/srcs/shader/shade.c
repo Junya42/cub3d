@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 05:13:38 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 01:19:46 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/19 22:52:36 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,29 +47,29 @@ unsigned int addshade(unsigned int color, float shader)
 
 unsigned int colorize(unsigned int base, float shader, float dim, int color)
 {
-	if (color == SHADE)
+	if (color == LSHADE)
 		return (shade(base, shader));
 	base = shade(base, dim);
-	if (color == RED)
+	if (color == LRED)
 	{
 		base = green(base, shader);
 		base = blue(base, shader);
 	}
-	else if (color == GREEN)
+	else if (color == LGREEN)
 	{
 		base = red(base, shader);
 		base = blue(base, shader);
 	}
-	else if (color == BLUE)
+	else if (color == LBLUE)
 	{
 		base = red(base, shader);
 		base = green(base, shader);
 	}
-	else if (color == CYAN)
+	else if (color == LCYAN)
 		return (red(base, shader));
-	else if (color == PURPLE)
+	else if (color == LPURPLE)
 		return (green(base, shader));
-	else if (color == YELLOW)
+	else if (color == LYELLOW)
 		return (blue(base, shader));
 	return (base);
 }

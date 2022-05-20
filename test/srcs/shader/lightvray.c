@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:14:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 13:57:14 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/20 13:36:49 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ void	light_vertical(t_cub *cub, t_ray *ray, t_light *light, int flag)
 					ray->my > -1)
 		{
 			if (flag)
-				cub->chunk[ray->my][ray->mx][light->id - 1] = light->id;
+			{
+				ray->vray = dist(light->x , light->y, ray->rx, ray->ry);
+				if (ray->vray <= 320)
+					cub->chunk[ray->my][ray->mx][light->id - 1] = light->id;
+			}
 			if (check_valid(cub->exp[ray->my][ray->mx], "12"))
 			{
 				if (cub->exp[ray->my][ray->mx] == '2')
