@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/21 13:00:25 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/22 13:46:44 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ int				txt_light_cyan(t_sp *sp, t_cub *cub);
 int				txt_light_purple(t_sp *sp, t_cub *cub);
 int				txt_light_yellow(t_sp *sp, t_cub *cub);
 int	            choose_sprite_texture(t_sp *sp, t_cub *cub);
-void			sprite_casting(t_cub *cub);
+void			sprite_casting(t_cub *cub, t_light *light);
 void			print_sprite(t_cub *cub, t_csp *s);
 int	            choose_sprite_texture(t_sp *sp, t_cub *cub);
 int	            choose_light_texture(t_sp *sp, t_cub *cub);

@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/21 12:35:41 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/22 13:50:10 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -319,6 +319,7 @@ typedef struct s_cub
 	Mix_Chunk		*teleportation;
 	Mix_Chunk		*foot_steps[4];
 	Mix_Music		*opening_theme;
+	int				id;
 	int				closed;
 	int				debug;
 	int				sp_error;
@@ -357,6 +358,7 @@ typedef struct s_cub
 	float			sin;
 	float			cos;
 	float			z;
+	float			blocked;
 	double			h;
 	double			xplane;
 	double			yplane;

@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:39:55 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/22 13:01:05 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/22 13:55:23 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,11 @@ void	hray(t_cub *cub, t_ray *ray)
 		ray->yo = 64;
 		ray->xo = -ray->yo * ray->contan;
 	}
-	if (cub->debug && ray->r == NRAY / 2)
+	/*if (cub->debug && ray->r == NRAY / 2)
 	{
 		printf("HDIR = %d\n", ray->hdir);
 		printf("hrx = %lf\n", ray->rx);
 		printf("hry = %lf\n", ray->ry);
-	}
+	}*/
 	dda_horizon(cub, ray);
 }

@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 02:06:07 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/20 16:39:31 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/22 14:15:14 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,30 @@ static inline void sort_sprite(t_sp *sp, t_cub *cub)
 	}
 }
 
-void    sprite_casting(t_cub *cub)
+void	get_sound_id(t_cub *cub, t_light *lights, int x, int y)
 {
-	int		i;
+	int	i;
 
 	i = 0;
+	while (i < cub->lights)
+	{
+		if (lights[i].x == x && lights[i].y == y)
+			break ;
+		i++;
+	}
+	cub->id = lights[i].id;
+	cub->ray->rx = (int)cub->x;
+	cub->ray->ry = (int)cub->y;
+	light(cub, lights, cub->ray, cub->chunk);
+}
+
+void    sprite_casting(t_cub *cub, t_light *light)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
 	while (i < cub->nb_sprites)
 	{
 		init_sprite_var(cub, &cub->sp[i].csp, i);
@@ -91,8 +110,11 @@ void    sprite_casting(t_cub *cub)
 	i = 0;
 	while (i < cub->nb_sprites)
 	{
+		if (cub->sp[i].csp.type == LIGHT)
+			j = i;
 		if (cub->sp[i].csp.sx > -HRES  && cub->sp[i].csp.sx < HRES)
 			print_sprite(cub, &cub->sp[i].csp);
 		i++;
 	}
+	get_sound_id(cub, light, cub->sp[j].x, cub->sp[j].y);
 }

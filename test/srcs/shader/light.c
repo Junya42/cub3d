@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 00:20:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/21 12:48:15 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/22 14:16:42 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,14 @@ int	light(t_cub *cub, t_light *light, t_ray *ray, int ***matrix)
 {
 	t_lightmath	math;
 
+	cub->blocked = 1.5;
 	init_lightmath(cub, ray, &math);
 	if (ray->rx >= 0 && ray->ry >= 0 && ray->rx < cub->ex && ray->ry < cub->ey)
 	{
 		while (math.i < cub->lights)
 		{
+			if (light[math.i].id == cub->id)
+				cub->blocked = 1;
 			if (matrix[(int)ray->ry][(int)ray->rx][math.i] > 0)
 			{
 				math.dx = ray->rx - light[math.i].x;
