@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 12:00:19 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/17 13:23:34 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/21 11:33:46 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,6 @@
 
 void	horizontal_slide(char **exp, float x, float y, t_player *player)
 {
-/*	int	xo;
-	int	yo;
-
-	xo = 20;
-	yo = 20;
-	if (player->dx < 0)
-		xo = -20;
-	if (player->dy < 0)
-		yo = -20;
-	if (!check_valid(exp[(int)player->y][(int)player->x + xo], HITBOX))
-		player->x = x;
-	if (!check_valid(exp[(int)player->y + yo][(int)player->x + xo], HITBOX))
-		player->y = y;
-		*/
 	if (!check_valid(exp[(int)player->y][(int)x], HITBOX))
 		player->x = x;
 	if (!check_valid(exp[(int)y][(int)x], HITBOX))
@@ -36,20 +22,6 @@ void	horizontal_slide(char **exp, float x, float y, t_player *player)
 
 void	vertical_slide(char **exp, float x, float y, t_player *player)
 {
-	/*int	xo;
-	int	yo;
-
-	xo = 20;
-	yo = 20;
-	if (player->dx < 0)
-		xo = -20;
-	if (player->dy < 0)
-		yo = -20;
-	if (!check_valid(exp[(int)player->y + yo][(int)player->x], HITBOX))
-		player->y = y;
-	if (!check_valid(exp[(int)player->y + yo][(int)player->x + xo], HITBOX))
-		player->x = x;
-		*/
 	if (!check_valid(exp[(int)y][(int)player->x], HITBOX))
 		player->y = y;
 	if (!check_valid(exp[(int)y][(int)x], HITBOX))
@@ -87,7 +59,7 @@ void	cross_doors(t_cub *cub, float x, float y, t_player *player)
 	}
 	else if (cub->degree == 4)
 	{
-		if (((int)x % 64) - (int)cub->door < 0) 
+		if (((int)x % 64) - (int)cub->door < 0)
 			check = 1;
 	}
 	update_x_y(player, x, y, check);
@@ -109,6 +81,6 @@ void	slide(t_cub *cub, float x, float y, char **exp)
 		return ;
 	}
 	horizontal_slide(exp, x, y, player);
-	if(player->x == ox && player->y == oy)
+	if (player->x == ox && player->y == oy)
 		vertical_slide(exp, x, y, player);
 }

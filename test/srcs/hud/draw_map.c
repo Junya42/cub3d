@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:10:22 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/22 07:05:15 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/21 12:14:19 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	get_new_value(int n)
 	return (n);
 }
 
-unsigned int get_mapcolor(char c)
+unsigned int	get_mapcolor(char c)
 {
 	if (c == '0')
 		return (42);

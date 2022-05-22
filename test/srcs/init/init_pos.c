@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:05:01 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/09 12:05:40 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/21 12:19:13 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,10 @@ void	get_angle(t_cub *cub, char dir)
 		cub->a = 4.71238;
 }
 
-void    get_map_xy(char **map, t_cub *cub)
+void	find_nsew(char **map, int x, int y, t_cub *cub)
 {
-	int     y;
-	int     x;
-	int     max;
+	int	max;
 
-	y = 0;
-	x = 0;
 	max = 0;
 	while (map[y])
 	{
@@ -54,4 +50,9 @@ void    get_map_xy(char **map, t_cub *cub)
 	}
 	cub->mx = max;
 	cub->my = y;
+}
+
+void	get_map_xy(char **map, t_cub *cub)
+{
+	find_nsew(map, 0, 0, cub);
 }

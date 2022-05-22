@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/20 12:28:04 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/21 12:35:41 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,26 @@ typedef struct s_text
 	int		a;
 	int		b;
 }			t_text;
+
+typedef struct s_exp
+{
+	char	**exp;
+	int		xcurs;
+	int		ycurs;
+	int		ex;
+	int		ey;
+}			t_exp;
+
+typedef	struct s_matrix
+{
+	int	***matrix;
+	int	i;
+	int	j;
+	int	k;
+	int	a;
+	int	b;
+	int	c;
+}			t_matrix;
 
 typedef struct s_csp
 {

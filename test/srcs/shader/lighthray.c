@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 16:45:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/20 13:37:00 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/21 12:27:10 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,12 @@ void	light_horizon(t_cub *cub, t_ray *ray, t_light *light, int flag)
 	{
 		ray->mx = (int)ray->rx;
 		ray->my = (int)ray->ry;
-		if (ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1 &&
-					ray->my > -1)
+		if (ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1
+			&& ray->my > -1)
 		{
-			//printf("\ny = %d\nx = %d\nindex = %d\n", ray->my, ray->mx, light->id - 1);
-			//printf("=========================\n");
-			//printf("%p\n", cub->chunk[ray->my][ray->mx]);
-			//printf("=========================\n");
 			if (flag)
 			{
-				ray->hray = dist(light->x , light->y, ray->rx, ray->ry);
+				ray->hray = dist(light->x, light->y, ray->rx, ray->ry);
 				if (ray->hray <= 320)
 					cub->chunk[ray->my][ray->mx][light->id - 1] = light->id;
 			}
@@ -37,7 +33,7 @@ void	light_horizon(t_cub *cub, t_ray *ray, t_light *light, int flag)
 					ray->hdir += 2;
 				ray->hx = ray->rx;
 				ray->hy = ray->ry;
-				ray->hray = dist(light->x , light->y, ray->hx, ray->hy);
+				ray->hray = dist(light->x, light->y, ray->hx, ray->hy);
 				break ;
 			}
 		}

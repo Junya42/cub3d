@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:09 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/12 01:47:07 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/21 12:50:38 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ unsigned int	pxl_skybox(t_cub *cub, int x, int y, int i)
 	if (y < 0)
 		y = 0;
 	size = (int)(y * ptr[i].size + x * (ptr[i].bpp / 8));
-	//if (size < 0 || y >= 1280)
 	if (size < 0 || y >= ptr[i].b)
 		return (0xffffff);
 	tmp = ptr[i].addr + size;
@@ -39,23 +38,13 @@ void	skybox(t_cub *cub, t_ray *ray)
 	ray->i = 0;
 	fix_nra = 0;
 	ra_to_pxl = secure_radians(ray->ra, cub->scroll) * 721;
-	//ra_to_pxl = ray->ra * 1024;
-	float	ra_back = secure_radians(ray->ra, 170 * PI / 180);
-	ra_back = secure_radians(ra_back, 0) * 721;
 	if (ra_to_pxl >= cub->text[7].b)
 		fix_nra = 1;
 	while (ray->i < ray->offset)
 	{
-		//ra_to_pxl = ray->ra * (180 / PI);
 		if (!fix_nra)
-			cub->scolor = pxl_skybox(cub, ray->i + HALFVRES + cub->z, (int)ra_to_pxl, 7);
-		//else
-		//	cub->scolor = pxl_skybox(cub, ray->i, (int)ra_back, 7);
-		if (cub->scolor == 0xffffff)
-		{
-	//		printf("rapxl = %f\n", ra_to_pxl);
-		//	break;
-		}
+			cub->scolor = pxl_skybox(cub, ray->i + HALFVRES + cub->z,
+					(int)ra_to_pxl, 7);
 		pxl_to_ray(cub, ray->nr, ray->i, cub->scolor);
 		ray->i++;
 	}

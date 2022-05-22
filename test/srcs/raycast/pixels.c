@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:11:43 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/28 22:27:09 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/21 13:07:50 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ unsigned int	pxl_from_img(t_cub *cub, int x, int y, int i)
 	else
 	{
 		size = (int)(y * ptr[i].size + x * (ptr[i].bpp / 8));
-		if (size < 0 || size >= 1228800) //ptr[i].res
+		if (size < 0 || size >= 1228800)
 			return (0xffffff);
 		tmp = ptr[i].addr + size;
 	}

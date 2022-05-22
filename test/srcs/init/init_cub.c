@@ -6,15 +6,15 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:58:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/15 12:11:49 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/21 12:25:31 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-t_ray *alloc_ray(void)
+t_ray	*alloc_ray(void)
 {
-	t_ray *ray;
+	t_ray	*ray;
 
 	ray = (t_ray *)malloc(sizeof(t_ray));
 	if (!ray)
@@ -23,9 +23,9 @@ t_ray *alloc_ray(void)
 	return (ray);
 }
 
-t_player *alloc_player(t_cub *cub)
+t_player	*alloc_player(t_cub *cub)
 {
-	t_player *player;
+	t_player	*player;
 
 	player = (t_player *)malloc(sizeof(t_player));
 	if (!player)

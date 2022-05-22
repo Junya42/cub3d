@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 00:20:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/20 13:05:10 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/21 12:48:15 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 float	fix_shade(float sz, float dist)
 {
-	float shade;
-	float max;
-	
+	float	shade;
+	float	max;
+
 	shade = (1.0f / 320) * (320 - dist * sz);
 	max = (1.0f / 320) * (320 - dist);
 	if (shade > max)
@@ -45,8 +45,6 @@ int	add_colors(t_cub *cub, t_ray *ray, int count)
 		cub->hue = LRED;
 	else if (cub->hue == LCYAN + LYELLOW)
 		cub->hue = LGREEN;
-	//if (count > 2)
-		//cub->hue = LSHADE;
 	return (count);
 }
 
@@ -82,12 +80,6 @@ int	light(t_cub *cub, t_light *light, t_ray *ray, int ***matrix)
 			}
 			math.i++;
 		}
-	}
-	if (cub->debug)
-	{
-		if ((int)cub->x / 64 == (int)ray->rx / 64)
-			if ((int)cub->y / 64 == (int)ray->ry / 64)
-				printf("count = %d\n", math.count);
 	}
 	return (add_colors(cub, ray, math.count));
 }

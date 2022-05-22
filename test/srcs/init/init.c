@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 03:11:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/17 10:58:37 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/21 12:15:23 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ int	load_game(t_cub *cub, t_parse *parse, char **av)
 	return (1);
 }
 
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_cub	cub;
 	t_parse	parse;
 
 	if (ac != 2)
 		return (printf("\033[1;31mError\033[0m - Usage "
-			": ./cub3d_bonus map_name\n"));
+				": ./cub3d_bonus map_name\n"));
 	if (load_game(&cub, &parse, av) == 0)
 		return (1);
 	launch_game_loop(&cub);

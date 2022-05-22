@@ -3,42 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   matrix.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/01 18:25:29 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/10 11:54:11 by cmarouf          ###   ########.fr       */
+/*   Created: 2022/05/21 12:42:03 by anremiki          #+#    #+#             */
+/*   Updated: 2022/05/21 12:45:06 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-void	free_matrix(int ***matrix, int b, int c)
-{
-	int	i;
-	int	j;
-
-	printf("free matrix\n");
-	if (matrix)
-	{
-		i = 0;
-		while (i < b)
-		{
-			j = 0;
-			if (matrix[i])
-			{
-				while (j < c)
-				{
-					if (matrix[i][j])
-						free(matrix[i][j]);
-					j++;
-				}
-				free(matrix[i]);
-			}
-			i++;
-		}
-		free(matrix);
-	}
-}
 
 int	**allocate_sub_matrix(int ***matrix, int b, int c)
 {
@@ -51,7 +23,6 @@ int	**allocate_sub_matrix(int ***matrix, int b, int c)
 		free_matrix(matrix, b, c);
 		return (NULL);
 	}
-//	tmp = ft_memset(tmp, 49, b);
 	return (tmp);
 }
 
@@ -66,54 +37,66 @@ int	*allocate_last_matrix(int ***matrix, int b, int c)
 		free_matrix(matrix, b, c);
 		return (NULL);
 	}
-//	tmp = ft_memset(tmp, 49, c);
 	return (tmp);
+}
+
+int	init_matrix(t_matrix *m, int a, int b, int c)
+{
+	m->matrix = (int ***)malloc(sizeof(int **) * a);
+	if (!m->matrix)
+	{
+		printf("Matrix Malloc failure\n");
+		return (0);
+	}
+	m->i = 0;
+	m->j = 0;
+	m->a = a;
+	m->b = b;
+	m->c = c;
+	return (1);
+}
+
+void	fill_matrix(t_matrix *m)
+{
+	m->i = 0;
+	while (m->i < m->a)
+	{
+		m->j = 0;
+		while (m->j < m->b)
+		{
+			m->k = 0;
+			while (m->k < m->c)
+			{
+				m->matrix[m->i][m->j][m->k] = 0;
+				m->k++;
+			}
+			m->j++;
+		}
+		m->i++;
+	}
 }
 
 int	***allocate_matrix(int a, int b, int c)
 {
-	int	***matrix;
-	int		i;
-	int		j;
+	t_matrix	m;
 
-	matrix = (int ***)malloc(sizeof(int **) * a);
-	if (!matrix)
-	{
-		printf("Matrix malloc failure\n");
+	if (!init_matrix(&m, a, b, c))
 		return (NULL);
-	}
-	//matrix = ft_memset(matrix, 0, a);
-	i = 0;
-	j = 0;
-	while (i < a)
+	while (m.i < a)
 	{
-		matrix[i] = allocate_sub_matrix(matrix, b, c);
-		if (!matrix[i])
+		m.matrix[m.i] = allocate_sub_matrix(m.matrix, b, c);
+		if (!m.matrix[m.i])
+			return (err_matrix("Sub Matrix malloc failure"));
+		m.j = 0;
+		while (m.j < b)
 		{
-			printf("Sub Matrix malloc failure\n");
-			return (NULL);
+			m.matrix[m.i][m.j] = allocate_last_matrix(m.matrix, b, c);
+			if (!m.matrix[m.i][m.j])
+				return (err_matrix("Last Matrix malloc failure"));
+			m.j++;
 		}
-		j = 0;
-		while (j < b)
-		{
-			matrix[i][j] = allocate_last_matrix(matrix, b, c);
-			if (!matrix[i][j])
-			{
-				printf("Last Matrix malloc failure\n");
-				return (NULL);
-			}
-			j++;
-		}
-		i++;
+		m.i++;
 	}
-	for (i = 0; i < a; i++)
-	{
-		for (j = 0; j < b; j++)
-		{
-			for (int k = 0; k < c; k++)
-				matrix[i][j][k] = 0;
-		}
-	}
-	printf("matrix allocation success\n");
-	return (matrix);
+	fill_matrix(&m);
+	return (m.matrix);
 }

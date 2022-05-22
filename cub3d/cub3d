@@ -1,4 +1,0 @@
-#! /bin/sh
-xset r rate 30
-./exec/cub3d $1 $2 $3 $4 $5
-xset r rate 500

@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 00:47:38 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/19 22:45:31 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/21 12:45:30 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	assign_color(int color)
 	else if (color == GREEN)
 		return (LGREEN);
 	else if (color == BLUE)
-		return (LBLUE );
+		return (LBLUE);
 	else if (color == CYAN)
 		return (LCYAN);
 	else if (color == PURPLE)

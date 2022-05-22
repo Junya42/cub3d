@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 01:30:53 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/15 13:51:42 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/21 12:15:54 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	addr(t_cub *cub, t_text *t, char *(*add)(void *, int *, int *, int *))
 	return (1);
 }
 
-int	imgs(t_parse *p, t_cub *cub, t_text *t, void *(*xpm)(void *, char *, int *, int *))
+int	imgs(t_parse *p, t_cub *cub, t_text *t,
+		void *(*xpm)(void *, char *, int *, int *))
 {
 	int	i;
 

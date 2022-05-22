@@ -6,17 +6,16 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 05:13:38 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/19 22:52:36 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/21 12:46:58 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-
-unsigned int shade(unsigned int color, float shader)
+unsigned int	shade(unsigned int color, float shader)
 {
-	int r;
-	int g;
+	int	r;
+	int	g;
 	int	b;
 
 	if (shader < 0)
@@ -29,10 +28,10 @@ unsigned int shade(unsigned int color, float shader)
 	return ((0xff << 24) | ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff));
 }
 
-unsigned int addshade(unsigned int color, float shader)
+unsigned int	addshade(unsigned int color, float shader)
 {
-	int r;
-	int g;
+	int	r;
+	int	g;
 	int	b;
 
 	if (shader < 0)
@@ -45,7 +44,7 @@ unsigned int addshade(unsigned int color, float shader)
 	return ((0xff << 24) | ((r & 0xff) << 16) | ((g & 0xff) << 8) | (b & 0xff));
 }
 
-unsigned int colorize(unsigned int base, float shader, float dim, int color)
+unsigned int	colorize(unsigned int base, float shader, float dim, int color)
 {
 	if (color == LSHADE)
 		return (shade(base, shader));

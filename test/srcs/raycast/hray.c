@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:39:55 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/18 01:35:10 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/21 13:06:30 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ unsigned int	horizon_texture(t_cub *cub, t_ray *ray, int dir)
 {
 	float	s;
 
-	s = ray->shadow;
 	if (cub->glass)
 		return (horizon_door_txt(cub, ray, dir));
 	if (dir == 1)
@@ -42,7 +41,6 @@ unsigned int	horizon_texture(t_cub *cub, t_ray *ray, int dir)
 		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->top, 8)));
 	if (dir == 6)
 		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->bot, 8)));
-	(void)s;
 	return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->bot, 4)));
 }
 
@@ -53,44 +51,9 @@ void	dda_horizon(t_cub *cub, t_ray *ray)
 	{
 		ray->mx = (int)ray->rx;
 		ray->my = (int)ray->ry;
-		if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1 &&
-					ray->my > -1) && check_valid(cub->exp[ray->my][ray->mx],
-						"3"))
-		{
-			if (ray->hdir == 1)
-			{
-				if (ray->mx % 64 < 32)
-				{
-					//ray->rx = ray->rx + (ray->mx % 64);
-					ray->ry = ray->ry + ray->xo / 64 * (32 - ray->mx % 64);
-				}
-				else
-				{
-					//ray->rx = ray->rx + (ray->mx % 64 - 32);
-					ray->ry = ray->ry + ray->xo / 64 * (ray->mx % 64 - 32);
-				}
-			}
-			else
-			{
-				if (64 - ray->mx % 64 < 32)
-				{
-					//ray->rx = ray->rx + (32 - (64 - ray->mx % 64));
-					ray->ry = ray->ry + ray->xo / 64 * (32 - (64 - ray->mx % 64));
-				}
-				else
-				{
-					//ray->rx = ray->rx + (64 - ray->mx % 64 - 32);
-					ray->ry = ray->ry + ray->xo / 64 * (64 - ray->mx % 64 - 32);
-				}
-			}
-			ray->hx = ray->rx;
-			ray->hy = ray->ry;
-			ray->hray = dist(cub->x , cub->y, ray->hx, ray->hy);
-			break ;
-		}
-		if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1 &&
-					ray->my > -1) && check_valid(cub->exp[ray->my][ray->mx],
-						" "))
+		if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1
+				&& ray->my > -1) && check_valid(cub->exp[ray->my]
+				[ray->mx], " "))
 		{
 			ray->rx += ray->xo / 2;
 			ray->ry += ray->yo / 2;
@@ -99,7 +62,7 @@ void	dda_horizon(t_cub *cub, t_ray *ray)
 				cub->hglass = 1;
 				ray->hx = ray->rx;
 				ray->hy = ray->ry;
-				ray->hray = dist(cub->x , cub->y, ray->hx, ray->hy);
+				ray->hray = dist(cub->x, cub->y, ray->hx, ray->hy);
 				break ;
 			}
 			if (64 - ((int)ray->rx % 64 + (int)cub->door) > 0 && ray->hdir == 2)
@@ -107,21 +70,21 @@ void	dda_horizon(t_cub *cub, t_ray *ray)
 				cub->hglass = 1;
 				ray->hx = ray->rx;
 				ray->hy = ray->ry;
-				ray->hray = dist(cub->x , cub->y, ray->hx, ray->hy);
+				ray->hray = dist(cub->x, cub->y, ray->hx, ray->hy);
 				break ;
 			}
 			ray->rx -= ray->xo / 2;
 			ray->ry -= ray->yo / 2;
 		}
-		if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1 &&
-					ray->my > -1) && check_valid(cub->exp[ray->my][ray->mx],
-						"12"))
+		if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1
+				&& ray->my > -1) && check_valid(cub->exp[ray->my]
+				[ray->mx], "12"))
 		{
 			if (cub->exp[ray->my][ray->mx] == '2')
 				ray->hdir += 2;
 			ray->hx = ray->rx;
 			ray->hy = ray->ry;
-			ray->hray = dist(cub->x , cub->y, ray->hx, ray->hy);
+			ray->hray = dist(cub->x, cub->y, ray->hx, ray->hy);
 			break ;
 		}
 		ray->rx += ray->xo;

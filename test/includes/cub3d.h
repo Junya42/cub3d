@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/18 12:03:55 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/21 13:00:25 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	            quit(t_cub *cub);
 /*	----------Chunks------------	*/
 
 void			free_matrix(int ***matrix, int b, int c);
+int				***err_matrix(char *error);
 int				***allocate_matrix(int a, int b, int c);
 void			lighthray(t_cub *cub, t_light *light, t_ray *ray, int flag);
 void			lightvray(t_cub *cub, t_light *light, t_ray *ray, int flag);
@@ -95,6 +96,14 @@ int             close_game(t_cub *cub, t_parse *parse);
 
 int				create_imgs(t_cub *cub, t_parse *parse);
 void			destroy_imgs(t_cub *cub, t_text *imgs);
+
+/*	----------Animation----------	*/
+
+void			jump(t_cub *cub);
+void			floating(t_cub *cub);
+void			animation(t_cub *cub);
+int				proximity(t_cub *cub, int x, int y, int dir);
+void			open_door(t_cub *cub, int adj);
 
 /*	----------utils--------------	*/
 /*	MATHS	*/
@@ -158,6 +167,7 @@ int	            choose_light_texture(t_sp *sp, t_cub *cub);
 
 /*	----------Sound-------------	*/
 int	    init_audio(t_cub *cub, int i);
+void	foot_steps(t_cub *cub, t_player *player);
 
 /*	----------Minimap-------------	*/
 
@@ -175,6 +185,12 @@ void			skybox(t_cub *cub, t_ray *ray);
 void			floorcast(t_cub *cub, t_ray *ray);
 void			display(t_cub *cub, int draw);
 void			raycast(t_cub *cub, t_ray *ray, int draw);
+
+/*	--------FloorxCeil--------------	*/
+
+void			ceiling(t_cub *cub, t_ray *ray);
+void			glass(t_cub *cub, float x, float y, float lvl);
+void			init_floorcast(t_cub *cub, t_ray *ray, t_cast *c);
 
 /*	----------Input-----------------	*/
 

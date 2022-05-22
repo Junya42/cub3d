@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/19 22:49:49 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/21 13:07:24 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,23 +85,15 @@ int	dda(t_cub *cub, t_ray *ray)
 	if (ray->raycast > VRES)
 	{
 		ray->off_px = (ray->raycast - VRES) / 2;
-		//if (ray->r == NRAY / 2 && cub->z != 0)
-		//	printf("off_px = %f\n", ray->off_px);
 		ray->raycast = VRES;
 	}
-	//ray->diff -= ray->raycast;
 	ray->offset = ((HALFVRES - cub->z) - (ray->raycast) * (0.75 - cub->h));
 	return (light(cub, cub->light, ray, cub->chunk));
 }
 
 void	raycast(t_cub *cub, t_ray *ray, int draw)
 {
-	//(void)draw;
-	cub->debug = 0;
-	if (draw)
-		cub->debug = 1;
 	init_ray(cub, ray);
-	//mlx_put_image_to_window(cub->mlx, cub->win, cub->text[0].img, 0, 0);
 	int	flag = 0;
 	while (ray->r < NRAY)
 	{
@@ -112,40 +104,16 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 		flag = dda(cub, ray);
 		dda_texture(ray);
 		float scale;
-		//if (ray->shadow == 0)
-		//	scale = 0;
-		//else
 		scale = ray->shadow / ray->raycast;
 		float	dim = 0;
 		int		lever = 0;
-		if (ray->r == NRAY / 2 && draw)
-		{
-			printf("Dist Horizontal = %f\n", ray->hray);
-			printf("Dist Vertical = %f\n", ray->vray);
-			if (ray->diff == ray->hray)
-				printf("Horizontal rendering\n");
-			else
-				printf("Vertical rendering\n");
-		}
 		while (ray->i < ray->raycast)
 		{
 			ray->color = case_texture(cub, ray);
 			if (flag == 0)
-			{
 				ray->color = shade(ray->color, MINLIGHT);
-			}
 			else
-			{
-				//if (dim <= 0.1)
-				//	ray->color = shade(ray->color, dim);
-				/*if (flag == 1)
-					ray->color = colorize(ray->color, ray->shadow, dim, PURPLE);
-				else if (flag == 2)
-					ray->color = colorize(ray->color, ray->shadow, dim, CYAN);
-				else if (flag == 3)
-					ray->color = colorize(ray->color, ray->shadow, dim, YELLOW);*/
 				ray->color = colorize(ray->color, ray->shadow, dim, cub->hue);
-			}
 			float	ra_sky = secure_radians(ray->ra, cub->scroll) * 721;
 			if (!adjacent_exp(cub, (int)ray->rx, (int)ray->ry, 32))
 				if (ra_sky < cub->text[7].b)
@@ -160,12 +128,9 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 			else
 				dim += scale;
 		}
-		(void)lever;
-		//(void)dim;
 		skybox(cub, ray);
 		floorcast(cub, ray);
 		ray->ra = secure_radians(ray->ra, ray->dra);
 		ray->r++;
 	}
-	//display(cub, draw);
 }

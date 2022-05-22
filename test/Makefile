@@ -6,7 +6,7 @@
 #    By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 19:16:48 by anremiki          #+#    #+#              #
-#    Updated: 2022/05/18 11:58:17 by cmarouf          ###   ########.fr        #
+#    Updated: 2022/05/21 13:00:57 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,13 +15,14 @@ SRCS = ./srcs/parsing/check_data.c ./srcs/parsing/check_map.c \
 	   ./srcs/parsing/parsing_map.c ./srcs/parsing/parsing_utils_1.c \
 	   ./srcs/parsing/init_parsing.c ./srcs/parsing/parsing_utils_2.c \
 	   ./srcs/utils/utils_1.c ./srcs/parsing/utils_1.c \
-	   ./srcs/shader/chunks.c ./srcs/shader/matrix.c \
+	   ./srcs/shader/chunks.c \
+	   ./srcs/shader/matrix_utils.c ./srcs/shader/matrix.c \
 	   ./srcs/shader/lighthray.c ./srcs/shader/lightvray.c \
 	   ./srcs/shader/chunkcasting.c ./srcs/shader/light.c \
-	   ./srcs/init/init_cub.c \
+	   ./srcs/init/init_cub.c ./srcs/animation/animate.c \
 	   ./srcs/hud/draw_map.c ./srcs/hud/draw_player.c \
 	   ./srcs/init/init.c ./srcs/init/textures.c \
-	   ./srcs/input/collision.c \
+	   ./srcs/input/collision.c ./srcs/input/hitbox.c \
 	   ./srcs/input/key_handle.c ./srcs/input/mouse.c \
 	   ./srcs/input/release.c ./srcs/input/anti_ghosting.c \
 	   ./srcs/input/input.c \
@@ -31,6 +32,7 @@ SRCS = ./srcs/parsing/check_data.c ./srcs/parsing/check_map.c \
 	   ./srcs/shader/colors.c ./srcs/shader/shade.c \
 	   ./srcs/raycast/init_ray.c ./srcs/raycast/hray.c \
 	   ./srcs/raycast/vray.c ./srcs/raycast/pixels.c \
+	   ./srcs/raycast/floor_ceil.c \
 	   ./srcs/raycast/floorcast.c ./srcs/raycast/skybox.c \
 	   ./srcs/raycast/raycast.c ./srcs/raycast/display.c \
 	   ./srcs/sprites/init_sprites.c ./srcs/sprites/sprites_casting.c \

@@ -6,13 +6,13 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 12:26:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/15 12:29:04 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/21 11:49:35 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-float degree_convert(float angle)
+float	degree_convert(float angle)
 {
 	return (angle * 180 / PI);
 }

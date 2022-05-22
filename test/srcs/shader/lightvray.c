@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:14:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/20 13:36:49 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/21 12:27:48 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	light_vertical(t_cub *cub, t_ray *ray, t_light *light, int flag)
 	{
 		ray->mx = (int)ray->rx;
 		ray->my = (int)ray->ry;
-		if (ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1 &&
-					ray->my > -1)
+		if (ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1
+			&& ray->my > -1)
 		{
 			if (flag)
 			{
-				ray->vray = dist(light->x , light->y, ray->rx, ray->ry);
+				ray->vray = dist(light->x, light->y, ray->rx, ray->ry);
 				if (ray->vray <= 320)
 					cub->chunk[ray->my][ray->mx][light->id - 1] = light->id;
 			}
@@ -33,7 +33,7 @@ void	light_vertical(t_cub *cub, t_ray *ray, t_light *light, int flag)
 					ray->hdir += 2;
 				ray->vx = ray->rx;
 				ray->vy = ray->ry;
-				ray->vray = dist(light->x , light->y, ray->vx, ray->vy);
+				ray->vray = dist(light->x, light->y, ray->vx, ray->vy);
 				break ;
 			}
 		}
@@ -61,8 +61,6 @@ void	lightvray(t_cub *cub, t_light *light, t_ray *ray, int flag)
 			ray->ry = light->y;
 			ray->rx = light->x;
 		}
-		//ray->ry = ray->npy - 0.0001;
-		//ray->rx = (light->y - ray->ry) * ray->contan + light->x;
 		ray->xo = -64;
 		ray->yo = -ray->xo * ray->ntan;
 		if (flag)
@@ -81,8 +79,6 @@ void	lightvray(t_cub *cub, t_light *light, t_ray *ray, int flag)
 			ray->ry = light->y;
 			ray->rx = light->x;
 		}
-		//ray->ry = ray->npy + 64;
-		//ray->rx = (light->y - ray->ry) * ray->contan + light->x;
 		ray->xo = 64;
 		ray->yo = -ray->xo * ray->ntan;
 		if (flag)
