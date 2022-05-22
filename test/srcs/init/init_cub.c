@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:58:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/21 12:25:31 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/22 15:34:39 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ int	alloc_stuff(t_cub *cub)
 	cub->ray = NULL;
 	cub->player = alloc_player(cub);
 	cub->ray = alloc_ray();
+	cub->id = -1;
+	cub->sp_dist = 250;
 	if (!cub->player || !cub->ray)
 	{
 		if (cub->player)

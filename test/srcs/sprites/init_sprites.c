@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 02:06:07 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/22 14:29:20 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/22 15:38:54 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	get_sound_id(t_cub *cub, t_light *lights, float x, float y)
 	cub->id = lights[i].id;
 	cub->ray->rx = (int)cub->x;
 	cub->ray->ry = (int)cub->y;
+	cub->blocked = 1.5;
 	light(cub, lights, cub->ray, cub->chunk);
 }
 

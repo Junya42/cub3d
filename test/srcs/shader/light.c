@@ -6,17 +6,19 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 00:20:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/22 14:31:09 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/22 15:43:26 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-float	fix_shade(float sz, float dist)
+float	fix_shade(float sz, float dist, t_cub *cub, int id)
 {
 	float	shade;
 	float	max;
 
+	if (cub->id == id)
+		cub->blocked = 1;
 	shade = (1.0f / 320) * (320 - dist * sz);
 	max = (1.0f / 320) * (320 - dist);
 	if (shade > max)
@@ -48,41 +50,38 @@ int	add_colors(t_cub *cub, t_ray *ray, int count)
 	return (count);
 }
 
-void	init_lightmath(t_cub *cub, t_ray *ray, t_lightmath *math)
+void	init_lightmath(t_cub *cub, t_ray *ray, t_lightmath *m)
 {
-	math->i = 0;
+	m->i = 0;
 	ray->shadow = 0;
-	math->count = 0;
+	m->count = 0;
 	cub->hue = 0;
 }
 
 int	light(t_cub *cub, t_light *light, t_ray *ray, int ***matrix)
 {
-	t_lightmath	math;
+	t_lightmath	m;
 
-	cub->blocked = 1.5;
-	init_lightmath(cub, ray, &math);
+	init_lightmath(cub, ray, &m);
 	if (ray->rx >= 0 && ray->ry >= 0 && ray->rx < cub->ex && ray->ry < cub->ey)
 	{
-		while (math.i < cub->lights)
+		while (m.i < cub->lights)
 		{
-			if (matrix[(int)ray->ry][(int)ray->rx][math.i] > 0)
+			if (matrix[(int)ray->ry][(int)ray->rx][m.i] > 0)
 			{
-				if (light[math.i].id == cub->id)
-					cub->blocked = 1;
-				math.dx = ray->rx - light[math.i].x;
-				math.dy = ray->ry - light[math.i].y;
-				math.dist = sqrt(math.dx * math.dx + math.dy * math.dy);
-				math.shade = fix_shade(cub->sz, math.dist);
-				ray->shadow += math.shade;
-				if (math.shade > 0)
+				m.dx = ray->rx - light[m.i].x;
+				m.dy = ray->ry - light[m.i].y;
+				m.dist = sqrt(m.dx * m.dx + m.dy * m.dy);
+				m.shade = fix_shade(cub->sz, m.dist, cub, light[m.i].id);
+				ray->shadow += m.shade;
+				if (m.shade > 0)
 				{
-					math.count++;
-					cub->hue += light[math.i].color;
+					m.count++;
+					cub->hue += light[m.i].color;
 				}
 			}
-			math.i++;
+			m.i++;
 		}
 	}
-	return (add_colors(cub, ray, math.count));
+	return (add_colors(cub, ray, m.count));
 }
