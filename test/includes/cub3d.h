@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/22 16:16:21 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/22 16:42:57 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int	            check_char_rf(char **map, char *set);
 int	            check_width_height(char *name, char **map, t_parse *p);
 int             check_wrong_placement(char **floor, t_parse *p);
 int	            check_all_rules(t_parse *p, char **rw_map);
+int	            check_door(char **map);
+int	            closed_door(int y, int x, char **map);
 
 /*	----------Init--------------	*/
 

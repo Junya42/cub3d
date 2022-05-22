@@ -6,7 +6,7 @@
 #    By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 19:16:48 by anremiki          #+#    #+#              #
-#    Updated: 2022/05/22 15:55:20 by cmarouf          ###   ########.fr        #
+#    Updated: 2022/05/22 16:38:05 by cmarouf          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ SRCS = ./srcs/parsing/check_data.c ./srcs/parsing/check_map.c \
 	   ./srcs/parsing/gather_data.c ./srcs/parsing/parsing_data.c \
 	   ./srcs/parsing/parsing_map.c ./srcs/parsing/parsing_utils_1.c \
 	   ./srcs/parsing/init_parsing.c ./srcs/parsing/parsing_utils_2.c \
-	   ./srcs/utils/utils_1.c ./srcs/parsing/utils_1.c \
+	   ./srcs/utils/utils_1.c ./srcs/parsing/parsing_utils_3.c \
 	   ./srcs/shader/chunks.c \
 	   ./srcs/shader/matrix_utils.c ./srcs/shader/matrix.c \
 	   ./srcs/shader/lighthray.c ./srcs/shader/lightvray.c \

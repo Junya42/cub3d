@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_1.c                                          :+:      :+:    :+:   */
+/*   parsing_utils_3.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:56:28 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/22 16:04:44 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/22 16:47:14 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,18 @@
 int	fatal_error(char *str)
 {
 	write(STDERR, str, ft_strlen(str));
+	return (EXIT_FAILURE);
+}
+
+int	closed_door(int y, int x, char **map)
+{
+	if (map[y][x - 1] && map[y][x + 1])
+		if (map[y][x + 1] == '1' && map[y][x - 1] == '1')
+			return (EXIT_SUCCESS);
+	if (map[y - 1][x] && map[y + 1][x])
+		if (map[y + 1][x] == '1' && map[y - 1][x] == '1')
+			return (EXIT_SUCCESS);
+	ft_putstr_fd("DOOR IS NOT WELL CLOSED\n", STDERR);
 	return (EXIT_FAILURE);
 }
 

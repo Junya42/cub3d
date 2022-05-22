@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/22 15:53:54 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/22 16:06:08 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/22 16:42:18 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	check_map_rules(t_parse *p, char **map)
 	if (check_char(map, VALID) == 1)
 		return (EXIT_FAILURE);
 	if (check_wall(map) == 1)
+		return (EXIT_FAILURE);
+	if (check_door(map) == 1)
 		return (EXIT_FAILURE);
 	get_height_width(p, map);
 	return (EXIT_SUCCESS);

@@ -6,11 +6,33 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 16:42:19 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/22 16:12:06 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/22 16:42:10 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+int	check_door(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == ' ')
+				if (closed_door(i, j, map) == 1)
+					return (EXIT_FAILURE);
+			j++;
+		}
+		i++;
+	}
+	return (EXIT_SUCCESS);;
+}
 
 int	check_width_height(char *name, char **map, t_parse *p)
 {
