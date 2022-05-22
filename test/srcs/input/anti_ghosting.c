@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:04:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/22 14:16:36 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/22 14:27:03 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ void	update_3d_sound(t_cub *cub, t_player *player)
 	if (cub->mixing >= 4)
 		cub->mixing = 0;
 	cub->curr_time = timestamp();
-	printf("Original Dist value = %d\n", cub->sp_dist);
+	//printf("Original Dist value = %d\n", cub->sp_dist);
 	cub->sp_dist = cub->sp_dist * cub->blocked;
 	if (cub->sp_dist > 250)
 		cub->sp_dist = 250;
 	Mix_SetPosition(1, (int)cub->sp_angle, cub->sp_dist);
-	printf("Dist value = %d\n", cub->sp_dist);
+	//printf("Dist value = %d\n", cub->sp_dist);
 	if (cub->curr_time - cub->time_move >= 300)
 	{
 		if (player->x == cub->lastx && player->y == cub->lasty)

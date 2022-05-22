@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 00:20:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/22 14:16:42 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/22 14:31:09 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ int	light(t_cub *cub, t_light *light, t_ray *ray, int ***matrix)
 	{
 		while (math.i < cub->lights)
 		{
-			if (light[math.i].id == cub->id)
-				cub->blocked = 1;
 			if (matrix[(int)ray->ry][(int)ray->rx][math.i] > 0)
 			{
+				if (light[math.i].id == cub->id)
+					cub->blocked = 1;
 				math.dx = ray->rx - light[math.i].x;
 				math.dy = ray->ry - light[math.i].y;
 				math.dist = sqrt(math.dx * math.dx + math.dy * math.dy);

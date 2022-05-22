@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 02:06:07 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/22 14:15:14 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/22 14:29:20 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static inline void sort_sprite(t_sp *sp, t_cub *cub)
 	}
 }
 
-void	get_sound_id(t_cub *cub, t_light *lights, int x, int y)
+void	get_sound_id(t_cub *cub, t_light *lights, float x, float y)
 {
 	int	i;
 
