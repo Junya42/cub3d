@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:39:55 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/21 13:06:30 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/22 13:01:05 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ unsigned int	horizon_door_txt(t_cub *cub, t_ray *ray, int dir)
 
 unsigned int	horizon_texture(t_cub *cub, t_ray *ray, int dir)
 {
-	float	s;
-
 	if (cub->glass)
 		return (horizon_door_txt(cub, ray, dir));
 	if (dir == 1)

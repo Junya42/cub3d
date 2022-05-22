@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/21 13:07:24 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/22 13:01:17 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int	dda(t_cub *cub, t_ray *ray)
 
 void	raycast(t_cub *cub, t_ray *ray, int draw)
 {
+	(void)draw;
 	init_ray(cub, ray);
 	int	flag = 0;
 	while (ray->r < NRAY)
