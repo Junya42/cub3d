@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:14:10 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/21 11:56:08 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/22 20:12:59 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,27 @@ int	adjacent(t_cub *cub, int x, int y, char c)
 	return (0);
 }
 
+void	revert_map(t_cub *cub, int y, int x, char **map)
+{
+	while (map[y])
+	{
+		x = ft_strlen(map[y]) - 1;
+		while (map[y][x])
+		{
+			if (map[y][x] == '1' && adjacent(cub, x, y, '2'))
+			{
+				map[y][x] = '2';
+				x = ft_strlen(map[y]) - 1;
+			}
+			x--;
+			if (x < 0)
+				break ;
+		}
+		y--;
+		if (y < 0)
+			break ;
+	}
+}
 void	change_map(t_cub *cub)
 {
 	int		x;
@@ -70,4 +91,5 @@ void	change_map(t_cub *cub)
 		}
 		y++;
 	}
+	revert_map(cub, y - 1, x - 1, map);
 }

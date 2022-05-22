@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 12:00:19 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/21 11:33:46 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/22 20:16:03 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	horizontal_slide(char **exp, float x, float y, t_player *player)
 		player->x = x;
 	if (!check_valid(exp[(int)y][(int)x], HITBOX))
 		player->y = y;
+	(void)exp;
 }
 
 void	vertical_slide(char **exp, float x, float y, t_player *player)

@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 11:22:48 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/21 12:13:52 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/22 19:58:08 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	proximity(t_cub *cub, int x, int y, int dir)
 	char	**map;
 
 	map = cub->map;
+	if (y < 0 || x < 0 || y >= cub->my || x >= cub->mx)
+		return (0);
 	if (y > 0 && check_valid(map[y - 1][x], "d ") && dir == 1)
 		return (1);
 	if (y + 1 < cub->my && check_valid(map[y + 1][x], "d ") && dir == 3)
@@ -73,6 +75,8 @@ int	proximity(t_cub *cub, int x, int y, int dir)
 void	open_door(t_cub *cub, int adj)
 {
 	adj = proximity(cub, (int)cub->x >> 6, (int)cub->y >> 6, direction(cub));
+	if ((int)cub->y < 0 || (int)cub->x < 0 || (int)cub->y >= cub->ey || cub->x >= cub->ex)
+		return ;
 	if (cub->exp[(int)cub->y][(int)cub->x] != ' ')
 	{
 		if (adj)
