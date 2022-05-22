@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 03:08:07 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/18 12:57:20 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/22 16:22:12 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,12 @@ int	check_animation_light(t_sp *s)
 
 static int	gather_anim_frames(t_anim *anim, char *anim_path, t_cub *cub)
 {
-	anim->img = mlx_xpm_file_to_image(cub->mlx, anim_path, &anim->a, &anim->b);
+	anim->img = mlx_xpm_file_to_image(cub->mlx, anim_path,
+			&anim->a, &anim->b);
 	if (!anim->img)
 		return (0);
-	anim->addr = mlx_get_data_addr(anim->img, &anim->bpp, &anim->size, &anim->end);
+	anim->addr = mlx_get_data_addr(anim->img, &anim->bpp,
+			&anim->size, &anim->end);
 	return (1);
 }
 
@@ -68,7 +70,8 @@ int	txt_light(t_sp *sp, t_cub *cub)
 		return (0);
 	if (init_animation(sp, cub) == 0)
 		return (0);
-	sp->img = mlx_xpm_file_to_image(cub->mlx, "./imgs/blue7.xpm", &sp->a, &sp->b);
+	sp->img = mlx_xpm_file_to_image(cub->mlx, "./imgs/blue7.xpm",
+			&sp->a, &sp->b);
 	if (!sp->img)
 		return (0);
 	sp->csp.moveable = 1;

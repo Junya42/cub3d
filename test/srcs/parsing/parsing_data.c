@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_data.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:41:53 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/01 01:21:50 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/22 16:11:18 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,18 @@ int	malloc_error(t_parse *p)
 	return (EXIT_SUCCESS);
 }
 
+int	treat_data(t_parse *p)
+{
+	p->mcontent = ft_split(p->buffer, ' ');
+	if (!p->mcontent)
+		return (free_and_return(p, 1, EXIT_FAILURE));
+	if (check_map_content(p->mcontent, p) == 0)
+		p->total++;
+	else if (p->buffer[0] != '\n')
+		return (free_and_return(p, 0, EXIT_FAILURE));
+	return (EXIT_SUCCESS);
+}
+
 int	parse_data(t_parse *p)
 {
 	while (42)
@@ -58,13 +70,8 @@ int	parse_data(t_parse *p)
 			free(p->buffer);
 			continue ;
 		}
-		p->mcontent = ft_split(p->buffer, ' ');
-		if (!p->mcontent)
-			return (free_and_return(p, 1, EXIT_FAILURE));
-		if (check_map_content(p->mcontent, p) == 0)
-			p->total++;
-		else if (p->buffer[0] != '\n')
-			return (free_and_return(p, 0, EXIT_FAILURE));
+		if (treat_data(p) == 1)
+			return (EXIT_FAILURE);
 		if (p->total == 6)
 			break ;
 		free_and_return(p, 0, 0);

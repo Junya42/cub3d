@@ -6,13 +6,13 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 02:06:07 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/22 15:38:54 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/22 16:17:16 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-static inline void set_texture_addr(t_cub *cub, t_csp *csp, int i)
+static inline void	set_texture_addr(t_cub *cub, t_csp *csp, int i)
 {
 	csp->size = cub->sp[i].size;
 	csp->img = cub->sp[i].img;
@@ -21,7 +21,7 @@ static inline void set_texture_addr(t_cub *cub, t_csp *csp, int i)
 	csp->sizeline = cub->sp[i].sizeline;
 }
 
-static inline void set_sound_value(t_cub *cub, t_csp *csp)
+static inline void	set_sound_value(t_cub *cub, t_csp *csp)
 {
 	if (csp->type == LIGHT)
 	{
@@ -32,10 +32,10 @@ static inline void set_sound_value(t_cub *cub, t_csp *csp)
 	}
 }
 
-static inline void init_sprite_var(t_cub *cub, t_csp *csp, int i)
+static inline void	init_sprite_var(t_cub *cub, t_csp *csp, int i)
 {
 	float	adjust;
-	
+
 	csp->j = 0;
 	set_texture_addr(cub, csp, i);
 	csp->sx = cub->sp[i].x - cub->x;
@@ -46,7 +46,7 @@ static inline void init_sprite_var(t_cub *cub, t_csp *csp, int i)
 	set_sound_value(cub, csp);
 	csp->scale = cub->sp[i].size * 80 / csp->b;
 	adjust = (cub->h * 28 - 7);
-	csp->sx = csp->a;	
+	csp->sx = csp->a;
 	csp->sy = csp->b;
 	csp->sx = (csp->sx * 1250.0 / csp->sy) + (HALFHRES);
 	if (csp->moveable == 1)
@@ -59,11 +59,11 @@ static inline void init_sprite_var(t_cub *cub, t_csp *csp, int i)
 	csp->ncolor = cub->sp[i].size / csp->scale;
 }
 
-static inline void sort_sprite(t_sp *sp, t_cub *cub)
+static inline void	sort_sprite(t_sp *sp, t_cub *cub)
 {
-	int	i;
-	t_sp ptr;
-	
+	int		i;
+	t_sp	ptr;
+
 	i = 0;
 	while (i + 1 < cub->nb_sprites)
 	{
@@ -77,25 +77,7 @@ static inline void sort_sprite(t_sp *sp, t_cub *cub)
 	}
 }
 
-void	get_sound_id(t_cub *cub, t_light *lights, float x, float y)
-{
-	int	i;
-
-	i = 0;
-	while (i < cub->lights)
-	{
-		if (lights[i].x == x && lights[i].y == y)
-			break ;
-		i++;
-	}
-	cub->id = lights[i].id;
-	cub->ray->rx = (int)cub->x;
-	cub->ray->ry = (int)cub->y;
-	cub->blocked = 1.5;
-	light(cub, lights, cub->ray, cub->chunk);
-}
-
-void    sprite_casting(t_cub *cub, t_light *light)
+void	sprite_casting(t_cub *cub, t_light *light)
 {
 	int		i;
 	int		j;
@@ -113,7 +95,7 @@ void    sprite_casting(t_cub *cub, t_light *light)
 	{
 		if (cub->sp[i].csp.type == LIGHT)
 			j = i;
-		if (cub->sp[i].csp.sx > -HRES  && cub->sp[i].csp.sx < HRES)
+		if (cub->sp[i].csp.sx > -HRES && cub->sp[i].csp.sx < HRES)
 			print_sprite(cub, &cub->sp[i].csp);
 		i++;
 	}

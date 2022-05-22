@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/22 13:46:44 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/22 16:16:21 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	        get_expanded_height_width(t_cub *cub, char **map);
 int	            check_char_rf(char **map, char *set);
 int	            check_width_height(char *name, char **map, t_parse *p);
 int             check_wrong_placement(char **floor, t_parse *p);
+int	            check_all_rules(t_parse *p, char **rw_map);
 
 /*	----------Init--------------	*/
 
@@ -164,6 +165,7 @@ void			sprite_casting(t_cub *cub, t_light *light);
 void			print_sprite(t_cub *cub, t_csp *s);
 int	            choose_sprite_texture(t_sp *sp, t_cub *cub);
 int	            choose_light_texture(t_sp *sp, t_cub *cub);
+void	        get_sound_id(t_cub *cub, t_light *lights, float x, float y);
 
 /*	----------Sound-------------	*/
 int	    init_audio(t_cub *cub, int i);

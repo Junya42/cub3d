@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites_casting.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 02:06:39 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/18 16:40:27 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/22 16:23:01 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	transparency(unsigned int color)
 	return (1);
 }
 
-void    print_sprite(t_cub *cub, t_csp *s)
+void	print_sprite(t_cub *cub, t_csp *s)
 {
 	s->x = s->sx;
 	s->cx = 0;
@@ -34,7 +34,7 @@ void    print_sprite(t_cub *cub, t_csp *s)
 				&& s->b > 0 && s->b < cub->zbuf[(int)s->index])
 			{
 				s->tmp = s->addr + ((int)(s->cy) % s->size
-					 * s->sizeline + (int)(s->cx) % s->size * (s->dbpp));
+						* s->sizeline + (int)(s->cx) % s->size * (s->dbpp));
 				s->color = *(unsigned int *)s->tmp;
 				if (transparency(s->color))
 					spxl_to_ray(cub, (int)s->x % HRES,

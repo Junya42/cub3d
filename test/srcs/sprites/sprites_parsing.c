@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 03:03:41 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/18 16:40:30 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/22 16:24:09 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,18 @@ char	search_type(t_cub *c)
 {
 	while (c->floor[c->search_i])
 	{
-        if (!c->floor[c->search_i][c->search_j])
-            c->search_j = 0;
+		if (!c->floor[c->search_i][c->search_j])
+			c->search_j = 0;
 		while (c->floor[c->search_i][c->search_j])
 		{
-			if (check_valid(c->floor[c->search_i][c->search_j], SPRITE_VALID) == 1)
+			if (check_valid(c->floor[c->search_i][c->search_j],
+				SPRITE_VALID) == 1)
 				return (c->floor[c->search_i][c->search_j]);
 			c->search_j++;
 		}
 		c->search_i++;
 	}
-    return ('\0');
+	return ('\0');
 }
 
 int	give_sprite_texture(t_sp *sp, t_cub *cub)

@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/12 11:31:03 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/12 12:40:40 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/22 16:05:48 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,12 @@ void	get_height_width(t_parse *parse, char **map)
 	parse->height = 0;
 	while (map[++i])
 		parse->height++;
-    parse->width = malloc(sizeof(int) * parse->height);
-    if (!parse->width)
-        return ;
-    i = -1;
-    while (++i < parse->height)
-        parse->width[i] = ft_strlen(map[i]);
-    //i = -1;
-    //printf("Map Height = %d\n", parse->height);
-    //while (++i < parse->height)
-        //printf("Line %d Map Width = %d\n", i, parse->width[i]);
+	parse->width = malloc(sizeof(int) * parse->height);
+	if (!parse->width)
+		return ;
+	i = -1;
+	while (++i < parse->height)
+		parse->width[i] = ft_strlen(map[i]);
 }
 
 void	get_expanded_height_width(t_cub *cub, char **map)
@@ -40,14 +36,10 @@ void	get_expanded_height_width(t_cub *cub, char **map)
 	cub->map_height = 0;
 	while (map[++i])
 		cub->map_height++;
-    cub->map_len = malloc(sizeof(int) * cub->map_height);
-    if (!cub->map_len)
-        return ;
-    i = -1;
-    while (++i < cub->map_height)
-        cub->map_len[i] = ft_strlen(map[i]);
-    //i = -1;
-    //printf("Map Height = %d\n", parse->height);
-    //while (+ +i < parse->height)
-        //printf("Line %d Map Width = %d\n", i, parse->width[i]);
+	cub->map_len = malloc(sizeof(int) * cub->map_height);
+	if (!cub->map_len)
+		return ;
+	i = -1;
+	while (++i < cub->map_height)
+		cub->map_len[i] = ft_strlen(map[i]);
 }

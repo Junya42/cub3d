@@ -6,22 +6,22 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:58:36 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/19 22:47:12 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/22 16:14:23 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
-int give_sprite_var(t_sp *sp, t_cub *cub, char *path)
+int	give_sprite_var(t_sp *sp, t_cub *cub, char *path)
 {
-    sp->img = mlx_xpm_file_to_image(cub->mlx, path, &sp->a, &sp->b);
+	sp->img = mlx_xpm_file_to_image(cub->mlx, path, &sp->a, &sp->b);
 	if (!sp->img)
 		return (0);
-    sp->csp.moveable = 0;
+	sp->csp.moveable = 0;
 	sp->animated = 0;
 	sp->s_type = SPRITE;
-	sp->csp.type = SPRITE; 
-    return (1);
+	sp->csp.type = SPRITE;
+	return (1);
 }
 
 int	choose_light_texture(t_sp *sp, t_cub *cub)
@@ -51,10 +51,10 @@ int	choose_sprite_texture(t_sp *sp, t_cub *cub)
 		sp->csp.moveable = 0;
 		sp->animated = 0;
 		sp->s_type = STATUE;
-		sp->csp.type = STATUE; 
+		sp->csp.type = STATUE;
 		return (1);
 	}
-    else if (choose_light_texture(sp, cub) == 1)
+	else if (choose_light_texture(sp, cub) == 1)
 		return (1);
 	return (0);
 }

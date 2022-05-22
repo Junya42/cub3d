@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/22 13:50:10 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/22 15:58:52 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ typedef struct s_parse
 	int				fd;
 	int				*width;
 	int				height;
+	char			*str;
 	char			*buffer;
 	char			**mcontent;
 	int				check_ne;

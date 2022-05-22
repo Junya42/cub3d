@@ -6,15 +6,33 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:01:58 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/18 16:25:47 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/22 16:26:03 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 
+void	get_sound_id(t_cub *cub, t_light *lights, float x, float y)
+{
+	int	i;
+
+	i = 0;
+	while (i < cub->lights)
+	{
+		if (lights[i].x == x && lights[i].y == y)
+			break ;
+		i++;
+	}
+	cub->id = lights[i].id;
+	cub->ray->rx = (int)cub->x;
+	cub->ray->ry = (int)cub->y;
+	cub->blocked = 1.5;
+	light(cub, lights, cub->ray, cub->chunk);
+}
+
 int	close_game(t_cub *cub, t_parse *parse)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (++i < 4)
@@ -35,9 +53,9 @@ int	close_game(t_cub *cub, t_parse *parse)
 	return (0);
 }
 
-static inline void init_sound_null(t_cub *cub)
+static inline void	init_sound_null(t_cub *cub)
 {
-    cub->sp_dist = 0;
+	cub->sp_dist = 0;
 	cub->sp_angle = 0;
 	cub->mixing = 0;
 	cub->foot = 0;
@@ -92,11 +110,9 @@ int	init_audio(t_cub *cub, int i)
 	init_sound_null(cub);
 	if (load_sound_path(cub, i) == 0)
 		return (0);
-	
 	Mix_VolumeMusic(12);
 	Mix_VolumeChunk(cub->door_opening, 32);
 	Mix_VolumeChunk(cub->teleportation, 64);
-	//Mix_FadeInChannel(1, cub->light_aura, -1, 3000);
 	Mix_PlayChannel(0, cub->foot_steps[0], -1);
 	Mix_Volume(0, 0);
 	return (1);
