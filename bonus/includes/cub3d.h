@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/22 16:42:57 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/23 18:07:25 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int             close_game(t_cub *cub, t_parse *parse);
 
 int				create_imgs(t_cub *cub, t_parse *parse);
 void			destroy_imgs(t_cub *cub, t_text *imgs);
+void	        init_null(t_cub *cub, t_text *t);
 
 /*	----------Animation----------	*/
 

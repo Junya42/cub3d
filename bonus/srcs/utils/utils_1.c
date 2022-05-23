@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:56:28 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/21 11:50:17 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/23 18:07:22 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,20 @@ void	init_struct_null(t_cub *cub)
 	cub->light = NULL;
 	cub->expl = NULL;
 	cub->expr = NULL;
+}
+
+void	init_null(t_cub *cub, t_text *t)
+{
+	int	i;
+
+	i = -1;
+	while (++i < 11)
+	{
+		t[i].img = NULL;
+		t[i].addr = NULL;
+	}
+	cub->imap = NULL;
+	cub->iray = NULL;
+	cub->mapaddr = NULL;
+	cub->rayaddr = NULL;
 }

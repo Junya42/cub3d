@@ -6,7 +6,7 @@
 #    By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 16:12:43 by anremiki          #+#    #+#              #
-#    Updated: 2022/05/23 17:53:38 by cmarouf          ###   ########.fr        #
+#    Updated: 2022/05/23 18:13:55 by cmarouf          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 #	╚██████╗╚██████╔╝██████╔╝██████╔╝██████╔╝
 #	 ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ 
 
-NO ./bonus/imgs/bricks.xpm
+NO ./bonus/imgs/Statue.xpm
 SO ./bonus/imgs/blackstone.xpm
 WE ./bonus/imgs/birch_planks.xpm
 EA ./bonus/imgs/bookshelf.xpm
