@@ -1,0 +1,15 @@
+SO ./mandatory/textures/sandry_stone.xpm
+NO ./mandatory/textures/sentry_stone.xpm
+WE ./mandatorytextures/carved_stone.xpm
+EA ./mandatory/textures/grassry_stone.xpm
+
+C 25,30,0
+F 13,15,33
+
+
+1111111
+1000001
+1N00001
+1000001
+1000001
+1111111
