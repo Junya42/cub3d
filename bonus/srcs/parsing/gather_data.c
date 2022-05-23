@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   gather_data.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 16:31:16 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/17 16:33:36 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/23 20:01:47 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,35 +22,31 @@ int	which_side(char **mcontent)
 		return (W);
 	if (ft_strncmp(mcontent[0], "EA", 2) == 0)
 		return (E);
-	if (ft_strncmp(mcontent[0], "C", 1) == 0)
-		return (C);
-	if (ft_strncmp(mcontent[0], "F", 1) == 0)
-		return (F);
+	else
+		return (bonus_side(mcontent));
 	return (NOTHING);
 }
 
 void	give_texture(t_parse *p, char **mcontent, int side)
 {
 	if (side == N)
-	{
 		p->npath = ft_strdup(mcontent[1]);
-		return ;
-	}
-	if (side == S)
-	{
+	else if (side == S)
 		p->spath = ft_strdup(mcontent[1]);
-		return ;
-	}
-	if (side == W)
-	{
+	else if (side == W)
 		p->wpath = ft_strdup(mcontent[1]);
-		return ;
-	}
-	if (side == E)
-	{
+	else if (side == E)
 		p->epath = ft_strdup(mcontent[1]);
-		return ;
-	}
+	else if (side == OW)
+		p->o_path = ft_strdup(mcontent[1]);
+	else if (side == F1)
+		p->f1_path = ft_strdup(mcontent[1]);
+	else if (side == F2)
+		p->f2_path = ft_strdup(mcontent[1]);
+	else if (side == R1)
+		p->r1_path = ft_strdup(mcontent[1]);
+    else if (side == R2)
+		p->r2_path = ft_strdup(mcontent[1]);
 }
 
 unsigned int	get_hex_colors(char *code)
@@ -86,25 +82,9 @@ void	give_rgb(t_parse *p, char **mcontent, int side)
 
 void	gather_data(char **mcontent, t_parse *p, int flag)
 {
-	int	side;
-
-	side = which_side(mcontent);
+	p->side = which_side(mcontent);
 	if (flag == TEXTURE)
-	{
-		if (side == N)
-			return (give_texture(p, mcontent, N));
-		if (side == S)
-			return (give_texture(p, mcontent, S));
-		if (side == W)
-			return (give_texture(p, mcontent, W));
-		if (side == E)
-			return (give_texture(p, mcontent, E));
-	}
+		return (give_texture(p, mcontent, p->side));
 	if (flag == RGB)
-	{
-		if (side == C)
-			return (give_rgb(p, mcontent, C));
-		if (side == F)
-			return (give_rgb(p, mcontent, F));
-	}
+		return (give_rgb(p, mcontent, p->side));
 }

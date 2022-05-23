@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:41:53 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/22 16:11:18 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/23 20:02:33 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,16 @@ int	malloc_error(t_parse *p)
 		return (EXIT_FAILURE);
 	if (!p->epath)
 		return (EXIT_FAILURE);
+	if (!p->o_path)
+		return (EXIT_FAILURE);
+	if (!p->f1_path)
+		return (EXIT_FAILURE);
+	if (!p->f2_path)
+		return (EXIT_FAILURE);
+	if (!p->r1_path)
+		return (EXIT_FAILURE);
+	if (!p->r2_path)
+		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -72,7 +82,7 @@ int	parse_data(t_parse *p)
 		}
 		if (treat_data(p) == 1)
 			return (EXIT_FAILURE);
-		if (p->total == 6)
+		if (p->total == 11)
 			break ;
 		free_and_return(p, 0, 0);
 	}

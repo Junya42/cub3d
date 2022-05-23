@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/23 18:07:25 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/23 19:03:25 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int             check_wrong_placement(char **floor, t_parse *p);
 int	            check_all_rules(t_parse *p, char **rw_map);
 int	            check_door(char **map);
 int	            closed_door(int y, int x, char **map);
+int             bonus_side(char **mcontent);
+int             bonus_direction(char *side, t_parse *p);
 
 /*	----------Init--------------	*/
 

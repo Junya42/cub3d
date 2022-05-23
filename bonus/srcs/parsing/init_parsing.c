@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 00:16:22 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/12 11:20:04 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/23 19:19:29 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,36 @@ int	try_open_cub_file(char *filename, t_parse *parse)
 	return (EXIT_SUCCESS);
 }
 
-void	init_parsing_variable(t_parse *p)
+void	init_path_var(t_parse *p)
 {
-	p->buffer = NULL;
-	p->mcontent = NULL;
-	p->total = 0;
 	p->check_ne = 0;
 	p->check_so = 0;
 	p->check_we = 0;
 	p->check_ea = 0;
+	p->check_o = 0;
+	p->check_r1 = 0;
+	p->check_r2 = 0;
+	p->check_f1 = 0;
+	p->check_f2 = 0;
 	p->check_c = 0;
 	p->check_f = 0;
 	p->npath = NULL;
 	p->spath = NULL;
 	p->wpath = NULL;
 	p->epath = NULL;
+	p->o_path = NULL;
+	p->r1_path = NULL;
+	p->r2_path = NULL;
+	p->f1_path = NULL;
+	p->f2_path = NULL;
+}
+
+void	init_parsing_variable(t_parse *p)
+{
+	init_path_var(p);
+	p->buffer = NULL;
+	p->mcontent = NULL;
+	p->total = 0;
 	p->all_map = NULL;
 	p->map = NULL;
 	p->roof = NULL;

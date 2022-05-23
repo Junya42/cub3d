@@ -6,7 +6,7 @@
 #    By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/05/17 16:12:43 by anremiki          #+#    #+#              #
-#    Updated: 2022/05/23 18:13:55 by cmarouf          ###   ########.fr        #
+#    Updated: 2022/05/23 20:04:17 by cmarouf          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,16 +17,20 @@
 #	╚██████╗╚██████╔╝██████╔╝██████╔╝██████╔╝
 #	 ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ 
 
-NO ./bonus/imgs/Statue.xpm
+NO ./bonus/imgs/bricks.xpm
 SO ./bonus/imgs/blackstone.xpm
 WE ./bonus/imgs/birch_planks.xpm
 EA ./bonus/imgs/bookshelf.xpm
+OW ./bonus/imgs/blackstone.xpm
+F1 ./bonus/imgs/blackstone.xpm
+F2 ./bonus/imgs/blackstone.xpm
+R1 ./bonus/imgs/blackstone.xpm
+R2 ./bonus/imgs/blackstone.xpm
 
 F 10,10,10
 C 10,10,10
 
 # Walls, Floors and doors
-
 111111111111111111111111111111111111111111111111111111
 100000000000000000100000000000000001000000000000000001
 100000000000000000 0000000000000000 000000000000000001

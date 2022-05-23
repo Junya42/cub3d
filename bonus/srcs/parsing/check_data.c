@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 05:14:37 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/10 18:16:49 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/23 20:00:13 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	check_direction(char *side, t_parse *p)
 		p->check_ea = 1;
 		return (EXIT_SUCCESS);
 	}
+	else if (bonus_direction(side, p) == 0)
+		return (EXIT_SUCCESS);
 	return (EXIT_FAILURE);
 }
 

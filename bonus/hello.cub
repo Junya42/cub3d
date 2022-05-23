@@ -6,7 +6,7 @@
 #    By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/29 03:33:28 by anremiki          #+#    #+#              #
-#    Updated: 2022/05/23 18:32:27 by cmarouf          ###   ########.fr        #
+#    Updated: 2022/05/23 19:33:20 by cmarouf          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,12 @@ NO ./bonus/imgs/blackstone.xpm
 SO ./bonus/imgs/blackstone.xpm
 WE ./bonus/imgs/birch_planks.xpm
 EA ./bonus/imgs/bookshelf.xpm
+OW ./bonus/imgs/blackstone.xpm#OUTSIDE WALL
+F1 ./bonus/imgs/blackstone.xpm#FLOOR 1
+F2 ./bonus/imgs/blackstone.xpm#FLOOR 2
+R1 ./bonus/imgs/blackstone.xpm#ROOF 1
+R2 ./bonus/imgs/blackstone.xpm#ROOF 2
+
 
 F 10,10,10
 C 10,10,10

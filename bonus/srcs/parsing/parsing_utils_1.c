@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 23:43:33 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/12 11:23:17 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/23 20:02:55 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int	free_and_return(t_parse *p, int flag, int exitcode)
 	return (exitcode);
 }
 
-int	free_data(t_parse *p)
+void	free_path(t_parse *p)
 {
 	if (p->npath)
 		free(p->npath);
@@ -64,6 +64,21 @@ int	free_data(t_parse *p)
 		free(p->wpath);
 	if (p->epath)
 		free(p->epath);
+	if (p->o_path)
+		free(p->o_path);
+	if (p->r1_path)
+		free(p->r1_path);
+	if (p->r2_path)
+		free(p->r2_path);
+	if (p->f1_path)
+		free(p->f1_path);
+	if (p->f2_path)
+		free(p->f2_path);
+}
+
+int	free_data(t_parse *p)
+{
+	free_path(p);
 	if (p->map)
 		free_array(p->map);
 	if (p->floor)

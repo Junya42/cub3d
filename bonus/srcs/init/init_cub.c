@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:58:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/22 15:34:39 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/23 20:13:41 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	alloc_stuff(t_cub *cub)
 	cub->ray = alloc_ray();
 	cub->id = -1;
 	cub->sp_dist = 250;
+	cub->blocked = 0;
 	if (!cub->player || !cub->ray)
 	{
 		if (cub->player)

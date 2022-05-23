@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 01:30:53 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/23 18:27:38 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/23 20:11:21 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,12 @@ int	imgs(t_parse *p, t_cub *cub, t_text *t,
 	t[2].img = (*xpm)(cub->mlx, p->wpath, &t[2].a, &t[2].b);
 	t[3].img = (*xpm)(cub->mlx, p->spath, &t[3].a, &t[3].b);
 	t[4].img = (*xpm)(cub->mlx, p->npath, &t[4].a, &t[4].b);
-	t[5].img = (*xpm)(cub->mlx, "./bonus/imgs/pblackstone.xpm", &t[5].a, &t[5].b); //mur ext
-	t[6].img = (*xpm)(cub->mlx, "./bonus/imgs/doomfloor.xpm", &t[6].a, &t[6].b); // sol 1
+	t[5].img = (*xpm)(cub->mlx, p->o_path, &t[5].a, &t[5].b); //mur ext
+	t[6].img = (*xpm)(cub->mlx, p->f1_path, &t[6].a, &t[6].b); // sol 1
 	t[7].img = (*xpm)(cub->mlx, "./bonus/imgs/null.xpm", &t[7].a, &t[7].b); // sol 2
 	t[8].img = (*xpm)(cub->mlx, "./bonus/imgs/BIGDOOR.xpm", &t[8].a, &t[8].b); // porte
-	t[9].img = (*xpm)(cub->mlx, "./bonus/imgs/pblackstone.xpm", &t[9].a, &t[9].b); // roof 1
-	t[10].img = (*xpm)(cub->mlx, "./bonus/imgs/pblackstone.xpm", &t[10].a, &t[10].b); // roof 2
+	t[9].img = (*xpm)(cub->mlx, p->r1_path, &t[9].a, &t[9].b); // roof 1
+	t[10].img = (*xpm)(cub->mlx, p->r2_path, &t[10].a, &t[10].b); // roof 2
 	while (++i < 11)
 		if (!t[i].img)
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/22 15:58:52 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/23 19:04:39 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,12 @@ enum	e_side
 	W,
 	E,
 	C,
-	F
+	F,
+	OW,
+	F1,
+	F2,
+	R1,
+	R2
 };
 
 enum	e_sprite_type
@@ -66,6 +71,7 @@ enum	e_lightcol
 
 typedef struct s_parse
 {
+	int				side;
 	int				i;
 	int				total;
 	int				fd;
@@ -78,12 +84,22 @@ typedef struct s_parse
 	int				check_so;
 	int				check_we;
 	int				check_ea;
+	int				check_o;
+	int				check_r1;
+	int				check_r2;
+	int				check_f1;
+	int				check_f2;
 	int				check_c;
 	int				check_f;
 	char			*npath;
 	char			*spath;
 	char			*wpath;
 	char			*epath;
+	char			*o_path;
+	char			*r1_path;
+	char			*r2_path;
+	char			*f1_path;
+	char			*f2_path;
 	unsigned int	colorc;
 	unsigned int	colorf;
 	char			**all_map;
