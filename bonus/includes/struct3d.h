@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/23 19:04:39 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/24 17:15:16 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,6 +262,8 @@ typedef struct s_ray
 	double			npx;
 	double			npy;
 	float			nr;
+	float			bigpx;
+	float			bignpx;
 	float			curr_px;
 	float			next_px;
 	float			floor_x;
@@ -280,6 +282,7 @@ typedef struct s_ray
 	float			bot;
 	float			left;
 	float			right;
+	float			out;
 	float			offj;
 	unsigned int	color;
 	int				i;
@@ -419,6 +422,11 @@ typedef struct s_cub
 	int				vglass;
 	int				hglass;
 	int				glass;
+	int				top;
+	int				bot;
+	int				right;
+	int				left;
+	int				out;
 	t_ray			*ray;
 	t_player		*player;
 	t_text			*text;

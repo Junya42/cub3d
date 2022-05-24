@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/22 19:59:50 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/24 17:36:17 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,18 @@ int	check_ceiling(t_cast *c, t_cub *cub, t_ray *ray)
 	if (cub->h <= 0.25)
 	{
 		if (((int)(ray->floor_y) >> 5) < cub->my && ((int)(ray->floor_x) >> 5) < cub->mx)
-		{
 			if (((int)(ray->floor_y) >> 5) > -1 && ((int)(ray->floor_x) >> 5) > -1)
-			{
-				//printf("y = %d >>> x = %d\n", ((int)ray->floor_y) >> 5, ((int)ray->floor_x) >> 5);
 				if (cub->roof[((int)(ray->floor_y) >> 5)]
 						[((int)(ray->floor_x) >> 5)] == '1')
-				{
 					return (1);
-				}
-			}
-		}
 	}
 	else
 	{
 		if (((int)(c->ceily) >> 5 < cub->my) && ((int)(c->ceilx) >> 5) < cub->mx)
-		if (((int)(c->ceily) >> 5 > -1) && ((int)(c->ceilx) >> 5) > -1)
-			if (cub->roof[((int)(c->ceily) >> 5)]
-					[((int)(c->ceilx) >> 5)] == '1')
-				return (1);
+			if (((int)(c->ceily) >> 5 > -1) && ((int)(c->ceilx) >> 5) > -1)
+				if (cub->roof[((int)(c->ceily) >> 5)]
+						[((int)(c->ceilx) >> 5)] == '1')
+					return (1);
 	}
 	c->color = pxl_skybox(cub,
 			ray->j - (ray->offset + ray->raycast) + HALFVRES,

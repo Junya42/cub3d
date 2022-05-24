@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:50:23 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/22 13:55:32 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/24 17:30:30 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ unsigned int	vertical_texture(t_cub *cub, t_ray *ray, int dir)
 	if (cub->glass)
 		return (vert_door_txt(cub, ray, dir));
 	if (dir == 1)
-		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->right, 1)));
+		return ((pxl_from_img(cub, (int)ray->curr_px % cub->right, ray->right, 1)));
 	if (dir == 2)
-		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->left, 2)));
+		return ((pxl_from_img(cub, (int)ray->curr_px % cub->left, ray->left, 2)));
 	if (dir == 3)
-		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->right, 5)));
+		return ((pxl_from_img(cub, (int)ray->curr_px % cub->out, ray->out, 5)));
 	if (dir == 4)
-		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->left, 5)));
+		return ((pxl_from_img(cub, (int)ray->curr_px % cub->out, ray->out, 5)));
 	return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->left, 5)));
 }
 

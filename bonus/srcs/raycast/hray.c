@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:39:55 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/23 13:53:01 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/24 18:26:22 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ unsigned int	horizon_door_txt(t_cub *cub, t_ray *ray, int dir)
 	ray->top = ((int)ray->rx - (int)cub->door) % 128;
 	ray->bot = 128 - ((int)ray->rx + (int)cub->door) % 128;
 	if (dir == 1)
-		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->top, 8)));
+		return ((pxl_from_img(cub, (int)ray->curr_px % 128, ray->top, 8)));
 	if (dir == 2)
-		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->bot, 8)));
+		return ((pxl_from_img(cub, (int)ray->curr_px % 128, ray->bot, 8)));
 	return ((pxl_from_img(cub, (int)ray->curr_px % 128, ray->bot, 8)));
 }
 
@@ -28,13 +28,13 @@ unsigned int	horizon_texture(t_cub *cub, t_ray *ray, int dir)
 	if (cub->glass)
 		return (horizon_door_txt(cub, ray, dir));
 	if (dir == 1)
-		return ((pxl_from_img(cub, (int)ray->curr_px * 2 % 128, ray->top * 2, 3)));
+		return ((pxl_from_img(cub, (int)ray->curr_px % cub->top, ray->top, 3)));
 	if (dir == 2)
-		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->bot, 4)));
+		return ((pxl_from_img(cub, (int)ray->curr_px % cub->bot, ray->bot, 4)));
 	if (dir == 3)
-		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->top, 5)));
+		return ((pxl_from_img(cub, (int)ray->curr_px % cub->out, ray->out, 5)));
 	if (dir == 4)
-		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->bot, 5)));
+		return ((pxl_from_img(cub, (int)ray->curr_px % cub->out, ray->out, 5)));
 	if (dir == 5)
 		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->top, 8)));
 	if (dir == 6)

@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/22 13:01:17 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/24 18:18:00 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,51 @@ unsigned int	case_texture(t_cub *cub, t_ray *ray)
 	}
 }
 
-void	dda_texture(t_ray *ray)
+void	dda_texture(t_cub *cub, t_ray *ray)
 {
 	if (ray->shadow > 1)
 		ray->shadow = 1;
 	ray->curr_px = ray->next_px * ray->off_px;
-	ray->top = (int)ray->rx % 64;
-	ray->bot = 64 - ray->top;
-	ray->right = (int)ray->ry % 64;
-	ray->left = 64 - ray->right;
+	ray->bigpx = ray->bignpx * ray->off_px;
+	ray->bot = (int)ray->rx % cub->top;
+	ray->top = cub->bot - ((int)ray->rx % cub->bot);
+	ray->right = (int)ray->ry % cub->right;
+	ray->left = cub->left - ((int)ray->ry % cub->left);
 	ray->nr = ray->r * 4;
+}
+
+void	compare_dist(t_cub *cub, t_ray *ray)
+{
+	if (ray->hray < ray->vray)
+	{
+		if (ray->hdir == 1)
+			ray->next_px = cub->top / ray->raycast;
+		else if (ray->hdir == 2)
+			ray->next_px = cub->bot / ray->raycast;
+		else if (ray->hdir >= 3)
+		{
+			ray->next_px = cub->out / ray->raycast;
+			if (ray->hdir == 3)
+				ray->out = (int)ray->rx % cub->out;
+			else
+				ray->out = cub->out - (int)ray->rx % cub->out;
+		}
+	}
+	else
+	{
+		if (ray->vdir == 1)
+			ray->next_px = cub->right / ray->raycast;
+		else if (ray->vdir == 2)
+			ray->next_px = cub->left / ray->raycast;
+		else if (ray->vdir >= 3)
+		{
+			ray->next_px = cub->out / ray->raycast;
+			if (ray->vdir == 3)
+				ray->out = cub->out - (int)ray->ry % cub->out;
+			else
+				ray->out = (int)ray->ry % cub->out;
+		}
+	}
 }
 
 int	dda(t_cub *cub, t_ray *ray)
@@ -69,7 +104,7 @@ int	dda(t_cub *cub, t_ray *ray)
 		ray->ray = ray->hray;
 		cub->glass = cub->hglass;
 	}
-	if (ray->vray < ray->hray)
+	else if (ray->vray < ray->hray)
 	{
 		ray->ray = ray->vray;
 		ray->rx = ray->vx;
@@ -80,7 +115,9 @@ int	dda(t_cub *cub, t_ray *ray)
 	ray->ray = fix_fisheye(cub->a, ray->ra, ray->ray);
 	cub->zbuf[(int)ray->r] = ray->ray;
 	ray->raycast = (64 * VRES / ray->ray);
-	ray->next_px = 64 / ray->raycast;
+	compare_dist(cub, ray);
+	//ray->next_px = 64 / ray->raycast;
+	ray->bignpx = 128 / ray->raycast;
 	ray->off_px = 0;
 	if (ray->raycast > VRES)
 	{
@@ -103,7 +140,7 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 		ray->limit = 0;
 		vray(cub, ray);
 		flag = dda(cub, ray);
-		dda_texture(ray);
+		dda_texture(cub, ray);
 		float scale;
 		scale = ray->shadow / ray->raycast;
 		float	dim = 0;

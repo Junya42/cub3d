@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 17:26:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/21 11:43:58 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/24 09:51:42 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void	findnewlight(t_cub *cub, t_light *light, int x, int y)
 	int	save;
 
 	i = 0;
+	if (cub->lights < 2)
+		return ;
 	while (i < cub->lights)
 	{
 		if ((int)light[i].x / 64 == x && (int)light[i].y / 64 == y)

@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 12:19:34 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/22 20:05:26 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/24 09:38:40 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,23 +27,38 @@ int	load_err(int exit_code, char *str)
 	return (exit_code);
 }
 
+void	get_directionnal_modulus(t_cub *cub)
+{
+	cub->out = cub->text[5].a;
+	printf("out	%d\n", cub->out);
+	cub->top = cub->text[4].a;
+	printf("top	%d\n", cub->top);
+	cub->bot = cub->text[3].a;
+	printf("bot	%d\n", cub->bot);
+	cub->left = cub->text[2].a;
+	printf("left	%d\n", cub->left);
+	cub->right = cub->text[1].a;
+	printf("right	%d\n", cub->right);
+}
+
 int	loading_screen(t_cub *cub, t_parse *parse)
 {
-	mlx_string_put(cub->mlx, cub->win, HALFHRES, HALFVRES, 0xFFFFFF,
+	mlx_string_put(cub->mlx, cub->win, HALFHRES - LOADS, HALFVRES, 0xFFFFFF,
 		"Loading Sprites");
 	if (!get_sprite_txt(cub, 0))
 		return (load_err(SPRITE_ERR, "ERROR LOADING SPRITES\n"));
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->erase, 0, 0);
-	mlx_string_put(cub->mlx, cub->win, HALFHRES, HALFVRES, 0xFFFFFF,
+	mlx_string_put(cub->mlx, cub->win, HALFHRES - LOADC, HALFVRES, 0xFFFFFF,
 		"Loading Chunks");
 	cub->light = create_lights(cub, cub->sp);
 	if (!cub->light)
 		return (load_err(MATRIX_ERR, "ERROR LOADING LIGHTS\n"));
 	mlx_put_image_to_window(cub->mlx, cub->win, cub->erase, 0, 0);
-	mlx_string_put(cub->mlx, cub->win, HALFHRES, HALFVRES, 0xFFFFFF,
+	mlx_string_put(cub->mlx, cub->win, HALFHRES - LOADT, HALFVRES, 0xFFFFFF,
 		"Loading Textures");
 	if (!create_imgs(cub, parse))
 		return (load_err(TEXTURE_ERR, "ERROR LOADING TEXTURES\n"));
+	get_directionnal_modulus(cub);
 	return (0);
 }
 

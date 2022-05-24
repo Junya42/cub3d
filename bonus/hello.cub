@@ -6,7 +6,7 @@
 #    By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/29 03:33:28 by anremiki          #+#    #+#              #
-#    Updated: 2022/05/23 19:33:20 by cmarouf          ###   ########.fr        #
+#    Updated: 2022/05/24 18:39:06 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,46 +17,56 @@
 #	╚██████╗╚██████╔╝██████╔╝██████╔╝██████╔╝
 #	 ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ 
 
-NO ./bonus/imgs/blackstone.xpm
-SO ./bonus/imgs/blackstone.xpm
-WE ./bonus/imgs/birch_planks.xpm
-EA ./bonus/imgs/bookshelf.xpm
-OW ./bonus/imgs/blackstone.xpm#OUTSIDE WALL
-F1 ./bonus/imgs/blackstone.xpm#FLOOR 1
-F2 ./bonus/imgs/blackstone.xpm#FLOOR 2
-R1 ./bonus/imgs/blackstone.xpm#ROOF 1
-R2 ./bonus/imgs/blackstone.xpm#ROOF 2
+#NO -> North
+#SO -> South
+#WE -> West
+#EA -> East
+#OW -> Outside walls
+#F1 -> Floor 1
+#F2 -> Floor 2
+#R1 -> Roof 1
+#R2 -> Roof 2
+
+NO ./bonus/imgs/vertvent.xpm
+SO ./bonus/imgs/techscreen.xpm
+WE ./bonus/imgs/box.xpm
+EA ./bonus/imgs/wallbrick.xpm
+OW ./bonus/imgs/pblackstone.xpm
+F1 ./bonus/imgs/doomfloor.xpm
+F2 ./bonus/imgs/blackstone.xpm
+R1 ./bonus/imgs/blackstone.xpm
+R2 ./bonus/imgs/blackstone.xpm
 
 
 F 10,10,10
 C 10,10,10
 
-11111111
-10010001
-10000011
-11011011
-10000001#MAP
-10100111
-11100W01
-10000001
-11111111
+111111111
+100000011
+100011001
+111 11001
+100000001#MAP
+101000001
+11100W001
+10 000001
+111111111
 *
-00000000
-00000000
-00000000
-00000000
-00000000#ROOF
-00000000
-00000000
-01111110
-00000000
+000000000
+000000000
+000000000
+000000000
+000000000#ROOF
+000000000
+000000000
+011111100
+000000000
 *
-00000000
-00000000
-00U00000
-00000000
-0000L000#SPRITE
-00000000
-00000000
-00000000
-00000000
+000000000
+000000000
+000000000
+000000000
+000000000#SPRITE
+000000000
+000000000
+000000000
+000000000
