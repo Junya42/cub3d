@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 00:20:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/22 15:43:26 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/24 22:30:52 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,14 @@ int	light(t_cub *cub, t_light *light, t_ray *ray, int ***matrix)
 	t_lightmath	m;
 
 	init_lightmath(cub, ray, &m);
-	if (ray->rx >= 0 && ray->ry >= 0 && ray->rx < cub->ex && ray->ry < cub->ey)
+	if (ray->lx >= 0 && ray->ly >= 0 && ray->lx < cub->ex && ray->ly < cub->ey)
 	{
 		while (m.i < cub->lights)
 		{
-			if (matrix[(int)ray->ry][(int)ray->rx][m.i] > 0)
+			if (matrix[(int)ray->ly][(int)ray->lx][m.i] > 0)
 			{
-				m.dx = ray->rx - light[m.i].x;
-				m.dy = ray->ry - light[m.i].y;
+				m.dx = ray->lx - light[m.i].x;
+				m.dy = ray->ly - light[m.i].y;
 				m.dist = sqrt(m.dx * m.dx + m.dy * m.dy);
 				m.shade = fix_shade(cub->sz, m.dist, cub, light[m.i].id);
 				ray->shadow += m.shade;

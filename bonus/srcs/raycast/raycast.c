@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/24 19:02:43 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/25 00:29:07 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ int	dda(t_cub *cub, t_ray *ray)
 		ray->ry = ray->vy;
 		cub->glass = cub->vglass;
 	}
-	ray->diff = ray->ray;
 	ray->ray = fix_fisheye(cub->a, ray->ra, ray->ray);
 	cub->zbuf[(int)ray->r] = ray->ray;
 	ray->raycast = (64 * VRES / ray->ray);
@@ -125,11 +124,17 @@ int	dda(t_cub *cub, t_ray *ray)
 	//ray->next_px = 64 / ray->raycast;
 	ray->bignpx = 128 / ray->raycast;
 	ray->off_px = 0;
+	ray->diff = ray->raycast;
+	ray->lag = 0;
 	if (ray->raycast > VRES)
 	{
+		ray->lag = 1;
 		ray->off_px = (ray->raycast - VRES) / 2;
 		ray->raycast = VRES;
 	}
+	ray->lx = ray->rx;
+	ray->ly = ray->ry;
+	ray->end = ray->raycast + ((ray->diff - ray->raycast) / 2);
 	ray->offset = ((HALFVRES - cub->z) - (ray->raycast) * (0.75 - cub->h));
 	return (light(cub, cub->light, ray, cub->chunk));
 }
@@ -151,8 +156,18 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 		scale = ray->shadow / ray->raycast;
 		float	dim = 0;
 		int		lever = 0;
-		while (ray->i < ray->raycast)
+		ray->end = ray->raycast + ((ray->diff - ray->raycast) / 2);
+	//	float	off  = ((HALFVRES - cub->z) - (ray->diff) * (0.75 - cub->h));
+	//	if (cub->debug && ray->r == NRAY / 2 && ray->lag)
+	//	{
+	//		printf("px = %f >>> off = %f >>> lag = %d >>> z = %f\n", ray->off_px, off, ray->lag, cub->z);
+	//	}
+		//ray->end = ray->diff;
+		ray->i = 0;
+		while (ray->i < ray->end)
 		{
+			//if ((cub->z && ray->i >= VRES + cub->z) || (cub->z <= 0 && ray->i >= VRES))
+			//	break ;
 			ray->color = case_texture(cub, ray);
 			if (flag == 0)
 				ray->color = shade(ray->color, MINLIGHT);
@@ -160,8 +175,10 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 				ray->color = colorize(ray->color, ray->shadow, dim, cub->hue);
 			float	ra_sky = secure_radians(ray->ra, cub->scroll) * 721;
 			if (!adjacent_exp(cub, (int)ray->rx, (int)ray->ry, 32))
-				if (ra_sky < cub->text[7].b)
+				if (ra_sky < cub->text[7].b && ray->i + ray->ray < cub->text[7].a)
 					ray->color += shade(pxl_skybox(cub, ray->i + ray->ray, (int)ra_sky, 7), 0.05);
+			if (cub->debug && ray->r == NRAY / 2 && ray->lag)
+				printf("i = %d\n", ray->i);
 			pxl_to_ray(cub, ray->nr, (float)(int)(ray->i + ray->offset), ray->color);
 			ray->curr_px += ray->next_px;
 			ray->i++;

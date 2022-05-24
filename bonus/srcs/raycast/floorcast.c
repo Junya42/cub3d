@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/24 17:36:17 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/25 00:01:08 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,10 @@ int	check_ceiling(t_cast *c, t_cub *cub, t_ray *ray)
 						[((int)(c->ceilx) >> 5)] == '1')
 					return (1);
 	}
-	c->color = pxl_skybox(cub,
-			ray->j - (ray->offset + ray->raycast) + HALFVRES,
-			(int)c->ra_sky, 7);
+	if (c->ra_sky < cub->text[7].b && (ray->j - (ray->offset + ray->raycast)) < cub->text[7].a)
+		c->color = pxl_skybox(cub,
+				ray->j - (ray->offset + ray->raycast) + HALFVRES,
+				(int)c->ra_sky, 7);
 	return (0);
 }
 
@@ -54,8 +55,8 @@ void	floor_light(t_cast *c, t_cub *cub, t_ray *ray)
 		c->color += shade(case_texture(cub, ray), MINLIGHT);
 	c->color += pxl_from_img(cub, (int)ray->floor_y % 64,
 			(int)ray->floor_x % 64, 6);
-	ray->rx = (int)ray->floor_x * 2;
-	ray->ry = (int)ray->floor_y * 2;
+	ray->lx = (int)ray->floor_x * 2;
+	ray->ly = (int)ray->floor_y * 2;
 	c->flag = light(cub, cub->light, ray, cub->chunk);
 	if (c->flag == 0)
 		c->color = shade(c->color, MINLIGHT);
