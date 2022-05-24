@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/24 18:18:00 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/24 19:02:43 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	dda_texture(t_cub *cub, t_ray *ray)
 		ray->shadow = 1;
 	ray->curr_px = ray->next_px * ray->off_px;
 	ray->bigpx = ray->bignpx * ray->off_px;
+	ray->saverx = (int)ray->rx;
+	ray->savery = (int)ray->ry;
 	ray->bot = (int)ray->rx % cub->top;
 	ray->top = cub->bot - ((int)ray->rx % cub->bot);
 	ray->right = (int)ray->ry % cub->right;
@@ -66,9 +68,13 @@ void	compare_dist(t_cub *cub, t_ray *ray)
 	if (ray->hray < ray->vray)
 	{
 		if (ray->hdir == 1)
+		{
 			ray->next_px = cub->top / ray->raycast;
+		}
 		else if (ray->hdir == 2)
+		{
 			ray->next_px = cub->bot / ray->raycast;
+		}
 		else if (ray->hdir >= 3)
 		{
 			ray->next_px = cub->out / ray->raycast;

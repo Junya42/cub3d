@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/24 17:15:16 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/24 19:03:03 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -259,6 +259,8 @@ typedef struct s_ray
 	float			dra;
 	double			rx;
 	double			ry;
+	double			saverx;
+	double			savery;
 	double			npx;
 	double			npy;
 	float			nr;

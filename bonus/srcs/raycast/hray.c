@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:39:55 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/24 18:26:22 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/24 19:01:57 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 unsigned int	horizon_door_txt(t_cub *cub, t_ray *ray, int dir)
 {
-	ray->top = ((int)ray->rx - (int)cub->door) % 128;
-	ray->bot = 128 - ((int)ray->rx + (int)cub->door) % 128;
+	ray->top = ((int)ray->saverx - (int)cub->door) % 128;
+	ray->bot = 128 - ((int)ray->saverx + (int)cub->door) % 128;
 	if (dir == 1)
 		return ((pxl_from_img(cub, (int)ray->curr_px % 128, ray->top, 8)));
 	if (dir == 2)

@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:50:23 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/24 17:30:30 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/24 19:02:13 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 unsigned int	vert_door_txt(t_cub *cub, t_ray *ray, int dir)
 {
-	ray->right = ((int)ray->ry - (int)cub->door) % 128;
-	ray->left = 128 - ((int)ray->ry + (int)cub->door) % 128;
+	ray->right = ((int)ray->savery - (int)cub->door) % 128;
+	ray->left = 128 - ((int)ray->savery + (int)cub->door) % 128;
 	if (dir == 1)
 		return ((pxl_from_img(cub, (int)ray->curr_px % 64, ray->right, 8)));
 	if (dir == 2)
