@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/25 00:29:07 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/25 14:43:38 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,17 +157,24 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 		float	dim = 0;
 		int		lever = 0;
 		ray->end = ray->raycast + ((ray->diff - ray->raycast) / 2);
-	//	float	off  = ((HALFVRES - cub->z) - (ray->diff) * (0.75 - cub->h));
-	//	if (cub->debug && ray->r == NRAY / 2 && ray->lag)
-	//	{
-	//		printf("px = %f >>> off = %f >>> lag = %d >>> z = %f\n", ray->off_px, off, ray->lag, cub->z);
-	//	}
+		float	off  = ((HALFVRES - cub->z) - (ray->diff) * (0.75 - cub->h));
+		if (cub->debug && ray->r == NRAY / 2 && ray->lag)
+		{
+			printf("px = %f >>> off = %f >>> offset = %f >>> lag = %d >>> z = %f\n", ray->off_px, off, ray->offset, ray->lag, cub->z);
+		}
 		//ray->end = ray->diff;
+		//float	fix = 0;
 		ray->i = 0;
+		if (ray->lag && cub->z < 0)
+			ray->i = -ray->offset * 0.33;
+	//	int	fix = 0;
+//		float	savepx = curr_px;
+//		if (savepx > 0)
+//			fix = 1;
 		while (ray->i < ray->end)
 		{
-			//if ((cub->z && ray->i >= VRES + cub->z) || (cub->z <= 0 && ray->i >= VRES))
-			//	break ;
+			if ((cub->z && ray->i >= VRES + cub->z) || (cub->z <= 0 && ray->i >= VRES))
+				break ;
 			ray->color = case_texture(cub, ray);
 			if (flag == 0)
 				ray->color = shade(ray->color, MINLIGHT);
@@ -177,9 +184,12 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 			if (!adjacent_exp(cub, (int)ray->rx, (int)ray->ry, 32))
 				if (ra_sky < cub->text[7].b && ray->i + ray->ray < cub->text[7].a)
 					ray->color += shade(pxl_skybox(cub, ray->i + ray->ray, (int)ra_sky, 7), 0.05);
-			if (cub->debug && ray->r == NRAY / 2 && ray->lag)
-				printf("i = %d\n", ray->i);
+			//if (cub->debug && ray->r == NRAY / 2 && ray->lag)
+		//		printf("i = %d\n", ray->i);
 			pxl_to_ray(cub, ray->nr, (float)(int)(ray->i + ray->offset), ray->color);
+			//if (fix)
+		//	{
+	//		}
 			ray->curr_px += ray->next_px;
 			ray->i++;
 			if (dim >= ray->shadow)

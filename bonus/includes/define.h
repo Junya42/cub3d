@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 22:41:32 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/24 17:00:22 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/25 14:44:57 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 # define NB_FRAME 8
 # define SPRITE 6
 # define LIGHT 7
-# define MINLIGHT 0.9
+# define MINLIGHT 0.3
 # define LIGHTCODE "LRGBCYU"
 # define VALID "NSEW013 "
 # define FLOOR_VALID "0UPLRGBCY"
