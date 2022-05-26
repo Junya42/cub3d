@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/25 14:43:38 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/26 17:04:30 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,11 +157,11 @@ void	raycast(t_cub *cub, t_ray *ray, int draw)
 		float	dim = 0;
 		int		lever = 0;
 		ray->end = ray->raycast + ((ray->diff - ray->raycast) / 2);
-		float	off  = ((HALFVRES - cub->z) - (ray->diff) * (0.75 - cub->h));
-		if (cub->debug && ray->r == NRAY / 2 && ray->lag)
+		//float	off  = ((HALFVRES - cub->z) - (ray->diff) * (0.75 - cub->h));
+		/*if (cub->debug && ray->r == NRAY / 2 && ray->lag)
 		{
 			printf("px = %f >>> off = %f >>> offset = %f >>> lag = %d >>> z = %f\n", ray->off_px, off, ray->offset, ray->lag, cub->z);
-		}
+		}*/
 		//ray->end = ray->diff;
 		//float	fix = 0;
 		ray->i = 0;

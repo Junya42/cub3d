@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct3d.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/26 03:28:38 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/26 21:08:10 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -413,6 +413,7 @@ typedef struct s_cub
 	float			lastx;
 	float			lasty;
 	int				*map_len;
+	int				*width;
 	int				map_height;
 	char			**data;
 	char			**roof;

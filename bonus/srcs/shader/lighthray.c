@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lighthray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 16:45:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/21 12:27:10 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/26 21:55:12 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	light_horizon(t_cub *cub, t_ray *ray, t_light *light, int flag)
 				if (ray->hray <= 320)
 					cub->chunk[ray->my][ray->mx][light->id - 1] = light->id;
 			}
+			if (cub->map_len[ray->my] < ray->mx)
+				break ;
 			if (check_valid(cub->exp[ray->my][ray->mx], "12"))
 			{
 				if (cub->exp[ray->my][ray->mx] == '2')

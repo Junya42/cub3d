@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lightvray.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:14:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/21 12:27:48 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/26 21:55:09 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void	light_vertical(t_cub *cub, t_ray *ray, t_light *light, int flag)
 				if (ray->vray <= 320)
 					cub->chunk[ray->my][ray->mx][light->id - 1] = light->id;
 			}
+			if (cub->map_len[ray->my] < ray->mx)
+				break ;
 			if (check_valid(cub->exp[ray->my][ray->mx], "12"))
 			{
 				if (cub->exp[ray->my][ray->mx] == '2')

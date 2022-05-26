@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites_parsing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 03:03:41 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/26 03:28:09 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/26 17:00:45 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ char	search_type(t_cub *c)
 {
 	while (c->floor[c->search_i])
 	{
-		if (!c->floor[c->search_i][c->search_j])
-			c->search_j = 0;
 		while (c->floor[c->search_i][c->search_j])
 		{
 			if (check_valid(c->floor[c->search_i][c->search_j],
@@ -57,6 +55,7 @@ char	search_type(t_cub *c)
 				return (c->floor[c->search_i][c->search_j]);
 			c->search_j++;
 		}
+		c->search_j = 0;
 		c->search_i++;
 	}
 	return ('\0');

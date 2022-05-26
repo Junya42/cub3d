@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:14:10 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/22 20:12:59 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/26 21:28:38 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,13 @@ int	adjacent(t_cub *cub, int x, int y, char c)
 	map = cub->map;
 	if (x < 0 || y < 0)
 		return (0);
-	if (y > 0 && map[y - 1][x] == c)
+	if (y >= cub->my)
+		return (0);
+	if (x >= cub->width[y])
+		return (0);
+	if (y > 0 && x <= cub->width[y - 1] && map[y - 1][x] == c)
 		return (1);
-	if (y + 1 < cub->my && map[y + 1][x] == c)
+	if (y + 1 < cub->my && x <= cub->width[y + 1] && map[y + 1][x] == c)
 		return (1);
 	if (x > 0 && map[y][x - 1] == c)
 		return (1);
@@ -65,13 +69,14 @@ void	revert_map(t_cub *cub, int y, int x, char **map)
 			break ;
 	}
 }
-void	change_map(t_cub *cub)
+void	change_map(t_cub *cub, t_parse *parse)
 {
 	int		x;
 	int		y;
 	char	**map;
 
 	map = cub->map;
+	cub->width = parse->width;
 	x = 0;
 	y = 0;
 	while (map[y][x] && map[y][x] == 32)

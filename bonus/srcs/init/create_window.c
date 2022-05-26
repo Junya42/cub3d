@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_window.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 12:19:34 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/26 03:27:49 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/26 21:08:15 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,13 @@ int	create_window(t_cub *cub, t_parse *parse)
 {
 	init_erase_var(cub);
 	init_struct_null(cub);
-	change_map(cub);
 	cub->exp = expand(cub->map, cub->mx, cub->my, 64);
 	cub->roof = parse->roof;
 	cub->floor = parse->floor;
 	cub->expl = expand(cub->floor, cub->mx, cub->my, 64);
 	cub->expr = expand(cub->roof, cub->mx, cub->my, 64);
 	get_expanded_height_width(cub, cub->exp);
+	change_map(cub, parse);
 	cub->exit_code = loading_screen(cub, parse);
 	if (cub->exit_code != 0)
 	{

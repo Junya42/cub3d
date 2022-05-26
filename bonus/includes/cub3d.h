@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/23 19:03:25 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/26 21:09:09 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	        free_mlx(t_cub *cub);
 int				adjacent(t_cub *cub, int x, int y, char c);
 int				adjacent_exp(t_cub *cub, int x, int y, char c);
 void			update_hitbox(t_cub *cub, int x, int y, char **map);
-void			change_map(t_cub *cub);
+void			change_map(t_cub *cub, t_parse *parse);
 int				wipe_data(t_cub *cub, t_parse *parse);
 void	        init_struct_null(t_cub *cub);
 /*	TIME	*/
