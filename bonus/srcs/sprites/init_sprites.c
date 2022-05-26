@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_sprites.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 02:06:07 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/22 16:17:16 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/26 03:28:32 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ void	sprite_casting(t_cub *cub, t_light *light)
 		if (cub->sp[i].csp.type == LIGHT)
 			j = i;
 		if (cub->sp[i].csp.sx > -HRES && cub->sp[i].csp.sx < HRES)
-			print_sprite(cub, &cub->sp[i].csp);
+			if (!(cub->sp[i].csp.type == KEY && cub->exit == 1))
+				print_sprite(cub, &cub->sp[i].csp);
 		i++;
 	}
 	get_sound_id(cub, light, cub->sp[j].x, cub->sp[j].y);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   choose_sprite_texture.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:58:36 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/23 17:50:32 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/26 03:28:01 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,22 @@ int	choose_sprite_texture(t_sp *sp, t_cub *cub)
 {
 	if (sp->type == 'P')
 	{
-		give_sprite_var(sp, cub, "./bonus/imgs/Statue.xpm");
+		if (give_sprite_var(sp, cub, "./bonus/imgs/Human.xpm") == 0)
+			return (0);
 		sp->csp.moveable = 0;
 		sp->animated = 0;
 		sp->s_type = STATUE;
 		sp->csp.type = STATUE;
+		return (1);
+	}
+	else if (sp->type == 'K')
+	{
+		if (give_sprite_var(sp, cub, "./bonus/imgs/Key.xpm") == 0)
+			return (0);
+		sp->csp.moveable = 1;
+		sp->animated = 0;
+		sp->s_type = KEY;
+		sp->csp.type = KEY;
 		return (1);
 	}
 	else if (choose_light_texture(sp, cub) == 1)

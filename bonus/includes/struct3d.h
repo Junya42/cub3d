@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct3d.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/24 23:22:45 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/26 03:28:38 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ enum	e_sprite_type
 {
 	PC,
 	STATUE,
+	KEY,
 	BIG_STATUE,
 	GRASS,
 };
@@ -345,6 +346,7 @@ typedef struct s_cub
 	Mix_Chunk		*teleportation;
 	Mix_Chunk		*foot_steps[4];
 	Mix_Music		*opening_theme;
+	int				exit;
 	int				id;
 	int				closed;
 	int				debug;

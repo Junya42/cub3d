@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sprites_parsing.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 03:03:41 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/22 16:24:09 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/26 03:28:09 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ int	give_sprite_texture(t_sp *sp, t_cub *cub)
 		sp->csp.z = -9;
 		sp->size = 384;
 	}
+	else if (sp->csp.type == KEY)
+		sp->size = 275;
 	else
 		sp->size = 64;
 	return (1);

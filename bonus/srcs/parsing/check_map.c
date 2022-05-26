@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 03:36:45 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/01 01:57:16 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/26 03:28:28 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ int	closed_y(char **map, int x, int y)
 	{
 		if (x < (int)ft_strlen(map[newy]))
 		{
-			if (map[newy][x] == '1' && newy < y)
+			if ((map[newy][x] == '1' || map[newy][x] == '3') && newy < y)
 				check = 1;
-			else if (map[newy][x] == '1' && newy > y && check == 1)
+			else if ((map[newy][x] == '1' || map[newy][x] == '3') && newy > y && check == 1)
 				check = 2;
 		}
 		newy++;
@@ -73,9 +73,9 @@ int	closed_x(char **map, int x, int y)
 	check = 0;
 	while (map[y][newx] && check != 2)
 	{
-		if (map[y][newx] == '1' && newx < x)
+		if ((map[y][newx] == '1' || map[y][newx] == '3') && newx < x)
 			check = 1;
-		else if (map[y][newx] == '1' && newx > x && check == 1)
+		else if ((map[y][newx] == '1' || map[y][newx] == '3') && newx > x && check == 1)
 			check = 2;
 		newx++;
 	}

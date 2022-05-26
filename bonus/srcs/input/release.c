@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   release.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 17:26:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/24 09:51:42 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/26 03:27:09 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ int	release(int keycode, t_cub *cub)
 		if (check_valid(cub->expl[(int)cub->y][(int)cub->x], LIGHTCODE))
 			findnewlight(cub, cub->light, cub->x / 64, cub->y / 64);
 	}
+	if (check_valid(cub->expl[(int)cub->y][(int)cub->x], "K"))
+		cub->exit = 1;
 	if (player->released == keycode)
 	{
 		player->released = 0;

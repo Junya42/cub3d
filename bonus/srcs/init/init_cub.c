@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cub.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:58:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/23 20:13:41 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/26 03:27:27 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	alloc_stuff(t_cub *cub)
 	cub->id = -1;
 	cub->sp_dist = 250;
 	cub->blocked = 0;
+	cub->exit = 0;
 	if (!cub->player || !cub->ray)
 	{
 		if (cub->player)

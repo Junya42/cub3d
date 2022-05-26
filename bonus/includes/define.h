@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
+/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 22:41:32 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/25 14:44:57 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/26 02:30:47 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,11 @@
 # define LIGHT 7
 # define MINLIGHT 0.3
 # define LIGHTCODE "LRGBCYU"
-# define VALID "NSEW013 "
-# define FLOOR_VALID "0UPLRGBCY"
+# define VALID "NSEW013d "
+# define FLOOR_VALID "0UPLRGBCYK"
 # define ROOF_VALID "01"
-# define CLOSED_VALID "UPLRGBCYNSEW0 "
-# define SPRITE_VALID "UPLRGBCY"
+# define CLOSED_VALID "UPLRGBCYNSEKW0 "
+# define SPRITE_VALID "UPLRGBCYK"
 # define SPRITE_ERR 1
 # define MATRIX_ERR 2
 # define TEXTURE_ERR 3
