@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 16:42:19 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/27 18:06:24 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/30 23:26:04 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	check_door(char **map)
 		}
 		i++;
 	}
-	return (EXIT_SUCCESS);;
+	return (EXIT_SUCCESS);
 }
 
 int	check_width_height(char *name, char **map, t_parse *p)

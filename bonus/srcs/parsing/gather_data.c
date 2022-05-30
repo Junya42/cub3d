@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 16:31:16 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/23 20:01:47 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/30 23:25:42 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	give_texture(t_parse *p, char **mcontent, int side)
 		p->f2_path = ft_strdup(mcontent[1]);
 	else if (side == R1)
 		p->r1_path = ft_strdup(mcontent[1]);
-    else if (side == R2)
+	else if (side == R2)
 		p->r2_path = ft_strdup(mcontent[1]);
 }
 
