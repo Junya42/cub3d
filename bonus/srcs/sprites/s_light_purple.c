@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 03:08:30 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/25 17:14:17 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/27 14:04:03 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ int	txt_light_purple(t_sp *sp, t_cub *cub)
 		return (0);
 	if (init_animation(sp, cub) == 0)
 		return (0);
-	sp->img = mlx_xpm_file_to_image(cub->mlx, "./bonus/imgs/s_purple/purple0.xpm",
+	sp->img = mlx_xpm_file_to_image(cub->mlx,
+			"./bonus/imgs/s_purple/purple0.xpm",
 			&sp->a, &sp->b);
 	if (!sp->img)
 		return (0);

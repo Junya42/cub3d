@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 12:19:34 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/26 21:08:15 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/30 14:11:20 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,13 @@ int	load_err(int exit_code, char *str)
 
 void	get_directionnal_modulus(t_cub *cub)
 {
+	cub->sroof = cub->text[9].a;
+	cub->sfloor = cub->text[6].a;
 	cub->out = cub->text[5].a;
-	printf("out	%d\n", cub->out);
 	cub->top = cub->text[4].a;
-	printf("top	%d\n", cub->top);
 	cub->bot = cub->text[3].a;
-	printf("bot	%d\n", cub->bot);
 	cub->left = cub->text[2].a;
-	printf("left	%d\n", cub->left);
 	cub->right = cub->text[1].a;
-	printf("right	%d\n", cub->right);
 }
 
 int	loading_screen(t_cub *cub, t_parse *parse)
@@ -66,13 +63,13 @@ int	create_window(t_cub *cub, t_parse *parse)
 {
 	init_erase_var(cub);
 	init_struct_null(cub);
+	change_map(cub, parse);
 	cub->exp = expand(cub->map, cub->mx, cub->my, 64);
 	cub->roof = parse->roof;
 	cub->floor = parse->floor;
 	cub->expl = expand(cub->floor, cub->mx, cub->my, 64);
 	cub->expr = expand(cub->roof, cub->mx, cub->my, 64);
 	get_expanded_height_width(cub, cub->exp);
-	change_map(cub, parse);
 	cub->exit_code = loading_screen(cub, parse);
 	if (cub->exit_code != 0)
 	{

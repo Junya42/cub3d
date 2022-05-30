@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:09 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/25 00:03:54 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/30 17:57:06 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,7 @@ void	skybox(t_cub *cub, t_ray *ray)
 	ra_to_pxl = secure_radians(ray->ra, cub->scroll) * 721;
 	if (ra_to_pxl >= cub->text[7].b)
 		fix_nra = 1;
-	//endsky = ray->offset - ((ray->diff - ray->raycast) / 2);
-	//endsky = ray->offset;
 	endsky = ((HALFVRES - cub->z) - (ray->diff) * (0.75 - cub->h));
-	//endsky = VRES - ray->end;
 	while (ray->i < endsky)
 	{
 		if ((ray->i + HALFVRES + cub->z) >= cub->text[7].a)

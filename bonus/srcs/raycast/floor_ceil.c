@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 12:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/25 00:28:13 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/30 17:57:17 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	glass(t_cub *cub, float x, float y, float lvl)
 
 void	init_floorcast(t_cub *cub, t_ray *ray, t_cast *c)
 {
-	//ray->raycast += ((ray->diff - ray->raycast) / 2);
 	ray->raycast = ray->end;
 	ray->j = ray->offset + ray->raycast;
 	c->fix = fix_fisheye(cub->a, ray->ra, 1);

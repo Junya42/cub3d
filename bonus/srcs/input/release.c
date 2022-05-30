@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   release.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/16 17:26:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/26 03:27:09 by cmarouf          ###   ########.fr       */
+/*   Created: 2022/05/30 18:42:54 by anremiki          #+#    #+#             */
+/*   Updated: 2022/05/30 18:42:55 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,16 @@ void	findnewlight(t_cub *cub, t_light *light, int x, int y)
 		if ((int)light[i].x / 64 == x && (int)light[i].y / 64 == y)
 		{
 			save = i;
-			while (i == save)
+			while (i == save
+				|| cub->exp[(int)light[i].y][(int)light[i].x] == '3')
 				i = rand() % (cub->lights);
 			Mix_PlayChannel(3, cub->teleportation, 0);
 			cub->player->x = light[i].x;
 			cub->player->y = light[i].y;
 			cub->x = cub->player->x;
 			cub->y = cub->player->y;
+			cub->warp = 1;
+			cub->brightness = 1;
 			return ;
 		}
 		i++;
@@ -95,7 +98,7 @@ int	release(int keycode, t_cub *cub)
 			cub->jump = -2;
 		else
 			cub->jump = 0;
-		raycast(cub, cub->ray, 1);
+		raycast(cub, cub->ray);
 		if (check_valid(cub->expl[(int)cub->y][(int)cub->x], LIGHTCODE))
 			findnewlight(cub, cub->light, cub->x / 64, cub->y / 64);
 	}

@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 22:10:22 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/21 12:14:19 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/30 17:46:45 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,28 +57,25 @@ unsigned int	get_mapcolor(char c)
 
 void	draw_index(t_cub *cub, int x, int y, char c)
 {
-	int				dx;
-	int				dy;
 	int				savey;
-	unsigned int	color;
 
 	if (c == '0')
 		return ;
-	dx = (x + 1) * 16 - 2;
+	cub->dx = (x + 1) * 16 - 2;
 	x = x * 16 + 2;
-	dy = (y + 1) * 16 - 2;
+	cub->dy = (y + 1) * 16 - 2;
 	y = y * 16 + 2;
 	savey = y;
-	while (x < dx)
+	while (x < cub->dx)
 	{
 		y = savey;
-		while (y < dy)
+		while (y < cub->dy)
 		{
 			if (!(y % 2))
 			{
-				color = get_mapcolor(c);
-				if (color != 42)
-					mlx_pixel_put(cub->mlx, cub->win, x, y, color);
+				cub->color = get_mapcolor(c);
+				if (cub->color != 42)
+					mlx_pixel_put(cub->mlx, cub->win, x, y, cub->color);
 			}
 			y++;
 		}
@@ -95,8 +92,11 @@ void	draw_posmap(t_cub *cub, char **map, int x, int y)
 	ymax = y + 5;
 	xmax = x + 5;
 	offset = get_offset(x);
+	cub->ycpy = y;
 	y = get_new_value(y);
 	x = get_new_value(x);
+	cub->ycpy = y - (5 - get_offset(cub->ycpy));
+	cub->xcpy = x - (5 - offset);
 	if (y < 0 || x < 0)
 		return ;
 	while (map[y] && y <= ymax)
@@ -104,7 +104,7 @@ void	draw_posmap(t_cub *cub, char **map, int x, int y)
 		x = xmax - 5 - offset;
 		while (map[y][x] && x <= xmax)
 		{
-			draw_index(cub, x, y, map[y][x]);
+			draw_index(cub, x - cub->xcpy, y - cub->ycpy, map[y][x]);
 			x++;
 		}
 		y++;

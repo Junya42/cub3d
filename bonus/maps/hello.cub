@@ -1,15 +1,14 @@
 # **************************************************************************** #
 #                                                                              #
 #                                                         :::      ::::::::    #
-#    test.cub                                           :+:      :+:    :+:    #
+#    hello.cub                                          :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+         #
+#    By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/05/01 16:52:02 by anremiki          #+#    #+#              #
-#    Updated: 2022/05/01 16:59:57 by anremiki         ###   ########.fr        #
+#    Created: 2022/04/29 03:33:28 by anremiki          #+#    #+#              #
+#    Updated: 2022/05/30 14:57:56 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 
 #	 ██████╗██╗   ██╗██████╗ ██████╗ ██████╗ 
 #	██╔════╝██║   ██║██╔══██╗╚════██╗██╔══██╗
@@ -17,15 +16,60 @@
 #	██║     ██║   ██║██╔══██╗ ╚═══██╗██║  ██║
 #	╚██████╗╚██████╔╝██████╔╝██████╔╝██████╔╝
 #	 ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ ╚═════╝ 
-NO ./imgs/path_to_the_north_texture
-SO ./imgs/path_to_the_south_texture
-WE ./imgs/path_to_the_west_texture
-EA ./imgs/path_to_the_east_texture
+
+#NO -> North
+#SO -> South
+#WE -> West
+#EA -> East
+#OW -> Outside walls
+#F1 -> Floor 1
+#F2 -> Floor 2
+#R1 -> Roof 1
+#R2 -> Roof 2
+
+NO ./bonus/imgs/vertvent.xpm
+SO ./bonus/imgs/techscreen.xpm
+WE ./bonus/imgs/box.xpm
+EA ./bonus/imgs/wallbrick.xpm
+OW ./bonus/imgs/pblackstone.xpm
+F1 ./bonus/imgs/doomfloor.xpm
+F2 ./bonus/imgs/blackstone.xpm
+R1 ./bonus/imgs/blackstone.xpm
+R2 ./bonus/imgs/blackstone.xpm
+
 
 F 10,10,10
 C 10,10,10
 
-111
-101
-1N1
-111
+113333311
+111101111
+100000011
+100011001
+111 11001
+100011 11#MAP
+101000001
+11100W001
+10 000001
+111111111
+*
+111111111
+111111111
+000000000
+000000000
+000000000
+000000000#ROOF
+000000000
+000000000
+011111100
+000000000
+*
+0000L0000
+000000000
+0KU000000
+0000000Y0
+000000000
+000000000#SPRITE
+000000000
+000000000
+0000G0000
+000000000

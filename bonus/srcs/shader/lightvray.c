@@ -6,11 +6,20 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:14:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/26 21:55:09 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/27 14:02:12 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+void	end_lvray(t_cub *cub, t_ray *ray, t_light *light)
+{
+	if (cub->exp[ray->my][ray->mx] == '2')
+		ray->hdir += 2;
+	ray->vx = ray->rx;
+	ray->vy = ray->ry;
+	ray->vray = dist(light->x, light->y, ray->vx, ray->vy);
+}
 
 void	light_vertical(t_cub *cub, t_ray *ray, t_light *light, int flag)
 {
@@ -31,17 +40,51 @@ void	light_vertical(t_cub *cub, t_ray *ray, t_light *light, int flag)
 				break ;
 			if (check_valid(cub->exp[ray->my][ray->mx], "12"))
 			{
-				if (cub->exp[ray->my][ray->mx] == '2')
-					ray->hdir += 2;
-				ray->vx = ray->rx;
-				ray->vy = ray->ry;
-				ray->vray = dist(light->x, light->y, ray->vx, ray->vy);
+				end_lvray(cub, ray, light);
 				break ;
 			}
 		}
 		ray->rx += ray->xo;
 		ray->ry += ray->yo;
 		ray->limit++;
+	}
+}
+
+void	rightray(t_ray *ray, t_light *light, int flag)
+{
+	ray->hdir = 2;
+	ray->rx = ray->npx + 64;
+	ray->ry = (light->x - ray->rx) * ray->ntan + light->y;
+	if (flag)
+	{
+		ray->ry = light->y;
+		ray->rx = light->x;
+	}
+	ray->xo = 64;
+	ray->yo = -ray->xo * ray->ntan;
+	if (flag)
+	{
+		ray->yo /= 64;
+		ray->xo /= 64;
+	}
+}
+
+void	leftray(t_ray *ray, t_light *light, int flag)
+{
+	ray->hdir = 1;
+	ray->rx = ray->npx - 0.0001;
+	ray->ry = (light->x - ray->rx) * ray->ntan + light->y;
+	if (flag)
+	{
+		ray->ry = light->y;
+		ray->rx = light->x;
+	}
+	ray->xo = -64;
+	ray->yo = -ray->xo * ray->ntan;
+	if (flag)
+	{
+		ray->yo /= 64;
+		ray->xo /= 64;
 	}
 }
 
@@ -54,40 +97,8 @@ void	lightvray(t_cub *cub, t_light *light, t_ray *ray, int flag)
 		ray->limit = cub->ex;
 	}
 	else if (ray->ra > PI2 && ray->ra < PI3)
-	{
-		ray->hdir = 1;
-		ray->rx = ray->npx - 0.0001;
-		ray->ry = (light->x - ray->rx) * ray->ntan + light->y;
-		if (flag)
-		{
-			ray->ry = light->y;
-			ray->rx = light->x;
-		}
-		ray->xo = -64;
-		ray->yo = -ray->xo * ray->ntan;
-		if (flag)
-		{
-			ray->yo /= 64;
-			ray->xo /= 64;
-		}
-	}
+		leftray(ray, light, flag);
 	else if (ray->ra < PI2 || ray->ra > PI3)
-	{
-		ray->hdir = 2;
-		ray->rx = ray->npx + 64;
-		ray->ry = (light->x - ray->rx) * ray->ntan + light->y;
-		if (flag)
-		{
-			ray->ry = light->y;
-			ray->rx = light->x;
-		}
-		ray->xo = 64;
-		ray->yo = -ray->xo * ray->ntan;
-		if (flag)
-		{
-			ray->yo /= 64;
-			ray->xo /= 64;
-		}
-	}
+		rightray(ray, light, flag);
 	light_vertical(cub, ray, light, flag);
 }

@@ -6,7 +6,7 @@
 #    By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 19:16:48 by anremiki          #+#    #+#              #
-#    Updated: 2022/05/23 18:55:08 by cmarouf          ###   ########.fr        #
+#    Updated: 2022/05/30 18:24:48 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,9 +31,12 @@ SRCS = ./srcs/parsing/check_data.c ./srcs/parsing/check_map.c \
 	   ./srcs/utils/degree.c \
 	   ./srcs/shader/colors.c ./srcs/shader/shade.c \
 	   ./srcs/raycast/init_ray.c ./srcs/raycast/hray.c \
-	   ./srcs/raycast/vray.c ./srcs/raycast/pixels.c \
+	   ./srcs/raycast/hray_utils.c \
+	   ./srcs/raycast/vray.c ./srcs/raycast/vray_utils.c \
+		./srcs/raycast/pixels.c \
 	   ./srcs/raycast/floor_ceil.c \
 	   ./srcs/raycast/floorcast.c ./srcs/raycast/skybox.c \
+	   ./srcs/raycast/raycast_utils.c \
 	   ./srcs/raycast/raycast.c ./srcs/raycast/display.c \
 	   ./srcs/sprites/init_sprites.c ./srcs/sprites/sprites_casting.c \
 	   ./srcs/sprites/sprites_parsing.c ./srcs/sprites/s_light_blue.c \

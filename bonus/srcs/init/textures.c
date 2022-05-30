@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 01:30:53 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/24 18:55:04 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/30 16:42:40 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,15 @@ int	txt_size(t_text *t)
 			return (0);
 		}
 		if (t[i].a != 64 && t[i].a != 128)
-      		{
-			printf("TXT SIZE ERROR SHOULD (64x64 OR 128x128) HAVING %dx%d\n", t[i].a, t[i].b);
+		{
+			printf("TXT SIZE ERROR SHOULD (64x64 OR 128x128) HAVING %dx%d\n",
+				t[i].a, t[i].b);
 			return (0);
 		}
 		if (t[i].b != 64 && t[i].b != 128)
 		{
-			printf("TXT SIZE ERROR SHOULD (64x64 OR 128x128) HAVING %dx%d\n", t[i].a, t[i].b);
+			printf("TXT SIZE ERROR SHOULD (64x64 OR 128x128) HAVING %dx%d\n",
+				t[i].a, t[i].b);
 			return (0);
 		}
 		i++;
@@ -76,12 +78,12 @@ int	imgs(t_parse *p, t_cub *cub, t_text *t,
 	t[2].img = (*xpm)(cub->mlx, p->wpath, &t[2].a, &t[2].b);
 	t[3].img = (*xpm)(cub->mlx, p->spath, &t[3].a, &t[3].b);
 	t[4].img = (*xpm)(cub->mlx, p->npath, &t[4].a, &t[4].b);
-	t[5].img = (*xpm)(cub->mlx, p->o_path, &t[5].a, &t[5].b); //mur ext
-	t[6].img = (*xpm)(cub->mlx, p->f1_path, &t[6].a, &t[6].b); // sol 1
-	t[7].img = (*xpm)(cub->mlx, "./bonus/imgs/null.xpm", &t[7].a, &t[7].b); // sol 2
-	t[8].img = (*xpm)(cub->mlx, "./bonus/imgs/BIGDOOR.xpm", &t[8].a, &t[8].b); // porte
-	t[9].img = (*xpm)(cub->mlx, p->r1_path, &t[9].a, &t[9].b); // roof 1
-	t[10].img = (*xpm)(cub->mlx, p->r2_path, &t[10].a, &t[10].b); // roof 2
+	t[5].img = (*xpm)(cub->mlx, p->o_path, &t[5].a, &t[5].b);
+	t[6].img = (*xpm)(cub->mlx, p->f1_path, &t[6].a, &t[6].b);
+	t[7].img = (*xpm)(cub->mlx, "./bonus/imgs/null.xpm", &t[7].a, &t[7].b);
+	t[8].img = (*xpm)(cub->mlx, "./bonus/imgs/BIGDOOR.xpm", &t[8].a, &t[8].b);
+	t[9].img = (*xpm)(cub->mlx, p->r1_path, &t[9].a, &t[9].b);
+	t[10].img = (*xpm)(cub->mlx, p->r2_path, &t[10].a, &t[10].b);
 	while (++i < 11)
 		if (!t[i].img)
 			return (0);
@@ -107,6 +109,8 @@ int	create_imgs(t_cub *cub, t_parse *parse)
 		return (0);
 	if (!txt_size(cub->text))
 		return (0);
+	cub->fcolor = parse->colorf;
+	cub->ccolor = parse->colorc;
 	return (1);
 }
 

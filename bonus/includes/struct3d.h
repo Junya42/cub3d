@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/26 21:08:10 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/30 18:28:42 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 # define STRUCT3D_H
 
 # include "./define.h"
+
+typedef int q;
 
 enum	e_side
 {
@@ -257,6 +259,8 @@ typedef struct s_ray
 	float			ntan;
 	int				r;
 	int				lag;
+	char			htarget;
+	char			vtarget;
 	float			ray;
 	float			ra;
 	float			dra;
@@ -285,6 +289,11 @@ typedef struct s_ray
 	float			vx;
 	float			vy;
 	float			shadow;
+	float			dim;
+	int				lever;
+	int				flag;
+	float			ra_sky;
+	float			scale;
 	float			top;
 	float			bot;
 	float			left;
@@ -347,6 +356,7 @@ typedef struct s_cub
 	Mix_Chunk		*foot_steps[4];
 	Mix_Music		*opening_theme;
 	int				exit;
+	int				warp;
 	int				id;
 	int				closed;
 	int				debug;
@@ -380,6 +390,7 @@ typedef struct s_cub
 	unsigned int	ccolor;
 	float			n_rad;
 	float			s_rad;
+	char			target;
 	float			x;
 	float			y;
 	float			a;
@@ -397,6 +408,10 @@ typedef struct s_cub
 	int				mp;
 	int				ex;
 	int				ey;
+	int				dx;
+	int				dy;
+	int				ycpy;
+	int				xcpy;
 	int				end;
 	int				flot;
 	int				search_i;
@@ -424,7 +439,7 @@ typedef struct s_cub
 	char			**expr;
 	int				***chunk;
 	float			scroll;
-	int				brightness;
+	float			brightness;
 	float			door;
 	int				doorcheck;
 	int				degree;
@@ -436,6 +451,8 @@ typedef struct s_cub
 	int				right;
 	int				left;
 	int				out;
+	int				sfloor;
+	int				sroof;
 	t_ray			*ray;
 	t_player		*player;
 	t_text			*text;

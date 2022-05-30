@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 16:42:19 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/22 16:42:10 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/27 18:06:24 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	check_wrong_placement(char **floor, t_parse *p)
 			if (is_charset(floor[i][j], SPRITE_VALID) == 1)
 			{
 				if (p->map[i][j] == '1' || p->map[i][j] == 'D'
-					|| p->map[i][j] == '3')
+					|| p->map[i][j] == '2')
 					floor[i][j] = '0';
 			}
 			j++;

@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:58:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/26 03:27:27 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/30 14:48:38 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	alloc_stuff(t_cub *cub)
 int	init_cub(t_cub *cub, t_parse *parse)
 {
 	cub->map = parse->map;
+	cub->warp = 0;
 	get_map_xy(cub->map, cub);
 	cub->cos = cos(cub->a);
 	cub->sin = sin(cub->a);

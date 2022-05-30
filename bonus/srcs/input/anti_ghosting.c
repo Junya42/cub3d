@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:04:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/26 03:27:41 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/30 18:41:42 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,20 @@ void	update_game_state(t_cub *cub, t_player *player)
 {
 	update_3d_sound(cub, player);
 	jump(cub);
-	open_door(cub, 0);
-	raycast(cub, cub->ray, 0);
+	if ((int)cub->y > -1 && (int)cub->x > -1
+		&& (int)cub->y < cub->ey && (int)cub->x < cub->ex)
+		open_door(cub, 0);
+	raycast(cub, cub->ray);
 	if (cub->pause == 1)
 		floating(cub);
 	animation(cub);
 	sprite_casting(cub, cub->light);
+	if (cub->warp == 1 && cub->brightness < 4)
+	{
+		if (cub->brightness + 0.2 == 4)
+			cub->warp = 0;
+		cub->brightness += 0.2;
+	}
 }
 
 int	anti_ghosting(t_cub *cub)

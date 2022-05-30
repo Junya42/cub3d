@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/25 00:01:08 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/30 18:09:56 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,23 @@ int	check_ceiling(t_cast *c, t_cub *cub, t_ray *ray)
 	c->color = 0;
 	if (cub->h <= 0.25)
 	{
-		if (((int)(ray->floor_y) >> 5) < cub->my && ((int)(ray->floor_x) >> 5) < cub->mx)
-			if (((int)(ray->floor_y) >> 5) > -1 && ((int)(ray->floor_x) >> 5) > -1)
-				if (cub->roof[((int)(ray->floor_y) >> 5)]
-						[((int)(ray->floor_x) >> 5)] == '1')
+		if (((q)(ray->floor_y) >> 5) < cub->my
+			&& ((q)(ray->floor_x) >> 5) < cub->mx)
+			if (((q)(ray->floor_y) >> 5) > -1 && ((q)(ray->floor_x) >> 5) > -1)
+				if (cub->roof[((q)(ray->floor_y) >> 5)]
+						[((q)(ray->floor_x) >> 5)] == '1')
 					return (1);
 	}
 	else
 	{
-		if (((int)(c->ceily) >> 5 < cub->my) && ((int)(c->ceilx) >> 5) < cub->mx)
-			if (((int)(c->ceily) >> 5 > -1) && ((int)(c->ceilx) >> 5) > -1)
-				if (cub->roof[((int)(c->ceily) >> 5)]
-						[((int)(c->ceilx) >> 5)] == '1')
+		if (((q)(c->ceily) >> 5 < cub->my) && ((q)(c->ceilx) >> 5) < cub->mx)
+			if (((q)(c->ceily) >> 5 > -1) && ((q)(c->ceilx) >> 5) > -1)
+				if (cub->roof[((q)(c->ceily) >> 5)]
+						[((q)(c->ceilx) >> 5)] == '1')
 					return (1);
 	}
-	if (c->ra_sky < cub->text[7].b && (ray->j - (ray->offset + ray->raycast)) < cub->text[7].a)
+	if (c->ra_sky < cub->text[7].b
+		&& (ray->j - (ray->offset + ray->raycast)) < cub->text[7].a)
 		c->color = pxl_skybox(cub,
 				ray->j - (ray->offset + ray->raycast) + HALFVRES,
 				(int)c->ra_sky, 7);
@@ -53,8 +55,8 @@ void	floor_light(t_cast *c, t_cub *cub, t_ray *ray)
 {
 	if (c->limiter < ray->raycast)
 		c->color += shade(case_texture(cub, ray), MINLIGHT);
-	c->color += pxl_from_img(cub, (int)ray->floor_y % 64,
-			(int)ray->floor_x % 64, 6);
+	c->color += pxl_from_img(cub, (int)ray->floor_y % cub->sfloor,
+			(int)ray->floor_x % cub->sfloor, 6);
 	ray->lx = (int)ray->floor_x * 2;
 	ray->ly = (int)ray->floor_y * 2;
 	c->flag = light(cub, cub->light, ray, cub->chunk);
@@ -69,8 +71,8 @@ void	ceiling_loop(t_cast *c, t_cub *cub, t_ray *ray)
 {
 	if (c->ceilcheck)
 	{
-		c->color = pxl_from_img(cub, (int)c->ceily % 64,
-				(int)c->ceilx % 64, 5);
+		c->color = pxl_from_img(cub, (int)c->ceily % cub->sroof,
+				(int)c->ceilx % cub->sroof, 9);
 		if (c->flag == 0)
 			c->color = shade(c->color, 0.05);
 		else

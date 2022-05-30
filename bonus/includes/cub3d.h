@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/26 21:09:09 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/30 18:39:36 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,8 +173,8 @@ int	            choose_light_texture(t_sp *sp, t_cub *cub);
 void	        get_sound_id(t_cub *cub, t_light *lights, float x, float y);
 
 /*	----------Sound-------------	*/
-int	    init_audio(t_cub *cub, int i);
-void	foot_steps(t_cub *cub, t_player *player);
+int	    		init_audio(t_cub *cub, int i);
+void			foot_steps(t_cub *cub, t_player *player);
 
 /*	----------Minimap-------------	*/
 
@@ -184,14 +184,20 @@ void			draw_posmap(t_cub *cub, char **map, int x, int y);
 /*	----------Raycast-------------	*/
 
 void			init_ray(t_cub *cub, t_ray *ray);
+void			reset_values(t_cub *cub, t_ray *ray);
 unsigned int	horizon_texture(t_cub *cub, t_ray *ray, int dir);
 unsigned int	vertical_texture(t_cub *cub, t_ray *ray, int dir);
+void			hdist(t_cub *cub, t_ray *ray, int flag);
+void			vdist(t_cub *cub, t_ray *ray, int flag);
+int				hdoor(t_cub *cub, t_ray *ray);
+int				vdoor(t_cub *cub, t_ray *ray);
 void			hray(t_cub *cub, t_ray *ray);
 void			vray(t_cub *cub, t_ray *ray);
+void			compare_dist(t_cub *cub, t_ray *ray, int flag);
 void			skybox(t_cub *cub, t_ray *ray);
 void			floorcast(t_cub *cub, t_ray *ray);
 void			display(t_cub *cub, int draw);
-void			raycast(t_cub *cub, t_ray *ray, int draw);
+void			raycast(t_cub *cub, t_ray *ray);
 
 /*	--------FloorxCeil--------------	*/
 

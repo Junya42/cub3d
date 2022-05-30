@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:14:10 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/26 21:28:38 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/30 11:49:51 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,32 +69,31 @@ void	revert_map(t_cub *cub, int y, int x, char **map)
 			break ;
 	}
 }
+
 void	change_map(t_cub *cub, t_parse *parse)
 {
 	int		x;
 	int		y;
-	char	**map;
 
-	map = cub->map;
 	cub->width = parse->width;
 	x = 0;
 	y = 0;
-	while (map[y][x] && map[y][x] == 32)
+	while (cub->map[y][x] && cub->map[y][x] == 32)
 		x++;
-	map[y][x] = '2';
-	while (map[y])
+	cub->map[y][x] = '2';
+	while (cub->map[y])
 	{
 		x = 0;
-		while (map[y][x])
+		while (cub->map[y][x])
 		{
-			if (map[y][x] == '1' && adjacent(cub, x, y, '2'))
+			if (cub->map[y][x] == '1' && adjacent(cub, x, y, '2'))
 			{
-				map[y][x] = '2';
+				cub->map[y][x] = '2';
 				x = 0;
 			}
 			x++;
 		}
 		y++;
 	}
-	revert_map(cub, y - 1, x - 1, map);
+	revert_map(cub, y - 1, x - 1, cub->map);
 }

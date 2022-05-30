@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/07 03:11:42 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/26 03:27:35 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/30 15:01:05 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	load_game(t_cub *cub, t_parse *parse, char **av)
 		wipe_data(cub, parse);
 		return (0);
 	}
-	cub->pause = 0;
+	cub->pause = 1;
 	return (1);
 }
 

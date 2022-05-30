@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:50:23 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/26 21:46:17 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/30 18:40:26 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,11 @@ unsigned int	vertical_texture(t_cub *cub, t_ray *ray, int dir)
 	if (cub->glass)
 		return (vert_door_txt(cub, ray, dir));
 	if (dir == 1)
-		return ((pxl_from_img(cub, (int)ray->curr_px % cub->right, ray->right, 1)));
+		return ((pxl_from_img(cub, (int)ray->curr_px % cub->right
+					, ray->right, 1)));
 	if (dir == 2)
-		return ((pxl_from_img(cub, (int)ray->curr_px % cub->left, ray->left, 2)));
+		return ((pxl_from_img(cub, (int)ray->curr_px % cub->left
+					, ray->left, 2)));
 	if (dir == 3)
 		return ((pxl_from_img(cub, (int)ray->curr_px % cub->out, ray->out, 5)));
 	if (dir == 4)
@@ -44,48 +46,25 @@ unsigned int	vertical_texture(t_cub *cub, t_ray *ray, int dir)
 
 void	dda_vertical(t_cub *cub, t_ray *ray)
 {
-	cub->vglass = 0;
 	while (ray->limit < cub->ex)
 	{
 		ray->mx = (int)ray->rx;
 		ray->my = (int)ray->ry;
 		if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1
 				&& ray->my > -1) && check_valid(cub->exp[ray->my]
-				[ray->mx], " "))
-		{
-			ray->rx += ray->xo / 2;
-			ray->ry += ray->yo / 2;
-			if (((int)ray->ry % 64 - (int)cub->door) > 0 && ray->vdir == 1)
-			{
-				cub->vglass = 1;
-				ray->vx = ray->rx;
-				ray->vy = ray->ry;
-				ray->vray = dist(cub->x, cub->y, ray->vx, ray->vy);
+				[ray->mx], " d"))
+			if (vdoor(cub, ray))
 				break ;
-			}
-			if (64 - ((int)ray->ry % 64 + (int)cub->door) > 0 && ray->vdir == 2)
-			{
-				cub->vglass = 1;
-				ray->vx = ray->rx;
-				ray->vy = ray->ry;
-				ray->vray = dist(cub->x, cub->y, ray->vx, ray->vy);
-				break ;
-			}
-			ray->rx += ray->xo / 2;
-			ray->ry += ray->yo / 2;
-		}
 		if (ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1
-				&& ray->my > -1 && cub->map_len[ray->my] < ray->mx)
+			&& ray->my > -1 && cub->map_len[ray->my] < ray->mx)
 			break ;
 		if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1
 				&& ray->my > -1) && check_valid(cub->exp[ray->my]
-				[ray->mx], "12"))
+				[ray->mx], "123"))
 		{
 			if (cub->exp[ray->my][ray->mx] == '2')
 				ray->vdir += 2;
-			ray->vx = ray->rx;
-			ray->vy = ray->ry;
-			ray->vray = dist(cub->x, cub->y, ray->vx, ray->vy);
+			vdist(cub, ray, 0);
 			break ;
 		}
 		ray->rx += ray->xo;

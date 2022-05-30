@@ -6,11 +6,20 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 16:45:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/26 21:55:12 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/27 14:02:25 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
+
+void	end_lhray(t_cub *cub, t_ray *ray, t_light *light)
+{
+	if (cub->exp[ray->my][ray->mx] == '2')
+		ray->hdir += 2;
+	ray->hx = ray->rx;
+	ray->hy = ray->ry;
+	ray->hray = dist(light->x, light->y, ray->hx, ray->hy);
+}
 
 void	light_horizon(t_cub *cub, t_ray *ray, t_light *light, int flag)
 {
@@ -31,17 +40,51 @@ void	light_horizon(t_cub *cub, t_ray *ray, t_light *light, int flag)
 				break ;
 			if (check_valid(cub->exp[ray->my][ray->mx], "12"))
 			{
-				if (cub->exp[ray->my][ray->mx] == '2')
-					ray->hdir += 2;
-				ray->hx = ray->rx;
-				ray->hy = ray->ry;
-				ray->hray = dist(light->x, light->y, ray->hx, ray->hy);
+				end_lhray(cub, ray, light);
 				break ;
 			}
 		}
 		ray->rx += ray->xo;
 		ray->ry += ray->yo;
 		ray->limit++;
+	}
+}
+
+void	topray(t_ray *ray, t_light *light, int flag)
+{
+	ray->hdir = 1;
+	ray->ry = ray->npy - 0.0001;
+	ray->rx = (light->y - ray->ry) * ray->contan + light->x;
+	if (flag)
+	{
+		ray->ry = light->y;
+		ray->rx = light->x;
+	}
+	ray->yo = -64;
+	ray->xo = -ray->yo * ray->contan;
+	if (flag)
+	{
+		ray->yo /= 64;
+		ray->xo /= 64;
+	}
+}
+
+void	botray(t_ray *ray, t_light *light, int flag)
+{
+	ray->hdir = 2;
+	ray->ry = ray->npy + 64;
+	ray->rx = (light->y - ray->ry) * ray->contan + light->x;
+	if (flag)
+	{
+		ray->ry = light->y;
+		ray->rx = light->x;
+	}
+	ray->yo = 64;
+	ray->xo = -ray->yo * ray->contan;
+	if (flag)
+	{
+		ray->yo /= 64;
+		ray->xo /= 64;
 	}
 }
 
@@ -54,40 +97,8 @@ void	lighthray(t_cub *cub, t_light *light, t_ray *ray, int flag)
 		ray->limit = cub->ey;
 	}
 	else if (ray->ra > PI)
-	{
-		ray->hdir = 1;
-		ray->ry = ray->npy - 0.0001;
-		ray->rx = (light->y - ray->ry) * ray->contan + light->x;
-		if (flag)
-		{
-			ray->ry = light->y;
-			ray->rx = light->x;
-		}
-		ray->yo = -64;
-		ray->xo = -ray->yo * ray->contan;
-		if (flag)
-		{
-			ray->yo /= 64;
-			ray->xo /= 64;
-		}
-	}
+		topray(ray, light, flag);
 	else if (ray->ra < PI)
-	{
-		ray->hdir = 2;
-		ray->ry = ray->npy + 64;
-		ray->rx = (light->y - ray->ry) * ray->contan + light->x;
-		if (flag)
-		{
-			ray->ry = light->y;
-			ray->rx = light->x;
-		}
-		ray->yo = 64;
-		ray->xo = -ray->yo * ray->contan;
-		if (flag)
-		{
-			ray->yo /= 64;
-			ray->xo /= 64;
-		}
-	}
+		botray(ray, light, flag);
 	light_horizon(cub, ray, light, flag);
 }

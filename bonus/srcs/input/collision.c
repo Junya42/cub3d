@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/15 12:00:19 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/22 20:16:03 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/30 14:57:33 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,12 @@ void	slide(t_cub *cub, float x, float y, char **exp)
 	if (exp[(int)y][(int)x] == ' ')
 	{
 		cross_doors(cub, x, y, player);
+		return ;
+	}
+	else if (exp[(int)y][(int)x] == '3')
+	{
+		if (cub->exit > 0)
+			cub->end = 1;
 		return ;
 	}
 	horizontal_slide(exp, x, y, player);

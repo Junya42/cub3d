@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/21 11:22:48 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/26 03:27:23 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/27 14:06:53 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ int	proximity(t_cub *cub, int x, int y, int dir)
 void	open_door(t_cub *cub, int adj)
 {
 	adj = proximity(cub, (int)cub->x >> 6, (int)cub->y >> 6, direction(cub));
-	if ((int)cub->y < 0 || (int)cub->x < 0 || (int)cub->y >= cub->ey || cub->x >= cub->ex)
-		return ;
 	if (cub->exp[(int)cub->y][(int)cub->x] != ' ')
 	{
 		if (adj)
