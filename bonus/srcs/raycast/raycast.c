@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/30 18:36:36 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/30 20:24:54 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void	dda_texture(t_cub *cub, t_ray *ray)
 
 int	dda(t_cub *cub, t_ray *ray)
 {
-	compare_dist(cub, ray, 1);
+	compare_dist(cub, ray, 0);
 	ray->ray = fix_fisheye(cub->a, ray->ra, ray->ray);
 	cub->zbuf[(int)ray->r] = ray->ray;
 	ray->raycast = (64 * VRES / ray->ray);
-	compare_dist(cub, ray, 0);
+	compare_dist(cub, ray, 1);
 	ray->bignpx = 128 / ray->raycast;
 	ray->off_px = 0;
 	ray->diff = ray->raycast;
@@ -104,6 +104,7 @@ void	raycast(t_cub *cub, t_ray *ray)
 		hray(cub, ray);
 		ray->limit = 0;
 		vray(cub, ray);
+		init_shade(cub, ray, 1);
 		while (ray->i < ray->end)
 		{
 			if ((cub->z && ray->i >= VRES + cub->z)
@@ -112,6 +113,7 @@ void	raycast(t_cub *cub, t_ray *ray)
 			get_wall_pixels(cub, ray);
 			pxl_to_ray(cub, ray->nr,
 				(float)(int)(ray->i + ray->offset), ray->color);
+			init_shade(cub, ray, 0);
 		}
 		skybox(cub, ray);
 		floorcast(cub, ray);

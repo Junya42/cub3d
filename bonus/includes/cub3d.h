@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/30 18:39:36 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/30 19:22:38 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,7 @@ int				vdoor(t_cub *cub, t_ray *ray);
 void			hray(t_cub *cub, t_ray *ray);
 void			vray(t_cub *cub, t_ray *ray);
 void			compare_dist(t_cub *cub, t_ray *ray, int flag);
+void			get_wall_pixels(t_cub *cub, t_ray *ray);
 void			skybox(t_cub *cub, t_ray *ray);
 void			floorcast(t_cub *cub, t_ray *ray);
 void			display(t_cub *cub, int draw);

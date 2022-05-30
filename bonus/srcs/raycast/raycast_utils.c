@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 18:12:47 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/30 18:37:24 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/30 19:23:08 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	get_wall_pixels(t_cub *cub, t_ray *ray)
 	{
 		if (ray->shadow > MINLIGHT && ray->shadow < 0.6)
 		{
-			ray->color = cub->fcolor * dim;
+			ray->color = cub->fcolor * ray->dim;
 		}
 		else if (ray->shadow > MINLIGHT)
 			ray->color = cub->fcolor * 0.6;
@@ -113,10 +113,10 @@ void	get_wall_pixels(t_cub *cub, t_ray *ray)
 	if (ray->flag == 0)
 		ray->color = shade(ray->color, MINLIGHT);
 	else
-		ray->color = colorize(ray->color, ray->shadow, dim, cub->hue);
+		ray->color = colorize(ray->color, ray->shadow, ray->dim, cub->hue);
 	ray->ra_sky = secure_radians(ray->ra, cub->scroll) * 721;
 	if (!adjacent_exp(cub, (int)ray->rx, (int)ray->ry, 32))
-		if (ra_sky < cub->text[7].b && ray->i + ray->ray < cub->text[7].a)
+		if (ray->ra_sky < cub->text[7].b && ray->i + ray->ray < cub->text[7].a)
 			ray->color += shade(pxl_skybox(cub, ray->i + ray->ray,
-						(int)ra_sky, 7), 0.05);
+						(int)ray->ra_sky, 7), 0.05);
 }
