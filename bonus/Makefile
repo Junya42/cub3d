@@ -6,7 +6,7 @@
 #    By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 19:16:48 by anremiki          #+#    #+#              #
-#    Updated: 2022/05/30 18:24:48 by anremiki         ###   ########.fr        #
+#    Updated: 2022/05/31 02:08:41 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS = ./srcs/parsing/check_data.c ./srcs/parsing/check_map.c \
 	   ./srcs/raycast/floorcast.c ./srcs/raycast/skybox.c \
 	   ./srcs/raycast/raycast_utils.c \
 	   ./srcs/raycast/raycast.c ./srcs/raycast/display.c \
+	   ./srcs/init/intro.c \
 	   ./srcs/sprites/init_sprites.c ./srcs/sprites/sprites_casting.c \
 	   ./srcs/sprites/sprites_parsing.c ./srcs/sprites/s_light_blue.c \
 	   ./srcs/sprites/s_light_cyan.c ./srcs/sprites/s_light_green.c \
@@ -115,12 +116,10 @@ $(NAME): $(OBJS)
 		@echo "xset r 41" >> ../cubRT
 		@echo
 		@echo
-		@echo "\033[1;41mFaut que tu lises ce qu'il y a en bas de ce msg\033[0m"
-		@echo "NE SORS SURTOUT PAS DE LA MAP SINON SEGFAULT"
-		@echo 
-		@echo
-		@echo "!!! NE QUITTE SURTOUT PAS AVEC CTRL-C !!!"
-		@echo "J'ai implemente l'option pour quitter avec echap"
+		@echo "\033[1;41mPlease enjoy our cub3D\033[0m"
+		@echo "o -> unpause"
+		@echo "p -> pause"
+		@echo "f -> teleport to next light"
 		@chmod +rx ../cubRT
 
 clean:

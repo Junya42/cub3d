@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_window.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/21 12:19:34 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/30 14:11:20 by anremiki         ###   ########.fr       */
+/*   Created: 2022/05/31 01:54:50 by anremiki          #+#    #+#             */
+/*   Updated: 2022/05/31 01:54:53 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ int	create_window(t_cub *cub, t_parse *parse)
 	Mix_FadeInChannel(1, cub->light_aura, -1, 3000);
 	if (cub->erase)
 		mlx_destroy_image(cub->mlx, cub->erase);
+	intro(cub, 0);
 	return (1);
 }

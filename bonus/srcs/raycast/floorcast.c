@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/30 20:25:05 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/31 02:06:05 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,12 @@ int	check_ceiling(t_cast *c, t_cub *cub, t_ray *ray)
 						[((q)(c->ceilx) >> 5)] == '1')
 					return (1);
 	}
-	if (c->ra_sky < cub->text[7].b
-		&& (ray->j - (ray->offset + ray->raycast)) < cub->text[7].a)
-		c->color = pxl_skybox(cub,
-				ray->j - (ray->offset + ray->raycast) + HALFVRES,
-				(int)c->ra_sky, 7);
+	if (!cub->intro || (cub->intro > 3))
+		if (c->ra_sky < cub->text[7].b
+			&& (ray->j - (ray->offset + ray->raycast)) < cub->text[7].a)
+			c->color = pxl_skybox(cub,
+					ray->j - (ray->offset + ray->raycast) + HALFVRES,
+					(int)c->ra_sky, 7);
 	return (0);
 }
 
@@ -53,31 +54,37 @@ void	update_maths(t_cast *c, t_cub *cub, t_ray *ray)
 
 void	floor_light(t_cast *c, t_cub *cub, t_ray *ray)
 {
-	if (c->limiter < ray->raycast)
+	if (c->limiter < ray->raycast && (cub->intro == 0 || (cub->intro > 2)))
 		c->color += shade(case_texture(cub, ray), MINLIGHT);
 	c->color += pxl_from_img(cub, (int)ray->floor_y % cub->sfloor,
 			(int)ray->floor_x % cub->sfloor, 6);
 	ray->lx = (int)ray->floor_x * 2;
 	ray->ly = (int)ray->floor_y * 2;
-	c->flag = light(cub, cub->light, ray, cub->chunk);
-	if (c->flag == 0)
-		c->color = shade(c->color, MINLIGHT);
-	else
-		c->color = colorize(c->color, ray->shadow, ray->shadow, cub->hue);
+	if (!cub->intro)
+	{
+		c->flag = light(cub, cub->light, ray, cub->chunk);
+		if (c->flag == 0)
+			c->color = shade(c->color, MINLIGHT);
+		else
+			c->color = colorize(c->color, ray->shadow, ray->shadow, cub->hue);
+	}
 	pxl_to_ray(cub, ray->nr, ray->j, c->color);
 }
 
 void	ceiling_loop(t_cast *c, t_cub *cub, t_ray *ray)
 {
-	if (c->ceilcheck)
+	if (c->ceilcheck && (!cub->intro || (cub->intro >= 2)))
 	{
 		c->color = pxl_from_img(cub, (int)c->ceily % cub->sroof,
 				(int)c->ceilx % cub->sroof, 9);
-		if (c->flag == 0)
-			c->color = shade(c->color, 0.05);
-		else
-			c->color = colorize(c->color, ray->shadow,
-					ray->shadow - cub->sz / 5, cub->hue);
+		if (!cub->intro)
+		{
+			if (c->flag == 0)
+				c->color = shade(c->color, 0.05);
+			else
+				c->color = colorize(c->color, ray->shadow,
+						ray->shadow - cub->sz / 5, cub->hue);
+		}
 		pxl_to_ray(cub, ray->nr, (int)(ray->offset - c->i), c->color);
 	}
 	ray->j++;

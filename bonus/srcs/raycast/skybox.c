@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:09 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/30 17:57:06 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/31 01:37:14 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,16 @@ void	skybox(t_cub *cub, t_ray *ray)
 	endsky = ((HALFVRES - cub->z) - (ray->diff) * (0.75 - cub->h));
 	while (ray->i < endsky)
 	{
-		if ((ray->i + HALFVRES + cub->z) >= cub->text[7].a)
-			break ;
-		if (!fix_nra)
-			cub->scolor = pxl_skybox(cub, ray->i + HALFVRES + cub->z,
-					(int)ra_to_pxl, 7);
+		if (!cub->intro || cub->intro > 2)
+		{
+			if ((ray->i + HALFVRES + cub->z) >= cub->text[7].a)
+				break ;
+			if (!fix_nra)
+				cub->scolor = pxl_skybox(cub, ray->i + HALFVRES + cub->z,
+						(int)ra_to_pxl, 7);
+		}
+		else
+			cub->scolor = 0x000000;
 		pxl_to_ray(cub, ray->nr, ray->i, cub->scolor);
 		ray->i++;
 	}

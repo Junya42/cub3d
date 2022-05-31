@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/30 19:22:38 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/31 01:53:34 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void			get_angle(t_cub *cub, char dir);
 void			get_map_xy(char **map, t_cub *cub);
 int				init_cub(t_cub *cub, t_parse *parse);
 int				create_window(t_cub *cub, t_parse *parse);
+void			intro(t_cub *cub, int update);
 int	            quit(t_cub *cub);
 
 

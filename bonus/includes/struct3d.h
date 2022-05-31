@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/30 18:28:42 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/31 00:57:42 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -453,6 +453,7 @@ typedef struct s_cub
 	int				out;
 	int				sfloor;
 	int				sroof;
+	int				intro;
 	t_ray			*ray;
 	t_player		*player;
 	t_text			*text;

@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 18:12:47 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/30 19:23:08 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/31 02:06:37 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,13 +110,16 @@ void	get_wall_pixels(t_cub *cub, t_ray *ray)
 		else
 			ray->color = cub->fcolor;
 	}
-	if (ray->flag == 0)
+	if (ray->flag == 0 && !cub->intro)
 		ray->color = shade(ray->color, MINLIGHT);
-	else
+	else if (!cub->intro)
 		ray->color = colorize(ray->color, ray->shadow, ray->dim, cub->hue);
 	ray->ra_sky = secure_radians(ray->ra, cub->scroll) * 721;
-	if (!adjacent_exp(cub, (int)ray->rx, (int)ray->ry, 32))
-		if (ray->ra_sky < cub->text[7].b && ray->i + ray->ray < cub->text[7].a)
-			ray->color += shade(pxl_skybox(cub, ray->i + ray->ray,
-						(int)ray->ra_sky, 7), 0.05);
+	if (cub->expr[(int)ray->ry][(int)ray->rx] != '1'
+		&& (cub->intro == 0 || cub->intro > 3))
+		if (!adjacent_exp(cub, (int)ray->rx, (int)ray->ry, 32))
+			if (ray->ra_sky < cub->text[7].b
+				&& ray->i + ray->ray < cub->text[7].a)
+				ray->color += shade(pxl_skybox(cub, ray->i + ray->ray,
+							(int)ray->ra_sky, 7), 0.05);
 }
