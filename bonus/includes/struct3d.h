@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/31 00:57:42 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/31 14:21:49 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -351,6 +351,7 @@ typedef struct s_lightmath
 typedef struct s_cub
 {
 	Mix_Chunk		*light_aura;
+	Mix_Chunk		*take_key;
 	Mix_Chunk		*door_opening;
 	Mix_Chunk		*teleportation;
 	Mix_Chunk		*foot_steps[4];

@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/31 01:53:34 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/31 15:49:56 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	            check_door(char **map);
 int	            closed_door(int y, int x, char **map);
 int             bonus_side(char **mcontent);
 int             bonus_direction(char *side, t_parse *p);
+int             key_finding(t_parse *parse);
+
 
 /*	----------Init--------------	*/
 
@@ -103,6 +105,7 @@ int             close_game(t_cub *cub, t_parse *parse);
 int				create_imgs(t_cub *cub, t_parse *parse);
 void			destroy_imgs(t_cub *cub, t_text *imgs);
 void	        init_null(t_cub *cub, t_text *t);
+int	            walls_txt_size(t_text *t);
 
 /*	----------Animation----------	*/
 
@@ -172,6 +175,7 @@ void			print_sprite(t_cub *cub, t_csp *s);
 int	            choose_sprite_texture(t_sp *sp, t_cub *cub);
 int	            choose_light_texture(t_sp *sp, t_cub *cub);
 void	        get_sound_id(t_cub *cub, t_light *lights, float x, float y);
+void            pickup_key(t_cub *cub);
 
 /*	----------Sound-------------	*/
 int	    		init_audio(t_cub *cub, int i);

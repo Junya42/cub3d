@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:50:23 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/30 18:40:26 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/31 15:29:33 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ void	dda_vertical(t_cub *cub, t_ray *ray)
 	{
 		ray->mx = (int)ray->rx;
 		ray->my = (int)ray->ry;
+		if (ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1
+			&& ray->my > -1 && cub->map_len[ray->my] < ray->mx)
+			break ;
 		if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1
 				&& ray->my > -1) && check_valid(cub->exp[ray->my]
 				[ray->mx], " d"))
 			if (vdoor(cub, ray))
 				break ;
-		if (ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1
-			&& ray->my > -1 && cub->map_len[ray->my] < ray->mx)
-			break ;
 		if ((ray->mx < cub->ex && ray->my < cub->ey && ray->mx > -1
 				&& ray->my > -1) && check_valid(cub->exp[ray->my]
 				[ray->mx], "123"))

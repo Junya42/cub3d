@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 12:01:58 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/24 22:29:46 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/31 15:29:43 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,14 @@ void	get_sound_id(t_cub *cub, t_light *lights, float x, float y)
 			break ;
 		i++;
 	}
-	cub->id = lights[i].id;
-	cub->ray->lx = (int)cub->x;
-	cub->ray->ly = (int)cub->y;
-	cub->blocked = 1.5;
-	light(cub, lights, cub->ray, cub->chunk);
+	if (cub->lights != 0)
+	{
+		cub->id = lights[i].id;
+		cub->ray->lx = (int)cub->x;
+		cub->ray->ly = (int)cub->y;
+		cub->blocked = 1.5;
+		light(cub, lights, cub->ray, cub->chunk);
+	}
 }
 
 int	close_game(t_cub *cub, t_parse *parse)
@@ -46,6 +49,8 @@ int	close_game(t_cub *cub, t_parse *parse)
 		Mix_FreeChunk(cub->teleportation);
 	if (cub->opening_theme)
 		Mix_FreeMusic(cub->opening_theme);
+	if (cub->take_key)
+		Mix_FreeChunk(cub->take_key);
 	Mix_CloseAudio();
 	SDL_Quit();
 	free_mlx(cub);
@@ -65,6 +70,7 @@ static inline void	init_sound_null(t_cub *cub)
 	cub->lasty = 0;
 	cub->light_aura = NULL;
 	cub->teleportation = NULL;
+	cub->take_key = NULL;
 	cub->door_opening = NULL;
 	cub->opening_theme = NULL;
 	cub->foot_steps[0] = NULL;
@@ -86,10 +92,10 @@ int	load_sound_path(t_cub *cub, int i)
 		return (0);
 	cub->opening_theme = Mix_LoadMUS("./bonus/Sound/ab_theme2.wav");
 	if (!cub->opening_theme)
-	{
-		printf("Mix_PlayMusic: %s\n", Mix_GetError());
 		return (0);
-	}
+	cub->take_key = Mix_LoadWAV("./bonus/Sound/collectible.wav");
+	if (!cub->take_key)
+		return (0);
 	cub->foot_steps[0] = Mix_LoadWAV("./bonus/Sound/allstep_1.wav");
 	cub->foot_steps[1] = Mix_LoadWAV("./bonus/Sound/allstep_2.wav");
 	cub->foot_steps[2] = Mix_LoadWAV("./bonus/Sound/allstep_3.wav");

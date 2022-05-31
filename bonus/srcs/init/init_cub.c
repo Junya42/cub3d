@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cub.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:58:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/30 14:48:38 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/31 15:19:46 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_player	*alloc_player(t_cub *cub)
 	return (player);
 }
 
-int	alloc_stuff(t_cub *cub)
+int	alloc_stuff(t_cub *cub, t_parse *parse)
 {
 	cub->player = NULL;
 	cub->ray = NULL;
@@ -53,7 +53,8 @@ int	alloc_stuff(t_cub *cub)
 	cub->id = -1;
 	cub->sp_dist = 250;
 	cub->blocked = 0;
-	cub->exit = 0;
+	cub->exit = key_finding(parse);
+	cub->intro = 0;
 	if (!cub->player || !cub->ray)
 	{
 		if (cub->player)
@@ -88,7 +89,7 @@ int	init_cub(t_cub *cub, t_parse *parse)
 	cub->nb_sprites = 0;
 	cub->lights = 0;
 	cub->scroll = 0;
-	if (alloc_stuff(cub) == 0)
+	if (alloc_stuff(cub, parse) == 0)
 		return (0);
 	return (1);
 }
