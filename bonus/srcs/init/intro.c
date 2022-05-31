@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 01:48:17 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/31 01:52:31 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/31 13:41:38 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ void	update_intro(t_cub *cub, int update)
 
 void	intro(t_cub *cub, int i)
 {
-	cub->h = -0.50;
+	cub->h = 1.50;
 	cub->intro = 1;
 	cub->brightness = 1;
 	while (cub->intro)
 	{
 		raycast(cub, cub->ray);
-		if (cub->h >= 0.25)
+		if (cub->h <= 0.25)
 		{
 			i++;
 			cub->h = 0.25;
@@ -39,7 +39,7 @@ void	intro(t_cub *cub, int i)
 			update_intro(cub, 4);
 		else if (i > 700)
 			break ;
-		cub->h += 0.01;
+		cub->h -= 0.01;
 		cub->scroll = secure_radians(cub->scroll, SKY);
 		display(cub, 0);
 	}

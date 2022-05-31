@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 22:41:32 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/26 02:30:47 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/31 14:17:38 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@
 # define SOUTH PI2
 # define WEST PI
 # define HRES 1280
+//# define HRES 640
+//# define VRES 360
+//# define HALFHRES 320
+//# define HALFVRES 180
+//# define THIRDH 213
+//# define THIRDV 120
 # define VRES 720
 # define HALFHRES 640
 # define HALFVRES 360
@@ -39,6 +45,7 @@
 # define RES 3778560
 # define FOV 60
 # define NRAY 320
+//# define NRAY 160
 # define SCAN 0.52358775
 # define LIGHTSTEP 0.00087264625
 # define NB_FRAME 8

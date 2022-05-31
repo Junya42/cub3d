@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 16:45:35 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/21 11:49:13 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/31 13:47:45 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ int	key_handle(int keycode, t_cub *cub)
 		rotate(player->released, cub, player);
 		longitudinal(player->released, player, cub->exp, cub);
 		lateral(player->released, player, cub->exp, cub);
+		save_position(cub, player, cub->exp);
 	}
 	rotate(keycode, cub, player);
 	longitudinal(keycode, player, cub->exp, cub);
