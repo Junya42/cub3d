@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:04:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/31 17:42:23 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/01 16:21:45 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,15 @@ int	anti_ghosting(t_cub *cub)
 	t_player	*player;
 
 	player = cub->player;
-	if (cub->end == 1)
+	if (cub->end == 1 && !cub->exit)
 	{
-		outro(cub, 0);
+		outro_escape(cub, 0);
 		mlx_destroy_window(cub->mlx, cub->win);
 		return (0);
 	}
+	else if (cub->end == 1 && cub->exit)
+		if (outro(cub))
+			return (0);
 	if (!player->last_pressed && player->input_fix && player->released)
 	{
 		usleep_(100000);
@@ -79,6 +82,7 @@ int	anti_ghosting(t_cub *cub)
 	}
 	update_game_state(cub, player);
 	display(cub, 0);
-	cub->scroll = secure_radians(cub->scroll, SKY);
+	if (!cub->end)
+		cub->scroll = secure_radians(cub->scroll, SKY);
 	return (0);
 }

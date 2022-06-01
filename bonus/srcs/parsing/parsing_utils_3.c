@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:56:28 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/22 16:47:14 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/06/01 13:28:45 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 int	fatal_error(char *str)
 {
-	write(STDERR, str, ft_strlen(str));
+	int	ret;
+
+	ret = write(STDERR, str, ft_strlen(str));
+	(void)ret;
 	return (EXIT_FAILURE);
 }
 

@@ -6,7 +6,7 @@
 #    By: anremiki <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/01 13:18:51 by anremiki          #+#    #+#              #
-#    Updated: 2022/06/01 13:18:52 by anremiki         ###   ########.fr        #
+#    Updated: 2022/06/01 13:26:58 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,7 @@ OBJS = ${SRCS:.c=.o}
 
 RM = rm -rf
 
-CFLAGS = -Wall -Wextra -Werror -g3 -I $(INCLUDES) -O0
+CFLAGS = -Wall -Wextra -Werror -g3 -I $(INCLUDES) -Ofast
 
 MLXFLAGS = ./minilibx/libmlx_Linux.a -lXext -lX11 -I ./minilibx/ -I ./SDL_MIXER/include/SDL2
 

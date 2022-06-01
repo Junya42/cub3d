@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 19:12:21 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/21 12:11:54 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:29:20 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ char	**expand(char **map, int x, int y, int mult)
 {
 	t_exp	c;
 
+	c.ey = 0;
+	c.ex = 0;
 	if (!init_expand(&c, y, mult))
 		return (NULL);
 	while (map[c.ycurs])

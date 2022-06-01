@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cub.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/25 19:58:02 by anremiki          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/05/31 14:59:56 by anremiki         ###   ########.fr       */
-=======
-/*   Updated: 2022/05/31 15:19:46 by cmarouf          ###   ########.fr       */
->>>>>>> 6e1dc8dce97ed354c5407a14dbf46dcd7a6b8276
+/*   Created: 2022/06/01 13:25:03 by anremiki          #+#    #+#             */
+/*   Updated: 2022/06/01 13:40:22 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +58,7 @@ int	alloc_stuff(t_cub *cub, t_parse *parse)
 	cub->r = 1;
 	cub->exit = key_finding(parse);
 	cub->intro = 0;
+	cub->corrupt = 1;
 	if (!cub->player || !cub->ray)
 	{
 		if (cub->player)

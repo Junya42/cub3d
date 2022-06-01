@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/31 17:29:50 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:58:31 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	update_maths(t_cast *c, t_cub *cub, t_ray *ray)
 void	floor_light(t_cast *c, t_cub *cub, t_ray *ray)
 {
 	if (c->limiter < ray->raycast && (cub->intro == 0 || (cub->intro > 2)))
-		c->color += shade(case_texture(cub, ray), cub->ml);
+		c->color += shade(case_texture(cub, ray), cub->ml * cub->corrupt);
 	if (!cub->intro || cub->intro >= 2)
 	{
 		c->color += pxl_from_img(cub, (int)ray->floor_y % cub->sfloor,

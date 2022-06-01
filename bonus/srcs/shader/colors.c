@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:36:06 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/21 12:46:08 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/01 16:31:03 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ unsigned int	red(unsigned int color, float shader)
 
 	if (shader < 0)
 		shader = 0;
-	if (shader > 1)
-		shader = 1;
 	r = 0x000000;
 	g = ((color >> 8) & 0x00ff);
 	b = (color & 0x0000ff);
@@ -38,8 +36,6 @@ unsigned int	green(unsigned int color, float shader)
 
 	if (shader < 0)
 		shader = 0;
-	if (shader > 1)
-		shader = 1;
 	r = (color >> 16);
 	g = ((color >> 8) & 0x00ff) * shader;
 	b = (color & 0x0000ff);
@@ -56,8 +52,6 @@ unsigned int	blue(unsigned int color, float shader)
 
 	if (shader < 0)
 		shader = 0;
-	if (shader > 1)
-		shader = 1;
 	r = (color >> 16);
 	g = ((color >> 8) & 0x00ff);
 	b = (color & 0x0000ff) * shader;

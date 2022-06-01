@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:19:11 by anremiki          #+#    #+#             */
-/*   Updated: 2022/06/01 13:19:13 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/01 16:26:56 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -456,6 +456,8 @@ typedef struct s_cub
 	int				sfloor;
 	int				sroof;
 	int				intro;
+	double			corrupt;
+	int				lrange;
 	float			ml;
 	float			r;
 	t_ray			*ray;

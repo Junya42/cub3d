@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 01:48:17 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/31 17:55:33 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/01 16:29:42 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	intro(t_cub *cub, int i)
 	cub->intro = 0;
 }
 
-void	outro(t_cub *cub, int i)
+void	outro_escape(t_cub *cub, int i)
 {
 	while (1)
 	{
@@ -61,10 +61,28 @@ void	outro(t_cub *cub, int i)
 		else if (i > 700 && cub->intro == 2)
 			cub->intro = 1;
 		cub->h -= 0.01;
-		if (cub->h <= -1)
+		if (cub->h < -1)
 			break ;
 		cub->scroll = secure_radians(cub->scroll, -SKY);
 		display(cub, 0);
 		i++;
 	}
+}
+
+int	outro(t_cub *cub)
+{
+	if (cub->corrupt == 1 && cub->end)
+		cub->player->angle = secure_radians(cub->a, PI);
+	cub->corrupt += 0.05;
+	cub->r -= 0.01;
+	cub->sz -= 0.030;
+	if (cub->corrupt > 15)
+		cub->lrange -= 10;
+	cub->scroll = secure_radians(cub->scroll, -SKY);
+	if (cub->corrupt > 30)
+	{
+		mlx_destroy_window(cub->mlx, cub->win);
+		return (1);
+	}
+	return (0);
 }

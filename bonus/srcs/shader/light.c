@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 00:20:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/31 15:01:06 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/01 16:26:24 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ float	fix_shade(float sz, float dist, t_cub *cub, int id)
 
 	if (cub->id == id)
 		cub->blocked = 1;
-	shade = (1.0f / 320) * (320 - dist * sz);
-	max = (1.0f / 320) * (320 - dist);
+	shade = (1.0f / cub->lrange) * (cub->lrange - dist * sz);
+	max = (1.0f / cub->lrange) * (cub->lrange - dist);
 	if (shade > max)
 		return (max);
 	else if (shade < 0)
@@ -32,8 +32,8 @@ int	fix_shadow(t_ray *ray, t_cub *cub)
 {
 	if (ray->shadow < cub->ml)
 		return (0);
-	else if (ray->shadow > 1)
-		ray->shadow = 1;
+	else if (ray->shadow > cub->corrupt && cub->corrupt <= 1)
+		ray->shadow = cub->corrupt;
 	return (1);
 }
 

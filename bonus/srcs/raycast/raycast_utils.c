@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 18:12:47 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/31 17:24:17 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/01 16:11:43 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,9 @@ void	get_wall_pixels(t_cub *cub, t_ray *ray)
 			ray->color = cub->fcolor;
 	}
 	if (ray->flag == 0 && !cub->intro)
-		ray->color = shade(ray->color, cub->ml);
+		ray->color = shade(ray->color, cub->ml * cub->corrupt);
 	else if (!cub->intro)
-		ray->color = colorize(ray->color, ray->shadow, ray->dim, cub->hue);
+		ray->color = colorize(ray->color, ray->shadow * cub->corrupt, ray->dim, cub->hue);
 	ray->ra_sky = secure_radians(ray->ra, cub->scroll) * 721;
 	if (cub->expr[(int)ray->ry][(int)ray->rx] != '1'
 		&& (cub->intro == 0 || cub->intro > 3))

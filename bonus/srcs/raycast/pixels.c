@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:11:43 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/21 13:07:50 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/01 13:29:55 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ unsigned int	pxl_from_img(t_cub *cub, int x, int y, int i)
 	t_text	*ptr;
 	int		size;
 
+	tmp = NULL;
 	ptr = cub->text;
 	if (y == 0 && x < 0)
 		x = 0;

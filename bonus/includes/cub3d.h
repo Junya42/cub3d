@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:19:04 by anremiki          #+#    #+#             */
-/*   Updated: 2022/06/01 13:19:05 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/01 16:22:34 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ void			get_map_xy(char **map, t_cub *cub);
 int				init_cub(t_cub *cub, t_parse *parse);
 int				create_window(t_cub *cub, t_parse *parse);
 void			intro(t_cub *cub, int i);
-void			outro(t_cub *cub, int i);
+int				outro(t_cub *cub);
+void			outro_escape(t_cub *cub, int i);
 int	            quit(t_cub *cub);
 
 

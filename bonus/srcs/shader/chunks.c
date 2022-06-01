@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/01 00:47:38 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/21 12:45:30 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/01 16:27:35 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ t_light	*create_lights(t_cub *cub, t_sp *sp)
 	int		i;
 
 	i = -1;
+	cub->lrange = 320;
 	light = (t_light *)malloc(sizeof(t_light) * cub->lights);
 	if (!light)
 		return (NULL);

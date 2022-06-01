@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 23:43:33 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/23 20:02:55 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/06/01 13:28:22 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 int	exit_parsing(char *str)
 {
-	write(STDERR, str, ft_strlen(str));
+	int	ret;
+
+	ret = write(STDERR, str, ft_strlen(str));
+	(void)ret;
 	return (0);
 }
 
