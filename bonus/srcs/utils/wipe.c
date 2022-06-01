@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wipe.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 20:23:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/26 03:28:13 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/05/31 14:24:34 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	close_audio(t_cub *cub)
 		Mix_FreeChunk(cub->teleportation);
 	if (cub->opening_theme)
 		Mix_FreeMusic(cub->opening_theme);
+	if (cub->take_key)
+		Mix_FreeChunk(cub->take_key);
 	Mix_CloseAudio();
 	SDL_Quit();
 	return (0);

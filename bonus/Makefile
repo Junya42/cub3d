@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+         #
+#    By: anremiki <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2022/04/02 19:16:48 by anremiki          #+#    #+#              #
-#    Updated: 2022/05/31 15:04:52 by anremiki         ###   ########.fr        #
+#    Created: 2022/06/01 13:18:51 by anremiki          #+#    #+#              #
+#    Updated: 2022/06/01 13:18:52 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRCS = ./srcs/parsing/check_data.c ./srcs/parsing/check_map.c \
 	   ./srcs/init/quit.c ./srcs/init/create_window.c \
 	   ./srcs/parsing/get_map_len.c ./srcs/sprites/choose_sprite_texture.c \
 	   ./srcs/parsing/check_map_rules.c ./srcs/parsing/bonus_parsing.c \
+	   ./srcs/input/pickup_key.c ./srcs/init/texture_size.c \
 
 INCLUDES = ./includes/
 

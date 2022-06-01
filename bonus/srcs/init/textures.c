@@ -6,40 +6,11 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/17 01:30:53 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/30 16:42:40 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/31 15:49:46 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
-
-int	txt_size(t_text *t)
-{
-	int	i;
-
-	i = 1;
-	while (i < 5)
-	{
-		if (t[i].a != t[i].b)
-		{
-			printf("TEXTURE IS NOT A SQUARE %dx%d\n", t[i].a, t[i].b);
-			return (0);
-		}
-		if (t[i].a != 64 && t[i].a != 128)
-		{
-			printf("TXT SIZE ERROR SHOULD (64x64 OR 128x128) HAVING %dx%d\n",
-				t[i].a, t[i].b);
-			return (0);
-		}
-		if (t[i].b != 64 && t[i].b != 128)
-		{
-			printf("TXT SIZE ERROR SHOULD (64x64 OR 128x128) HAVING %dx%d\n",
-				t[i].a, t[i].b);
-			return (0);
-		}
-		i++;
-	}
-	return (1);
-}
 
 int	addr(t_cub *cub, t_text *t, char *(*add)(void *, int *, int *, int *))
 {
@@ -107,7 +78,7 @@ int	create_imgs(t_cub *cub, t_parse *parse)
 		return (0);
 	if (!addr(cub, cub->text, mlx_get_data_addr))
 		return (0);
-	if (!txt_size(cub->text))
+	if (!walls_txt_size(cub->text))
 		return (0);
 	cub->fcolor = parse->colorf;
 	cub->ccolor = parse->colorc;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct3d.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
+/*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/31 14:59:25 by anremiki         ###   ########.fr       */
+/*   Created: 2022/06/01 13:19:11 by anremiki          #+#    #+#             */
+/*   Updated: 2022/06/01 13:19:13 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -351,6 +351,7 @@ typedef struct s_lightmath
 typedef struct s_cub
 {
 	Mix_Chunk		*light_aura;
+	Mix_Chunk		*take_key;
 	Mix_Chunk		*door_opening;
 	Mix_Chunk		*teleportation;
 	Mix_Chunk		*foot_steps[4];

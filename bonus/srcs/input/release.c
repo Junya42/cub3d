@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/30 18:42:54 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/31 14:57:21 by anremiki         ###   ########.fr       */
+/*   Created: 2022/06/01 13:19:59 by anremiki          #+#    #+#             */
+/*   Updated: 2022/06/01 13:20:00 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ int	release(int keycode, t_cub *cub)
 			findnewlight(cub, cub->light, cub->x / 64, cub->y / 64);
 	}
 	if (check_valid(cub->expl[(int)cub->y][(int)cub->x], "K"))
-		cub->exit = 1;
+		pickup_key(cub);
 	if (player->released == keycode)
 	{
 		player->released = 0;
