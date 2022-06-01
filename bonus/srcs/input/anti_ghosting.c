@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:04:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/30 18:41:42 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:42:23 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	anti_ghosting(t_cub *cub)
 	player = cub->player;
 	if (cub->end == 1)
 	{
+		outro(cub, 0);
 		mlx_destroy_window(cub->mlx, cub->win);
 		return (0);
 	}

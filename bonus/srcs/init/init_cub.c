@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 19:58:02 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/30 14:48:38 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/31 14:59:56 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	alloc_stuff(t_cub *cub)
 	cub->sp_dist = 250;
 	cub->blocked = 0;
 	cub->exit = 0;
+	cub->ml = MINLIGHT;
+	cub->r = 1;
 	if (!cub->player || !cub->ray)
 	{
 		if (cub->player)

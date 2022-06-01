@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/06 00:20:45 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/24 22:30:52 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/31 15:01:06 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ float	fix_shade(float sz, float dist, t_cub *cub, int id)
 	return (shade);
 }
 
-int	fix_shadow(t_ray *ray)
+int	fix_shadow(t_ray *ray, t_cub *cub)
 {
-	if (ray->shadow < MINLIGHT)
+	if (ray->shadow < cub->ml)
 		return (0);
 	else if (ray->shadow > 1)
 		ray->shadow = 1;
@@ -39,7 +39,7 @@ int	fix_shadow(t_ray *ray)
 
 int	add_colors(t_cub *cub, t_ray *ray, int count)
 {
-	if (!fix_shadow(ray))
+	if (!fix_shadow(ray, cub))
 		return (0);
 	if (cub->hue == LPURPLE + LCYAN)
 		cub->hue = LBLUE;

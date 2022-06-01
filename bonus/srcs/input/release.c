@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 18:42:54 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/30 18:42:55 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/31 14:57:21 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ int	release(int keycode, t_cub *cub)
 	t_player	*player;
 
 	player = cub->player;
+	settings(keycode, cub);
 	if (keycode == 'f')
 	{
 		if (cub->jump != -2)

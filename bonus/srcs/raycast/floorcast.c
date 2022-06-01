@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/31 02:06:05 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:29:50 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,30 @@ void	update_maths(t_cast *c, t_cub *cub, t_ray *ray)
 	c->ceily = cub->y / 2 + c->dceily / ray->offj / c->fix;
 	c->ra_sky = secure_radians(ray->ra, cub->scroll) * 721;
 	c->ceilcheck = check_ceiling(c, cub, ray);
+	if (c->ceilcheck == 0 && (! cub->intro || cub->intro > 3) && cub->blue)
+		c->color = colorize(c->color, cub->r, cub->r, LCYAN);
+	else if (c->ceilcheck == 0 && (! cub->intro || cub->intro > 3) && !cub->blue)
+		c->color = colorize(c->color, cub->r, cub->r, LRED);
 }
 
 void	floor_light(t_cast *c, t_cub *cub, t_ray *ray)
 {
 	if (c->limiter < ray->raycast && (cub->intro == 0 || (cub->intro > 2)))
-		c->color += shade(case_texture(cub, ray), MINLIGHT);
-	c->color += pxl_from_img(cub, (int)ray->floor_y % cub->sfloor,
+		c->color += shade(case_texture(cub, ray), cub->ml);
+	if (!cub->intro || cub->intro >= 2)
+	{
+		c->color += pxl_from_img(cub, (int)ray->floor_y % cub->sfloor,
 			(int)ray->floor_x % cub->sfloor, 6);
+	}
+	else
+		c->color = 0x000000;
 	ray->lx = (int)ray->floor_x * 2;
 	ray->ly = (int)ray->floor_y * 2;
 	if (!cub->intro)
 	{
 		c->flag = light(cub, cub->light, ray, cub->chunk);
 		if (c->flag == 0)
-			c->color = shade(c->color, MINLIGHT);
+			c->color = shade(c->color, cub->ml);
 		else
 			c->color = colorize(c->color, ray->shadow, ray->shadow, cub->hue);
 	}

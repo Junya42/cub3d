@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/10 23:53:40 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/31 01:28:49 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:29:54 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,7 @@ void	raycast(t_cub *cub, t_ray *ray)
 			init_shade(cub, ray, 0);
 		}
 		skybox(cub, ray);
-		if (!cub->intro || (cub->intro >= 2))
-			floorcast(cub, ray);
+		floorcast(cub, ray);
 		ray->ra = secure_radians(ray->ra, ray->dra);
 		ray->r++;
 	}

@@ -6,7 +6,7 @@
 #    By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 19:16:48 by anremiki          #+#    #+#              #
-#    Updated: 2022/05/31 02:08:41 by anremiki         ###   ########.fr        #
+#    Updated: 2022/05/31 15:04:52 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ SRCS = ./srcs/parsing/check_data.c ./srcs/parsing/check_map.c \
 	   ./srcs/raycast/floorcast.c ./srcs/raycast/skybox.c \
 	   ./srcs/raycast/raycast_utils.c \
 	   ./srcs/raycast/raycast.c ./srcs/raycast/display.c \
-	   ./srcs/init/intro.c \
+	   ./srcs/init/intro.c ./srcs/shader/shade_input.c \
 	   ./srcs/sprites/init_sprites.c ./srcs/sprites/sprites_casting.c \
 	   ./srcs/sprites/sprites_parsing.c ./srcs/sprites/s_light_blue.c \
 	   ./srcs/sprites/s_light_cyan.c ./srcs/sprites/s_light_green.c \

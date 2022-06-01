@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:09 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/31 01:37:14 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/05/31 17:23:09 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,10 @@ void	skybox(t_cub *cub, t_ray *ray)
 			if (!fix_nra)
 				cub->scolor = pxl_skybox(cub, ray->i + HALFVRES + cub->z,
 						(int)ra_to_pxl, 7);
+			if (cub->blue)
+				cub->scolor = colorize(cub->scolor, cub->r, cub->r, LCYAN);
+			else
+				cub->scolor = colorize(cub->scolor, cub->r, cub->r, LRED);
 		}
 		else
 			cub->scolor = 0x000000;
