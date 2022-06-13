@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 22:05:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/17 01:17:50 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/06/13 19:56:34 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ typedef struct s_txt
 
 typedef struct s_ray
 {
-	float				map_w;
-	float				map_h;
+	float			map_w;
+	float			map_h;
 	float			sin;
 	float			cos;
 	unsigned int	colorc;

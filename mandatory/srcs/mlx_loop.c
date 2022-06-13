@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 04:29:03 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/17 11:57:16 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/06/13 19:56:51 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,5 @@ int	rayloop(t_ray *ray)
 			}
 		}
 	}
-	//raycasting(ray);
-	//mlx_put_image_to_window(ray->mlx, ray->win, ray->txt[0].img, 0, 0);
 	return (0);
 }
