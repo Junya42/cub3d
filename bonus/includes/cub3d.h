@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:19:04 by anremiki          #+#    #+#             */
-/*   Updated: 2022/06/07 17:32:56 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/13 19:12:00 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,17 @@ int				check_wall(char **map);
 void			gather_data(char **mcontent, t_parse *p, int flag);
 int				try_open_cub_file(char *filename, t_parse *parse);
 int				exit_parsing(char *str);
-void	        get_height_width(t_parse *parse, char **map);
-void	        get_expanded_height_width(t_cub *cub, char **map);
-int	            check_char_rf(char **map, char *set);
-int	            check_width_height(char *name, char **map, t_parse *p);
-int             check_wrong_placement(char **floor, t_parse *p);
-int	            check_all_rules(t_parse *p, char **rw_map);
-int	            check_door(char **map);
-int	            closed_door(int y, int x, char **map);
-int             bonus_side(char **mcontent);
-int             bonus_direction(char *side, t_parse *p);
-int             key_finding(t_parse *parse);
-
+void			get_height_width(t_parse *parse, char **map);
+void			get_expanded_height_width(t_cub *cub, char **map);
+int				check_char_rf(char **map, char *set);
+int				check_width_height(char *name, char **map, t_parse *p);
+int				check_wrong_placement(char **floor, t_parse *p);
+int				check_all_rules(t_parse *p, char **rw_map);
+int				check_door(char **map);
+int				closed_door(int y, int x, char **map);
+int				bonus_side(char **mcontent);
+int				bonus_direction(char *side, t_parse *p);
+int				key_finding(t_parse *parse);
 
 /*	----------Init--------------	*/
 
@@ -79,8 +78,7 @@ int				create_window(t_cub *cub, t_parse *parse);
 void			intro(t_cub *cub, int i);
 int				outro(t_cub *cub);
 void			outro_escape(t_cub *cub, int i);
-int	            quit(t_cub *cub);
-
+int				quit(t_cub *cub);
 
 /*	----------Chunks------------	*/
 
@@ -100,14 +98,14 @@ int				check_valid(char c, char *valid);
 void			modify_map(char **map, char **exp, int mult);
 char			**expand(char **map, int x, int y, int mult);
 void			transform(char **map, int x, int y, char c);
-int             close_game(t_cub *cub, t_parse *parse);
+int				close_game(t_cub *cub, t_parse *parse);
 
 /*	----------textures----------	*/
 
 int				create_imgs(t_cub *cub, t_parse *parse);
 void			destroy_imgs(t_cub *cub, t_text *imgs);
-void	        init_null(t_cub *cub, t_text *t);
-int	            walls_txt_size(t_text *t);
+void			init_null(t_cub *cub, t_text *t);
+int				walls_txt_size(t_text *t);
 
 /*	----------Animation----------	*/
 
@@ -127,16 +125,16 @@ float			deg_to_rad(float angle, float degree);
 float			degree_convert(float angle);
 int				quadrant_direction(float angle);
 /*	MAP	*/
-void	        free_mlx(t_cub *cub);
+void			free_mlx(t_cub *cub);
 int				adjacent(t_cub *cub, int x, int y, char c);
 int				adjacent_exp(t_cub *cub, int x, int y, char c);
 void			update_hitbox(t_cub *cub, int x, int y, char **map);
 void			change_map(t_cub *cub, t_parse *parse);
 int				wipe_data(t_cub *cub, t_parse *parse);
-void	        init_struct_null(t_cub *cub);
+void			init_struct_null(t_cub *cub);
 /*	TIME	*/
-long long	    timestamp(void);
-void	        usleep_(long int time);
+long long		timestamp(void);
+void			usleep_(long int time);
 
 /*	----------Shaders------------	*/
 
@@ -160,11 +158,11 @@ unsigned int	rgb_to_hex(unsigned int r, unsigned int g, unsigned int b);
 
 /*	----------Sprites-------------	*/
 
-int	            get_sprite_txt(t_cub *cub, int i);
+int				get_sprite_txt(t_cub *cub, int i);
 int				create_sprites(t_cub *cub);
 void			get_nb_sprites(t_cub *cub);
 char			search_type(t_cub *cub);
-int	            give_sprite_texture(t_sp *sp, t_cub *cub);
+int				give_sprite_texture(t_sp *sp, t_cub *cub);
 int				txt_light(t_sp *sp, t_cub *cub);
 int				txt_light_red(t_sp *sp, t_cub *cub);
 int				txt_light_green(t_sp *sp, t_cub *cub);
@@ -172,16 +170,16 @@ int				txt_light_blue(t_sp *sp, t_cub *cub);
 int				txt_light_cyan(t_sp *sp, t_cub *cub);
 int				txt_light_purple(t_sp *sp, t_cub *cub);
 int				txt_light_yellow(t_sp *sp, t_cub *cub);
-int	            choose_sprite_texture(t_sp *sp, t_cub *cub);
+int				choose_sprite_texture(t_sp *sp, t_cub *cub);
 void			sprite_casting(t_cub *cub, t_light *light);
 void			print_sprite(t_cub *cub, t_csp *s);
-int	            choose_sprite_texture(t_sp *sp, t_cub *cub);
-int	            choose_light_texture(t_sp *sp, t_cub *cub);
-void	        get_sound_id(t_cub *cub, t_light *lights, float x, float y);
-void            pickup_key(t_cub *cub);
+int				choose_sprite_texture(t_sp *sp, t_cub *cub);
+int				choose_light_texture(t_sp *sp, t_cub *cub);
+void			get_sound_id(t_cub *cub, t_light *lights, float x, float y);
+void			pickup_key(t_cub *cub);
 
 /*	----------Sound-------------	*/
-int	    		init_audio(t_cub *cub, int i);
+int				init_audio(t_cub *cub, int i);
 void			foot_steps(t_cub *cub, t_player *player);
 
 /*	----------Minimap-------------	*/
@@ -219,7 +217,8 @@ void			init_floorcast(t_cub *cub, t_ray *ray, t_cast *c);
 
 void			slide(t_cub *cub, float x, float y, char **exp);
 void			rotate(int keycode, t_cub *cub, t_player *player);
-void			longitudinal(int keycode, t_player *player, char **exp, t_cub *cub);
+void			longitudinal(int keycode, t_player *player,
+					char **exp, t_cub *cub);
 void			lateral(int keycode, t_player *player, char **exp, t_cub *cub);
 int				save_position(t_cub *cub, t_player *player, char **exp);
 int				key_handle(int keycode, t_cub *cub);

@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/06/07 17:29:58 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/13 19:19:48 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@ int	check_ceiling(t_cast *c, t_cub *cub, t_ray *ray)
 	c->color = 0;
 	if (cub->h <= 0.25)
 	{
-		if (((q)(ray->floor_y) >> 5) < cub->my
-			&& ((q)(ray->floor_x) >> 5) < cub->mx)
-			if (((q)(ray->floor_y) >> 5) > -1 && ((q)(ray->floor_x) >> 5) > -1)
-				if (cub->roof[((q)(ray->floor_y) >> 5)]
-						[((q)(ray->floor_x) >> 5)] == '1')
+		if (((Q)(ray->floor_y) >> 5) < cub->my
+			&& ((Q)(ray->floor_x) >> 5) < cub->mx)
+			if (((Q)(ray->floor_y) >> 5) > -1 && ((Q)(ray->floor_x) >> 5) > -1)
+				if (cub->roof[((Q)(ray->floor_y) >> 5)]
+						[((Q)(ray->floor_x) >> 5)] == '1')
 					return (1);
 	}
 	else
 	{
-		if (((q)(c->ceily) >> 5 < cub->my) && ((q)(c->ceilx) >> 5) < cub->mx)
-			if (((q)(c->ceily) >> 5 > -1) && ((q)(c->ceilx) >> 5) > -1)
-				if (cub->roof[((q)(c->ceily) >> 5)]
-						[((q)(c->ceilx) >> 5)] == '1')
+		if (((Q)(c->ceily) >> 5 < cub->my) && ((Q)(c->ceilx) >> 5) < cub->mx)
+			if (((Q)(c->ceily) >> 5 > -1) && ((Q)(c->ceilx) >> 5) > -1)
+				if (cub->roof[((Q)(c->ceily) >> 5)]
+						[((Q)(c->ceilx) >> 5)] == '1')
 					return (1);
 	}
 	if (!cub->intro || (cub->intro > 3))

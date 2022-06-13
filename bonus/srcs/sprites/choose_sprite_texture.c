@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:58:36 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/26 15:44:20 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/06/13 19:32:23 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 int	give_sprite_var(t_sp *sp, t_cub *cub, char *path)
 {
 	sp->img = mlx_xpm_file_to_image(cub->mlx, path, &sp->a, &sp->b);
-	if (!sp->img)
-		return (0);
 	sp->csp.moveable = 0;
 	sp->animated = 0;
 	sp->s_type = SPRITE;
 	sp->csp.type = SPRITE;
+	if (!sp->img)
+		return (0);
 	return (1);
 }
 
@@ -47,22 +47,22 @@ int	choose_sprite_texture(t_sp *sp, t_cub *cub)
 {
 	if (sp->type == 'P')
 	{
-		if (give_sprite_var(sp, cub, "./bonus/imgs/Human.xpm") == 0)
-			return (0);
 		sp->csp.moveable = 0;
 		sp->animated = 0;
 		sp->s_type = STATUE;
 		sp->csp.type = STATUE;
+		if (give_sprite_var(sp, cub, "./bonus/imgs/Human.xpm") == 0)
+			return (0);
 		return (1);
 	}
 	else if (sp->type == 'K')
 	{
-		if (give_sprite_var(sp, cub, "./bonus/imgs/Key.xpm") == 0)
-			return (0);
 		sp->csp.moveable = 1;
 		sp->animated = 0;
 		sp->s_type = KEY;
 		sp->csp.type = KEY;
+		if (give_sprite_var(sp, cub, "./bonus/imgs/Key.xpm") == 0)
+			return (0);
 		return (1);
 	}
 	else if (choose_light_texture(sp, cub) == 1)

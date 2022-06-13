@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:19:11 by anremiki          #+#    #+#             */
-/*   Updated: 2022/06/01 16:26:56 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/13 19:18:56 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 # include "./define.h"
 
-typedef int q;
+//typedef int	q;
+# define Q int
 
 enum	e_side
 {
@@ -151,7 +152,7 @@ typedef struct s_exp
 	int		ey;
 }			t_exp;
 
-typedef	struct s_matrix
+typedef struct s_matrix
 {
 	int	***matrix;
 	int	i;
@@ -175,8 +176,8 @@ typedef struct s_csp
 	float			sy;
 	float			a;
 	float			b;
-	float			CS;
-	float			SN;
+	float			cs;
+	float			sn;
 	int				bpp;
 	int				sizeline;
 	int				endian;
@@ -202,7 +203,7 @@ typedef struct s_anim
 	int		b;
 	int		bpp;
 	int		size;
-	int		end;  
+	int		end;
 }			t_anim;
 
 typedef struct s_sp

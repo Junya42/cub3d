@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 03:08:39 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/27 14:04:31 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/13 19:39:43 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	gather_anim_frames(t_anim *anim, char *anim_path, t_cub *cub)
 	return (1);
 }
 
-static int	init_animation(t_sp *s, t_cub *cub)
+static int	init_animation(t_sp *s, t_cub *cub, int flag)
 {
 	int	i;
 
@@ -54,21 +54,24 @@ static int	init_animation(t_sp *s, t_cub *cub)
 		i++;
 	}
 	i = 0;
-	while (i < NB_FRAME)
+	while (i < NB_FRAME && flag)
 	{
 		if (gather_anim_frames(&s->anim[i], s->anim_paths[i], cub) == 0)
 			return (0);
 		i++;
 	}
+	if (!flag)
+		return (0);
 	return (1);
 }
 
 int	txt_light_yellow(t_sp *sp, t_cub *cub)
 {
 	sp->img = NULL;
+	sp->animated = 1;
 	if (check_animation_light_yellow(sp) == 0)
-		return (0);
-	if (init_animation(sp, cub) == 0)
+		return (init_animation(sp, cub, 0));
+	if (init_animation(sp, cub, 1) == 0)
 		return (0);
 	sp->img = mlx_xpm_file_to_image(cub->mlx,
 			"./bonus/imgs/s_yellow/yellow0.xpm",
@@ -76,7 +79,6 @@ int	txt_light_yellow(t_sp *sp, t_cub *cub)
 	if (!sp->img)
 		return (0);
 	sp->csp.moveable = 1;
-	sp->animated = 1;
 	sp->hue = YELLOW;
 	sp->csp.type = LIGHT;
 	return (1);

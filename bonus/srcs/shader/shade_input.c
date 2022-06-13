@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 14:50:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/05/31 14:58:42 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/13 19:06:03 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,28 @@
 
 void	change_sky(int keycode, t_cub *cub)
 {
-	if (keycode == '1')
+	if (keycode == '1' || keycode == 65436)
 		cub->blue = 0;
-	else if (keycode == '2')
+	else if (keycode == '2' || keycode == 65433)
 		cub->blue = 1;
 }
 
 void	adjust_minlight(int keycode, t_cub *cub)
 {
-	if (keycode == '4')
+	if (keycode == '4' || keycode == 65430)
 		if (cub->ml > 0.05)
 			cub->ml -= 0.01;
-	if (keycode == '5')
+	if (keycode == '5' || keycode == 65437)
 		if (cub->ml < 0.50)
 			cub->ml += 0.01;
 }
 
 void	adjust_sky_light(int keycode, t_cub *cub)
 {
-	if (keycode == '7')
+	if (keycode == '7' || keycode == 65429)
 		if (cub->r > 0.10)
 			cub->r -= 0.01;
-	if (keycode == '8')
+	if (keycode == '8' || keycode == 65431)
 		if (cub->r < 1.00)
 			cub->r += 0.01;
 }
