@@ -6,7 +6,7 @@
 /*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 18:04:01 by anremiki          #+#    #+#             */
-/*   Updated: 2022/06/01 16:21:45 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/07 17:24:38 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,15 @@ void	update_game_state(t_cub *cub, t_player *player)
 	}
 }
 
+void	game(t_cub *cub, t_player *player)
+{
+	if (cub->corrupt < 30)
+	{
+		update_game_state(cub, player);
+		display(cub, 0);
+	}
+}
+
 int	anti_ghosting(t_cub *cub)
 {
 	t_player	*player;
@@ -80,8 +89,7 @@ int	anti_ghosting(t_cub *cub)
 		lateral(player->released, player, cub->exp, cub);
 		save_position(cub, player, cub->exp);
 	}
-	update_game_state(cub, player);
-	display(cub, 0);
+	game(cub, player);
 	if (!cub->end)
 		cub->scroll = secure_radians(cub->scroll, SKY);
 	return (0);

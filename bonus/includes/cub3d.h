@@ -6,7 +6,7 @@
 /*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:19:04 by anremiki          #+#    #+#             */
-/*   Updated: 2022/06/01 16:22:34 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/07 17:32:56 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,7 @@ void			vray(t_cub *cub, t_ray *ray);
 void			compare_dist(t_cub *cub, t_ray *ray, int flag);
 void			get_wall_pixels(t_cub *cub, t_ray *ray);
 void			skybox(t_cub *cub, t_ray *ray);
+void			sky_reflection(t_cub *cub, t_ray *ray);
 void			floorcast(t_cub *cub, t_ray *ray);
 void			display(t_cub *cub, int draw);
 void			raycast(t_cub *cub, t_ray *ray);

@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 01:48:17 by anremiki          #+#    #+#             */
-/*   Updated: 2022/06/01 16:29:42 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/07 17:26:53 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,20 +69,33 @@ void	outro_escape(t_cub *cub, int i)
 	}
 }
 
+int	endgame(t_cub *cub)
+{
+	mlx_destroy_window(cub->mlx, cub->win);
+	return (1);
+}
+
 int	outro(t_cub *cub)
 {
-	if (cub->corrupt == 1 && cub->end)
-		cub->player->angle = secure_radians(cub->a, PI);
-	cub->corrupt += 0.05;
-	cub->r -= 0.01;
-	cub->sz -= 0.030;
-	if (cub->corrupt > 15)
-		cub->lrange -= 10;
-	cub->scroll = secure_radians(cub->scroll, -SKY);
-	if (cub->corrupt > 30)
+	if (cub->corrupt < 30)
 	{
-		mlx_destroy_window(cub->mlx, cub->win);
-		return (1);
+		if (cub->corrupt == 1 && cub->end)
+			cub->player->angle = secure_radians(cub->a, PI);
+		cub->corrupt += 0.05;
+		cub->r -= 0.01;
+		cub->sz -= 0.030;
+		if (cub->corrupt > 15)
+			cub->lrange -= 10;
+		cub->scroll = secure_radians(cub->scroll, -SKY);
+	}
+	else
+	{
+		mlx_put_image_to_window(cub->mlx, cub->win, cub->text[0].img, 0, 0);
+		mlx_string_put(cub->mlx, cub->win, HALFHRES, HALFVRES, 0xFFFFFF,
+			"You're not supposed to be here...");
+		cub->corrupt += 0.02;
+		if (cub->corrupt > 40)
+			return (endgame(cub));
 	}
 	return (0);
 }

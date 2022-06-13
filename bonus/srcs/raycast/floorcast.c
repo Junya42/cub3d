@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 01:29:03 by anremiki          #+#    #+#             */
-/*   Updated: 2022/06/01 13:58:31 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/07 17:29:58 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	update_maths(t_cast *c, t_cub *cub, t_ray *ray)
 	c->ceilcheck = check_ceiling(c, cub, ray);
 	if (c->ceilcheck == 0 && (! cub->intro || cub->intro > 3) && cub->blue)
 		c->color = colorize(c->color, cub->r, cub->r, LCYAN);
-	else if (c->ceilcheck == 0 && (! cub->intro || cub->intro > 3) && !cub->blue)
+	else if (c->ceilcheck == 0 && (! cub->intro || cub->intro > 3)
+		&& !cub->blue)
 		c->color = colorize(c->color, cub->r, cub->r, LRED);
 }
 
@@ -63,7 +64,7 @@ void	floor_light(t_cast *c, t_cub *cub, t_ray *ray)
 	if (!cub->intro || cub->intro >= 2)
 	{
 		c->color += pxl_from_img(cub, (int)ray->floor_y % cub->sfloor,
-			(int)ray->floor_x % cub->sfloor, 6);
+				(int)ray->floor_x % cub->sfloor, 6);
 	}
 	else
 		c->color = 0x000000;
