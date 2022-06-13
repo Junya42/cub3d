@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 03:03:41 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/26 17:00:45 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/06/13 20:16:37 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,9 @@ int	give_sprite_texture(t_sp *sp, t_cub *cub)
 		sp->size = 384;
 	}
 	else if (sp->csp.type == KEY)
+	{
 		sp->size = 275;
+	}
 	else
 		sp->size = 64;
 	return (1);

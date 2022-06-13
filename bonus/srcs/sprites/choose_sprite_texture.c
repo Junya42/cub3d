@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/18 11:58:36 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/06/13 19:32:23 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/13 20:14:39 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,6 @@
 int	give_sprite_var(t_sp *sp, t_cub *cub, char *path)
 {
 	sp->img = mlx_xpm_file_to_image(cub->mlx, path, &sp->a, &sp->b);
-	sp->csp.moveable = 0;
-	sp->animated = 0;
-	sp->s_type = SPRITE;
-	sp->csp.type = SPRITE;
 	if (!sp->img)
 		return (0);
 	return (1);

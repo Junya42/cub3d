@@ -6,7 +6,7 @@
 /*   By: anremiki <anremiki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 01:48:17 by anremiki          #+#    #+#             */
-/*   Updated: 2022/06/07 17:26:53 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/13 20:17:56 by anremiki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int	outro(t_cub *cub)
 		mlx_string_put(cub->mlx, cub->win, HALFHRES, HALFVRES, 0xFFFFFF,
 			"You're not supposed to be here...");
 		cub->corrupt += 0.02;
-		if (cub->corrupt > 40)
+		if (cub->corrupt > 50)
 			return (endgame(cub));
 	}
 	return (0);

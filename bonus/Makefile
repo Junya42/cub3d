@@ -6,7 +6,7 @@
 #    By: anremiki <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/01 13:18:51 by anremiki          #+#    #+#              #
-#    Updated: 2022/06/01 13:26:58 by anremiki         ###   ########.fr        #
+#    Updated: 2022/06/13 20:20:49 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -118,9 +118,19 @@ $(NAME): $(OBJS)
 		@echo
 		@echo
 		@echo "\033[1;41mPlease enjoy our cub3D\033[0m"
+		@echo
+		@echo "SETTINGS"
 		@echo "o -> unpause"
 		@echo "p -> pause"
 		@echo "f -> teleport to next light"
+		@echo "r -> reset view"
+		@echo
+		@echo "1 -> red sky"
+		@echo "2 -> blue sky"
+		@echo "4 -> diminish ambiant light"
+		@echo "5 -> augment ambiant light"
+		@echo "7 -> diminish sky light"
+		@echo "8 -> augment sky light"
 		@chmod +rx ../cubRT
 
 clean:
