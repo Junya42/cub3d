@@ -2,6 +2,8 @@
 
 Cub3D is graphic project inspired by Wolf3D, the goal was to get familiar with raycasting.
 
+https://user-images.githubusercontent.com/59654989/179321710-5d86a469-dd34-44d3-85c9-b058f6e18e2e.mp4
+
 ## Content
 
 ### Mandatory
