@@ -49,6 +49,7 @@ ___________________________
 - Scaling window (Custom bonus)
 - Animated skybox(Custom bonus)
 - Audio Footsteps (Custom bonus)
+- Dawn and night mode (Custom bonus)
 
 ## Tutorial
 
