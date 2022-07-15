@@ -10,9 +10,9 @@ https://user-images.githubusercontent.com/59654989/179322174-4f43e05b-17f6-4bff-
 List of things implemented in the mandatory part :
 
 - .cub file parser 
->> 4 Textures, a map, floor and ceiling color.
+> 4 Textures, a map, floor and ceiling color.
 - Basic movement input
->> Forward, backward, left straf, right straf, camera (only horizontal).
+> Forward, backward, left straf, right straf, camera (only horizontal).
 - Basic Raycasting
 
 ### Bonus
@@ -27,7 +27,7 @@ List of things implemented in the bonus part :
 ___________________________
 
 - Updated .cub file parser (Custom bonus)
->> Possibility to add 4 more textures, sprites, custom walls, doors and lights.
+> Possibility to add 4 more textures, sprites, custom walls, doors and lights.
 - Positionnal 3D audio (Custom bonus)
 - Jump (Custom bonus)
 - Vertical camera movement (Custom bonus)
