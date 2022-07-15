@@ -6,7 +6,7 @@
 #    By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/02 17:38:35 by anremiki          #+#    #+#              #
-#    Updated: 2022/05/23 16:14:25 by cmarouf          ###   ########.fr        #
+#    Updated: 2022/06/18 17:18:17 by cmarouf          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,19 +93,9 @@ $(NAME): $(OBJS)
 		@make bonus -C ./libft
 		@echo "\033[1;32mBuilding executable $(PNAME)\033[0m"
 		$(CC) $(CFLAGS) $(OBJS) $(MLXFLAGS) $(LIB) -o $(NAME) -lm
-		@echo "#! /bin/sh" > ../cub3D
-		@echo "xset r rate 30" >> ../cub3D
-		@echo "$(NAME2) $(ARG1) $(ARG2) $(ARG3) $(ARG4) $(ARG5)" >> ../cub3D
-		@echo "xset r rate $(DEFAULTRATE)" >> ../cub3D
 		@echo
 		@echo
-		@echo "\033[1;41mFaut que tu lises ce qu'il y a en bas de ce msg\033[0m"
-		@echo "NE SORS SURTOUT PAS DE LA MAP SINON SEGFAULT"
-		@echo 
-		@echo
-		@echo "!!! NE QUITTE SURTOUT PAS AVEC CTRL-C !!!"
-		@echo "J'ai implemente l'option pour quitter avec echap"
-		@chmod +rx ../cub3D
+		@mv $(NAME) ../
 
 clean:
 ifeq ($(CURRENT), $(COMPARE))

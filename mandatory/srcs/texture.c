@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 04:24:32 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/23 19:25:31 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/06/18 17:14:54 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,19 +43,19 @@ unsigned int	get_texture_color(t_ray *ray, int y, int x, int i)
 unsigned int	hcolor(t_ray *ray)
 {
 	if (ray->hdir == 1)
-		return (shade(get_texture_color(ray, ray->dby, ray->north, 3), 0.8));
+		return (shade(get_texture_color(ray, ray->dby, ray->north, 2), 0.8));
 	if (ray->hdir == 2)
-		return (get_texture_color(ray, ray->dby, ray->south, 4));
+		return (get_texture_color(ray, ray->dby, ray->south, 1));
 	return (get_texture_color(ray, ray->dby, ray->south, 1));
 }
 
 unsigned int	vcolor(t_ray *ray)
 {
 	if (ray->vdir == 1)
-		return (get_texture_color(ray, ray->dby, ray->west, 1));
+		return (get_texture_color(ray, ray->dby, ray->west, 3));
 	if (ray->vdir == 2)
-		return (get_texture_color(ray, ray->dby, ray->east, 2));
-	return (get_texture_color(ray, ray->dby, ray->west, 1));
+		return (get_texture_color(ray, ray->dby, ray->east, 4));
+	return (get_texture_color(ray, ray->dby, ray->west, 3));
 }
 
 unsigned int	get_txt_color(t_ray *ray)

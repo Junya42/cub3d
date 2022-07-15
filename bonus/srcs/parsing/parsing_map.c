@@ -6,11 +6,17 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 19:25:14 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/22 16:02:31 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/06/18 17:10:44 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+int	exit_empty_line(char *str)
+{
+	free(str);
+	return (EXIT_FAILURE);
+}
 
 int	check_map(t_parse *p)
 {
@@ -49,6 +55,9 @@ int	parse_map(t_parse *p, char *fd_path)
 		p->i++;
 	}
 	p->str[size] = '\0';
+	if (check_line_down(p->str, 0, 0, 0) == 1
+		|| check_line_up(p->str, 0, 0, 0) == 1)
+		return (exit_empty_line(p->str));
 	if (check_map(p) == 1)
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);

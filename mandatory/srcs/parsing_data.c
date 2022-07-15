@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:41:53 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/16 14:20:58 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/06/16 22:10:40 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	init_variable(t_parse *p)
 	p->wpath = NULL;
 	p->epath = NULL;
 	p->map = NULL;
+	p->size = 0;
 }
 
 int	malloc_error(t_parse *p)
@@ -60,6 +61,7 @@ int	parse_data(t_parse *p)
 			p->total++;
 		else if (p->buffer[0] != '\n')
 			return (free_and_return(p, 0, EXIT_FAILURE));
+		p->size += ft_strlen(p->buffer);
 		if (p->total == 6)
 			break ;
 		free_and_return(p, 0, 0);

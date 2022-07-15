@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: anremiki <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/01 13:19:04 by anremiki          #+#    #+#             */
-/*   Updated: 2022/06/13 19:12:00 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/17 22:38:59 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,10 @@ int				closed_door(int y, int x, char **map);
 int				bonus_side(char **mcontent);
 int				bonus_direction(char *side, t_parse *p);
 int				key_finding(t_parse *parse);
+int				skip_new_line(int i, char *str);
+int				check_empty_char(char **map, int x, int y);
+int				check_line_down(char *str, int i, int check, int save);
+int				check_line_up(char *str, int i, int check, int save);
 
 /*	----------Init--------------	*/
 

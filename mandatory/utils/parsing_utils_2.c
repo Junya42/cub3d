@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 16:42:19 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/17 01:28:49 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/06/17 22:15:20 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,4 +24,26 @@ int	is_charset(char c, char *set)
 		i++;
 	}
 	return (1);
+}
+
+int	skip_new_line(int i, char *str)
+{
+	while (str[i] == '\n')
+		i++;
+	return (i);
+}
+
+int	check_empty_char(char **map, int x, int y)
+{
+	if (map[y + 1])
+	{
+		if (x >= (int)ft_strlen(map[y + 1]))
+			return (EXIT_FAILURE);
+	}
+	if (map[y - 1])
+	{
+		if (x >= (int)ft_strlen(map[y - 1]))
+			return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
 }

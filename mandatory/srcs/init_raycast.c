@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 14:26:45 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/05/17 11:50:12 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/06/16 22:21:58 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	init_mlx_var(t_ray *ray, t_parse *parse)
 {
 	ray->quit = 0;
 	ray->move = 0;
-	ray->map = parse->map + 6;
+	ray->map = parse->map;
 }
 
 void	init_position_var(t_ray *ray)

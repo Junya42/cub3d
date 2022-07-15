@@ -6,7 +6,7 @@
 /*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 15:56:28 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/06/01 13:28:45 by anremiki         ###   ########.fr       */
+/*   Updated: 2022/06/17 22:33:41 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,26 @@ int	get_fd_size(int saved_fd, char *filename, int len)
 	}
 	close(fd);
 	return (len);
+}
+
+int	skip_new_line(int i, char *str)
+{
+	while (str[i] == '\n')
+		i++;
+	return (i);
+}
+
+int	check_empty_char(char **map, int x, int y)
+{
+	if (map[y + 1])
+	{
+		if (x >= (int)ft_strlen(map[y + 1]))
+			return (EXIT_FAILURE);
+	}
+	if (map[y - 1])
+	{
+		if (x >= (int)ft_strlen(map[y - 1]))
+			return (EXIT_FAILURE);
+	}
+	return (EXIT_SUCCESS);
 }

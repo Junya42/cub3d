@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 23:43:33 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/17 01:24:08 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/06/20 14:57:37 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ int	is_num(char *str)
 	int	i;
 
 	i = 0;
-	if (!str[0])
+	if (!str[0] || str[0] == '\n')
 		return (EXIT_FAILURE);
-	while (str[i])
+	while (str[i] && str[i] != '\n')
 	{
 		if (ft_isdigit(str[i]) == 0)
 			return (EXIT_FAILURE);

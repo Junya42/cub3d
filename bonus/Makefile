@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: anremiki <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/06/01 13:18:51 by anremiki          #+#    #+#              #
-#    Updated: 2022/06/13 20:20:49 by anremiki         ###   ########.fr        #
+#    Updated: 2022/07/16 00:12:21 by anremiki         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,6 +50,7 @@ SRCS = ./srcs/parsing/check_data.c ./srcs/parsing/check_map.c \
 	   ./srcs/parsing/get_map_len.c ./srcs/sprites/choose_sprite_texture.c \
 	   ./srcs/parsing/check_map_rules.c ./srcs/parsing/bonus_parsing.c \
 	   ./srcs/input/pickup_key.c ./srcs/init/texture_size.c \
+	   ./srcs/parsing/check_empty_lines.c \
 
 INCLUDES = ./includes/
 
@@ -85,9 +86,9 @@ ARG5 = "$$"5
 
 NAMEEXIST = $(shell ls ./exec/ | grep -F $(PNAME) | wc -l)
 
-TOTAL = $(shell ls ./srcs/ | grep -F .c | wc -l)
+TOTAL = $(shell ls ./srcs/* | grep -F .c | wc -l)
 
-CURRENT = $(shell ls ./srcs/ | grep -F .o | wc -l | xargs expr 1 +)
+CURRENT = $(shell ls ./srcs/* | grep -F .o | wc -l | xargs expr 1 +)
 
 COMPARE = $(shell expr $(TOTAL) + 1)
 

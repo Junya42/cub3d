@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/02 17:35:18 by anremiki          #+#    #+#             */
-/*   Updated: 2022/04/23 19:21:57 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/06/17 22:25:18 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ unsigned int	rgb_to_hex(unsigned int r, unsigned int g, unsigned int b);
 void			init_variable(t_parse *p);
 int				parsing(char **av, t_parse *parse);
 int				parse_data(t_parse *parse);
-int				parse_map(t_parse *parse, char *fd_path);
+int				parse_map(t_parse *parse, char *filename);
 int				check_direction(char *side, t_parse *p);
 int				check_texture_path(char *path);
 int				check_floor_ceilings(char *side, t_parse *p);
@@ -50,7 +50,9 @@ int				closed_y(char **map, int x, int y);
 int				closed_x(char **map, int x, int y);
 int				out_of_bound(char **map, int reach_y, int reach_x);
 int				check_closed_wall(char **map, int x, int y);
+int				check_empty_char(char **map, int x, int y);
 int				check_wall(char **map);
+int				skip_new_line(int i, char *str);
 void			gather_data(char **mcontent, t_parse *p, int flag);
 int				try_open_cub_file(char *filename, t_parse *parse);
 int				exit_parsing(char *str);

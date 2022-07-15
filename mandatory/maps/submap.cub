@@ -3,9 +3,8 @@ SO ./mandatory/textures/sandry_stone.xpm
 WE ./mandatory/textures/carved_stone.xpm
 EA ./mandatory/textures/grassry_stone.xpm
 
-F 13,15,20
-C 25,30,0
-
+F 13,0,250
+C 25,0,250
 
 1111111111111111111111111
 1000000000110000000000001

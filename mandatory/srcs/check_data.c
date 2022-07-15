@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_data.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 05:14:37 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/19 20:02:56 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/06/20 13:37:56 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	check_rgb(char *code, int i)
 	}
 	while (i < 3)
 	{
-		range[i][ft_strlen(range[i]) - 1] = '\0';
 		if ((is_num(range[i]) == 1) || ft_atoi(range[i]) > 255
 			|| ft_atoi(range[i]) < 0)
 		{

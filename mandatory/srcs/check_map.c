@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cmarouf <qatar75020@gmail.com>             +#+  +:+       +#+        */
+/*   By: cmarouf <cmarouf@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 03:36:45 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/04/16 01:49:58 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/06/17 22:04:45 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	closed_y(char **map, int x, int y)
 	check = 0;
 	while (x > (int)ft_strlen(map[newy]))
 		newy++;
+	if (check_empty_char(map, x, y) == 1)
+		return (EXIT_FAILURE);
 	while (map[newy] && check != 2)
 	{
 		if (x < (int)ft_strlen(map[newy]))

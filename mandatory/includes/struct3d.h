@@ -36,6 +36,7 @@ typedef struct s_parse
 {
 	int				total;
 	int				fd;
+	int				size;
 	char			*buffer;
 	char			**mcontent;
 	int				check_no;
